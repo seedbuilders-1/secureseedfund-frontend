@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "next lint",
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
     "check-types": "tsc --pretty --noEmit",
@@ -13,8 +13,7 @@
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "format": "prettier --write .",
     "test-all": "npm run check-format && npm run check-lint && npm run check-types && npm run build",
-    "prepare": "husky install",
-    "deploy": "npm ci && npm run build && npm run start"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/cache": "latest",
