@@ -1,3 +1,5 @@
+import HomePage from "@/pages/coming-soon/HomePage";
+
 export default function Home() {
-  return <div>home lessnes</div>;
+  return <HomePage />;
 }

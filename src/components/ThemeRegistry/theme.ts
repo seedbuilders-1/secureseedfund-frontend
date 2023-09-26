@@ -1,9 +1,10 @@
-import { Roboto } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
+import { IBM_Plex_Sans as IBMPlexSans } from "next/font/google";
 
-const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
+export const ibmPlexSans = IBMPlexSans({
   subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  variable: "--font-ibm-plex-sans",
   display: "swap",
 });
 
@@ -15,7 +16,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: roboto.style.fontFamily,
+    fontFamily: ibmPlexSans.style.fontFamily,
   },
   components: {
     MuiAlert: {
@@ -25,6 +26,13 @@ const theme = createTheme({
             backgroundColor: "#60a5fa",
           }),
         }),
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          padding: 12,
+        },
       },
     },
   },
