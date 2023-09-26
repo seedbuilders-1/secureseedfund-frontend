@@ -78,7 +78,12 @@ const ComingSoonHeroSection = () => {
         alt="cards"
         width={252}
         height={369}
-        style={{ position: "absolute", left: 0, top: "15%" }}
+        style={{
+          position: "absolute",
+          left: -20,
+          top: "15%",
+          objectFit: "contain",
+        }}
       />
       <Image
         src="/assets/images/right-cards-hero.png"
