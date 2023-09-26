@@ -1,8 +1,16 @@
+"use client";
+
 import SectionContainer from "../SectionContainer";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import StartupCard from "@/components/cards/StartupCard";
+import { motion } from "framer-motion";
+import {
+  DEFAULT_VIEWPORT,
+  cardContainerVariant,
+  cardItemVariant,
+} from "@/lib/variants";
 
 const startups = ["brass", "Mono", "kudi", "spleet", "grey", "brass"];
 
@@ -23,10 +31,25 @@ const StartupListSection = () => {
         </Typography>
 
         <Box width="80%" marginX="auto" sx={{ marginTop: "3rem" }}>
-          <Grid container spacing={2}>
+          <Grid
+            component={motion.div}
+            variants={cardContainerVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={DEFAULT_VIEWPORT}
+            container
+            spacing={2}
+          >
             {startups.map((startup, i) => {
               return (
-                <Grid item xs={4} key={startup + i}>
+                <Grid
+                  component={motion.div}
+                  variants={cardItemVariant}
+                  viewport={DEFAULT_VIEWPORT}
+                  item
+                  xs={4}
+                  key={startup + i}
+                >
                   <StartupCard name={startup} />
                 </Grid>
               );

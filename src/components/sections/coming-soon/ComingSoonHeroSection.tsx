@@ -1,14 +1,21 @@
+"use client";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Mail } from "@mui/icons-material";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { DEFAULT_VIEWPORT, defaultVariant } from "@/lib/variants";
 
 const ComingSoonHeroSection = () => {
   return (
     <Box
-      component="section"
+      component={motion.section}
+      variants={defaultVariant({})}
+      initial="hidden"
+      whileInView="visible"
+      viewport={DEFAULT_VIEWPORT}
       width="100%"
       height="90vh"
       position="relative"

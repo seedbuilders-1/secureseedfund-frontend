@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -5,6 +6,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Box from "@mui/material/Box";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { DEFAULT_VIEWPORT, defaultVariant } from "@/lib/variants";
 
 const LINKS = [
   { text: "Company", href: "/company" },
@@ -14,7 +17,11 @@ const LINKS = [
 const Header = () => {
   return (
     <Box
-      component="header"
+      component={motion.header}
+      variants={defaultVariant({})}
+      initial="hidden"
+      whileInView="visible"
+      viewport={DEFAULT_VIEWPORT}
       width="100%"
       height="10vh"
       display="flex"
