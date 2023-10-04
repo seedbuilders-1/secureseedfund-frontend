@@ -2,6 +2,7 @@
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import ProfileDetails from "@/components/forms/onboarding/angel-investor/ProfileDetails";
 import { useForm } from "react-hook-form";
@@ -15,10 +16,12 @@ interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+  title: string;
+  description: string;
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, title, description, ...other } = props;
 
   return (
     <div
@@ -28,6 +31,18 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        marginY={3}
+      >
+        <Typography color="grey.600" variant="h4" fontWeight={500}>
+          {title}
+        </Typography>
+        <Typography color="grey.600">{description}</Typography>
+      </Box>
       {value === index && <Box sx={{ p: 3, width: "50vw" }}>{children}</Box>}
     </div>
   );
@@ -73,13 +88,28 @@ const AngelInvestor = () => {
           <Tab label="Subscription" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
+      <CustomTabPanel
+        title="Profile Details"
+        description="Kindly provide with the information below"
+        value={value}
+        index={0}
+      >
         <ProfileDetails form={profileDetailsform} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      <CustomTabPanel
+        title="Investment Preference"
+        description="Kindly provide with the information below"
+        value={value}
+        index={1}
+      >
         Item Two
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel
+        title="Subscription"
+        description="Select your business subscription below"
+        value={value}
+        index={2}
+      >
         Item Three
       </CustomTabPanel>
     </Box>

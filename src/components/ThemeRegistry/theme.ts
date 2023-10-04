@@ -14,6 +14,9 @@ const theme = createTheme({
     primary: {
       main: "#19A657",
     },
+    grey: {
+      "600": "#333333",
+    },
   },
   typography: {
     fontFamily: ibmPlexSans.style.fontFamily,
