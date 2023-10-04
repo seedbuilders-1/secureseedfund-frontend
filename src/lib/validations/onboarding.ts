@@ -5,7 +5,25 @@ export const AngelInvestorProfileDetailsSchema = z
     firstName: z.string().nonempty(),
     lastName: z.string().nonempty(),
     email: z.string().email(),
-    country: z.string(),
+    country: z
+      .object({
+        code: z.string(), // Validate code as string
+        label: z.string(), // Validate label as string
+        phone: z.string(), // Validate phone as string
+        suggested: z.boolean(), // Validate suggested as boolean (optional)
+      })
+      .refine(
+        (country) => {
+          // Custom validation function
+          if (!country || !country.code || !country.label || !country.phone) {
+            return "Country code, label, and phone are required.";
+          }
+          return true;
+        },
+        {
+          message: "Invalid country structure",
+        }
+      ),
     phoneNumber: z.string(),
     password: z
       .string()

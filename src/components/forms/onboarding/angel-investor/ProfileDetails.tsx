@@ -1,5 +1,6 @@
 import { AngelInvestorProfileDetailsValidation } from "@/lib/validations/onboarding";
 
+import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -7,6 +8,8 @@ import Button from "@mui/material/Button";
 import { Controller, UseFormReturn } from "react-hook-form";
 import InputLabel from "@mui/material/InputLabel";
 import CustomInputWrapper from "@/components/ui/input";
+import countries from "@/lib/data/countries";
+import Image from "next/image";
 
 interface Props {
   form: UseFormReturn<AngelInvestorProfileDetailsValidation>;
@@ -97,6 +100,57 @@ const ProfileDetails = ({ form }: Props) => {
           </CustomInputWrapper>
         )}
       />
+
+      <Controller
+        name="country"
+        control={form.control}
+        render={({
+          field: { value, onChange, onBlur, ref },
+          fieldState: { error },
+        }) => (
+          <CustomInputWrapper>
+            <InputLabel>Country</InputLabel>
+            <Autocomplete
+              id="country-select"
+              options={countries}
+              autoHighlight
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              getOptionLabel={(option) => option.label}
+              renderOption={(props, option) => (
+                <Box
+                  component="li"
+                  sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                  {...props}
+                >
+                  <Image
+                    loading="lazy"
+                    width={20}
+                    height={20}
+                    style={{ objectFit: "contain" }}
+                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                    alt="Country flag"
+                  />
+                  {option.label} ({option.code}) +{option.phone}
+                </Box>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Choose a country"
+                  error={Boolean(error)}
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "new-password", // disable autocomplete and autofill
+                  }}
+                />
+              )}
+            />
+          </CustomInputWrapper>
+        )}
+      />
+
       <Controller
         name="password"
         control={form.control}
