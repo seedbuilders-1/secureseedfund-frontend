@@ -24,7 +24,9 @@ export const AngelInvestorProfileDetailsSchema = z
           message: "Invalid country structure",
         }
       ),
-    phoneNumber: z.string(),
+    phoneNumber: z
+      .string()
+      .min(10, { message: "Phone number must be a minimum of 10 characters" }),
     password: z
       .string()
       .min(8, { message: "Password should be minimum 8 characters" }),

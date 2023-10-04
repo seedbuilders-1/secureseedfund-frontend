@@ -1,15 +1,25 @@
+"use client";
+import { Controller, UseFormReturn } from "react-hook-form";
+import Image from "next/image";
 import { AngelInvestorProfileDetailsValidation } from "@/lib/validations/onboarding";
 
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-
-import { Controller, UseFormReturn } from "react-hook-form";
 import InputLabel from "@mui/material/InputLabel";
+
 import CustomInputWrapper from "@/components/ui/input";
 import countries from "@/lib/data/countries";
-import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const DynamicMuiPhoneNumber = dynamic(
+  () => import("material-ui-phone-number"),
+  {
+    ssr: false,
+    loading: () => <p>Loading phone input...</p>,
+  }
+);
 
 interface Props {
   form: UseFormReturn<AngelInvestorProfileDetailsValidation>;
@@ -151,6 +161,29 @@ const ProfileDetails = ({ form }: Props) => {
         )}
       />
 
+      <Controller
+        name="phoneNumber"
+        control={form.control}
+        render={({
+          field: { value, onChange, onBlur },
+          fieldState: { error },
+        }) => (
+          <CustomInputWrapper>
+            <InputLabel>Phone Number</InputLabel>
+            <DynamicMuiPhoneNumber
+              placeholder="98765432"
+              onChange={onChange}
+              //   inputRef={ref}
+              defaultCountry="ng"
+              onBlur={onBlur}
+              error={Boolean(error)}
+              fullWidth
+              value={value}
+              variant="outlined"
+            />
+          </CustomInputWrapper>
+        )}
+      />
       <Controller
         name="password"
         control={form.control}
