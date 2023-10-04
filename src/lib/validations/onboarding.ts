@@ -40,3 +40,15 @@ export const AngelInvestorProfileDetailsSchema = z
 export type AngelInvestorProfileDetailsValidation = z.infer<
   typeof AngelInvestorProfileDetailsSchema
 >;
+
+export const InvestmentPreferenceSchema = z.object({
+  sectorsOfInterest: z.array(z.string()),
+  expectedROI: z.array(z.string()),
+  regions: z.array(z.string()),
+  maturityStages: z.array(z.string()),
+  riskTolerance: z.array(z.string()),
+});
+
+export type InvestmentPreferenceValidation = z.infer<
+  typeof InvestmentPreferenceSchema
+>;

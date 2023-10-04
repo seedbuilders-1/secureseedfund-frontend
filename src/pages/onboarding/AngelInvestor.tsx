@@ -4,13 +4,16 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import ProfileDetails from "@/components/forms/onboarding/angel-investor/ProfileDetails";
+import ProfileDetailsForm from "@/components/forms/onboarding/angel-investor/ProfileDetailsForm";
 import { useForm } from "react-hook-form";
 import {
   AngelInvestorProfileDetailsValidation,
   AngelInvestorProfileDetailsSchema,
+  InvestmentPreferenceValidation,
+  InvestmentPreferenceSchema,
 } from "@/lib/validations/onboarding";
 import { zodResolver } from "@hookform/resolvers/zod";
+import InvestmentPreferenceForm from "@/components/forms/onboarding/angel-investor/InvestmentPreferenceForm";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -65,6 +68,13 @@ const AngelInvestor = () => {
     },
   });
 
+  const investmentPreferenceForm = useForm<InvestmentPreferenceValidation>({
+    resolver: zodResolver(InvestmentPreferenceSchema),
+    defaultValues: {
+      sectorsOfInterest: [],
+    },
+  });
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -94,7 +104,7 @@ const AngelInvestor = () => {
         value={value}
         index={0}
       >
-        <ProfileDetails form={profileDetailsform} />
+        <ProfileDetailsForm form={profileDetailsform} />
       </CustomTabPanel>
       <CustomTabPanel
         title="Investment Preference"
@@ -102,7 +112,7 @@ const AngelInvestor = () => {
         value={value}
         index={1}
       >
-        Item Two
+        <InvestmentPreferenceForm form={investmentPreferenceForm} />
       </CustomTabPanel>
       <CustomTabPanel
         title="Subscription"

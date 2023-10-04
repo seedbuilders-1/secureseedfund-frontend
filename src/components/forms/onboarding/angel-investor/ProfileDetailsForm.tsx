@@ -25,7 +25,7 @@ interface Props {
   form: UseFormReturn<AngelInvestorProfileDetailsValidation>;
 }
 
-const ProfileDetails = ({ form }: Props) => {
+const ProfileDetailsForm = ({ form }: Props) => {
   const onNext = () => {
     // TODO: Go to next step
   };
@@ -242,4 +242,4 @@ const ProfileDetails = ({ form }: Props) => {
   );
 };
 
-export default ProfileDetails;
+export default ProfileDetailsForm;
