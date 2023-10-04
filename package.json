@@ -19,12 +19,15 @@
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
+    "@hookform/resolvers": "^3.3.1",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "framer-motion": "^10.16.4",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-hook-form": "^7.47.0",
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "@types/node": "latest",
