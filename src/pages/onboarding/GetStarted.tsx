@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import GetStartedOptionCard from "@/components/cards/GetStartedOptionCard";
+import Link from "next/link";
 
 const GetStarted = () => {
   return (
@@ -28,10 +29,15 @@ const GetStarted = () => {
       </Box>
 
       <Box display="flex" gap="5rem" marginTop="2rem">
-        <GetStartedOptionCard
-          title="Individual Investor"
-          description="Private individuals with disposable income looking to invest in promising startups in exchange for equity or debt."
-        />
+        <Link
+          href="/onboarding/angel-investor"
+          style={{ textDecoration: "none" }}
+        >
+          <GetStartedOptionCard
+            title="Individual Investor"
+            description="Private individuals with disposable income looking to invest in promising startups in exchange for equity or debt."
+          />
+        </Link>
         <GetStartedOptionCard
           title="Venture Capitalists"
           description="Professionals representing firms that manage pooled funds from many investors to invest in startups."

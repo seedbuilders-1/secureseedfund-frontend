@@ -14,6 +14,7 @@ import {
 } from "@/lib/validations/onboarding";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InvestmentPreferenceForm from "@/components/forms/onboarding/angel-investor/InvestmentPreferenceForm";
+import SubscriptionCard from "@/components/cards/SubscriptionCard";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -21,10 +22,19 @@ interface TabPanelProps {
   value: number;
   title: string;
   description: string;
+  width?: string;
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, title, description, ...other } = props;
+  const {
+    children,
+    value,
+    index,
+    title,
+    description,
+    width = "50vw",
+    ...other
+  } = props;
 
   return (
     <div
@@ -46,7 +56,7 @@ function CustomTabPanel(props: TabPanelProps) {
         </Typography>
         <Typography color="grey.600">{description}</Typography>
       </Box>
-      {value === index && <Box sx={{ p: 3, width: "50vw" }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3, width }}>{children}</Box>}
     </div>
   );
 }
@@ -72,6 +82,10 @@ const AngelInvestor = () => {
     resolver: zodResolver(InvestmentPreferenceSchema),
     defaultValues: {
       sectorsOfInterest: [],
+      expectedROI: [],
+      maturityStages: [],
+      regions: [],
+      riskTolerance: [],
     },
   });
 
@@ -119,8 +133,21 @@ const AngelInvestor = () => {
         description="Select your business subscription below"
         value={value}
         index={2}
+        width="80vw"
       >
-        Item Three
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { sm: "1fr 1fr 1fr" },
+            columnGap: 4,
+            rowGap: 4,
+            // width: "80vw",
+          }}
+        >
+          <SubscriptionCard />
+          <SubscriptionCard recommended />
+          <SubscriptionCard />
+        </Box>
       </CustomTabPanel>
     </Box>
   );

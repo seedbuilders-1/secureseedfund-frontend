@@ -9,6 +9,7 @@ import CustomInputWrapper from "@/components/ui/input";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
 
 const sectorsOfInterest = [
   "E-commerce",
@@ -16,6 +17,19 @@ const sectorsOfInterest = [
   "Fintech",
   "Fashion Business",
 ];
+
+const expectedROI = ["3% - 10.5%", "10 - 20%"];
+
+const regions = ["Nigeria", "Uganda", "Ghana", "United Kingdom"];
+
+const maturityStages = [
+  "Pre-Seed",
+  "Seed",
+  "Expansion",
+  "Merge & Acquisition ",
+];
+
+const riskTolerance = ["Understanding", "Moderate", "Conservative"];
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -46,7 +60,7 @@ const InvestmentPreferenceForm = ({ form }: Props) => {
         display: "grid",
         gridTemplateColumns: { sm: "1fr" },
         columnGap: 4,
-        rowGap: 2,
+        rowGap: 4,
       }}
     >
       <Controller
@@ -126,6 +140,322 @@ const InvestmentPreferenceForm = ({ form }: Props) => {
           </CustomInputWrapper>
         )}
       />
+
+      <Controller
+        name="expectedROI"
+        control={form.control}
+        render={({
+          field: { value, onChange, onBlur, ref },
+          fieldState: { error },
+        }) => (
+          <CustomInputWrapper>
+            <InputLabel>Expected ROI</InputLabel>
+            <Select
+              value={value}
+              multiple
+              displayEmpty
+              onChange={onChange}
+              placeholder="Search for ROI"
+              onBlur={onBlur}
+              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+              renderValue={(selected) =>
+                selected.length ? (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip
+                        key={value}
+                        sx={{ backgroundColor: "#19A65724", color: "#19A657" }}
+                        label={value}
+                      />
+                    ))}
+                  </Box>
+                ) : (
+                  <MenuItem disabled value="">
+                    Search for preferences
+                  </MenuItem>
+                )
+              }
+              MenuProps={MenuProps}
+            >
+              {expectedROI.map((sector) => (
+                <MenuItem key={sector} value={sector}>
+                  {sector}
+                </MenuItem>
+              ))}
+            </Select>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 0.5,
+                marginTop: "8px",
+              }}
+            >
+              {expectedROI.map((val) => (
+                <Chip
+                  key={val}
+                  label={val}
+                  sx={{ backgroundColor: "#19A65724", color: "#19A657" }}
+                  onClick={() => {
+                    if (form.watch("regions").includes(val)) return;
+                    const curVals = form.watch("regions");
+                    form.setValue("regions", [...curVals, val]);
+                  }}
+                  onDelete={
+                    form.watch("regions").includes(val)
+                      ? () => {
+                          const curVals = form.watch("regions");
+                          const filtedCurVals = curVals.filter(
+                            (curVal) => curVal !== val
+                          );
+                          form.setValue("regions", filtedCurVals);
+                        }
+                      : undefined
+                  }
+                />
+              ))}
+            </Box>
+          </CustomInputWrapper>
+        )}
+      />
+
+      <Controller
+        name="regions"
+        control={form.control}
+        render={({
+          field: { value, onChange, onBlur, ref },
+          fieldState: { error },
+        }) => (
+          <CustomInputWrapper>
+            <InputLabel>Regions</InputLabel>
+            <Select
+              value={value}
+              multiple
+              displayEmpty
+              onChange={onChange}
+              placeholder="Search for regions"
+              onBlur={onBlur}
+              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+              renderValue={(selected) =>
+                selected.length ? (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip
+                        key={value}
+                        sx={{ backgroundColor: "#19A65724", color: "#19A657" }}
+                        label={value}
+                      />
+                    ))}
+                  </Box>
+                ) : (
+                  <MenuItem disabled value="">
+                    Search for regions
+                  </MenuItem>
+                )
+              }
+              MenuProps={MenuProps}
+            >
+              {regions.map((sector) => (
+                <MenuItem key={sector} value={sector}>
+                  {sector}
+                </MenuItem>
+              ))}
+            </Select>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 0.5,
+                marginTop: "8px",
+              }}
+            >
+              {regions.map((val) => (
+                <Chip
+                  key={val}
+                  label={val}
+                  sx={{ backgroundColor: "#19A65724", color: "#19A657" }}
+                  onClick={() => {
+                    if (form.watch("regions").includes(val)) return;
+                    const curVals = form.watch("regions");
+                    form.setValue("regions", [...curVals, val]);
+                  }}
+                  onDelete={
+                    form.watch("regions").includes(val)
+                      ? () => {
+                          const curVals = form.watch("regions");
+                          const filtedCurVals = curVals.filter(
+                            (curVal) => curVal !== val
+                          );
+                          form.setValue("regions", filtedCurVals);
+                        }
+                      : undefined
+                  }
+                />
+              ))}
+            </Box>
+          </CustomInputWrapper>
+        )}
+      />
+
+      <Controller
+        name="maturityStages"
+        control={form.control}
+        render={({
+          field: { value, onChange, onBlur, ref },
+          fieldState: { error },
+        }) => (
+          <CustomInputWrapper>
+            <InputLabel>Maturity Stages</InputLabel>
+            <Select
+              value={value}
+              multiple
+              displayEmpty
+              onChange={onChange}
+              placeholder="Search for maturity stages"
+              onBlur={onBlur}
+              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+              renderValue={(selected) =>
+                selected.length ? (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip
+                        key={value}
+                        sx={{ backgroundColor: "#19A65724", color: "#19A657" }}
+                        label={value}
+                      />
+                    ))}
+                  </Box>
+                ) : (
+                  <MenuItem disabled value="">
+                    Search for maturity stages
+                  </MenuItem>
+                )
+              }
+              MenuProps={MenuProps}
+            >
+              {maturityStages.map((sector) => (
+                <MenuItem key={sector} value={sector}>
+                  {sector}
+                </MenuItem>
+              ))}
+            </Select>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 0.5,
+                marginTop: "8px",
+              }}
+            >
+              {maturityStages.map((val) => (
+                <Chip
+                  key={val}
+                  label={val}
+                  sx={{ backgroundColor: "#19A65724", color: "#19A657" }}
+                  onClick={() => {
+                    if (form.watch("maturityStages").includes(val)) return;
+                    const curVals = form.watch("maturityStages");
+                    form.setValue("maturityStages", [...curVals, val]);
+                  }}
+                  onDelete={
+                    form.watch("maturityStages").includes(val)
+                      ? () => {
+                          const curVals = form.watch("maturityStages");
+                          const filtedCurVals = curVals.filter(
+                            (curVal) => curVal !== val
+                          );
+                          form.setValue("maturityStages", filtedCurVals);
+                        }
+                      : undefined
+                  }
+                />
+              ))}
+            </Box>
+          </CustomInputWrapper>
+        )}
+      />
+
+      <Controller
+        name="riskTolerance"
+        control={form.control}
+        render={({
+          field: { value, onChange, onBlur, ref },
+          fieldState: { error },
+        }) => (
+          <CustomInputWrapper>
+            <InputLabel>Risk Tolerance</InputLabel>
+            <Select
+              value={value}
+              multiple
+              displayEmpty
+              onChange={onChange}
+              placeholder="Search for risk tolerance"
+              onBlur={onBlur}
+              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+              renderValue={(selected) =>
+                selected.length ? (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip
+                        key={value}
+                        sx={{ backgroundColor: "#19A65724", color: "#19A657" }}
+                        label={value}
+                      />
+                    ))}
+                  </Box>
+                ) : (
+                  <MenuItem disabled value="">
+                    Search for risk tolerance
+                  </MenuItem>
+                )
+              }
+              MenuProps={MenuProps}
+            >
+              {riskTolerance.map((sector) => (
+                <MenuItem key={sector} value={sector}>
+                  {sector}
+                </MenuItem>
+              ))}
+            </Select>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 0.5,
+                marginTop: "8px",
+              }}
+            >
+              {riskTolerance.map((val) => (
+                <Chip
+                  key={val}
+                  label={val}
+                  sx={{ backgroundColor: "#19A65724", color: "#19A657" }}
+                  onClick={() => {
+                    if (form.watch("riskTolerance").includes(val)) return;
+                    const curVals = form.watch("riskTolerance");
+                    form.setValue("riskTolerance", [...curVals, val]);
+                  }}
+                  onDelete={
+                    form.watch("riskTolerance").includes(val)
+                      ? () => {
+                          const curVals = form.watch("riskTolerance");
+                          const filtedCurVals = curVals.filter(
+                            (curVal) => curVal !== val
+                          );
+                          form.setValue("riskTolerance", filtedCurVals);
+                        }
+                      : undefined
+                  }
+                />
+              ))}
+            </Box>
+          </CustomInputWrapper>
+        )}
+      />
+
+      <Button variant="contained" type="submit">
+        Next
+      </Button>
     </Box>
   );
 };
