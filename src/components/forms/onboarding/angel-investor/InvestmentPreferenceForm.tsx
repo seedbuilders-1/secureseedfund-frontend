@@ -10,6 +10,7 @@ import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import { Dispatch, SetStateAction } from "react";
 
 const sectorsOfInterest = [
   "E-commerce",
@@ -44,11 +45,12 @@ const MenuProps = {
 
 interface Props {
   form: UseFormReturn<InvestmentPreferenceValidation>;
+  setStep: Dispatch<SetStateAction<number>>;
 }
 
-const InvestmentPreferenceForm = ({ form }: Props) => {
+const InvestmentPreferenceForm = ({ form, setStep }: Props) => {
   const onNext = () => {
-    // TODO: Go to next step
+    setStep(2);
   };
 
   return (

@@ -1,4 +1,5 @@
 "use client";
+import { Dispatch, SetStateAction } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import Image from "next/image";
 import { AngelInvestorProfileDetailsValidation } from "@/lib/validations/onboarding";
@@ -12,6 +13,7 @@ import InputLabel from "@mui/material/InputLabel";
 import CustomInputWrapper from "@/components/ui/input";
 import countries from "@/lib/data/countries";
 import dynamic from "next/dynamic";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const DynamicMuiPhoneNumber = dynamic(
   () => import("material-ui-phone-number"),
@@ -23,12 +25,14 @@ const DynamicMuiPhoneNumber = dynamic(
 
 interface Props {
   form: UseFormReturn<AngelInvestorProfileDetailsValidation>;
+  setStep: Dispatch<SetStateAction<number>>;
 }
 
-const ProfileDetailsForm = ({ form }: Props) => {
+const ProfileDetailsForm = ({ form, setStep }: Props) => {
   const onNext = () => {
-    // TODO: Go to next step
+    setStep(1);
   };
+
   return (
     <Box
       component="form"
@@ -61,6 +65,13 @@ const ProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -84,6 +95,13 @@ const ProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -107,6 +125,13 @@ const ProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -114,24 +139,24 @@ const ProfileDetailsForm = ({ form }: Props) => {
       <Controller
         name="country"
         control={form.control}
-        render={({
-          field: { value, onChange, onBlur, ref },
-          fieldState: { error },
-        }) => (
+        render={({ field: { value }, fieldState: { error } }) => (
           <CustomInputWrapper>
             <InputLabel>Country</InputLabel>
             <Autocomplete
               id="country-select"
               options={countries}
               autoHighlight
-              onBlur={onBlur}
-              onChange={onChange}
+              onChange={(e, newValue) => {
+                if (!newValue) return;
+                form.setValue("country", newValue);
+              }}
               value={value}
               getOptionLabel={(option) => option.label}
               renderOption={(props, option) => (
                 <Box
                   component="li"
                   sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                  key={option.label}
                   {...props}
                 >
                   <Image
@@ -157,6 +182,13 @@ const ProfileDetailsForm = ({ form }: Props) => {
                 />
               )}
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -181,6 +213,13 @@ const ProfileDetailsForm = ({ form }: Props) => {
               value={value}
               variant="outlined"
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -205,6 +244,13 @@ const ProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -229,6 +275,13 @@ const ProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />

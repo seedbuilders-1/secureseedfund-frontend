@@ -1,4 +1,5 @@
 "use client";
+import { Dispatch, SetStateAction } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { VentureCapitalistInvestmentPreferenceValidation } from "@/lib/validations/onboarding";
 
@@ -44,11 +45,12 @@ const MenuProps = {
 
 interface Props {
   form: UseFormReturn<VentureCapitalistInvestmentPreferenceValidation>;
+  setStep: Dispatch<SetStateAction<number>>;
 }
 
-const VCInvestmentPreferenceForm = ({ form }: Props) => {
+const VCInvestmentPreferenceForm = ({ form, setStep }: Props) => {
   const onNext = () => {
-    // TODO: Go to next step
+    setStep(2);
   };
 
   return (

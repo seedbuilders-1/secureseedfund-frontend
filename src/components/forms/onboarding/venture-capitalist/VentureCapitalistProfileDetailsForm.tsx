@@ -1,4 +1,5 @@
 "use client";
+import { Dispatch, SetStateAction } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import Image from "next/image";
 import { VentureCapitalistProfileDetailsValidation } from "@/lib/validations/onboarding";
@@ -8,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 
 import CustomInputWrapper from "@/components/ui/input";
 import countries from "@/lib/data/countries";
@@ -23,11 +25,12 @@ const DynamicMuiPhoneNumber = dynamic(
 
 interface Props {
   form: UseFormReturn<VentureCapitalistProfileDetailsValidation>;
+  setStep: Dispatch<SetStateAction<number>>;
 }
 
-const VentureCapitalistProfileDetailsForm = ({ form }: Props) => {
+const VentureCapitalistProfileDetailsForm = ({ form, setStep }: Props) => {
   const onNext = () => {
-    // TODO: Go to next step
+    setStep(1);
   };
   return (
     <Box
@@ -61,6 +64,13 @@ const VentureCapitalistProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -84,6 +94,13 @@ const VentureCapitalistProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -107,6 +124,13 @@ const VentureCapitalistProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -125,13 +149,17 @@ const VentureCapitalistProfileDetailsForm = ({ form }: Props) => {
               options={countries}
               autoHighlight
               onBlur={onBlur}
-              onChange={onChange}
+              onChange={(e, newValue) => {
+                if (!newValue) return;
+                form.setValue("country", newValue);
+              }}
               value={value}
               getOptionLabel={(option) => option.label}
               renderOption={(props, option) => (
                 <Box
                   component="li"
                   sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                  key={option.label}
                   {...props}
                 >
                   <Image
@@ -157,6 +185,13 @@ const VentureCapitalistProfileDetailsForm = ({ form }: Props) => {
                 />
               )}
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -181,6 +216,13 @@ const VentureCapitalistProfileDetailsForm = ({ form }: Props) => {
               value={value}
               variant="outlined"
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -205,6 +247,13 @@ const VentureCapitalistProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />
@@ -229,6 +278,13 @@ const VentureCapitalistProfileDetailsForm = ({ form }: Props) => {
               error={Boolean(error)}
               fullWidth
             />
+            <FormHelperText
+              sx={{
+                color: "error.main",
+              }}
+            >
+              {error?.message ?? ""}
+            </FormHelperText>
           </CustomInputWrapper>
         )}
       />

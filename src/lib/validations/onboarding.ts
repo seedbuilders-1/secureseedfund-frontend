@@ -11,7 +11,7 @@ export const AngelInvestorProfileDetailsSchema = z
         code: z.string(), // Validate code as string
         label: z.string(), // Validate label as string
         phone: z.string(), // Validate phone as string
-        suggested: z.boolean(), // Validate suggested as boolean (optional)
+        suggested: z.boolean().optional(), // Validate suggested as boolean (optional)
       })
       .refine(
         (country) => {
@@ -65,7 +65,7 @@ export const VentureCapitalistProfileDetailsSchema = z
         code: z.string(), // Validate code as string
         label: z.string(), // Validate label as string
         phone: z.string(), // Validate phone as string
-        suggested: z.boolean(), // Validate suggested as boolean (optional)
+        suggested: z.boolean().optional(), // Validate suggested as boolean (optional)
       })
       .refine(
         (country) => {
