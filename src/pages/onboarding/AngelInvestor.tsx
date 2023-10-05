@@ -125,7 +125,7 @@ const AngelInvestor = () => {
         value={value}
         index={0}
       >
-        <ProfileDetailsForm form={profileDetailsform} />
+        <ProfileDetailsForm form={profileDetailsform} setStep={setValue} />
       </CustomTabPanel>
       <CustomTabPanel
         title="Investment Preference"
@@ -133,7 +133,10 @@ const AngelInvestor = () => {
         value={value}
         index={1}
       >
-        <InvestmentPreferenceForm form={investmentPreferenceForm} />
+        <InvestmentPreferenceForm
+          form={investmentPreferenceForm}
+          setStep={setValue}
+        />
       </CustomTabPanel>
       <CustomTabPanel
         title="Subscription"

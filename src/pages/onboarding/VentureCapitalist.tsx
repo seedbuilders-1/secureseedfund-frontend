@@ -130,7 +130,10 @@ const VentureCapitalistOnboardingPage = () => {
         value={value}
         index={0}
       >
-        <VentureCapitalistProfileDetailsForm form={profileDetailsform} />
+        <VentureCapitalistProfileDetailsForm
+          form={profileDetailsform}
+          setStep={setValue}
+        />
       </CustomTabPanel>
       <CustomTabPanel
         title="Investment Preference"
@@ -138,7 +141,10 @@ const VentureCapitalistOnboardingPage = () => {
         value={value}
         index={1}
       >
-        <VCInvestmentPreferenceForm form={investmentPreferenceForm} />
+        <VCInvestmentPreferenceForm
+          setStep={setValue}
+          form={investmentPreferenceForm}
+        />
       </CustomTabPanel>
       <CustomTabPanel
         title="Subscription"
