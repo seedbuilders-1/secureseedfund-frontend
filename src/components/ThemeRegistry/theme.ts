@@ -14,6 +14,9 @@ const theme = createTheme({
     primary: {
       main: "#19A657",
     },
+    grey: {
+      "600": "#333333",
+    },
   },
   typography: {
     fontFamily: ibmPlexSans.style.fontFamily,
@@ -32,6 +35,20 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           padding: 12,
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontWeight: 500,
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#F9FAFB",
         },
       },
     },
