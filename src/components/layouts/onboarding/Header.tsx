@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { DEFAULT_VIEWPORT, defaultVariant } from "@/lib/variants";
 import Button from "@mui/material/Button";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -22,14 +23,16 @@ const Header = () => {
       alignItems="center"
       sx={{ backgroundColor: "#FFFFFF66" }}
     >
-      <Box width="8rem" height="3rem" sx={{ position: "relative" }}>
-        <Image
-          src="/assets/icons/logo.svg"
-          alt="Logo"
-          fill
-          className="object-contain"
-        />
-      </Box>
+      <Link href="/onboarding">
+        <Box width="8rem" height="3rem" sx={{ position: "relative" }}>
+          <Image
+            src="/assets/icons/logo.svg"
+            alt="Logo"
+            fill
+            className="object-contain"
+          />
+        </Box>
+      </Link>
       <Button variant="contained">Log in</Button>
     </Box>
   );

@@ -7,9 +7,11 @@ import { Chip, useTheme } from "@mui/material";
 
 interface Props {
   recommended?: boolean;
+  title: string;
+  amount: string;
 }
 
-const SubscriptionCard = ({ recommended = false }: Props) => {
+const SubscriptionCard = ({ recommended = false, title, amount }: Props) => {
   const { palette } = useTheme();
   return (
     <Box
@@ -38,7 +40,7 @@ const SubscriptionCard = ({ recommended = false }: Props) => {
           fontWeight={600}
           marginBottom="5px"
         >
-          Basic
+          {title}
         </Typography>
 
         {recommended && (
@@ -64,7 +66,7 @@ const SubscriptionCard = ({ recommended = false }: Props) => {
         fontWeight={500}
         color={recommended ? "white" : "#333333E5"}
       >
-        Free
+        {amount}
       </Typography>
 
       <Box display="flex" flexDirection="column" gap="10px">

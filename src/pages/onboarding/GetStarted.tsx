@@ -1,12 +1,20 @@
+"use client";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import GetStartedOptionCard from "@/components/cards/GetStartedOptionCard";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { DEFAULT_VIEWPORT, defaultVariant } from "@/lib/variants";
 
 const GetStarted = () => {
   return (
     <Box
+      variants={defaultVariant({})}
+      initial="hidden"
+      whileInView="visible"
+      viewport={DEFAULT_VIEWPORT}
+      component={motion.section}
       width="100%"
       display="flex"
       alignItems="center"
@@ -38,10 +46,15 @@ const GetStarted = () => {
             description="Private individuals with disposable income looking to invest in promising startups in exchange for equity or debt."
           />
         </Link>
-        <GetStartedOptionCard
-          title="Venture Capitalists"
-          description="Professionals representing firms that manage pooled funds from many investors to invest in startups."
-        />
+        <Link
+          href="/onboarding/venture-capitalist"
+          style={{ textDecoration: "none" }}
+        >
+          <GetStartedOptionCard
+            title="Venture Capitalists"
+            description="Professionals representing firms that manage pooled funds from many investors to invest in startups."
+          />
+        </Link>
       </Box>
     </Box>
   );

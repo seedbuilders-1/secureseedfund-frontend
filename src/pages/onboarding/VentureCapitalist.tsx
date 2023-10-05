@@ -4,16 +4,18 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import ProfileDetailsForm from "@/components/forms/onboarding/angel-investor/ProfileDetailsForm";
+
+import VentureCapitalistProfileDetailsForm from "@/components/forms/onboarding/venture-capitalist/VentureCapitalistProfileDetailsForm";
+import VCInvestmentPreferenceForm from "@/components/forms/onboarding/venture-capitalist/VCInvestmentPreferenceForm";
+
 import { useForm } from "react-hook-form";
 import {
-  AngelInvestorProfileDetailsValidation,
-  AngelInvestorProfileDetailsSchema,
-  InvestmentPreferenceValidation,
-  InvestmentPreferenceSchema,
+  VentureCapitalistInvestmentPreferenceSchema,
+  VentureCapitalistInvestmentPreferenceValidation,
+  VentureCapitalistProfileDetailsSchema,
+  VentureCapitalistProfileDetailsValidation,
 } from "@/lib/validations/onboarding";
 import { zodResolver } from "@hookform/resolvers/zod";
-import InvestmentPreferenceForm from "@/components/forms/onboarding/angel-investor/InvestmentPreferenceForm";
 import SubscriptionCard from "@/components/cards/SubscriptionCard";
 import { motion } from "framer-motion";
 import { DEFAULT_VIEWPORT, defaultVariant } from "@/lib/variants";
@@ -70,26 +72,29 @@ function a11yProps(index: number) {
   };
 }
 
-const AngelInvestor = () => {
+const VentureCapitalistOnboardingPage = () => {
   const [value, setValue] = useState(0);
 
-  const profileDetailsform = useForm<AngelInvestorProfileDetailsValidation>({
-    resolver: zodResolver(AngelInvestorProfileDetailsSchema),
-    defaultValues: {
-      email: "",
-    },
-  });
+  const profileDetailsform = useForm<VentureCapitalistProfileDetailsValidation>(
+    {
+      resolver: zodResolver(VentureCapitalistProfileDetailsSchema),
+      defaultValues: {
+        email: "",
+      },
+    }
+  );
 
-  const investmentPreferenceForm = useForm<InvestmentPreferenceValidation>({
-    resolver: zodResolver(InvestmentPreferenceSchema),
-    defaultValues: {
-      sectorsOfInterest: [],
-      expectedROI: [],
-      maturityStages: [],
-      regions: [],
-      riskTolerance: [],
-    },
-  });
+  const investmentPreferenceForm =
+    useForm<VentureCapitalistInvestmentPreferenceValidation>({
+      resolver: zodResolver(VentureCapitalistInvestmentPreferenceSchema),
+      defaultValues: {
+        sectorsOfInterest: [],
+        typicalInvestmentSize: [],
+        maturityStages: [],
+        regions: [],
+        expectedIRR: [],
+      },
+    });
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -125,7 +130,7 @@ const AngelInvestor = () => {
         value={value}
         index={0}
       >
-        <ProfileDetailsForm form={profileDetailsform} />
+        <VentureCapitalistProfileDetailsForm form={profileDetailsform} />
       </CustomTabPanel>
       <CustomTabPanel
         title="Investment Preference"
@@ -133,7 +138,7 @@ const AngelInvestor = () => {
         value={value}
         index={1}
       >
-        <InvestmentPreferenceForm form={investmentPreferenceForm} />
+        <VCInvestmentPreferenceForm form={investmentPreferenceForm} />
       </CustomTabPanel>
       <CustomTabPanel
         title="Subscription"
@@ -148,7 +153,6 @@ const AngelInvestor = () => {
             gridTemplateColumns: { sm: "1fr 1fr 1fr" },
             columnGap: 4,
             rowGap: 4,
-            // width: "80vw",
           }}
         >
           <SubscriptionCard title="Basic" amount="Free" />
@@ -160,4 +164,4 @@ const AngelInvestor = () => {
   );
 };
 
-export default AngelInvestor;
+export default VentureCapitalistOnboardingPage;
