@@ -1,5 +1,44 @@
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import NavItem from "./NavItem";
+import DashboardIcon from "@/components/assets/svg/DashboardIcon";
+import FinanceIcon from "@/components/assets/svg/FinanceIcon";
+import InvestorsIcon from "@/components/assets/svg/InvestorsIcon";
+import SchedulesIcon from "@/components/assets/svg/SchedulesIcon";
+import SecurityIcon from "@/components/assets/svg/SecurityIcon";
+import ProfileIcon from "@/components/assets/svg/ProfileIcon";
+
+const navItems = [
+  {
+    name: "Dashboard",
+    route: "/startup/dashboard",
+    icon: <DashboardIcon />,
+  },
+  {
+    name: "Finance",
+    route: "/startup/finance",
+    icon: <FinanceIcon />,
+  },
+  {
+    name: "Investors",
+    route: "/startup/investors",
+    icon: <InvestorsIcon />,
+  },
+  {
+    name: "Schedules",
+    route: "/startup/schedules",
+    icon: <SchedulesIcon />,
+  },
+  {
+    name: "Security",
+    route: "/startup/security",
+    icon: <SecurityIcon />,
+  },
+  {
+    name: "Profile",
+    route: "/startup/profile",
+    icon: <ProfileIcon />,
+  },
+];
 
 const LeftSidebar = () => {
   return (
@@ -20,11 +59,18 @@ const LeftSidebar = () => {
     >
       <Box
         component="nav"
-        sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+        sx={{ display: "flex", flexDirection: "column", gap: "2rem" }}
       >
-        <Box>
-          <Typography>Dasboard</Typography>
-        </Box>
+        {navItems.map((nav) => {
+          return (
+            <NavItem
+              key={nav.name}
+              name={nav.name}
+              route={nav.route}
+              icon={nav.icon}
+            />
+          );
+        })}
       </Box>
     </Box>
   );

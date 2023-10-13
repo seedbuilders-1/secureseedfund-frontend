@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Start uo",
+  title: "Dashboard | Start up",
 };
 
 export default function StartupDashboard() {
