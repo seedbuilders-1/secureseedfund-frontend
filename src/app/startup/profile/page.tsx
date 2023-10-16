@@ -1,3 +1,4 @@
+import StartupProfilePage from "@/pages/startup/StartupProfilePage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -5,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function StartupProfile() {
-  return <div>Profile</div>;
+  return <StartupProfilePage />;
 }
