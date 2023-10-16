@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 
 import { DEFAULT_VIEWPORT, defaultVariant } from "@/lib/variants";
 import PersonalDetails from "@/components/sections/startup/PersonalDetails";
+import Security from "@/components/sections/startup/Security";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -84,7 +85,6 @@ const StartupProfilePage = () => {
       alignItems="start"
       justifyContent="center"
       flexDirection="column"
-      //   margin="3rem 0rem"
     >
       <Box>
         <Tabs
@@ -105,6 +105,15 @@ const StartupProfilePage = () => {
           width="100%"
         >
           <PersonalDetails />
+        </CustomTabPanel>
+        <CustomTabPanel
+          title="Security"
+          description="Change your passwords and set your privacy"
+          value={value}
+          index={2}
+          width="100%"
+        >
+          <Security />
         </CustomTabPanel>
       </Box>
     </Box>

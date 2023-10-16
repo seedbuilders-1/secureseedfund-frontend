@@ -4,6 +4,9 @@ import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
+import DocumentProfileIcon from "@/components/assets/svg/DocumentProfileIcon";
+import FileUploadIcon from "@/components/assets/svg/FileUploadIcon";
+import ShadowCard from "@/components/cards/ShadowCard";
 
 const PersonalDetails = () => {
   return (
@@ -149,6 +152,226 @@ const PersonalDetails = () => {
           </Grid>
         </Stack>
       </Box>
+
+      {/* Experiences */}
+      <ShadowCard marginTop="2rem">
+        <Typography color="#333" fontWeight={500}>
+          Experiences
+        </Typography>
+
+        <Box
+          width="100%"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+            marginTop: "2rem",
+          }}
+        >
+          <Stack>
+            <Grid container columnSpacing={2} position="relative">
+              <Grid item xs={4}>
+                <Typography variant="caption" color="#33333366">
+                  Company Name
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontSize=".9rem"
+                  lineHeight="2rem"
+                  color="#333333"
+                  fontWeight={400}
+                >
+                  Spleet
+                </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography variant="caption" color="#33333366">
+                  Position
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontSize=".9rem"
+                  lineHeight="2rem"
+                  color="#333333"
+                  fontWeight={400}
+                >
+                  Co-founder
+                </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography variant="caption" color="#33333366">
+                  Years
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontSize=".9rem"
+                  lineHeight="2rem"
+                  color="#333333"
+                  fontWeight={400}
+                >
+                  2yrs
+                </Typography>
+              </Grid>
+            </Grid>
+          </Stack>
+          <Stack>
+            <Grid container columnSpacing={2} position="relative">
+              <Grid item xs={4}>
+                <Typography variant="caption" color="#33333366">
+                  Company Name
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontSize=".9rem"
+                  lineHeight="2rem"
+                  color="#333333"
+                  fontWeight={400}
+                >
+                  Eithad
+                </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography variant="caption" color="#33333366">
+                  Position
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontSize=".9rem"
+                  lineHeight="2rem"
+                  color="#333333"
+                  fontWeight={400}
+                >
+                  Coach
+                </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography variant="caption" color="#33333366">
+                  Years
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontSize=".9rem"
+                  lineHeight="2rem"
+                  color="#333333"
+                  fontWeight={400}
+                >
+                  6yrs
+                </Typography>
+              </Grid>
+            </Grid>
+          </Stack>
+        </Box>
+      </ShadowCard>
+
+      {/* Document uploads */}
+      <ShadowCard marginTop="2rem">
+        <Typography color="#333" fontWeight={500}>
+          Documents Uploads
+        </Typography>
+        <Box
+          width="100%"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+            marginTop: "2rem",
+          }}
+        >
+          <Stack>
+            <Grid
+              container
+              columnSpacing={2}
+              position="relative"
+              rowSpacing={2}
+            >
+              <Grid item xs={12}>
+                <Typography variant="caption" color="#33333366" noWrap>
+                  Evidence of company registration
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontSize=".9rem"
+                  lineHeight="2rem"
+                  color="#333333"
+                  fontWeight={400}
+                >
+                  CAC
+                </Typography>
+                <Box display="flex" gap="2rem">
+                  <Box
+                    sx={{
+                      width: "2.3rem",
+                      height: "2.3rem",
+                      borderRadius: "1000px",
+                      backgroundColor: "#3333331A",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <DocumentProfileIcon />
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "2.3rem",
+                      height: "2.3rem",
+                      borderRadius: "1000px",
+                      backgroundColor: "#3333331A",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <FileUploadIcon />
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="caption" color="#33333366" noWrap>
+                  Product Demo
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontSize=".9rem"
+                  lineHeight="2rem"
+                  color="#333333"
+                  fontWeight={400}
+                >
+                  Spleet website demo
+                </Typography>
+                <Box display="flex" gap="2rem">
+                  <Box
+                    sx={{
+                      width: "2.3rem",
+                      height: "2.3rem",
+                      borderRadius: "1000px",
+                      backgroundColor: "#3333331A",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <DocumentProfileIcon />
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "2.3rem",
+                      height: "2.3rem",
+                      borderRadius: "1000px",
+                      backgroundColor: "#3333331A",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <FileUploadIcon />
+                  </Box>
+                </Box>
+              </Grid>
+            </Grid>
+          </Stack>
+        </Box>
+      </ShadowCard>
     </Box>
   );
 };
