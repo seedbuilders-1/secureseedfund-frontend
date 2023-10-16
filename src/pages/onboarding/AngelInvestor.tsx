@@ -112,7 +112,7 @@ const AngelInvestor = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example"
+          aria-label="Angel investor onboarding"
         >
           <Tab label="Profile Details" {...a11yProps(0)} />
           <Tab label="Investment Preference" {...a11yProps(1)} />
