@@ -10,7 +10,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
         sx={{
           flexBasis: "50%",
           marginRight: "50%",
-          padding: 2,
+          padding: 4,
           overflowY: "auto",
         }}
       >
