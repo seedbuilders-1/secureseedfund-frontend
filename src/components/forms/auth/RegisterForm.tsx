@@ -1,48 +1,38 @@
 "use client";
-import { Dispatch, SetStateAction } from "react";
-import { Controller, UseFormReturn } from "react-hook-form";
-import Image from "next/image";
-import { AngelInvestorProfileDetailsValidation } from "@/lib/validations/onboarding";
+import { Controller, useForm } from "react-hook-form";
 
-import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
+import Typography from "@mui/material/Typography";
 
 import CustomInputWrapper from "@/components/ui/input";
-import countries from "@/lib/data/countries";
-import dynamic from "next/dynamic";
 import FormHelperText from "@mui/material/FormHelperText";
+import { RegisterSchema, RegisterValidation } from "@/lib/validations/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { DynamicMuiPhoneNumber } from "../onboarding/angel-investor/ProfileDetailsForm";
+import { useRouter } from "next/navigation";
 
-export const DynamicMuiPhoneNumber = dynamic(
-  () => import("material-ui-phone-number"),
-  {
-    ssr: false,
-    loading: () => <p>Loading phone input...</p>,
-  }
-);
+const RegisterForm = () => {
+  const form = useForm<RegisterValidation>({
+    resolver: zodResolver(RegisterSchema),
+  });
+  const router = useRouter();
 
-interface Props {
-  form: UseFormReturn<AngelInvestorProfileDetailsValidation>;
-  setStep: Dispatch<SetStateAction<number>>;
-}
-
-const ProfileDetailsForm = ({ form, setStep }: Props) => {
-  const onNext = () => {
-    setStep(1);
+  const onSubmit = () => {
+    router.push("/onboarding");
   };
-
   return (
     <Box
       component="form"
       noValidate
-      onSubmit={form.handleSubmit(onNext)}
+      onSubmit={form.handleSubmit(onSubmit)}
       sx={{
-        display: "grid",
-        gridTemplateColumns: { sm: "1fr 1fr" },
-        columnGap: 4,
-        rowGap: 2,
+        display: "flex",
+        width: "100%",
+        flexDirection: "column",
+        gap: 2,
       }}
     >
       <Controller
@@ -75,6 +65,7 @@ const ProfileDetailsForm = ({ form, setStep }: Props) => {
           </CustomInputWrapper>
         )}
       />
+
       <Controller
         name="lastName"
         control={form.control}
@@ -113,7 +104,7 @@ const ProfileDetailsForm = ({ form, setStep }: Props) => {
           fieldState: { error },
         }) => (
           <CustomInputWrapper sx={{ gridColumn: "span 2 / span 2" }}>
-            <InputLabel>Email</InputLabel>
+            <InputLabel>Email Address</InputLabel>
             <TextField
               name="email"
               placeholder="jane@example.com"
@@ -135,66 +126,8 @@ const ProfileDetailsForm = ({ form, setStep }: Props) => {
           </CustomInputWrapper>
         )}
       />
-
       <Controller
-        name="country"
-        control={form.control}
-        render={({ field: { value }, fieldState: { error } }) => (
-          <CustomInputWrapper>
-            <InputLabel>Country</InputLabel>
-            <Autocomplete
-              id="country-select"
-              options={countries}
-              autoHighlight
-              onChange={(e, newValue) => {
-                if (!newValue) return;
-                form.setValue("country", newValue);
-              }}
-              value={value}
-              getOptionLabel={(option) => option.label}
-              renderOption={(props, option) => (
-                <Box
-                  component="li"
-                  sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-                  key={option.label}
-                  {...props}
-                >
-                  <Image
-                    loading="lazy"
-                    width={20}
-                    height={20}
-                    style={{ objectFit: "contain" }}
-                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                    alt="Country flag"
-                  />
-                  {option.label} ({option.code}) +{option.phone}
-                </Box>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Choose a country"
-                  error={Boolean(error)}
-                  inputProps={{
-                    ...params.inputProps,
-                    autoComplete: "new-password", // disable autocomplete and autofill
-                  }}
-                />
-              )}
-            />
-            <FormHelperText
-              sx={{
-                color: "error.main",
-              }}
-            >
-              {error?.message ?? ""}
-            </FormHelperText>
-          </CustomInputWrapper>
-        )}
-      />
-
-      <Controller
-        name="phoneNumber"
+        name="phone"
         control={form.control}
         render={({
           field: { value, onChange, onBlur },
@@ -286,13 +219,27 @@ const ProfileDetailsForm = ({ form, setStep }: Props) => {
         )}
       />
 
-      <Box sx={{ gridColumn: "span 2 / span 2" }}>
-        <Button fullWidth variant="contained" type="submit">
-          Next
-        </Button>
-      </Box>
+      <Button fullWidth variant="contained" type="submit">
+        Next
+      </Button>
+      <Typography variant="caption" align="center">
+        Already have an account?{" "}
+        <Typography
+          component="a"
+          href="/auth/login"
+          color="primary.main"
+          fontWeight={600}
+          variant="caption"
+          sx={{
+            cursor: "pointer",
+            textDecoration: "none",
+          }}
+        >
+          Login
+        </Typography>
+      </Typography>
     </Box>
   );
 };
 
-export default ProfileDetailsForm;
+export default RegisterForm;

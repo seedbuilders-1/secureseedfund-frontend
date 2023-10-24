@@ -1,4 +1,4 @@
-import HomePage from "@/pages/coming-soon/HomePage";
+import HomePage from "@/features/coming-soon/HomePage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
