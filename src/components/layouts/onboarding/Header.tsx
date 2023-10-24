@@ -33,7 +33,9 @@ const Header = () => {
           />
         </Box>
       </Link>
-      <Button variant="contained">Log in</Button>
+      <Link href="/auth/login">
+        <Button variant="contained">Log out</Button>
+      </Link>
     </Box>
   );
 };

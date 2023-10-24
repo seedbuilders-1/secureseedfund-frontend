@@ -5,19 +5,24 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
+import Typography from "@mui/material/Typography";
 
 import CustomInputWrapper from "@/components/ui/input";
 import FormHelperText from "@mui/material/FormHelperText";
 import { RegisterSchema, RegisterValidation } from "@/lib/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DynamicMuiPhoneNumber } from "../onboarding/angel-investor/ProfileDetailsForm";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const form = useForm<RegisterValidation>({
     resolver: zodResolver(RegisterSchema),
   });
+  const router = useRouter();
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    router.push("/onboarding");
+  };
   return (
     <Box
       component="form"
@@ -217,6 +222,22 @@ const RegisterForm = () => {
       <Button fullWidth variant="contained" type="submit">
         Next
       </Button>
+      <Typography variant="caption" align="center">
+        Already have an account?{" "}
+        <Typography
+          component="a"
+          href="/auth/login"
+          color="primary.main"
+          fontWeight={600}
+          variant="caption"
+          sx={{
+            cursor: "pointer",
+            textDecoration: "none",
+          }}
+        >
+          Login
+        </Typography>
+      </Typography>
     </Box>
   );
 };
