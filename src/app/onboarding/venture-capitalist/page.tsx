@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import VentureCapitalistOnboardingPage from "@/pages/onboarding/VentureCapitalist";
+import VentureCapitalistOnboardingPage from "@/features/onboarding/VentureCapitalist";
 
 export const metadata: Metadata = {
   title: "Venture Capitalist - Onboarding",

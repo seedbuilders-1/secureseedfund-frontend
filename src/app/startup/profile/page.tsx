@@ -1,4 +1,4 @@
-import StartupProfilePage from "@/pages/startup/StartupProfilePage";
+import StartupProfilePage from "@/features/startup/StartupProfilePage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
