@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const TopSection = () => {
   return (
-    <header className="w-full h-[40vh] bg-primary-gradient px-8 pt-4">
+    <header className="w-full h-[45vh] bg-primary-gradient px-8 pt-4">
       <div className="flex w-full items-center justify-between">
         <Image
           src="/assets/icons/logo_variant_1.svg"

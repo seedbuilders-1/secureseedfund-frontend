@@ -1,3 +1,5 @@
+import Dashboard from "@/screens/startup/Dashboard";
+
 export default function StartupDashboard() {
-  return <div>startup dashboard</div>;
+  return <Dashboard />;
 }
