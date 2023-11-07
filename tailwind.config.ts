@@ -16,6 +16,11 @@ module.exports = {
       },
     },
     extend: {
+      colors: {},
+      backgroundImage: {
+        "primary-gradient":
+          "linear-gradient(90deg, #5C34B2 0%, #96357D 50.26%, #7C365F 100%)",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
