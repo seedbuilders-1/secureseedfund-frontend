@@ -1,14 +1,20 @@
 "use client";
 
+import RecommendedInvestor from "@/components/cards/RecommendedInvestor";
 import StatCard, {
   StatCardBody,
   StatCardTitle,
   StateCardMetric,
 } from "@/components/cards/StatCard";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ArrowUp } from "lucide-react";
 import Image from "next/image";
+import RecentFunding from "./RecentFunding";
+import BorderCard from "@/components/cards/BorderCard";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import EventsAndNews from "./EventsAndNews";
 
 const DashboardOverview = () => {
   return (
@@ -53,6 +59,42 @@ const DashboardOverview = () => {
             </div>
           </StatCardBody>
         </StatCard>
+      </div>
+
+      {/* Investor Recommendations */}
+      <div className="w-full flex flex-col space-y-2 mt-8">
+        <div className="flex items-center w-full justify-between">
+          <h3 className="text-slate-700 text-[1.15rem] font-[600]">
+            Investors recommended for you
+          </h3>
+          <Button variant="link" className="px-0 text-green-700">
+            See more
+          </Button>
+        </div>
+
+        <div className="w-full grid grid-cols-4 gap-x-4">
+          <RecommendedInvestor />
+          <RecommendedInvestor />
+          <RecommendedInvestor />
+          <RecommendedInvestor />
+        </div>
+      </div>
+      <div className="mt-8 w-full grid grid-cols-[1fr_2fr] gap-x-4">
+        <RecentFunding />
+        <BorderCard btnText="View SecureSeedFund blog">
+          <Tabs
+            defaultValue="events-and-news"
+            className="flex flex-col flex-1 h-full"
+          >
+            <TabsList className="w-fit">
+              <TabsTrigger value="events-and-news">Events and news</TabsTrigger>
+              <TabsTrigger value="recent-messages">Recent Messages</TabsTrigger>
+            </TabsList>
+            <TabsContent value="events-and-news" className="flex-grow flex">
+              <EventsAndNews />
+            </TabsContent>
+          </Tabs>
+        </BorderCard>
       </div>
     </div>
   );

@@ -5,3 +5,10 @@
 body {
   @apply font-primary text-white;
 }
+
+@layer components {
+  /* Text stlyes */
+  .large {
+    @apply text-slate-700 text-[1rem] font-[600] leading-[1.75rem];
+  }
+}

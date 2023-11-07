@@ -39,6 +39,10 @@ module.exports = {
         primary: ["var(--font-inter)"],
         secondary: ["var(--font-ibm-plex-sans)"],
       },
+      boxShadow: {
+        "stat-card":
+          "-1px 2px 4px 0px rgba(0, 0, 0, 0.02), -4px 6px 8px 0px rgba(0, 0, 0, 0.02), -9px 15px 10px 0px rgba(0, 0, 0, 0.01), -17px 26px 12px 0px rgba(0, 0, 0, 0.00), -26px 40px 13px 0px rgba(0, 0, 0, 0.00)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
