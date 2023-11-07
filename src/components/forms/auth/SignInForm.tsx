@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const SignInForm = () => {
   const form = useForm<SignInValidation>({
@@ -63,9 +64,11 @@ const SignInForm = () => {
         </Button>
         <p className="text-[.8rem] text-center text-slate-700 leading-[1.25rem] mt-6">
           Don’t have an account?{" "}
-          <span className="font-[500] text-primary hover:underline cursor-pointer">
-            Create an account
-          </span>
+          <Link href="/auth/sign-up">
+            <span className="font-[500] text-primary hover:underline cursor-pointer">
+              Create an account
+            </span>
+          </Link>
         </p>
       </form>
     </Form>

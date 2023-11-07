@@ -2,10 +2,10 @@ import * as z from "zod";
 
 export const SignUpSchema = z
   .object({
-    firstName: z.string().nonempty(),
-    lastName: z.string().nonempty(),
+    firstName: z.string().min(1, "Enter first name"),
+    lastName: z.string().min(1, "Enter last name"),
     email: z.string().email(),
-    phone: z.string(),
+    // phone: z.string(),
     password: z
       .string()
       .min(8, { message: "Password should be minimum 8 characters" }),
