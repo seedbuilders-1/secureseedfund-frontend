@@ -1,9 +1,5 @@
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Dashboard | Start up",
-};
+import Dashboard from "@/screens/startup/Dashboard";
 
 export default function StartupDashboard() {
-  return <div>Startup dashboard</div>;
+  return <Dashboard />;
 }

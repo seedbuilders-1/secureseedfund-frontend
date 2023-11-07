@@ -1,11 +1,11 @@
 import * as z from "zod";
 
-export const RegisterSchema = z
+export const SignUpSchema = z
   .object({
-    firstName: z.string().nonempty(),
-    lastName: z.string().nonempty(),
+    firstName: z.string().min(1, "Enter first name"),
+    lastName: z.string().min(1, "Enter last name"),
     email: z.string().email(),
-    phone: z.string(),
+    // phone: z.string(),
     password: z
       .string()
       .min(8, { message: "Password should be minimum 8 characters" }),
@@ -16,11 +16,11 @@ export const RegisterSchema = z
     path: ["confirmPassword"],
   });
 
-export type RegisterValidation = z.infer<typeof RegisterSchema>;
+export type SignUpValidation = z.infer<typeof SignUpSchema>;
 
-export const LoginSchema = z.object({
+export const SignInSchema = z.object({
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(1, "Please enter a password"),
 });
 
-export type LoginValidation = z.infer<typeof LoginSchema>;
+export type SignInValidation = z.infer<typeof SignInSchema>;

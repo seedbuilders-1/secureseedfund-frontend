@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-primary text-slate-800;
+}
+
+@layer components {
+  /* Text stlyes */
+  .large {
+    @apply text-slate-700 text-[1rem] font-[600] leading-[1.75rem];
+  }
+
+  .h2 {
+    @apply text-[1.5rem] text-slate-800 font-[600];
+  }
+
+  .p-ui {
+    @apply text-[.9rem] text-slate-600;
+  }
+}

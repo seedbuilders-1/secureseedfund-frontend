@@ -1,9 +1,18 @@
-import * as React from "react";
-import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
+import type { Metadata } from "next";
+import { Inter, IBM_Plex_Sans as IBMPlexSans } from "next/font/google";
+import "@/styles/globals.css";
 
-export const metadata = {
-  title: "SecureSeedFund",
-  description: "Next.js App Router + Material UI v5",
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
+const ibmPlexSans = IBMPlexSans({
+  subsets: ["latin"],
+  variable: "--font-ibm-plex-sans",
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+
+export const metadata: Metadata = {
+  title: "Secure Seed Fund",
+  description: "Secure the Next Seed Fund for your startup",
 };
 
 export default function RootLayout({
@@ -13,8 +22,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+      <body className={`${inter.variable} ${ibmPlexSans.variable}`}>
+        {children}
       </body>
     </html>
   );

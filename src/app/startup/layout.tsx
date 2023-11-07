@@ -1,6 +1,6 @@
-import StartupLayout from "@/components/layouts/startup/StartupLayout";
+import DashboardLayout from "@/components/layouts/dashboard";
 import { ReactNode } from "react";
 
-export default function Startup({ children }: { children: ReactNode }) {
-  return <StartupLayout>{children}</StartupLayout>;
+export default function StartupLayout({ children }: { children: ReactNode }) {
+  return <DashboardLayout>{children}</DashboardLayout>;
 }
