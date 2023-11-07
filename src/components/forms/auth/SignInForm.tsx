@@ -14,14 +14,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SignInForm = () => {
+  const router = useRouter();
   const form = useForm<SignInValidation>({
     resolver: zodResolver(SignInSchema),
   });
 
   const onSubmit = (values: SignInValidation) => {
     console.log(values);
+    router.push("/home");
   };
 
   return (

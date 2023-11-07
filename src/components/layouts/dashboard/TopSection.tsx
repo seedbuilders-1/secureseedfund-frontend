@@ -1,11 +1,14 @@
 import Image from "next/image";
 import TopNavItem from "./TopNavItem";
-import { Bell, ChevronDown } from "lucide-react";
+import { Bell, ChevronDown, LogOut } from "lucide-react";
 import {
   DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import Link from "next/link";
 
 const TopSection = () => {
   return (
@@ -34,6 +37,14 @@ const TopSection = () => {
                 <ChevronDown size={16} />
               </div>
             </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-20">
+              <Link href="/">
+                <DropdownMenuItem>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </Link>
+            </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
