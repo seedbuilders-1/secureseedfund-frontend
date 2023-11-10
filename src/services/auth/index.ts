@@ -19,7 +19,7 @@ const auth = api.injectEndpoints({
     register: build.mutation<AuthResponseType, RegisterUserRequestType>({
       query: (payload) => {
         return {
-          url: "/auth/register",
+          url: "/auth/signup",
           method: "POST",
           body: payload,
         };

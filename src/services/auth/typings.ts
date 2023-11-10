@@ -7,10 +7,11 @@ export type LoginUserRequestType = {
 export type RegisterUserRequestType = {
   email: string;
   firstName: string;
+  lastName: string;
   otherName?: string;
-  phone: string;
+  phone?: string;
   password: string;
-  role?: "USER" | "ADMIN";
+  role?: "USER" | "ADMIN" | "STARTUP";
 };
 
 // RESPONSE PAYLOAD TYPES
