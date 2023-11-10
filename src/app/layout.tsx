@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans as IBMPlexSans } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
 import dynamic from "next/dynamic";
 import "@/styles/globals.css";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${ibmPlexSans.variable}`}>
         <DynamicReduxProvider>{children}</DynamicReduxProvider>
+        <Toaster />
       </body>
     </html>
   );

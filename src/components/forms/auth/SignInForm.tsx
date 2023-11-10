@@ -14,17 +14,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import useUserAuth from "@/hooks/auth/useAuth";
 
 const SignInForm = () => {
-  const router = useRouter();
   const form = useForm<SignInValidation>({
     resolver: zodResolver(SignInSchema),
   });
+  const { loginUser, loading } = useUserAuth();
 
   const onSubmit = (values: SignInValidation) => {
-    console.log(values);
-    router.push("/home");
+    const { email, password } = values;
+    loginUser({
+      email,
+      password,
+    });
   };
 
   return (
@@ -62,7 +65,7 @@ const SignInForm = () => {
             )}
           />
         </div>
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" loading={loading}>
           Sign in
         </Button>
         <p className="text-[.8rem] text-center text-slate-700 leading-[1.25rem] mt-6">
