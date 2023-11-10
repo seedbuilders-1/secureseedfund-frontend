@@ -1,6 +1,11 @@
 import AuthLayout from "@/components/layouts/auth";
+import NotAuthenticatedRoute from "@/components/route-helpers/NotAuthenticatedRoute";
 import { ReactNode } from "react";
 
 export default function Auth({ children }: { children: ReactNode }) {
-  return <AuthLayout>{children}</AuthLayout>;
+  return (
+    <NotAuthenticatedRoute>
+      <AuthLayout>{children}</AuthLayout>
+    </NotAuthenticatedRoute>
+  );
 }

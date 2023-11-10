@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans as IBMPlexSans } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
+import dynamic from "next/dynamic";
 import "@/styles/globals.css";
+
+const DynamicReduxProvider = dynamic(() => import("@/redux/ReduxProvider"), {
+  ssr: false,
+});
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -23,7 +29,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${ibmPlexSans.variable}`}>
-        {children}
+        <DynamicReduxProvider>{children}</DynamicReduxProvider>
+        <Toaster />
       </body>
     </html>
   );

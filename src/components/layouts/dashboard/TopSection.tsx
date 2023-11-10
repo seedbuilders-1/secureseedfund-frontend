@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import TopNavItem from "./TopNavItem";
 import { Bell, ChevronDown, LogOut } from "lucide-react";
@@ -8,9 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import Link from "next/link";
+import useUserAuth from "@/hooks/auth/useAuth";
 
 const TopSection = () => {
+  const { logoutUser } = useUserAuth();
   return (
     <header className="w-full h-[45vh] bg-primary-gradient px-8 pt-4">
       <div className="flex w-full items-center justify-between">
@@ -30,7 +32,7 @@ const TopSection = () => {
           <Bell />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 cursor-pointer">
                 <Avatar>
                   <AvatarFallback>VW</AvatarFallback>
                 </Avatar>
@@ -38,12 +40,13 @@ const TopSection = () => {
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-20">
-              <Link href="/">
-                <DropdownMenuItem>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Logout</span>
-                </DropdownMenuItem>
-              </Link>
+              <DropdownMenuItem
+                onClick={() => logoutUser()}
+                className="cursor-pointer"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Logout</span>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

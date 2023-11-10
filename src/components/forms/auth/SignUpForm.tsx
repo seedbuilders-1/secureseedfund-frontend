@@ -14,14 +14,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import useUserAuth from "@/hooks/auth/useAuth";
 
 const SignUpForm = () => {
+  const { loading, registerUser } = useUserAuth();
   const form = useForm<SignUpValidation>({
     resolver: zodResolver(SignUpSchema),
   });
 
   const onSubmit = (values: SignUpValidation) => {
-    console.log(values);
+    const { email, firstName, lastName, password } = values;
+    registerUser({
+      email,
+      firstName,
+      lastName,
+      password,
+      role: "STARTUP",
+    });
   };
 
   return (
@@ -102,7 +111,7 @@ const SignUpForm = () => {
             )}
           />
         </div>
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" loading={loading}>
           Create account
         </Button>
         <p className="text-[.8rem] text-center text-slate-700 leading-[1.25rem] mt-6">
