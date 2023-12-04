@@ -23,6 +23,7 @@ module.exports = {
         btn: "#1AA657",
         bar: "#1AA657",
         cardTitle: "#334155",
+        // primary: "#1AA657",
       },
       backgroundImage: {
         "primary-gradient":
