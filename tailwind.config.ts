@@ -18,6 +18,11 @@ module.exports = {
     extend: {
       colors: {
         primary: "#96357D",
+        span: "#F9A326",
+        brandText: "#CBD5E1",
+        btn: "#1AA657",
+        bar: "#1AA657",
+        cardTitle: "#334155",
       },
       backgroundImage: {
         "primary-gradient":
