@@ -1,23 +1,25 @@
 import React from "react";
 import Image from "next/image";
 
-const InvestCard = () => {
+interface InvestCardProps {
+  title: string;
+  detail: string;
+}
+
+const InvestCard: React.FC<InvestCardProps> = ({
+  title,
+  detail,
+}: InvestCardProps) => {
   return (
     <div className="mt-4">
-      <div className="flex justify-between items-center gap-6 bg-[#F1F5F9] mx-28 p-12 rounded-lg">
-        <div>
-          <p className="text-[#334155] text-5 font-bold">Invest Securely</p>
-          <p className="text-sm text-[#334155] w-7/12 text-justify">
-            Lorem ipsum dolor sit amet consectetur. Ullamcorper mauris a
-            fermentum sed orci enim tincidunt amet neque. Arcu nisl nullam id
-            sed lectus augue tortor. Quam dolor auctor ut fringilla magna amet
-            faucibus ut sed. Aliquet purus pretium gravida nunc vitae. Elit
-            pulvinar libero arcu amet. Magna cras in faucibus et at sed
-            placerat. Erat ultricies tincidunt vel lacinia libero maecenas
-            sagittis cursus. Cursus ac arcu facilisi amet.
+      <div className="flex bg-[#F1F5F9] mx-28 justify-between items-center p-12 rounded-lg">
+        <div className="w-9/12">
+          <p className="text-[#334155] text-2xl font-bold mb-4">{title}</p>
+          <p className="text-sm text-[#334155] text-justify leading-6">
+            {detail}
           </p>
         </div>
-        <div>
+        <div className="">
           <Image
             src="/assets/images/pitch-deck.png"
             alt=""

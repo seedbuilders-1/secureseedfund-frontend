@@ -3,36 +3,9 @@ import Link from "next/link";
 import InvestorCard from "@/components/cards/InvestorCard";
 import InvestCard from "@/components/cards/InvestCard";
 import SmallCard from "@/components/cards/SmallCard";
-import PackagesCard from "@/components/cards/PackagesCard";
 import CustomAccordion from "@/components/custom-shadcn/Accordion";
 import EnquiryCard from "@/components/cards/EnquiryCard";
-
-const data = [
-  {
-    title: "Equity",
-    details:
-      "You own a part of the company you invest in, depending on the investment contract",
-    background: "rgba(196, 203, 255, 0.30)",
-  },
-  {
-    title: "Partnership",
-    details:
-      "You own a part of the company you invest in, depending on the investment contract",
-    background: "rgba(0, 83, 39, 0.20)",
-  },
-  {
-    title: "Grant",
-    details:
-      "You own a part of the company you invest in, depending on the investment contract",
-    background: "rgba(249, 163, 38, 0.30)",
-  },
-  {
-    title: "Debt Financing",
-    details:
-      "You own a part of the company you invest in, depending on the investment contract",
-    background: "rgba(0, 83, 39, 0.20)",
-  },
-];
+import Image from "next/image";
 
 const accordionItems = [
   {
@@ -72,11 +45,6 @@ const Startups = () => {
     background: "#6434AA",
   };
 
-  const sectionStyle = {
-    background:
-      "linear-gradient(108deg, rgba(217, 243, 169, 0.80) 0%, rgba(217, 243, 169, 0.50) 98.77%)",
-  };
-
   return (
     <>
       <div className="relative">
@@ -114,97 +82,95 @@ const Startups = () => {
         </div>
       </div>
 
-      <div className="relative mt">
-        <p className="text-center text-4xl text-[#1E293B] mt-[450px]">
+      <div className="relative mt pb-20">
+        <p className="text-center font-medium text-4xl text-[#1E293B] mt-[450px] mb-6">
           Why SecureSeedFund?
         </p>
-        <InvestCard />
-        <div className="flex items-center">
+        <InvestCard
+          title="Raise Capital Quickly"
+          detail="Lorem ipsum dolor sit amet consectetur. Ullamcorper mauris a fermentum sed orci enim tincidunt amet neque. Arcu nisl nullam id sed lectus augue tortor. Quam dolor auctor ut fringilla magna amet faucibus ut sed. Aliquet purus pretium gravida nunc vitae. Elit pulvinar libero arcu amet. Magna cras in faucibus et at sed placerat. Erat ultricies tincidunt vel lacinia libero maecenas sagittis cursus. Cursus ac arcu facilisi amet."
+        />
+        <div className="flex gap-6 mx-28">
           <SmallCard
             title="Multiple Financing Options"
-            content="Lorem ipsum dolor sit amet consectetur. Ullamcorper mauris a fermentum sed orci enim tincidunt amet neque. Arcu nisl nullam id sed lectus augue tortor. Quam dolor auctor ut fringilla magna amet faucibus ut sed. Aliquet purus pretium gravida nunc vitae. Elit pulvinar libero arcu amet. "
+            content="Lorem ipsum dolor sit amet consectetur. Ullamcorper mauris a fermentum sed orci enim tincidunt amet neque. Arcu nisl nullam id sed lectus augue tortor. Quam dolor auctor ut fringilla magna amet faucibus ut sed. Aliquet purus pretium gravida nunc vitae. Elit pulvinar libero arcu amet."
           />
           <SmallCard
             title="Lower Risk"
-            content="Lorem ipsum dolor sit amet consectetur. Ullamcorper mauris a fermentum sed orci enim tincidunt amet neque. Arcu nisl nullam id sed lectus augue tortor. Quam dolor auctor ut fringilla magna amet faucibus ut sed. Aliquet purus pretium gravida nunc vitae. Elit pulvinar libero arcu amet. "
+            content="Lorem ipsum dolor sit amet consectetur. Ullamcorper mauris a fermentum sed orci enim tincidunt amet neque. Arcu nisl nullam id sed lectus augue tortor. Quam dolor auctor ut fringilla magna amet faucibus ut sed. Aliquet purus pretium gravida nunc vitae. Elit pulvinar libero arcu amet."
           />
         </div>
       </div>
 
-      <div className="mt-8 p-12" style={sectionStyle}>
-        <p className="text-[#1E293B] text-4xl font-medium text-center mb-6">
-          Ways you can earn a return on your investment
-        </p>
-        <p className="text-center mb-6">
-          As an investor, you decide how to invest in the company.{" "}
-        </p>
-        <p className="text-[#1AA657] text-xl underline text-center mb-6">
-          Explore Companies
-        </p>
-
-        <div className="flex items-center gap-8 mt-16">
-          {data.map((list, index) => (
-            <div key={index}>
-              <PackagesCard
-                title={list.title}
-                details={list.details}
-                backgroundColor={list.background}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="w-full bg-sessionBg py-12">
+      <div className="w-full bg-secondaryblue py-12">
         <div className="mx-24 pt-12 mb-12">
-          <p className="text-center text-3xl mb-20 font-secondary">
-            See how it works
+          <p className="text-center text-3xl mb-20 font-secondary text-white">
+            Your company is much closer to investments more
+            <br /> than you think
           </p>
           <div className="flex items-center gap-6">
-            <div>
-              <div className="bg-[#D9F3A9] rounded-full w-8 h-8 flex items-center justify-center mb-4">
-                <p className="text-[#64748B] text-sm font-bold">1</p>
+            <div className="flex-1">
+              <div className="bg-purple rounded-full w-8 h-8 flex items-center justify-center mb-4">
+                <p className="text-white text-sm font-bold">1</p>
               </div>
-              <p className="font-medium text-xl font-secondary mb-6">
-                Explore Inspiring Companies
+              <p className="font-medium text-xl font-secondary mb-4 text-white">
+                Create an account
               </p>
-              <p className="text-normal font-primary">
-                We have carefully selected companies that are credible and whose
-                products aim to inspire real change in the world
+              <p className="text-sm font-primary text-brandText text-justify leading-6">
+                It's seamless to set up an account and upload necessary company
+                data. Then, we approve if everything checks out.
               </p>
             </div>
-            <div>
-              <div className="bg-[#C4CBFF] rounded-full w-8 h-8 flex items-center justify-center mb-4">
-                <p className="text-[#64748B] text-sm font-bold">2</p>
+
+            <div className="flex-1 flex justify-center">
+              <Image
+                src="/assets/images/arrow-1.png"
+                alt=""
+                width={41}
+                height={1}
+              />
+            </div>
+
+            <div className="flex-1">
+              <div className="bg-secondarygreen rounded-full w-8 h-8 flex items-center justify-center mb-4">
+                <p className="text-white text-sm font-bold">2</p>
               </div>
-              <p className="font-medium text-xl font-secondary mb-6">
-                Explore Inspiring Companies
+              <p className="font-medium text-xl font-secondary mb-4 text-white">
+                Setup a funding campaign
               </p>
-              <p className="text-normal font-primary">
-                We have carefully selected companies that are credible and whose
-                products aim to inspire real change in the world
+              <p className="text-sm font-primary text-white text-justify leading-6">
+                Create a funding campaign to convince investors on the purpose
+                of fund raising. Make sure to make things comprehensive.
               </p>
             </div>
-            <div>
-              <div className="bg-[#C4CBFF] rounded-full w-8 h-8 flex items-center justify-center mb-4">
-                <p className="text-[rgba(249, 163, 38, 0.40)] text-sm font-bold">
-                  3
-                </p>
+
+            <div className="flex-1 flex justify-center">
+              <Image
+                src="/assets/images/arrow-1.png"
+                alt=""
+                width={41}
+                height={1}
+              />
+            </div>
+
+            <div className="flex-1">
+              <div className="bg-brown rounded-full w-8 h-8 flex items-center justify-center mb-4">
+                <p className="text-white text-sm font-bold">3</p>
               </div>
-              <p className="font-medium text-xl font-secondary mb-6">
-                Explore Inspiring Companies
+              <p className="font-medium text-xl font-secondary mb-4 text-white">
+                Go live
               </p>
-              <p className="text-normal w-auto font-primary">
-                We have carefully selected companies that are credible and whose
-                products aim to inspire real change in the world
+              <p className="text-sm font-primary text-white text-justify leading-6">
+                Once everything checks out, go live, our team will review and if
+                it all looks good, your campaign will be live to investors.
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center mt-12">
-        <p className="text-[#101828] text-4xl font-bold text-center leading-10 font-primary mb-4">
+      <div className="flex flex-col justify-center items-center mt-28">
+        <p className="text-[#101828] text-3xl font-bold text-center leading-10 font-primary mb-4">
           Frequently asked questions
         </p>
         <p className="text-[#667085] text-base text-center mb-16">
