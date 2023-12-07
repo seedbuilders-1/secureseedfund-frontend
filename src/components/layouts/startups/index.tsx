@@ -32,10 +32,10 @@ const StartupsLayout = ({ children }: { children: ReactNode }) => {
           />
 
           <div className="flex items-center gap-8">
-            <Link href="/landing" legacyBehavior>
+            <Link href="/" legacyBehavior>
               <a
                 className={`text-sm ${
-                  isActive("/landing")
+                  isActive("/")
                     ? "bg-[#ffffff4d] text-white border border-[#CBD5E1] rounded-sm p-2.5"
                     : "text-white"
                 }`}
