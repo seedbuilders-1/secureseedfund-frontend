@@ -31,6 +31,12 @@ module.exports = {
         slatecolor: "#0F172A",
         grey: "#64748B",
         black: "#475569",
+        secondaryblue: "#241A3F",
+        purple: "#6434AA",
+        secondarygreen: "#005327",
+        brown: "rgba(249, 163, 38, 0.40)",
+        arrowcolor: "#F1F5F9",
+        graycolor: "#667085",
       },
       backgroundImage: {
         "primary-gradient":

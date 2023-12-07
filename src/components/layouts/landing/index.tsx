@@ -35,10 +35,10 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
           </div>
 
           <div className="hidden md:flex items-center gap-12">
-            <Link href="/landing" legacyBehavior>
+            <Link href="/" legacyBehavior>
               <a
                 className={`text-sm ${
-                  isActive("/landing")
+                  isActive("/")
                     ? "bg-[#ffffff4d] text-white border border-[#CBD5E1] rounded-sm p-2.5"
                     : "text-white"
                 }`}

@@ -122,7 +122,10 @@ const Landing = () => {
         <p className="text-center text-4xl text-[#1E293B] mt-[500px]">
           Why SecureSeedFund?
         </p>
-        <InvestCard />
+        <InvestCard
+          title="Invest Securely"
+          detail="Lorem ipsum dolor sit amet consectetur. Ullamcorper mauris a fermentum sed orci enim tincidunt amet neque. Arcu nisl nullam id sed lectus augue tortor. Quam dolor auctor ut fringilla magna amet faucibus ut sed. Aliquet purus pretium gravida nunc vitae. Elit pulvinar libero arcu amet. Magna cras in faucibus et at sed placerat. Erat ultricies tincidunt vel lacinia libero maecenas sagittis cursus. Cursus ac arcu facilisi amet."
+        />
         <div className="flex items-center">
           <SmallCard
             title="Multiple Financing Options"
