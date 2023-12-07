@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import LandingPage from "@/components/cards/LandingPageCard";
+import InvestorCard from "@/components/cards/InvestorCard";
 import InvestCard from "@/components/cards/InvestCard";
 import SmallCard from "@/components/cards/SmallCard";
 import PackagesCard from "@/components/cards/PackagesCard";
@@ -67,10 +67,9 @@ const accordionItems = [
   },
 ];
 
-const Landing = () => {
+const Startups = () => {
   const gradientStyle = {
-    background:
-      "linear-gradient(255deg, #140A2D 1.28%, #241A3F 100%), linear-gradient(105deg, #140A2D 2.53%, #241A3F 100.75%)",
+    background: "#6434AA",
   };
 
   const sectionStyle = {
@@ -81,16 +80,13 @@ const Landing = () => {
   return (
     <>
       <div className="relative">
-        <div
-          className="h-[400px] relative w-full px-10 mx-auto"
-          style={gradientStyle}
-        >
+        <div className="h-[400px] relative" style={gradientStyle}>
           <div className="flex flex-col items-center">
             <p className="text-white text-4xl font-medium leading-[50px]">
-              Securely Invest
+              Raise Funding
             </p>
             <p className="text-white text-4xl font-medium leading-[50px]">
-              In <span className="text-span">Inspiring Startups</span>
+              From <span className="text-span">Willing Investors</span>
             </p>
             <p className="text-brandText text-lg font-normal text-center">
               Nurture Innovation, Invest Confidently and secure equity the next
@@ -99,10 +95,10 @@ const Landing = () => {
             </p>
             <div className="mt-4 flex items-center gap-8">
               <button className="border-solid text-brandText border border-brandText py-3 px-4 rounded-sm">
-                Explore Companies
+                Get a Confounder
               </button>
               <button className="border-none bg-[#1AA657] text-brandText py-3 px-4 rounded-sm">
-                Start Investing
+                Raise Funds
               </button>
             </div>
           </div>
@@ -113,13 +109,13 @@ const Landing = () => {
             </Link>
           </div>
           <div className="absolute top-[350px] left-1/2 transform -translate-x-1/2">
-            <LandingPage />
+            <InvestorCard />
           </div>
         </div>
       </div>
 
       <div className="relative mt">
-        <p className="text-center text-4xl text-[#1E293B] mt-[500px]">
+        <p className="text-center text-4xl text-[#1E293B] mt-[450px]">
           Why SecureSeedFund?
         </p>
         <InvestCard />
@@ -230,4 +226,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Startups;

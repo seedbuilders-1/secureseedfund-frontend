@@ -5,7 +5,7 @@ import { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import Footer from "@/components/footer/Footer";
 
-const LandingLayout = ({ children }: { children: ReactNode }) => {
+const StartupsLayout = ({ children }: { children: ReactNode }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -13,8 +13,7 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const gradientStyle = {
-    background:
-      "linear-gradient(255deg, #140A2D 1.28%, #241A3F 100%), linear-gradient(105deg, #140A2D 2.53%, #241A3F 100.75%)",
+    background: "#6434AA",
   };
 
   const isActive = (pathname: string) =>
@@ -24,17 +23,15 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
     <>
       <div className="flex flex-col w-full px-10 mx-auto" style={gradientStyle}>
         <header className="flex items-center justify-between py-4">
-          <div>
-            <Image
-              src="/assets/icons/seedbuilder-logo.svg"
-              alt="logo"
-              width={47}
-              height={47}
-              className="object-contain h-11 w-11"
-            />
-          </div>
+          <Image
+            src="/assets/icons/seedbuilder-logo.svg"
+            alt="logo"
+            width={47}
+            height={47}
+            className="object-contain h-11 w-11"
+          />
 
-          <div className="hidden md:flex items-center gap-12">
+          <div className="flex items-center gap-8">
             <Link href="/landing" legacyBehavior>
               <a
                 className={`text-sm ${
@@ -81,9 +78,9 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="flex items-center gap-8">
             <p className="text-white text-sm">Login</p>
-            <button className="text-white text-sm bg-[#1AA657] py-2 px-4 rounded-md">
+            <button className="text-white text-sm bg-[#1AA657] py-2 px-4 rounded-md border-none">
               Create Account
             </button>
           </div>
@@ -95,4 +92,4 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default LandingLayout;
+export default StartupsLayout;
