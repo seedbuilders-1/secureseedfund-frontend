@@ -17,7 +17,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: "#96357D",
+        primary: "#544A2E",
         span: "#F9A326",
         brandText: "#CBD5E1",
         btn: "#1AA657",
