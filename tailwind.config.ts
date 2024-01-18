@@ -17,7 +17,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: "#96357D",
+        primary: "#544A2E",
         span: "#F9A326",
         brandText: "#CBD5E1",
         btn: "#1AA657",
@@ -37,6 +37,8 @@ module.exports = {
         brown: "rgba(249, 163, 38, 0.40)",
         arrowcolor: "#F1F5F9",
         graycolor: "#667085",
+        dark: "#001D21",
+        light: "#8A8F90",
       },
       backgroundImage: {
         "primary-gradient":
@@ -57,7 +59,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        primary: ["var(--font-inter)"],
+        primary: ["var(--font-neue-haas)"],
         secondary: ["var(--font-ibm-plex-sans)"],
       },
       boxShadow: {

@@ -14,6 +14,8 @@ const tabsTriggerVariants = cva(
         default:
           "rounded-sm data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm",
         line: "bg-transparent text-white data-[state=active]:border-b data-[state=active]:border-white w-fit",
+        retro:
+          "rounded-full h-12 data-[state=active]:bg-primary data-[state=active]:text-white text-[#8A8F90] font-[400] px-6",
       },
     },
     defaultVariants: {
@@ -31,7 +33,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "inline-flex h-10 items-center justify-center rounded-md bg-slate-100 p-1 text-slate-500 dark:bg-slate-800 dark:text-slate-400",
+      "inline-flex h-10 items-center justify-center rounded-md bg-slate-100 p-1 text-slate-500",
       className
     )}
     {...props}
