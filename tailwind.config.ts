@@ -57,7 +57,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        primary: ["var(--font-inter)"],
+        primary: ["var(--font-neue-haas)"],
         secondary: ["var(--font-ibm-plex-sans)"],
       },
       boxShadow: {

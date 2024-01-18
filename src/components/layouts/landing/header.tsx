@@ -10,8 +10,8 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="w-full bg-[#F7F8F6] fixed left-0 top-0 z-10">
-      <nav className="flex w-full items-center justify-between px-5 py-5">
+    <header className="w-full bg-[#F7F8F6] fixed left-0 top-0 z-10 h-[10vh] flex items-center">
+      <nav className="flex w-full items-center justify-between px-5">
         <NavigationMenu>
           <NavigationMenuList>
             {/* Home */}

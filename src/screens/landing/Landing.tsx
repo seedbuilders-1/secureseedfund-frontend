@@ -1,7 +1,12 @@
-import React from "react";
+import HeroSection from "@/components/sections/landing/HeroSection";
+import React, { Fragment } from "react";
 
 const Landing = () => {
-  return <></>;
+  return (
+    <Fragment>
+      <HeroSection />
+    </Fragment>
+  );
 };
 
 export default Landing;
