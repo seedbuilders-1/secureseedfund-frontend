@@ -37,6 +37,8 @@ module.exports = {
         brown: "rgba(249, 163, 38, 0.40)",
         arrowcolor: "#F1F5F9",
         graycolor: "#667085",
+        dark: "#001D21",
+        light: "#8A8F90",
       },
       backgroundImage: {
         "primary-gradient":
