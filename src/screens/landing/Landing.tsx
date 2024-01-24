@@ -1,3 +1,4 @@
+import FAQSection from "@/components/sections/landing/FAQSection";
 import HeroSection from "@/components/sections/landing/HeroSection";
 import HowToInvest from "@/components/sections/landing/HowToInvest";
 import InvestSecurely from "@/components/sections/landing/InvestSecurely";
@@ -13,6 +14,7 @@ const Landing = () => {
       <HowToInvest />
       <WhySecureSeedFund />
       <NewToInvesting />
+      <FAQSection />
     </Fragment>
   );
 };
