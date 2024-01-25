@@ -62,8 +62,12 @@ const Header = () => {
         </NavigationMenu>
 
         <div className="flex items-center space-x-2">
-          <Button variant="outline">Login</Button>
-          <Button>Create Account</Button>
+          <Link href="/auth/sign-in">
+            <Button variant="outline">Login</Button>
+          </Link>
+          <Link href="/auth/sign-up">
+            <Button>Create Account</Button>
+          </Link>
         </div>
       </nav>
     </header>
