@@ -23,7 +23,7 @@ module.exports = {
         btn: "#1AA657",
         bar: "#1AA657",
         cardTitle: "#334155",
-        // primary: "#1AA657",
+        primaryMain: "#1AA657",
         sessionBg: "#F8FAFC",
         secondaryGreen: "#1AA657",
         footercolor: "#F8FAFC",
