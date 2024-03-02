@@ -2,12 +2,14 @@
 import { ReactNode } from "react";
 // import Footer from "@/components/footer/Footer";
 import Header from "./header";
+import Footer from "./footer";
 
 const LandingLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="min-w-screen min-h-screen flex flex-col bg-[#F7F8F6]">
+    <div className="flex min-h-screen flex-col">
       <Header />
       <main className="w-full mt-[10vh]">{children}</main>
+      <Footer />
     </div>
   );
 };

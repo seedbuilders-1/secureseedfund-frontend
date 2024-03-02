@@ -71,7 +71,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${ibmPlexSans.variable} ${neueHaas.variable}`}
+        className={`${inter.variable} ${ibmPlexSans.variable} ${neueHaas.variable} bg-[#F7F8F6]`}
       >
         <DynamicReduxProvider>{children}</DynamicReduxProvider>
         <Toaster />
