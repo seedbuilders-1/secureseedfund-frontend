@@ -33,7 +33,7 @@ const SignInForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="mb-6 flex flex-col space-y-6">
+        <div className="mb-3 flex flex-col space-y-6">
           <FormField
             control={form.control}
             name="email"
@@ -65,13 +65,13 @@ const SignInForm = () => {
             )}
           />
         </div>
-        <Button type="submit" className="w-full" loading={loading}>
+        <Button type="submit" className="w-full rounded-md" loading={loading}>
           Sign in
         </Button>
         <p className="text-[.8rem] text-center text-slate-700 leading-[1.25rem] mt-6">
           Don’t have an account?{" "}
           <Link href="/auth/sign-up">
-            <span className="font-[500] text-primary hover:underline cursor-pointer">
+            <span className="font-[500] text-primaryMain hover:underline cursor-pointer">
               Create an account
             </span>
           </Link>

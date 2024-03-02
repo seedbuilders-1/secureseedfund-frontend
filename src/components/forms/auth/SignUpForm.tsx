@@ -36,7 +36,7 @@ const SignUpForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="mb-6 grid grid-cols-2 gap-x-2 gap-y-4">
+        <div className="mb-3 grid grid-cols-2 gap-x-2 gap-y-4">
           <FormField
             control={form.control}
             name="firstName"
@@ -111,13 +111,13 @@ const SignUpForm = () => {
             )}
           />
         </div>
-        <Button type="submit" className="w-full" loading={loading}>
+        <Button type="submit" className="w-full rounded-md" loading={loading}>
           Create account
         </Button>
         <p className="text-[.8rem] text-center text-slate-700 leading-[1.25rem] mt-6">
           Already have an account?{" "}
           <Link href="/auth/sign-in">
-            <span className="font-[500] text-primary hover:underline cursor-pointer">
+            <span className="font-[500] text-primaryMain hover:underline cursor-pointer">
               Sign in
             </span>
           </Link>
