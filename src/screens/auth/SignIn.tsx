@@ -1,13 +1,11 @@
 import SignInForm from "@/components/forms/auth/SignInForm";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 
 const SignIn = () => {
   return (
     <div className="flex flex-col h-full items-center justify-center w-full space-y-10 mt-8">
-
       <div>
         <h1 className="h2 text-center">Signin to account</h1>
         <p className="p-ui text-center">Provide your credentials to signin</p>

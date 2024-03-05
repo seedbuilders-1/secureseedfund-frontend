@@ -1,7 +1,6 @@
 import SignUpForm from "@/components/forms/auth/SignUpForm";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 
 const SignUp = () => {
