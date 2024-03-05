@@ -1,19 +1,11 @@
 import SignUpForm from "@/components/forms/auth/SignUpForm";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 
 const SignUp = () => {
   return (
-    <div className="flex flex-col h-full items-center justify-center w-full space-y-10">
-      <Image
-        src="/assets/icons/logo_variant_1.svg"
-        alt="logo"
-        width={50}
-        height={50}
-      />
-
+    <div className="flex flex-col h-full items-center justify-center w-full mt-6">
       <div>
         <h1 className="h2 text-center">Create an account</h1>
         <p className="p-ui text-center">
@@ -33,7 +25,7 @@ const SignUp = () => {
         </div>
       </div>
 
-      <div className="w-full flex items-center justify-center">
+      <div className="w-full flex items-center justify-center my-3">
         <Separator className="w-[45%]" />
         <span className="text-[1rem] text-slate-400 w-[10%] text-center">
           or
