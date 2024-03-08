@@ -8,13 +8,72 @@ import {
   SelectContent,
   SelectTrigger,
 } from "../ui/select";
-// import { IoMdArrowDropdown } from "react-icons/io";
 import UploadFile from "../cards/UploadFile";
 import { Button } from "../ui/button";
 import useOnboarding from "@/hooks/onboarding/useOnboarding";
+import { FileWithPath } from "react-dropzone";
+import { EntityInformationValidation } from "@/lib/validations/onboarding";
+import useUserAuth from "@/hooks/auth/useAuth";
+import { useToast } from "@/components/ui/use-toast";
 
-const Uploadidentity = () => {
-  const { handleNext } = useOnboarding();
+interface Props {
+  documentType: string;
+  handleDocumentType: (x: string) => void;
+  documentUrl: FileWithPath | null;
+  setDocumentUrl: (x: FileWithPath | null) => void;
+  logoUrl: FileWithPath | null;
+  entityInformationValues: EntityInformationValidation;
+  selectInvestorType: string;
+}
+const Uploadidentity = ({
+  documentType,
+  handleDocumentType,
+  selectInvestorType,
+  documentUrl,
+  logoUrl,
+  setDocumentUrl,
+  entityInformationValues,
+}: Props) => {
+  const { investorOnboarding, isSuccess, handleNext } = useOnboarding();
+  const { toast } = useToast();
+  const { user } = useUserAuth();
+  const onInvestorOnboarding = () => {
+    const { dateofbirth, phonenumber, address, city, postalcode, companyname } =
+      entityInformationValues;
+    if (!documentType) {
+      return toast({
+        variant: "destructive",
+        title: "double check.",
+        description: "Add what type of document you  have",
+      });
+    }
+    if (!documentUrl) {
+      return toast({
+        variant: "destructive",
+        title: "double check.",
+        description: "Add evidence of company registration",
+      });
+    }
+    investorOnboarding({
+      investorType:
+        selectInvestorType === "individaul" ? "INDIVIDUAL" : "INVESTOR",
+      phone: phonenumber,
+      countryId: 1,
+      dob: dateofbirth,
+      address,
+      city,
+      postalCode: postalcode,
+      logoUrl: logoUrl ? JSON.stringify(logoUrl) : "",
+      companyName: companyname,
+      documentType: documentType,
+      documentUrl: documentUrl ? JSON.stringify(documentUrl) : "",
+      userId: user?.userId || "",
+    });
+    if (isSuccess) {
+      handleNext();
+    }
+  };
+
   return (
     <>
       <div className="">
@@ -29,14 +88,19 @@ const Uploadidentity = () => {
               What document do you have
             </p>
             <div>
-              <Select>
+              <Select
+                onValueChange={handleDocumentType}
+                defaultValue={documentType}
+              >
                 <SelectTrigger className="w-full mt-2 text-slate-900 border border-slate-300  h-[44px]">
                   <SelectValue defaultValue="1"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="1">International Passport</SelectItem>
-                    <SelectItem value="2">CAC</SelectItem>
+                    <SelectItem value="InternationalPassport">
+                      International passport
+                    </SelectItem>
+                    <SelectItem value="CAC">CAC</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -46,10 +110,10 @@ const Uploadidentity = () => {
             <p className="text-slate-700 text-[15px] mb-3">
               Upload Evidence of Company registration
             </p>
-            <UploadFile />
+            <UploadFile file={documentUrl} setFile={setDocumentUrl} />
           </div>
           <Button
-            onClick={() => handleNext()}
+            onClick={() => onInvestorOnboarding()}
             className="w-full rounded-md h-[40px] mt-8"
           >
             Next

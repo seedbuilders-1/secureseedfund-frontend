@@ -2,8 +2,10 @@
 import React from "react";
 import { Button } from "../ui/button";
 import Checkicon from "@/assets/icons/Checkicon";
+import { useRouter } from "next/navigation";
 
 const Successpage = () => {
+  const router = useRouter();
   return (
     <>
       <div className="w-full h-full">
@@ -26,6 +28,7 @@ const Successpage = () => {
           <Button
             type="submit"
             className="w-[30%] rounded-md mx-auto h-[40px] mt-8"
+            onClick={() => router.push("/home")}
           >
             Go to Dashboard
           </Button>

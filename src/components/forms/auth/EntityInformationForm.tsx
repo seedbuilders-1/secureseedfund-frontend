@@ -14,28 +14,49 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import useOnboarding from "@/hooks/onboarding/useOnboarding";
-
+import { getCountries } from "country-state-picker";
+import { FileWithPath } from "react-dropzone";
+import useUserAuth from "@/hooks/auth/useAuth";
 interface Props {
   selectedOption: string;
+  handleEntityInformation: (x: EntityInformationValidation) => void;
+  logo: FileWithPath | null;
+}
+interface ApiCountry {
+  code: string;
+  name: string;
 }
 
-const EntityInformationForm = ({ selectedOption }: Props) => {
+const EntityInformationForm = ({
+  selectedOption,
+  handleEntityInformation,
+  logo,
+}: Props) => {
   const form = useForm<EntityInformationValidation>({
     resolver: zodResolver(EntityInformationSchema),
   });
-  const { handleNext, steps } = useOnboarding();
-  console.log(steps);
+  const { user } = useUserAuth();
+  const { handleNext } = useOnboarding();
+
   const onSubmit = (values: EntityInformationValidation) => {
-    // registerUser({
-    //     email,
-    //     firstName,
-    //     lastName,
-    //     password,
-    //     role: "STARTUP",
-    // });
+    handleEntityInformation(values);
+
+    if (Object.keys(form.formState.errors).length === 0) {
+      handleNext();
+    }
   };
+  console;
+
+  const countries: ApiCountry[] = getCountries();
 
   return (
     <Form {...form}>
@@ -57,32 +78,18 @@ const EntityInformationForm = ({ selectedOption }: Props) => {
             />
           ) : (
             <>
-              <FormField
-                control={form.control}
-                name="firstname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-[15px]">First Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Ex. Jane" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Last Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Ex. Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <FormItem>
+                <FormLabel className="text-[15px]">First Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Ex. Jane" value={user?.firstName} />
+                </FormControl>
+              </FormItem>
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Ex. Doe" value={user?.lastName} />
+                </FormControl>
+              </FormItem>
             </>
           )}
           <FormField
@@ -116,9 +123,39 @@ const EntityInformationForm = ({ selectedOption }: Props) => {
             name="country"
             render={({ field }) => (
               <FormItem className="col-span-2">
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel>Country</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="w-full mt-2 text-slate-900 border border-slate-300  h-[44px]">
+                      <SelectValue placeholder="Select a country" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent
+                    className="overflow-auto   h-48 pb-4"
+                    style={{ scrollBehavior: "smooth" }}
+                  >
+                    {countries?.map((country) => (
+                      <SelectItem key={country.code} value={country.code}>
+                        {country.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="address"
+            render={({ field }) => (
+              <FormItem className="col-span-2">
+                <FormLabel>Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="Select country" {...field} />
+                  <Input placeholder="Enter address" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -152,7 +189,8 @@ const EntityInformationForm = ({ selectedOption }: Props) => {
           />
         </div>
         <Button
-          onClick={() => handleNext()}
+          type="submit"
+          // onClick={() => handleNext()}
           className="w-full rounded-md h-[40px] mt-3"
         >
           Next

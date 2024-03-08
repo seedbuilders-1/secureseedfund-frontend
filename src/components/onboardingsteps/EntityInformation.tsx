@@ -1,22 +1,27 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { CiCircleCheck } from "react-icons/ci";
-import { FaPlusCircle } from "react-icons/fa";
 import { IoIosRadioButtonOff } from "react-icons/io";
-import { Button } from "../ui/button";
 import EntityInformationForm from "../forms/auth/EntityInformationForm";
+import { EntityInformationValidation } from "@/lib/validations/onboarding";
+import UploadLogo from "../cards/UploadLogo";
+import { FileWithPath } from "react-dropzone";
+interface Props {
+  selectedValue: string;
+  setSelectedValue: (x: string) => void;
+  handleChange: (x: string) => void;
+  handleEntityInformation: (x: EntityInformationValidation) => void;
+  file: FileWithPath | null;
+  setFile: (x: FileWithPath | null) => void;
+}
 
-const EntityInformation = () => {
-  const [selectedValue, setSelectedValue] = useState("");
-  const handleChange = (value: string) => {
-    setSelectedValue(value);
-  };
-
-  useEffect(() => {
-    setSelectedValue("individual");
-  }, []);
-
+const EntityInformation = ({
+  selectedValue,
+  handleChange,
+  handleEntityInformation,
+  file,
+  setFile,
+}: Props) => {
   return (
     <div>
       <h2 className="text-primaryMain mt-4">Need help?</h2>
@@ -91,23 +96,15 @@ const EntityInformation = () => {
         </div>
         <div>
           {selectedValue === "institutional" && (
-            <div className="space-y-4 mt-4 flex gap-4">
-              <div className="border border-slate-300 rounded-full w-[60px] h-[60px] flex justify-center items-center">
-                <FaPlusCircle className="text-primaryMain w-[11px]" />
-              </div>
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-primaryMain text-primaryMain"
-              >
-                {" "}
-                Upload Logo
-              </Button>
-            </div>
+            <UploadLogo file={file} setFile={setFile} />
           )}
         </div>
         <div className="mt-8">
-          <EntityInformationForm selectedOption={selectedValue} />
+          <EntityInformationForm
+            selectedOption={selectedValue}
+            handleEntityInformation={handleEntityInformation}
+            logo={file}
+          />
         </div>
       </div>
     </div>
