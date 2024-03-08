@@ -1,28 +1,30 @@
-import React, { useState } from "react";
 import Dropzone, { FileWithPath } from "react-dropzone";
 import { MdOutlineFileUpload } from "react-icons/md";
 import Image from "next/image";
+import { FaFilePdf } from "react-icons/fa";
 
-const UploadFile = () => {
-  const [file, setFile] = useState<FileWithPath | null>(null);
-
+interface Props {
+  file: FileWithPath | null;
+  setFile: (x: FileWithPath | null) => void;
+}
+const UploadFile = ({ file, setFile }: Props) => {
   const handleUpload = (acceptedFiles: FileWithPath[]) => {
     console.log("logging drop/selected file", acceptedFiles);
+    const uploadedFile = acceptedFiles[0];
+    // Assuming you only accept one file
+    setFile(uploadedFile);
+
     // fake request to upload file
     const url = "https://api.escuelajs.co/api/v1/files/upload";
     const formData = new FormData();
-    formData.append("file", acceptedFiles[0]); // Assuming you only accept one file
+    formData.append("file", uploadedFile);
 
     fetch(url, {
       method: "POST",
       body: formData,
     })
       .then((response) => {
-        if (response.ok) {
-          // File uploaded successfully
-          setFile(acceptedFiles[0]);
-        } else {
-          // File upload failed
+        if (!response.ok) {
           console.error(response);
         }
       })
@@ -55,7 +57,11 @@ const UploadFile = () => {
             >
               <input {...getInputProps()} />
               <div className="flex justify-center items-center">
-                <MdOutlineFileUpload />
+                {file && file.type === "application/pdf" ? (
+                  <FaFilePdf size={50} />
+                ) : (
+                  <MdOutlineFileUpload />
+                )}
               </div>
               <p className="text-slate-500 text-[14px]">
                 Drag & Drop or{" "}
@@ -66,13 +72,19 @@ const UploadFile = () => {
         }}
       </Dropzone>
       {file && (
-        <>
-          <Image
-            src={URL.createObjectURL(file)}
-            className="img-container"
-            alt="Uploaded file"
-          />
-        </>
+        <div className="mt-4">
+          {file.type === "application/pdf" ? (
+            <iframe src={URL.createObjectURL(file)} width="100%" height="500" />
+          ) : (
+            <Image
+              src={URL.createObjectURL(file)}
+              className="img-container"
+              alt="Uploaded file"
+              width={80}
+              height={80}
+            />
+          )}
+        </div>
       )}
     </div>
   );

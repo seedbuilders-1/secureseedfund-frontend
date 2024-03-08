@@ -1,11 +1,11 @@
 import OnboardLayout from "@/components/layouts/onboarding";
-import NotAuthenticatedRoute from "@/components/route-helpers/NotAuthenticatedRoute";
+import PrivateRoute from "@/components/route-helpers/PrivateRoute";
 import { ReactNode } from "react";
 
 export default function Onboarding({ children }: { children: ReactNode }) {
   return (
-    <NotAuthenticatedRoute>
+    <PrivateRoute>
       <OnboardLayout>{children}</OnboardLayout>
-    </NotAuthenticatedRoute>
+    </PrivateRoute>
   );
 }

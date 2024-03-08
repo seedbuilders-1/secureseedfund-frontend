@@ -17,7 +17,6 @@ interface Question {
 }
 
 const InvestmentQuestioniare = () => {
-  const { handleNext } = useOnboarding();
   const ListOfQuestioniare: Question[] = [
     {
       id: "1",
@@ -86,25 +85,69 @@ const InvestmentQuestioniare = () => {
   const [questionaire, setQuestioniare] = useState<{ [key: string]: string }>(
     {}
   );
+  const [checkboxState, setCheckboxState] = useState<{
+    [key: string]: boolean;
+  }>({});
   useEffect(() => {
     const defaultQuestionaire: { [key: string]: string } = {};
+    const defaultCheckboxState: { [key: string]: boolean } = {};
     ListOfQuestioniare.forEach((question) => {
       const defaultOption = question.options.find(
         (option) => option.defaultSelected
       );
       if (defaultOption) {
         defaultQuestionaire[question.id] = defaultOption.label;
+        if (question.id === "5") {
+          question.options.forEach((option) => {
+            defaultCheckboxState[option.label] = !!option.defaultSelected;
+          });
+        }
       }
     });
     setQuestioniare(defaultQuestionaire);
+    setCheckboxState(defaultCheckboxState);
   }, []);
 
-  console.log(questionaire);
   const handleChange = (questionId: string, value: string) => {
     setQuestioniare((prevQuestioniare) => ({
       ...prevQuestioniare,
-      [questionId]: value,
+      [questionId]: prevQuestioniare[questionId] === value ? "" : value,
     }));
+  };
+  const handleCheckboxChange = (questionId: string, optionLabel: string) => {
+    setCheckboxState((prevState) => ({
+      ...prevState,
+      [optionLabel]: !prevState[optionLabel],
+    }));
+  };
+
+  const {
+    handleNext,
+    AddInvestorQuestioniare,
+    isLoadingQuestioniare,
+    hasAddedQuestioniare,
+    individualInvestor,
+  } = useOnboarding();
+  const selectedSectors = Object.keys(checkboxState).filter(
+    (label) => checkboxState[label]
+  );
+
+  const investorId = individualInvestor?.items.find((item) => item.id)?.id;
+  const onAddInvestorQuestioniare = () => {
+    AddInvestorQuestioniare({
+      investorId: investorId || "",
+      payload: {
+        investmentExperience: questionaire[1],
+        investmentDuration: questionaire[2],
+        investmentGoal: questionaire[3],
+        investmentType: questionaire[4],
+        sectorsOfInterest: selectedSectors,
+        liquidityImportance: questionaire[6],
+      },
+    });
+    if (hasAddedQuestioniare) {
+      handleNext();
+    }
   };
 
   return (
@@ -123,38 +166,63 @@ const InvestmentQuestioniare = () => {
                   <p className="text-slate-700 text-[15px] mt-7">
                     {question.title}
                   </p>
-                  <div className="flex flex-wrap gap-4 mt-1  w-full">
-                    {question.options.map((option) => (
-                      <>
-                        <RadioGroup.Root
-                          key={option.id}
-                          value={questionaire[question.id]}
-                          onValueChange={(value) =>
-                            handleChange(question.id, value)
-                          }
-                        >
-                          <RadioGroup.Item value={option.label}>
+                  <div className="flex flex-wrap gap-4 mt-1 w-full">
+                    {question.id === "5"
+                      ? question.options.map((option) => (
+                          <>
                             <div
-                              className={`border  rounded-2xl py-1 px-3 ${
-                                questionaire[question.id] === option.label
+                              className={`border rounded-2xl py-1 px-3 cursor-pointer ${
+                                checkboxState[option.label]
                                   ? "border-primaryMain bg-emerald-300"
                                   : "border-slate-400"
                               }`}
+                              onClick={() =>
+                                handleCheckboxChange(question.id, option.label)
+                              }
                             >
                               <p
-                                className={`text-[14px]  ${
-                                  questionaire[question.id] === option.label
+                                className={`text-[14px] ${
+                                  checkboxState[option.label]
                                     ? "text-emerald-950"
-                                    : "text-slate-500  "
+                                    : "text-slate-500"
                                 }`}
                               >
                                 {option.label}
                               </p>
                             </div>
-                          </RadioGroup.Item>
-                        </RadioGroup.Root>
-                      </>
-                    ))}
+                          </>
+                        ))
+                      : question.options.map((option) => (
+                          <>
+                            <RadioGroup.Root
+                              key={option.id}
+                              value={questionaire[question.id]}
+                              onValueChange={(value) =>
+                                handleChange(question.id, value)
+                              }
+                            >
+                              <RadioGroup.Item value={option.label}>
+                                <div
+                                  className={`border rounded-2xl py-1 px-3 ${
+                                    questionaire[question.id] === option.label
+                                      ? "border-primaryMain bg-emerald-300"
+                                      : "border-slate-400"
+                                  }`}
+                                >
+                                  <p
+                                    className={`text-[14px] ${
+                                      questionaire[question.id] === option.label
+                                        ? "text-emerald-950"
+                                        : "text-slate-500"
+                                    }`}
+                                  >
+                                    {option.label}
+                                  </p>
+                                </div>
+                              </RadioGroup.Item>
+                            </RadioGroup.Root>
+                          </>
+                        ))}
                   </div>
                 </>
               ))}
@@ -163,7 +231,8 @@ const InvestmentQuestioniare = () => {
         </div>
 
         <Button
-          onClick={() => handleNext()}
+          onClick={() => onAddInvestorQuestioniare()}
+          loading={isLoadingQuestioniare}
           className="w-full rounded-md h-[40px] mt-8"
         >
           Next

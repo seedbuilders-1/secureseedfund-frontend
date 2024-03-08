@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const useUserAuth = () => {
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, isSuccess: LoggedIn }] = useLoginMutation();
   const [register, { isLoading: loadingRegistration }] = useRegisterMutation();
   const dispatch = useDispatch();
   const { toast } = useToast();
@@ -36,7 +36,6 @@ const useUserAuth = () => {
         role,
         userId,
       } = res;
-
       dispatch(
         setCredentials({
           user: {
@@ -109,6 +108,7 @@ const useUserAuth = () => {
     registerUser,
     accessToken,
     logoutUser,
+    LoggedIn,
   };
 };
 

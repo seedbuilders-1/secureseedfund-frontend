@@ -15,12 +15,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import useUserAuth from "@/hooks/auth/useAuth";
+import { useRouter } from "next/navigation";
 
 const SignInForm = () => {
   const form = useForm<SignInValidation>({
     resolver: zodResolver(SignInSchema),
   });
-  const { loginUser, loading } = useUserAuth();
+  const { loginUser, loading, LoggedIn } = useUserAuth();
+  const router = useRouter();
 
   const onSubmit = (values: SignInValidation) => {
     const { email, password } = values;
@@ -28,6 +30,9 @@ const SignInForm = () => {
       email,
       password,
     });
+    if (LoggedIn) {
+      router.push("/onboarding");
+    }
   };
 
   return (
