@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Select,
   SelectGroup,
@@ -37,6 +37,12 @@ const Uploadidentity = ({
   const { investorOnboarding, isSuccess, handleNext } = useOnboarding();
   const { toast } = useToast();
   const { user } = useUserAuth();
+  useEffect(() => {
+    if (isSuccess) {
+      return handleNext();
+    }
+  }, [isSuccess]);
+
   const onInvestorOnboarding = () => {
     const { dateofbirth, phonenumber, address, city, postalcode, companyname } =
       entityInformationValues;
@@ -69,9 +75,6 @@ const Uploadidentity = ({
       documentUrl: documentUrl ? JSON.stringify(documentUrl) : "",
       userId: user?.userId || "",
     });
-    if (isSuccess) {
-      handleNext();
-    }
   };
 
   return (

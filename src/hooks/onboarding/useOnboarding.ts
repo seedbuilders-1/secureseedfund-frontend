@@ -2,7 +2,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/components/ui/use-toast";
 import { selectCurrentStep } from "@/redux/onboarding/selectors";
-import { handleNextStep, changeStep3 } from "@/redux/onboarding/reducer";
+import {
+  handleNextStep,
+  changeStep3,
+  changeStep4,
+} from "@/redux/onboarding/reducer";
 import {
   OnboardingInvestmentUserRequestType,
   InvestmentQuestioniareRequestType,
@@ -34,6 +38,9 @@ const useOnboarding = () => {
   };
   const changeStepTo3 = () => {
     dispatch(changeStep3());
+  };
+  const changeStepTo4 = () => {
+    dispatch(changeStep4());
   };
   const calculateProgress = () => {
     const totalSteps = 4;
@@ -111,6 +118,7 @@ const useOnboarding = () => {
     hasAddedQuestioniare,
     individualInvestor,
     changeStepTo3,
+    changeStepTo4,
   };
 };
 export default useOnboarding;

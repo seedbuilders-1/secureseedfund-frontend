@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import * as RadioGroup from "@radix-ui/react-radio-group";
+import useProfile from "@/hooks/profile/useProfile";
 import useOnboarding from "@/hooks/onboarding/useOnboarding";
 
 interface Option {
@@ -126,16 +127,16 @@ const InvestmentQuestioniare = () => {
     AddInvestorQuestioniare,
     isLoadingQuestioniare,
     hasAddedQuestioniare,
-    individualInvestor,
   } = useOnboarding();
   const selectedSectors = Object.keys(checkboxState).filter(
     (label) => checkboxState[label]
   );
 
-  const investorId = individualInvestor?.items.find((item) => item.id)?.id;
+  const { userProfile } = useProfile();
+
   const onAddInvestorQuestioniare = () => {
     AddInvestorQuestioniare({
-      investorId: investorId || "",
+      investorId: userProfile?.investor?.id || "",
       payload: {
         investmentExperience: questionaire[1],
         investmentDuration: questionaire[2],
@@ -145,100 +146,108 @@ const InvestmentQuestioniare = () => {
         liquidityImportance: questionaire[6],
       },
     });
-    if (hasAddedQuestioniare) {
-      handleNext();
-    }
   };
+  useEffect(() => {
+    if (hasAddedQuestioniare) {
+      return handleNext();
+    }
+  }, [hasAddedQuestioniare]);
 
   return (
-    <div className="w-full">
-      <h2 className="text-primaryMain mt-4">Need help?</h2>
+    <>
+      <div className="w-full">
+        <h2 className="text-primaryMain mt-4">Need help?</h2>
 
-      <div className="flex flex-col justify-center  ml-5">
-        <div>
-          <h2 className="font-medium text-[24px] text-slate-900 mt-6">
-            Investment Questionaire
-          </h2>
+        <div className="flex flex-col justify-center  ml-5">
           <div>
-            <div className="w-full">
-              {ListOfQuestioniare.map((question) => (
-                <>
-                  <p className="text-slate-700 text-[15px] mt-7">
-                    {question.title}
-                  </p>
-                  <div className="flex flex-wrap gap-4 mt-1 w-full">
-                    {question.id === "5"
-                      ? question.options.map((option) => (
-                          <>
-                            <div
-                              className={`border rounded-2xl py-1 px-3 cursor-pointer ${
-                                checkboxState[option.label]
-                                  ? "border-primaryMain bg-emerald-300"
-                                  : "border-slate-400"
-                              }`}
-                              onClick={() =>
-                                handleCheckboxChange(question.id, option.label)
-                              }
-                            >
-                              <p
-                                className={`text-[14px] ${
+            <h2 className="font-medium text-[24px] text-slate-900 mt-6">
+              Investment Questionaire
+            </h2>
+            <div>
+              <div className="w-full">
+                {ListOfQuestioniare.map((question) => (
+                  <>
+                    <p className="text-slate-700 text-[15px] mt-7">
+                      {question.title}
+                    </p>
+                    <div className="flex flex-wrap gap-4 mt-1 w-full">
+                      {question.id === "5"
+                        ? question.options.map((option) => (
+                            <>
+                              <div
+                                className={`border rounded-2xl py-1 px-3 cursor-pointer ${
                                   checkboxState[option.label]
-                                    ? "text-emerald-950"
-                                    : "text-slate-500"
+                                    ? "border-primaryMain bg-emerald-300"
+                                    : "border-slate-400"
                                 }`}
+                                onClick={() =>
+                                  handleCheckboxChange(
+                                    question.id,
+                                    option.label
+                                  )
+                                }
                               >
-                                {option.label}
-                              </p>
-                            </div>
-                          </>
-                        ))
-                      : question.options.map((option) => (
-                          <>
-                            <RadioGroup.Root
-                              key={option.id}
-                              value={questionaire[question.id]}
-                              onValueChange={(value) =>
-                                handleChange(question.id, value)
-                              }
-                            >
-                              <RadioGroup.Item value={option.label}>
-                                <div
-                                  className={`border rounded-2xl py-1 px-3 ${
-                                    questionaire[question.id] === option.label
-                                      ? "border-primaryMain bg-emerald-300"
-                                      : "border-slate-400"
+                                <p
+                                  className={`text-[14px] ${
+                                    checkboxState[option.label]
+                                      ? "text-emerald-950"
+                                      : "text-slate-500"
                                   }`}
                                 >
-                                  <p
-                                    className={`text-[14px] ${
+                                  {option.label}
+                                </p>
+                              </div>
+                            </>
+                          ))
+                        : question.options.map((option) => (
+                            <>
+                              <RadioGroup.Root
+                                key={option.id}
+                                value={questionaire[question.id]}
+                                onValueChange={(value) =>
+                                  handleChange(question.id, value)
+                                }
+                              >
+                                <RadioGroup.Item value={option.label}>
+                                  <div
+                                    className={`border rounded-2xl py-1 px-3 ${
                                       questionaire[question.id] === option.label
-                                        ? "text-emerald-950"
-                                        : "text-slate-500"
+                                        ? "border-primaryMain bg-emerald-300"
+                                        : "border-slate-400"
                                     }`}
                                   >
-                                    {option.label}
-                                  </p>
-                                </div>
-                              </RadioGroup.Item>
-                            </RadioGroup.Root>
-                          </>
-                        ))}
-                  </div>
-                </>
-              ))}
+                                    <p
+                                      className={`text-[14px] ${
+                                        questionaire[question.id] ===
+                                        option.label
+                                          ? "text-emerald-950"
+                                          : "text-slate-500"
+                                      }`}
+                                    >
+                                      {option.label}
+                                    </p>
+                                  </div>
+                                </RadioGroup.Item>
+                              </RadioGroup.Root>
+                            </>
+                          ))}
+                    </div>
+                  </>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        <Button
-          onClick={() => onAddInvestorQuestioniare()}
-          loading={isLoadingQuestioniare}
-          className="w-full rounded-md h-[40px] mt-8"
-        >
-          Next
-        </Button>
+          <Button
+            onClick={() => onAddInvestorQuestioniare()}
+            loading={isLoadingQuestioniare}
+            className="w-full rounded-md h-[40px] mt-8"
+          >
+            Next
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
