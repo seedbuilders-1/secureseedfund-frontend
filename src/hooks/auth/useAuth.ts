@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const useUserAuth = () => {
   const [login, { isLoading, isSuccess: LoggedIn }] = useLoginMutation();
-  const [register, { isLoading: loadingRegistration }] = useRegisterMutation();
+  const [register, { isLoading: loadingRegistration, isSuccess: Registered }] =
+    useRegisterMutation();
   const dispatch = useDispatch();
   const { toast } = useToast();
   const user = useSelector(selectCurrentUser);
@@ -62,32 +63,7 @@ const useUserAuth = () => {
 
   const registerUser = async (values: RegisterUserRequestType) => {
     try {
-      const res = await register(values).unwrap();
-      const {
-        accessToken,
-        email: userEmail,
-        firstName,
-        lastName,
-        otherName,
-        refreshToken,
-        role,
-        userId,
-      } = res;
-
-      dispatch(
-        setCredentials({
-          user: {
-            email: userEmail,
-            firstName,
-            lastName,
-            otherName: otherName,
-            role,
-            userId,
-          },
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-        })
-      );
+      await register(values).unwrap();
     } catch (err: any) {
       toast({
         variant: "destructive",
@@ -109,6 +85,7 @@ const useUserAuth = () => {
     accessToken,
     logoutUser,
     LoggedIn,
+    Registered,
   };
 };
 

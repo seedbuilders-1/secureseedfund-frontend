@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { SignUpSchema, SignUpValidation } from "@/lib/validations/auth";
@@ -15,13 +16,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import useUserAuth from "@/hooks/auth/useAuth";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const SignUpForm = () => {
-  const { loading, registerUser } = useUserAuth();
+  const { loading, registerUser, Registered } = useUserAuth();
   const form = useForm<SignUpValidation>({
     resolver: zodResolver(SignUpSchema),
   });
-
+  const { toast } = useToast();
+  const router = useRouter();
   const onSubmit = (values: SignUpValidation) => {
     const { email, firstName, lastName, password } = values;
     registerUser({
@@ -29,9 +33,19 @@ const SignUpForm = () => {
       firstName,
       lastName,
       password,
-      role: "STARTUP",
+      role: "USER",
     });
   };
+  useEffect(() => {
+    if (Registered) {
+      toast({
+        variant: "default",
+        title: "Congratulations",
+        description: "You have succesfully created your account",
+      });
+      router.push("/auth/sign-in");
+    }
+  }, [Registered, router, toast]);
 
   return (
     <Form {...form}>
