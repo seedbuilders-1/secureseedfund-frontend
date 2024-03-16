@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="my-10 w-full h-fit">
       <PaddingContainer>
         <div className="w-full mx-auto flex flex-col md:w-[70%]">
-          <h2 className="text-[3rem] font-[400] text-center text-primary mt-10 md:text-[7rem] ">
+          <h2 className="text-[2.5rem]  font-[400] text-center text-primary mt-10 md:text-[7rem] ">
             SecureSeedFund
           </h2>
 

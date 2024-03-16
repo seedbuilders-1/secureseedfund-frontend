@@ -96,7 +96,7 @@ const Header = () => {
             <DrawerContent>
               <nav className="flex w-full flex-col px-5 ">
                 <NavigationMenu>
-                  <NavigationMenuList className="flex w-full flex-col justify-center items-center ml-8 mt-4">
+                  <NavigationMenuList className="flex w-full flex-col justify-center items-center ml-[3.7rem] mt-4">
                     {/* Home */}
                     <NavigationMenuItem className="mt-4">
                       <Link href="/" legacyBehavior passHref>
@@ -153,6 +153,14 @@ const Header = () => {
                     </NavigationMenuItem>
                   </NavigationMenuList>
                 </NavigationMenu>
+                <div className="flex w-full flex-col justify-center items-center mt-4 mr-4 ">
+                  <Link href="/auth/sign-in">
+                    <Button variant="outline">Login</Button>
+                  </Link>
+                  <Link href="/auth/sign-up">
+                    <Button className="mt-2">Create Account</Button>
+                  </Link>
+                </div>
               </nav>
             </DrawerContent>
           </Drawer>

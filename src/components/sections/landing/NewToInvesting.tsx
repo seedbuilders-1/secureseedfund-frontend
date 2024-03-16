@@ -78,17 +78,17 @@ const NewToInvesting = () => {
               />
             </div>
           </div>
-          <div className=" grid grid-cols-3 gap-4 md:hidden">
-            <div className="px-5 py-4 border border-[black]">
+          <div className=" flex flex-wrap gap-4 md:hidden">
+            <div className="px-5 py-4 w-[250px] border border-[black] text-center mx-auto">
               Browse Startups Rounds
             </div>
-            <div className="px-5 py-4 border border-[black]">
+            <div className="px-5 py-4 border w-[250px] border-[black] text-center mx-auto">
               Diversify Your Investment
             </div>
-            <div className="px-5 py-4 border border-[black]">
+            <div className="px-5 py-4 border w-[250px] border-[black] text-center mx-auto">
               Research The Startup And Do Your Homework
             </div>
-            <div className="px-5 py-4 border border-[black]">
+            <div className="px-5 py-4 border w-[250px] border-[black] text-center mx-auto">
               Invest in what you understand and interested in
             </div>
           </div>
