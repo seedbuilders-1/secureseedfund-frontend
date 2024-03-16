@@ -6,9 +6,9 @@ import Footer from "./footer";
 
 const LandingLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col w-full overflow-x-hidden">
       <Header />
-      <main className="w-full mt-[10vh]">{children}</main>
+      <main className="flex-grow">{children}</main>
       <Footer />
     </div>
   );

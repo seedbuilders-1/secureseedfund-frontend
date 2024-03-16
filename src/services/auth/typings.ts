@@ -13,7 +13,13 @@ export type RegisterUserRequestType = {
   password: string;
   role?: "USER" | "ADMIN" | "STARTUP";
 };
-
+export type RegisterError = {
+  status: number;
+  data: {
+    error: string;
+    message: string;
+  };
+};
 // RESPONSE PAYLOAD TYPES
 export type AuthResponseType = {
   userId: string;

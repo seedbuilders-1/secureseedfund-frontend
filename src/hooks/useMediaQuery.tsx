@@ -1,6 +1,7 @@
+"use client";
 import * as React from "react";
 
-export function useMediaQuery(query: string) {
+const useMediaQuery = (query: string) => {
   const [value, setValue] = React.useState(false);
 
   React.useEffect(() => {
@@ -16,4 +17,5 @@ export function useMediaQuery(query: string) {
   }, [query]);
 
   return value;
-}
+};
+export default useMediaQuery;

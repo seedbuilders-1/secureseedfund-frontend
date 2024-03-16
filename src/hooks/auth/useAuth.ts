@@ -52,11 +52,11 @@ const useUserAuth = () => {
         })
       );
     } catch (err: any) {
-      console.log({ err });
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "Please check your email and password and try again",
+        title: `${
+          (err?.data?.statusCode, err?.data?.message || "unable to register")
+        }`,
       });
     }
   };
@@ -67,8 +67,9 @@ const useUserAuth = () => {
     } catch (err: any) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "Unable to register this user, please try again later",
+        title: `${
+          (err?.data?.statusCode, err?.data?.message || "unable to register")
+        }`,
       });
     }
   };
