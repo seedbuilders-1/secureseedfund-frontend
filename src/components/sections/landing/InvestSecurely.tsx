@@ -1,11 +1,18 @@
 import PaddingContainer from "@/components/shared/PaddingContainer";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import Image from "next/image";
 
 const Campaign = () => {
   return (
-    <div className="w-[25%] border border-[#544A2E40]">
+    <div className="w-full border border-[#544A2E40] ">
       <div className="w-full h-[22rem] relative">
         <Image
           src="/assets/images/campaign-image.png"
@@ -45,58 +52,80 @@ const InvestSecurely = () => {
       <PaddingContainer>
         <div>
           <div className="flex flex-col items-center justify-center text-dark">
-            <h2 className="text-[3.0625rem] ">
+            <h2 className="text-[1.9rem] md:text-[3.0625rem] ">
               Securely invest in startups that you can trust.
             </h2>
-            <p className="text-[1.5rem] font-[300]">
+            <p className="font-[300] text-[1.3rem]  md:text-[1.5rem] ">
               Join hundreds of investors funding the biggest startups globally.
             </p>
           </div>
 
           <div className="mt-20">
-            <Tabs defaultValue="vc-backed">
-              <TabsList className="h-14 bg-white rounded-full border border-[#001D2133]">
-                <TabsTrigger value="vc-backed" variant="retro">
-                  VC Backed
-                </TabsTrigger>
-                <TabsTrigger value="most-raised" variant="retro">
-                  Most Raised
-                </TabsTrigger>
-                <TabsTrigger value="new" variant="retro">
-                  New
-                </TabsTrigger>
-                <TabsTrigger value="female-founders" variant="retro">
-                  Female Founders
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-
+            <div className="">
+              <Tabs defaultValue="vc-backed" className="">
+                <TabsList className=" bg-white rounded-full border   grid w-full grid-cols-4 border-[#001D2133] h-14 max-w-[500px]">
+                  <TabsTrigger
+                    value="vc-backed"
+                    variant="retro"
+                    className="text-[11px] md:text-[1rem]"
+                  >
+                    VC Backed
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="most-raised"
+                    variant="retro"
+                    className="text-[11px] md:text-[1rem]"
+                  >
+                    Most Raised
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="new"
+                    variant="retro"
+                    className="text-[11px] md:text-[1rem]"
+                  >
+                    New
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="female-founders"
+                    variant="retro"
+                    className="text-[11px]  md:text-[1rem]"
+                  >
+                    Female founders
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
             <div className="w-full mt-6">
               <div className="w-full flex items-center justify-between">
                 <div className="">
-                  <h3 className="text-[2rem] font-[500] text-dark">
+                  <h3 className="text-[1.2rem] font-[500] text-dark md:text-[2rem]">
                     VC and notable investors backed
                   </h3>
-                  <div className="flex items-center space-x-2 text-[#544A2E] text-[1.125rem]">
+                  <div className="flex items-center space-x-2 text-[#544A2E] text-[0.9rem] md:text-[1.125rem]">
                     <span>Explore More Startups</span>
                     <ArrowRight size={14} />
                   </div>
                 </div>
-
-                <div className="space-x-2 flex">
-                  <div className="w-12 h-12 flex items-center justify-center border border-[#6A6363] rounded-full cursor-pointer opacity-60">
-                    <ArrowLeft size={18} />
-                  </div>
-                  <div className="w-12 h-12 flex items-center justify-center border border-[#6A6363] rounded-full cursor-pointer">
-                    <ArrowRight size={18} />
-                  </div>
-                </div>
               </div>
-              <div className="w-full pr-[-2.5rem] flex space-x-4 mt-6">
-                <Campaign />
-                <Campaign />
-                <Campaign />
-                <Campaign />
+              <div className=" flex space-x-4 mt-6  md:w-full">
+                <Carousel className="w-full  max-w-[600px] md:max-w-full">
+                  <CarouselContent className="relative">
+                    <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                      <Campaign />
+                    </CarouselItem>
+                    <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                      <Campaign />
+                    </CarouselItem>
+                    <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                      <Campaign />
+                    </CarouselItem>
+                    <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                      <Campaign />
+                    </CarouselItem>
+                  </CarouselContent>
+                  <CarouselPrevious className="absolute top-[-40px] left-[27rem] invisible md:visible" />
+                  <CarouselNext className="absolute top-[-40px] right-[6rem] invisible md:visible" />
+                </Carousel>
               </div>
             </div>
           </div>

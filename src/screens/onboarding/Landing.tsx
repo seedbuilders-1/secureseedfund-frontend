@@ -8,12 +8,15 @@ import Successpage from "@/components/onboardingsteps/Successpage";
 import useOnboarding from "@/hooks/onboarding/useOnboarding";
 import { EntityInformationValidation } from "@/lib/validations/onboarding";
 import { FileWithPath } from "react-dropzone";
+import useProfile from "@/hooks/profile/useProfile";
 
 const Landing = () => {
   const [logoUrl, setLogoUrl] = useState<FileWithPath | null>(null);
   const [selectInvestorType, setSelectInvestorType] = useState("individual");
   const [documentType, setDocumentType] = useState<string>("");
   const [documentUrl, setDocumentUrl] = useState<FileWithPath | null>(null);
+  const { userProfile, refetchProfile } = useProfile();
+
   const [entityInformationValues, setEntityInformationValues] =
     useState<EntityInformationValidation>({
       dateofbirth: "",
@@ -33,15 +36,23 @@ const Landing = () => {
     setEntityInformationValues(values);
   };
 
-  const { changeStepTo3, individualInvestor } = useOnboarding();
+  const { changeStepTo3, changeStepTo4 } = useOnboarding();
   const { steps } = useOnboarding();
   useEffect(() => {
-    if (steps <= 3 && individualInvestor) {
+    if (
+      steps <= 3 &&
+      userProfile?.investor?.id &&
+      userProfile?.investor?.investmentQuestionnaire?.id
+    ) {
+      changeStepTo4();
+    } else if (steps <= 3 && userProfile?.investor?.id) {
       changeStepTo3();
     }
-  }, [individualInvestor, steps]);
+  }, [userProfile, changeStepTo3, changeStepTo4, steps]);
 
-  console.log(steps);
+  useEffect(() => {
+    refetchProfile();
+  }, [steps, refetchProfile]);
 
   return (
     <>

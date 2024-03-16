@@ -1,11 +1,11 @@
 import HomeLayout from "@/components/layouts/home";
-import PrivateRoute from "@/components/route-helpers/PrivateRoute";
+import ProfileRoute from "@/components/route-helpers/ProfileRoute";
 import { ReactNode } from "react";
 
 export default function Home({ children }: { children: ReactNode }) {
   return (
-    <PrivateRoute>
+    <ProfileRoute>
       <HomeLayout>{children}</HomeLayout>
-    </PrivateRoute>
+    </ProfileRoute>
   );
 }

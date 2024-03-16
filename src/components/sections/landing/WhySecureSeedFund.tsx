@@ -10,7 +10,7 @@ const WhySecureSeedFund = () => {
   return (
     <section className="w-full py-10">
       <PaddingContainer>
-        <div className="w-full grid grid-cols-2 gap-10">
+        <div className="w-full grid  gap-10 md:grid-cols-2">
           <div className="w-full">
             <h3 className="text-dark text-[3.0625rem]">
               Why Invest in Secure <br /> Seedfund
@@ -23,7 +23,11 @@ const WhySecureSeedFund = () => {
           </div>
 
           <div className="w-full">
-            <Accordion type="single" collapsible className="w-[80%] ml-auto">
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full  md:w-[80%] ml-auto"
+            >
               <AccordionItem value="item-1">
                 <AccordionTrigger className="text-[1.3rem]">
                   Gain access to only verified, vetted <br /> and accessed

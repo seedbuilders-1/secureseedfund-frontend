@@ -17,8 +17,12 @@ const HowToCard = ({ title, desc, icon }: IHowToCard) => {
       <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[#CDEED3] mb-10">
         {icon}
       </div>
-      <h4 className="text-[1.5rem] font-[400] text-white">{title}</h4>
-      <p className="text-base text-white font-[300] w-[50%] mt-2">{desc}</p>
+      <h4 className="text-[1.1rem] font-[400] text-white md:text-[1.5rem]">
+        {title}
+      </h4>
+      <p className="text-[0.9rem]  text-white font-[300] w-[50%] mt-2">
+        {desc}
+      </p>
     </div>
   );
 };
@@ -29,8 +33,10 @@ const HowToInvest = () => {
       <div className="bg-[#001D21]">
         <PaddingContainer className="py-10">
           <div className="w-full flex flex-col space-y-6">
-            <h3 className="text-[#F7F8F6] text-[3.0625rem]">How To Invest</h3>
-            <div className="w-full grid grid-cols-4 gap-6">
+            <h3 className="text-[#F7F8F6] text-[1.9rem] text-center md:text-[3.0625rem]">
+              How To Invest
+            </h3>
+            <div className="w-full flex  flex-col gap-6 md:flex-row">
               <HowToCard
                 icon={<RegisterOutlineIcon />}
                 title="Sign Up"
