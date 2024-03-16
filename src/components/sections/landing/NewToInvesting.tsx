@@ -50,14 +50,13 @@ const NewToInvesting = () => {
     <section className="w-full py-20">
       <PaddingContainer>
         <div className="w-full">
-          <h3 className="text-dark text-[3.0625rem] text-center">
+          <h3 className="text-dark text-[2rem] text-center md:text-[3.0625rem]">
             New to Startup and Angel Investing?
           </h3>
           <p className="text-[1.125rem] text-dark text-center mb-20">
             It is pretty simple, here is how to get started.
           </p>
-
-          <div className="w-[60%] relative mx-auto h-[100vh] flex items-center justify-center">
+          <div className="hidden w-[60%]  relative mx-auto h-[100vh] md:flex items-center justify-center ">
             <div className="bg-[#CDEED3] h-6 w-full my-auto relative">
               <InvestmentStep stepNumber="01" text="Browse startup rounds" />
               <InvestmentStep
@@ -77,6 +76,20 @@ const NewToInvesting = () => {
                 text="Diversify your investments"
                 containerClassname="left-[70%]"
               />
+            </div>
+          </div>
+          <div className=" grid grid-cols-3 gap-4 md:hidden">
+            <div className="px-5 py-4 border border-[black]">
+              Browse Startups Rounds
+            </div>
+            <div className="px-5 py-4 border border-[black]">
+              Diversify Your Investment
+            </div>
+            <div className="px-5 py-4 border border-[black]">
+              Research The Startup And Do Your Homework
+            </div>
+            <div className="px-5 py-4 border border-[black]">
+              Invest in what you understand and interested in
             </div>
           </div>
         </div>

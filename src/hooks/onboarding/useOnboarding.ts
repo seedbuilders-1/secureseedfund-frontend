@@ -84,8 +84,7 @@ const useOnboarding = () => {
       console.log({ err });
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "Please your details",
+        title: `${err?.data?.message || "Uh oh! Something went wrong."}`,
       });
     }
   };
@@ -100,8 +99,7 @@ const useOnboarding = () => {
       console.log({ err });
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "Please check your details.",
+        title: `${err?.data?.message || "Uh oh! Something went wrong."}`,
       });
     }
   };

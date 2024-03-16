@@ -7,7 +7,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { MenuIcon } from "lucide-react";
 
@@ -88,12 +88,73 @@ const Header = () => {
           </nav>
         </header>
       ) : (
-        <div>
+        <div className="w-full h-full bg-white">
           <Drawer direction="right">
-            <DrawerTrigger className="fixed top-0 right-0 px-4 py-8">
+            <DrawerTrigger className="relative top-0 right-[-86%] px-4 py-8">
               <MenuIcon />
             </DrawerTrigger>
-            <DrawerContent></DrawerContent>
+            <DrawerContent>
+              <nav className="flex w-full flex-col px-5 ">
+                <NavigationMenu>
+                  <NavigationMenuList className="flex w-full flex-col justify-center items-center ml-8 mt-4">
+                    {/* Home */}
+                    <NavigationMenuItem className="mt-4">
+                      <Link href="/" legacyBehavior passHref>
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          Home
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+
+                    {/* Investors */}
+                    <NavigationMenuItem className="mt-4">
+                      <Link href="/investors" legacyBehavior passHref>
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          Investors
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+
+                    {/* Startups */}
+                    <NavigationMenuItem className="mt-4">
+                      <Link href="/investors" legacyBehavior passHref>
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          Startups
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+
+                    {/* Pricing */}
+                    <NavigationMenuItem className="mt-4">
+                      <Link href="/investors" legacyBehavior passHref>
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          Pricing
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+
+                    {/* Services */}
+                    <NavigationMenuItem className="mt-4">
+                      <Link href="/investors" legacyBehavior passHref>
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          Services
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+              </nav>
+            </DrawerContent>
           </Drawer>
         </div>
       )}
