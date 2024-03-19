@@ -108,8 +108,8 @@ const InvestSecurely = () => {
                 </div>
               </div>
               <div className=" flex space-x-4 mt-6  md:w-full">
-                <Carousel className="w-full  max-w-[600px] md:max-w-full">
-                  <CarouselContent className="relative">
+                <Carousel className="w-full  max-w-[600px] md:max-w-full relative">
+                  <CarouselContent className="">
                     <CarouselItem className="md:basis-1/2 lg:basis-1/3">
                       <Campaign />
                     </CarouselItem>
@@ -123,8 +123,8 @@ const InvestSecurely = () => {
                       <Campaign />
                     </CarouselItem>
                   </CarouselContent>
-                  <CarouselPrevious className="absolute top-[-40px] left-[27rem] invisible md:visible" />
-                  <CarouselNext className="absolute top-[-40px] right-[6rem] invisible md:visible" />
+                  <CarouselPrevious className="absolute top-[-40px] left-[90%] transform translate-x-[-100%] invisible md:visible" />
+                  <CarouselNext className="absolute top-[-40px] left-[90%] transform translate-x-[100%] invisible md:visible" />
                 </Carousel>
               </div>
             </div>

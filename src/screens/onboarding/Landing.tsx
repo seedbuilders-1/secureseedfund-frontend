@@ -79,7 +79,9 @@ const Landing = () => {
       )}
       {steps === 3 && <InvestmentQuestioniare />}
       {steps === 4 && <TermandCondition />}
-      {steps === 5 && <Successpage />}
+      {steps === 5 && (
+        <Successpage title={"Thank you for becoming an investor"} />
+      )}
     </>
   );
 };
