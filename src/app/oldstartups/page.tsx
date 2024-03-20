@@ -1,4 +1,4 @@
-import Startups from "@/screens/startups/Startup";
+import Startup from "@/screens/oldstartup/Startup"
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function LandingPage() {
-  return <Startups />;
+  return <Startup />;
 }
