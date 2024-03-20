@@ -44,7 +44,7 @@ const Header = () => {
 
                 {/* Startups */}
                 <NavigationMenuItem>
-                  <Link href="/investors" legacyBehavior passHref>
+                  <Link href="/startups" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
                     >
@@ -121,7 +121,7 @@ const Header = () => {
 
                     {/* Startups */}
                     <NavigationMenuItem className="mt-4">
-                      <Link href="/investors" legacyBehavior passHref>
+                      <Link href="/startups" legacyBehavior passHref>
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
