@@ -4,7 +4,10 @@ import { Button } from "../ui/button";
 import Checkicon from "@/assets/icons/Checkicon";
 import { useRouter } from "next/navigation";
 
-const Successpage = () => {
+interface Props {
+  title: string;
+}
+const Successpage = ({ title }: Props) => {
   const router = useRouter();
 
   return (
@@ -18,11 +21,12 @@ const Successpage = () => {
               <Checkicon />
             </div>
             <h2 className="text-slate-800 text-[16px] text-center mt-5 font-medium">
-              Thank you for becoming an investor
+              {title}
             </h2>
             <p className="text-slate-600 text-[14px] w-[70%] text-center mt-3 mx-auto">
               We’ve received your application and review shortly. Expect an
-              email soon on the status of your application.
+              email soon on the status of your application. Mean while you can
+              head to your dashboard
             </p>
           </div>
 
