@@ -1,6 +1,11 @@
 import CompanyInformationform from "../forms/auth/CompanyInformationform";
+import { CompanyInformationValidation } from "@/lib/validations/startuponboarding";
 
-const CompanyInfo = () => {
+interface Props {
+  handleCompanyInformation: (x: CompanyInformationValidation) => void;
+}
+
+const CompanyInfo = ({ handleCompanyInformation }: Props) => {
   return (
     <div>
       <h2 className="text-primaryMain mt-4">Need help?</h2>
@@ -11,7 +16,9 @@ const CompanyInfo = () => {
         </h2>
 
         <div className="mt-8">
-          <CompanyInformationform />
+          <CompanyInformationform
+            handleCompanyInformation={handleCompanyInformation}
+          />
         </div>
       </div>
     </div>

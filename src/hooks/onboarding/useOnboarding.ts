@@ -15,6 +15,7 @@ import {
   useInvestorOnboardMutation,
   useIndividualInvestorQuery,
   useInvestorQUestioniareMutation,
+  useGetCountryQuery,
 } from "@/services/onboarding";
 import useUserAuth from "../auth/useAuth";
 
@@ -28,6 +29,9 @@ const useOnboarding = () => {
   ] = useInvestorQUestioniareMutation();
   const { data: individualInvestor } = useIndividualInvestorQuery({
     userId: user?.userId || "",
+  });
+  const { data: allCountries } = useGetCountryQuery({
+    limit: 239,
   });
 
   const steps = useSelector(selectCurrentStep);
@@ -117,6 +121,7 @@ const useOnboarding = () => {
     individualInvestor,
     changeStepTo3,
     changeStepTo4,
+    allCountries,
   };
 };
 export default useOnboarding;

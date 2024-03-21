@@ -9,13 +9,19 @@ import useOnboarding from "@/hooks/onboarding/useOnboarding";
 import { EntityInformationValidation } from "@/lib/validations/onboarding";
 import { FileWithPath } from "react-dropzone";
 import useProfile from "@/hooks/profile/useProfile";
+import { useUploadfileMutation } from "@/services/fileupload";
+import { useToast } from "@/components/ui/use-toast";
 
 const Landing = () => {
-  const [logoUrl, setLogoUrl] = useState<FileWithPath | null>(null);
+  const { toast } = useToast();
+  const [logoUrl, setLogoUrl] = useState<string>("");
+  const [evidenceFile, setEvidenceFile] = useState<FileWithPath | null>(null);
+  const [logoFile, setLogoFile] = useState<FileWithPath | null>(null);
   const [selectInvestorType, setSelectInvestorType] = useState("individual");
   const [documentType, setDocumentType] = useState<string>("");
-  const [documentUrl, setDocumentUrl] = useState<FileWithPath | null>(null);
+  const [documentUrl, setDocumentUrl] = useState<string>("");
   const { userProfile, refetchProfile } = useProfile();
+  const [fileUpload, { error: uploadError }] = useUploadfileMutation();
 
   const [entityInformationValues, setEntityInformationValues] =
     useState<EntityInformationValidation>({
@@ -35,7 +41,15 @@ const Landing = () => {
   const handleEntityInformation = (values: EntityInformationValidation) => {
     setEntityInformationValues(values);
   };
+  const handleLogoUpload = async (acceptedFiles: FileWithPath[]) => {
+    const uploadedFile = acceptedFiles[0];
 
+    setLogoFile(uploadedFile);
+    const formData = new FormData();
+    formData.append("file", uploadedFile);
+    const res = await fileUpload(formData).unwrap();
+    setLogoUrl(res);
+  };
   const { changeStepTo3, changeStepTo4 } = useOnboarding();
   const { steps } = useOnboarding();
   useEffect(() => {
@@ -53,6 +67,14 @@ const Landing = () => {
   useEffect(() => {
     refetchProfile();
   }, [steps, refetchProfile]);
+  useEffect(() => {
+    if (uploadError) {
+      toast({
+        variant: "destructive",
+        title: `${"unable to upload file please try again"}`,
+      });
+    }
+  }, [uploadError]);
 
   return (
     <>
@@ -62,8 +84,8 @@ const Landing = () => {
           setSelectedValue={setSelectInvestorType}
           handleChange={handleInvestorType}
           handleEntityInformation={handleEntityInformation}
-          file={logoUrl}
-          setFile={setLogoUrl}
+          logoFile={logoFile}
+          handleLogoUpload={handleLogoUpload}
         />
       )}
       {steps === 2 && (
@@ -75,6 +97,8 @@ const Landing = () => {
           handleDocumentType={handleDocumentType}
           documentUrl={documentUrl}
           setDocumentUrl={setDocumentUrl}
+          evidenceFile={evidenceFile}
+          setEvidenceFile={setEvidenceFile}
         />
       )}
       {steps === 3 && <InvestmentQuestioniare />}

@@ -10,10 +10,12 @@ import Image from "next/image";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import useProfile from "@/hooks/profile/useProfile";
 
 const ChooseOrg = () => {
   const [selectOrg, setSelectOrg] = useState("startup");
   const router = useRouter();
+  const { userProfile } = useProfile();
   const handleChange = (value: string) => {
     setSelectOrg(value);
   };
@@ -57,7 +59,11 @@ const ChooseOrg = () => {
         </span>
         <div className="mt-4">
           <RadioGroup.Root value={selectOrg} onValueChange={handleChange}>
-            <div className="flex gap-4 mt-4 mx-auto">
+            <div
+              className={`grid gap-4 mt-4 mx-auto ${
+                userProfile?.investor.id ? "grid-cols-1" : "grid-cols-2"
+              }`}
+            >
               <RadioGroup.Item value="startup">
                 <div
                   className={`max-w-[319px]  w-full h-full relative px-8 py-5 border-[2px] rounded-lg cursor-pointer ${
@@ -84,31 +90,35 @@ const ChooseOrg = () => {
                   </div>
                 </div>
               </RadioGroup.Item>
-              <RadioGroup.Item value="investor">
-                <div
-                  className={`max-w-[319px] w-full h-full relative px-8 py-4 border-[2px] rounded-lg cursor-pointer ${
-                    selectOrg === "investor"
-                      ? "border-primaryMain"
-                      : "border-slate-300"
-                  }`}
-                >
-                  <div>
-                    <Image
-                      src="/assets/images/investoricon.png"
-                      alt="logo"
-                      width={35}
-                      height={35}
-                      className="mx-auto"
-                    />
-                    <h2 className="text-slate-700 text-[20px] mt-2 font-semibold">
-                      Investor
-                    </h2>
-                    <p className="text-slate-500  text-[14px]">
-                      Find startups, make investments and grow your portfolio
-                    </p>
+              {userProfile?.investor.id ? (
+                ""
+              ) : (
+                <RadioGroup.Item value="investor">
+                  <div
+                    className={`max-w-[319px] w-full h-full relative px-8 py-4 border-[2px] rounded-lg cursor-pointer ${
+                      selectOrg === "investor"
+                        ? "border-primaryMain"
+                        : "border-slate-300"
+                    }`}
+                  >
+                    <div>
+                      <Image
+                        src="/assets/images/investoricon.png"
+                        alt="logo"
+                        width={35}
+                        height={35}
+                        className="mx-auto"
+                      />
+                      <h2 className="text-slate-700 text-[20px] mt-2 font-semibold">
+                        Investor
+                      </h2>
+                      <p className="text-slate-500  text-[14px]">
+                        Find startups, make investments and grow your portfolio
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </RadioGroup.Item>
+                </RadioGroup.Item>
+              )}
             </div>
           </RadioGroup.Root>
         </div>
