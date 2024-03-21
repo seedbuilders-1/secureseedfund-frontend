@@ -15,6 +15,8 @@ import useProfile from "@/hooks/profile/useProfile";
 const ChooseOrg = () => {
   const [selectOrg, setSelectOrg] = useState("startup");
   const router = useRouter();
+  router.prefetch("/startuponboarding");
+  router.prefetch("/onboarding");
   const { userProfile } = useProfile();
   const handleChange = (value: string) => {
     setSelectOrg(value);
@@ -61,7 +63,9 @@ const ChooseOrg = () => {
           <RadioGroup.Root value={selectOrg} onValueChange={handleChange}>
             <div
               className={`grid gap-4 mt-4 mx-auto ${
-                userProfile?.investor.id ? "grid-cols-1" : "grid-cols-2"
+                userProfile?.investor && userProfile?.investor.id
+                  ? "grid-cols-1"
+                  : "grid-cols-2"
               }`}
             >
               <RadioGroup.Item value="startup">
@@ -90,7 +94,7 @@ const ChooseOrg = () => {
                   </div>
                 </div>
               </RadioGroup.Item>
-              {userProfile?.investor.id ? (
+              {userProfile?.investor && userProfile?.investor.id ? (
                 ""
               ) : (
                 <RadioGroup.Item value="investor">
