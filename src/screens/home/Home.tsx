@@ -25,26 +25,30 @@ const Home = () => {
           Create new organization
         </Button>
       </div>
-      {!userProfile?.investor && !userProfile?.startup ? (
-        <h2 className="text-[1.2rem text-gray text-center">
+      {!userProfile?.investor || !userProfile?.startup ? (
+        <h2 className="text-[1.2rem text-gray text-center max-w-[600px] mt-[8rem] mx-auto">
           You need to create an organization to access the dashboard. Please
-          create an organization to proceed.{" "}
+          create an organization to proceed.
         </h2>
       ) : (
         <div className="w-full grid grid-cols-3 gap-4 mt-8">
-          <OrganizationCard
-            name={userProfile?.investor.companyName}
-            type={"Investor"}
-          />
-          {userProfile?.startup?.map((startup) => (
+          {userProfile?.investor && (
             <OrganizationCard
-              key={startup.id}
-              name={startup.companyName}
-              type={"Startup"}
+              name={userProfile?.investor?.companyName}
+              type={"Investor"}
             />
-          ))}
+          )}
+          {userProfile.investor &&
+            userProfile?.startup?.map((startup) => (
+              <OrganizationCard
+                key={startup.id}
+                name={startup?.companyName}
+                type={"Startup"}
+              />
+            ))}
         </div>
       )}
+
       {openModal && <ChooseOrg />}
     </div>
   );

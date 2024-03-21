@@ -32,7 +32,8 @@ const UploadIdentity = ({
   const [documentUrl, setDocumentUrl] = useState<string | undefined>("");
   const { handleNext, isCreatingStartup, isSuccess, startupOnboarding } =
     useStartupOnboarding();
-  const [fileUpload, { error: uploadError }] = useUploadfileMutation();
+  const [fileUpload, { error: uploadError, isLoading: isUploading }] =
+    useUploadfileMutation();
   const { toast } = useToast();
   const { user } = useUserAuth();
 
@@ -138,7 +139,7 @@ const UploadIdentity = ({
         <Button
           onClick={() => onStartupOnboarding()}
           className="w-full rounded-md h-[40px] mt-8"
-          loading={isCreatingStartup}
+          loading={isCreatingStartup || isUploading}
         >
           Next
         </Button>
