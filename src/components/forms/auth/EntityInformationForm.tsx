@@ -23,17 +23,13 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import useOnboarding from "@/hooks/onboarding/useOnboarding";
-import { getCountries } from "country-state-picker";
 import { FileWithPath } from "react-dropzone";
 import useUserAuth from "@/hooks/auth/useAuth";
+
 interface Props {
   selectedOption: string;
   handleEntityInformation: (x: EntityInformationValidation) => void;
   logo: FileWithPath | null;
-}
-interface ApiCountry {
-  code: string;
-  name: string;
 }
 
 const EntityInformationForm = ({
@@ -45,7 +41,7 @@ const EntityInformationForm = ({
     resolver: zodResolver(EntityInformationSchema),
   });
   const { user } = useUserAuth();
-  const { handleNext } = useOnboarding();
+  const { handleNext, allCountries } = useOnboarding();
 
   const onSubmit = (values: EntityInformationValidation) => {
     handleEntityInformation(values);
@@ -54,9 +50,6 @@ const EntityInformationForm = ({
       handleNext();
     }
   };
-  console;
-
-  const countries: ApiCountry[] = getCountries();
 
   return (
     <Form {...form}>
@@ -137,8 +130,11 @@ const EntityInformationForm = ({
                     className="overflow-auto   h-48 pb-4"
                     style={{ scrollBehavior: "smooth" }}
                   >
-                    {countries?.map((country) => (
-                      <SelectItem key={country.code} value={country.code}>
+                    {allCountries?.items?.map((country) => (
+                      <SelectItem
+                        key={country.id}
+                        value={country.id.toString()}
+                      >
                         {country.name}
                       </SelectItem>
                     ))}

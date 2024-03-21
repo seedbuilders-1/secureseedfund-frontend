@@ -11,16 +11,16 @@ interface Props {
   setSelectedValue: (x: string) => void;
   handleChange: (x: string) => void;
   handleEntityInformation: (x: EntityInformationValidation) => void;
-  file: FileWithPath | null;
-  setFile: (x: FileWithPath | null) => void;
+  logoFile: FileWithPath | null;
+  handleLogoUpload: (x: FileWithPath[]) => void;
 }
 
 const EntityInformation = ({
   selectedValue,
   handleChange,
   handleEntityInformation,
-  file,
-  setFile,
+  logoFile,
+  handleLogoUpload,
 }: Props) => {
   return (
     <div>
@@ -96,14 +96,14 @@ const EntityInformation = ({
         </div>
         <div>
           {selectedValue === "institutional" && (
-            <UploadLogo file={file} setFile={setFile} />
+            <UploadLogo file={logoFile} handleLogoUpload={handleLogoUpload} />
           )}
         </div>
         <div className="mt-8">
           <EntityInformationForm
             selectedOption={selectedValue}
             handleEntityInformation={handleEntityInformation}
-            logo={file}
+            logo={logoFile}
           />
         </div>
       </div>

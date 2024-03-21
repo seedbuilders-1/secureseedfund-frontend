@@ -5,6 +5,8 @@ import {
   GetInvestorIdResponseType,
   InvestmentQuestioniareRequestType,
   InvestmentQuestioniareResponseType,
+  GetCountryRequestType,
+  GetCountryResponseType,
 } from "./typings";
 import api from "../api/apiSlice";
 
@@ -33,6 +35,14 @@ const onboarding = api.injectEndpoints({
         };
       },
     }),
+    getCountry: build.query<GetCountryResponseType, GetCountryRequestType>({
+      query: ({ limit }) => {
+        return {
+          url: `/country?limit=${limit}`,
+          method: "GET",
+        };
+      },
+    }),
 
     InvestorQUestioniare: build.mutation<
       InvestmentQuestioniareResponseType,
@@ -54,4 +64,5 @@ export const {
   useInvestorOnboardMutation,
   useIndividualInvestorQuery,
   useInvestorQUestioniareMutation,
+  useGetCountryQuery,
 } = onboarding;

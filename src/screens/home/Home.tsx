@@ -4,10 +4,13 @@ import OrganizationCard from "@/components/cards/OrganizaitonCard";
 import { Button } from "@/components/ui/button";
 import ChooseOrg from "@/components/cards/ChooseOrg";
 import useUserAuth from "@/hooks/auth/useAuth";
+import useProfile from "@/hooks/profile/useProfile";
 
 const Home = () => {
   const { user } = useUserAuth();
+  const { userProfile } = useProfile();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  console.log(userProfile);
   return (
     <div className="w-full">
       <div className="w-full flex items-center justify-between">
@@ -22,10 +25,26 @@ const Home = () => {
           Create new organization
         </Button>
       </div>
-      <div className="w-full grid grid-cols-3 gap-4 mt-8">
-        <OrganizationCard />
-        <OrganizationCard />
-      </div>
+      {!userProfile?.investor && !userProfile?.startup ? (
+        <h2 className="text-[1.2rem text-gray text-center">
+          You need to create an organization to access the dashboard. Please
+          create an organization to proceed.{" "}
+        </h2>
+      ) : (
+        <div className="w-full grid grid-cols-3 gap-4 mt-8">
+          <OrganizationCard
+            name={userProfile?.investor.companyName}
+            type={"Investor"}
+          />
+          {userProfile?.startup?.map((startup) => (
+            <OrganizationCard
+              key={startup.id}
+              name={startup.companyName}
+              type={"Startup"}
+            />
+          ))}
+        </div>
+      )}
       {openModal && <ChooseOrg />}
     </div>
   );

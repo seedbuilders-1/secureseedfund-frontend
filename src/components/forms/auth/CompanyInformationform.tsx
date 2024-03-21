@@ -18,33 +18,31 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { getCountries } from "country-state-picker";
 import useStartupOnboarding from "@/hooks/startup/useStartupOnboarding";
+import useOnboarding from "@/hooks/onboarding/useOnboarding";
 import {
   CompanyInformationSchema,
   CompanyInformationValidation,
 } from "@/lib/validations/startuponboarding";
 
-interface ApiCountry {
-  code: string;
-  name: string;
+interface Props {
+  handleCompanyInformation: (x: CompanyInformationValidation) => void;
 }
-
-const CompanyInformationform = () => {
+const CompanyInformationform = ({ handleCompanyInformation }: Props) => {
   const form = useForm<CompanyInformationValidation>({
     resolver: zodResolver(CompanyInformationSchema),
   });
 
   const { handleNext } = useStartupOnboarding();
   const onSubmit = (values: CompanyInformationValidation) => {
-    // handleEntityInformation(values);
-    console.log(values);
+    handleCompanyInformation(values);
+    handleNext();
     if (Object.keys(form.formState.errors).length === 0) {
-      handleNext();
+      console.log(form.formState.errors);
     }
   };
 
-  const countries: ApiCountry[] = getCountries();
+  const { allCountries } = useOnboarding();
 
   return (
     <Form {...form}>
@@ -55,9 +53,37 @@ const CompanyInformationform = () => {
             name="companyname"
             render={({ field }) => (
               <FormItem className="col-span-2">
-                <FormLabel className="text-[15px]">Company name</FormLabel>
+                <FormLabel className="text-[15px]">Company Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter company name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="companyEmail"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[15px]">Company Email</FormLabel>
+                <FormControl>
+                  <Input placeholder=" Enter company email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="companyPhone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[15px]">
+                  Company Phone number
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder=" Enter company phone number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -83,8 +109,11 @@ const CompanyInformationform = () => {
                     className="overflow-auto   h-48 pb-4"
                     style={{ scrollBehavior: "smooth" }}
                   >
-                    {countries?.map((country) => (
-                      <SelectItem key={country.code} value={country.code}>
+                    {allCountries?.items?.map((country) => (
+                      <SelectItem
+                        key={country.id}
+                        value={country.id.toString()}
+                      >
                         {country.name}
                       </SelectItem>
                     ))}
@@ -134,11 +163,7 @@ const CompanyInformationform = () => {
             )}
           />
         </div>
-        <Button
-          type="submit"
-          // onClick={() => handleNext()}
-          className="w-full rounded-md h-[40px] mt-3"
-        >
+        <Button type="submit" className="w-full rounded-md h-[40px] mt-3">
           Next
         </Button>
       </form>
