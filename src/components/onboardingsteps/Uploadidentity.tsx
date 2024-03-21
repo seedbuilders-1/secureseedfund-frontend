@@ -14,14 +14,17 @@ import useOnboarding from "@/hooks/onboarding/useOnboarding";
 import { FileWithPath } from "react-dropzone";
 import { EntityInformationValidation } from "@/lib/validations/onboarding";
 import useUserAuth from "@/hooks/auth/useAuth";
+import { useUploadfileMutation } from "@/services/fileupload";
 import { useToast } from "@/components/ui/use-toast";
 
 interface Props {
   documentType: string;
   handleDocumentType: (x: string) => void;
-  documentUrl: FileWithPath | null;
-  setDocumentUrl: (x: FileWithPath | null) => void;
-  logoUrl: FileWithPath | null;
+  documentUrl: string;
+  setDocumentUrl: (x: string) => void;
+  logoUrl: string;
+  evidenceFile: FileWithPath | null;
+  setEvidenceFile: (x: FileWithPath | null) => void;
   entityInformationValues: EntityInformationValidation;
   selectInvestorType: string;
 }
@@ -32,11 +35,32 @@ const Uploadidentity = ({
   documentUrl,
   logoUrl,
   setDocumentUrl,
+  evidenceFile,
+  setEvidenceFile,
   entityInformationValues,
 }: Props) => {
   const { investorOnboarding, isSuccess, handleNext } = useOnboarding();
   const { toast } = useToast();
   const { user } = useUserAuth();
+  const [fileUpload, { error: uploadError }] = useUploadfileMutation();
+  const handleFileUpload = async (acceptedFiles: FileWithPath[]) => {
+    const uploadedFile = acceptedFiles[0];
+
+    setEvidenceFile(uploadedFile);
+    const formData = new FormData();
+    formData.append("file", uploadedFile);
+    const res = await fileUpload(formData).unwrap();
+    setDocumentUrl(res);
+  };
+
+  useEffect(() => {
+    if (uploadError) {
+      toast({
+        variant: "destructive",
+        title: `${"unable to upload file please try again"}`,
+      });
+    }
+  }, [uploadError]);
   useEffect(() => {
     if (isSuccess) {
       return handleNext();
@@ -44,8 +68,15 @@ const Uploadidentity = ({
   }, [isSuccess]);
 
   const onInvestorOnboarding = () => {
-    const { dateofbirth, phonenumber, address, city, postalcode, companyname } =
-      entityInformationValues;
+    const {
+      dateofbirth,
+      phonenumber,
+      address,
+      city,
+      postalcode,
+      companyname,
+      country,
+    } = entityInformationValues;
     if (!documentType) {
       return toast({
         variant: "destructive",
@@ -64,7 +95,7 @@ const Uploadidentity = ({
       investorType:
         selectInvestorType === "individaul" ? "INDIVIDUAL" : "INVESTOR",
       phone: phonenumber,
-      countryId: 1,
+      countryId: parseInt(country),
       dob: dateofbirth,
       address,
       city,
@@ -113,7 +144,7 @@ const Uploadidentity = ({
             <p className="text-slate-700 text-[15px] mb-3">
               Upload Evidence of Company registration
             </p>
-            <UploadFile file={documentUrl} setFile={setDocumentUrl} />
+            <UploadFile file={evidenceFile} handleUpload={handleFileUpload} />
           </div>
           <Button
             onClick={() => onInvestorOnboarding()}

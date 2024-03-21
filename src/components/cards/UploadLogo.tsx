@@ -6,31 +6,9 @@ import Image from "next/image";
 
 interface Props {
   file: FileWithPath | null;
-  setFile: (x: FileWithPath | null) => void;
+  handleLogoUpload: (x: FileWithPath[]) => void;
 }
-const UploadLogo = ({ file, setFile }: Props) => {
-  const handleUpload = (acceptedFiles: FileWithPath[]) => {
-    const url = "https://api.escuelajs.co/api/v1/files/upload";
-    const formData = new FormData();
-    formData.append("file", acceptedFiles[0]);
-
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log(formData);
-          setFile(acceptedFiles[0]);
-        } else {
-          console.error(response);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
+const UploadLogo = ({ file, handleLogoUpload }: Props) => {
   return (
     <div className="space-y-4 mt-4 flex gap-4">
       <div className="border border-slate-300 rounded-full w-[60px] h-[60px] flex justify-center items-center">
@@ -45,7 +23,7 @@ const UploadLogo = ({ file, setFile }: Props) => {
           <FaPlusCircle className="text-primaryMain w-[11px]" />
         )}
       </div>
-      <Dropzone onDrop={handleUpload} minSize={1024} maxSize={3072000}>
+      <Dropzone onDrop={handleLogoUpload} minSize={1024} maxSize={3072000}>
         {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => {
           const additionalClass = isDragAccept
             ? "accept"

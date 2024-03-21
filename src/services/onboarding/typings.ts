@@ -27,6 +27,21 @@ export type IndividualInvestor = {
 export type GetInvestorIdResponseType = {
   items: IndividualInvestor[];
 };
+export type country = {
+  id: number;
+  name: string;
+  iso: string;
+  iso3: string;
+  countryCode: string;
+};
+export type GetCountryResponseType = {
+  items: country[];
+};
+export type GetCountryRequestType = {
+  page?: number;
+  limit?: number;
+  keyword?: string;
+};
 export type InvestmentQuestioniareRequestType = {
   investorId: string;
   payload: {

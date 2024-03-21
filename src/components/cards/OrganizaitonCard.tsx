@@ -5,7 +5,12 @@ import BorderCard from "./BorderCard";
 import { Badge } from "../ui/badge";
 import { useRouter } from "next/navigation";
 
-const OrganizationCard = () => {
+interface Props {
+  name: string;
+  type: string;
+}
+
+const OrganizationCard = ({ name, type }: Props) => {
   const router = useRouter();
   return (
     <BorderCard
@@ -24,8 +29,8 @@ const OrganizationCard = () => {
           />
         </div>
         <div className="flex flex-col items-center">
-          <h2 className="text-slate-700">Beats World Entertainment</h2>
-          <span className="text-slate-500 text-[.75rem]">Startup</span>
+          <h2 className="text-slate-700 font-medium">{name}</h2>
+          <span className="text-slate-500 text-[.75rem]">{type}</span>
         </div>
 
         <Badge className="bg-amber-200 text-amber-900">Pro plan</Badge>

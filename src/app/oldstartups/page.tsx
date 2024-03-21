@@ -1,4 +1,4 @@
-import Startup from "@/screens/oldstartup/Startup"
+import Startup from "@/screens/oldstartup/Startup";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
