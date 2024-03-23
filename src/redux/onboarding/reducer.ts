@@ -15,10 +15,13 @@ export const onboardingSlice = createSlice({
     changeStep4: (state) => {
       state.steps = 4;
     },
+    handlePreviousStep: (state) => {
+      state.steps -= 1;
+    },
   },
 });
 
-export const { handleNextStep, changeStep3, changeStep4 } =
+export const { handleNextStep, changeStep3, changeStep4, handlePreviousStep } =
   onboardingSlice.actions;
 
 export default onboardingSlice.reducer;

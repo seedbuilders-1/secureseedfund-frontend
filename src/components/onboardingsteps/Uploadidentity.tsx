@@ -39,10 +39,17 @@ const Uploadidentity = ({
   setEvidenceFile,
   entityInformationValues,
 }: Props) => {
-  const { investorOnboarding, isSuccess, handleNext } = useOnboarding();
+  const {
+    investorOnboarding,
+    isSuccess,
+    handleNext,
+    handlePrevious,
+    isLoadingInvestor,
+  } = useOnboarding();
   const { toast } = useToast();
   const { user } = useUserAuth();
-  const [fileUpload, { error: uploadError }] = useUploadfileMutation();
+  const [fileUpload, { error: uploadError, isLoading: isUploading }] =
+    useUploadfileMutation();
   const handleFileUpload = async (acceptedFiles: FileWithPath[]) => {
     const uploadedFile = acceptedFiles[0];
 
@@ -63,7 +70,11 @@ const Uploadidentity = ({
   }, [uploadError]);
   useEffect(() => {
     if (isSuccess) {
-      return handleNext();
+      handleNext();
+      toast({
+        variant: "default",
+        title: " information Saved Successfully ",
+      });
     }
   }, [isSuccess]);
 
@@ -146,12 +157,22 @@ const Uploadidentity = ({
             </p>
             <UploadFile file={evidenceFile} handleUpload={handleFileUpload} />
           </div>
-          <Button
-            onClick={() => onInvestorOnboarding()}
-            className="w-full rounded-md h-[40px] mt-8"
-          >
-            Next
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              onClick={() => handlePrevious()}
+              variant="outline"
+              className="w-full rounded-md h-[40px] mt-8 border-primaryMain border-[2px]"
+            >
+              Back
+            </Button>
+            <Button
+              onClick={() => onInvestorOnboarding()}
+              loading={isLoadingInvestor || isUploading}
+              className="w-full rounded-md h-[40px] mt-8"
+            >
+              Next
+            </Button>
+          </div>
         </div>
       </div>
     </>

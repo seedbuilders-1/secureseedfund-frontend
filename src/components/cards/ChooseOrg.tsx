@@ -11,12 +11,12 @@ import * as RadioGroup from "@radix-ui/react-radio-group";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import useProfile from "@/hooks/profile/useProfile";
+import useUserAuth from "@/hooks/auth/useAuth";
 
 const ChooseOrg = () => {
   const [selectOrg, setSelectOrg] = useState("startup");
   const router = useRouter();
-  router.prefetch("/startuponboarding");
-  router.prefetch("/onboarding");
+  const { user } = useUserAuth();
   const { userProfile } = useProfile();
   const handleChange = (value: string) => {
     setSelectOrg(value);
@@ -41,7 +41,11 @@ const ChooseOrg = () => {
           <DropdownMenuTrigger asChild>
             <div className="flex items-center space-x-2">
               <Avatar>
-                <AvatarFallback className="bg-slate-100">VW</AvatarFallback>
+                <AvatarFallback className="bg-slate-100">{`${user?.firstName
+                  .charAt(0)
+                  .toUpperCase()} ${user?.lastName
+                  .charAt(0)
+                  .toUpperCase()}`}</AvatarFallback>
               </Avatar>
               <ChevronDown size={16} />
             </div>

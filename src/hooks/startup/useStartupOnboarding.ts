@@ -1,7 +1,7 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentStep } from "@/redux/startup/selectors";
-import { handleNextStep } from "@/redux/startup/reducer";
+import { handleNextStep, handlePreviousStep } from "@/redux/startup/reducer";
 import { useStartupOnboardsMutation } from "@/services/startuponboarding";
 import { StartupOnboardingRequestType } from "@/services/startuponboarding/typings";
 import { useToast } from "@/components/ui/use-toast";
@@ -14,6 +14,9 @@ const useStartupOnboarding = () => {
   const dispatch = useDispatch();
   const handleNext = () => {
     dispatch(handleNextStep());
+  };
+  const handlePrevious = () => {
+    dispatch(handlePreviousStep());
   };
   const calculateProgress = () => {
     const totalSteps = 3;
@@ -63,6 +66,7 @@ const useStartupOnboarding = () => {
     startupOnboarding,
     isCreatingStartup,
     isSuccess,
+    handlePrevious,
   };
 };
 export default useStartupOnboarding;
