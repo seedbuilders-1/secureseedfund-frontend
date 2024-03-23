@@ -30,8 +30,13 @@ const UploadIdentity = ({
 }: Props) => {
   const [evidenceFile, setEvidenceFile] = useState<FileWithPath | null>(null);
   const [documentUrl, setDocumentUrl] = useState<string | undefined>("");
-  const { handleNext, isCreatingStartup, isSuccess, startupOnboarding } =
-    useStartupOnboarding();
+  const {
+    handleNext,
+    isCreatingStartup,
+    isSuccess,
+    startupOnboarding,
+    handlePrevious,
+  } = useStartupOnboarding();
   const [fileUpload, { error: uploadError, isLoading: isUploading }] =
     useUploadfileMutation();
   const { toast } = useToast();
@@ -50,6 +55,10 @@ const UploadIdentity = ({
   useEffect(() => {
     if (isSuccess) {
       handleNext();
+      toast({
+        variant: "default",
+        title: " information Saved Successfully ",
+      });
     }
   }, [isSuccess]);
   useEffect(() => {
@@ -136,13 +145,22 @@ const UploadIdentity = ({
           </p>
           <UploadFile file={evidenceFile} handleUpload={handleUpload} />
         </div>
-        <Button
-          onClick={() => onStartupOnboarding()}
-          className="w-full rounded-md h-[40px] mt-8"
-          loading={isCreatingStartup || isUploading}
-        >
-          Next
-        </Button>
+        <div className="flex gap-3">
+          <Button
+            onClick={() => handlePrevious()}
+            variant="outline"
+            className="w-full rounded-md h-[40px] mt-8 border-primaryMain border-[2px]"
+          >
+            Back
+          </Button>
+          <Button
+            onClick={() => onStartupOnboarding()}
+            className="w-full rounded-md h-[40px] mt-8"
+            loading={isCreatingStartup || isUploading}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

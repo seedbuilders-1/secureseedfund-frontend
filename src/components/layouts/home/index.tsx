@@ -9,9 +9,11 @@ import Image from "next/image";
 import { ReactNode } from "react";
 import useProfile from "@/hooks/profile/useProfile";
 import { Loader2 } from "lucide-react";
+import useUserAuth from "@/hooks/auth/useAuth";
 
 const HomeLayout = ({ children }: { children: ReactNode }) => {
   const { loadingProfile } = useProfile();
+  const { user } = useUserAuth();
   return (
     <>
       {loadingProfile ? (
@@ -29,7 +31,11 @@ const HomeLayout = ({ children }: { children: ReactNode }) => {
               <DropdownMenuTrigger asChild>
                 <div className="flex items-center space-x-2">
                   <Avatar>
-                    <AvatarFallback className="bg-slate-100">VW</AvatarFallback>
+                    <AvatarFallback className="bg-slate-100">{`${user?.firstName
+                      .charAt(0)
+                      .toUpperCase()} ${user?.lastName
+                      .charAt(0)
+                      .toUpperCase()}`}</AvatarFallback>
                   </Avatar>
                   <ChevronDown size={16} />
                 </div>

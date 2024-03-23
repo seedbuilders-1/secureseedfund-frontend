@@ -9,6 +9,9 @@ export const startupSlice = createSlice({
     handleNextStep: (state) => {
       state.steps += 1;
     },
+    handlePreviousStep: (state) => {
+      state.steps -= 1;
+    },
     changeStep3: (state) => {
       state.steps = 3;
     },
@@ -18,7 +21,7 @@ export const startupSlice = createSlice({
   },
 });
 
-export const { handleNextStep, changeStep3, changeStep4 } =
+export const { handleNextStep, changeStep3, changeStep4, handlePreviousStep } =
   startupSlice.actions;
 
 export default startupSlice.reducer;

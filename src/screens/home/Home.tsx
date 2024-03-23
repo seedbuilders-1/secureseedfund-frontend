@@ -10,7 +10,7 @@ const Home = () => {
   const { user } = useUserAuth();
   const { userProfile } = useProfile();
   const [openModal, setOpenModal] = useState<boolean>(false);
-  console.log(userProfile);
+
   return (
     <div className="w-full">
       <div className="w-full flex items-center justify-between">
@@ -34,7 +34,9 @@ const Home = () => {
         <div className="w-full grid grid-cols-3 gap-4 mt-8">
           {userProfile?.investor && (
             <OrganizationCard
-              name={userProfile?.investor?.companyName}
+              name={
+                userProfile?.investor?.companyName || userProfile?.firstName
+              }
               type={"Investor"}
             />
           )}

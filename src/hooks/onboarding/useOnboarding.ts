@@ -5,6 +5,7 @@ import { selectCurrentStep } from "@/redux/onboarding/selectors";
 import {
   handleNextStep,
   changeStep3,
+  handlePreviousStep,
   changeStep4,
 } from "@/redux/onboarding/reducer";
 import {
@@ -39,6 +40,9 @@ const useOnboarding = () => {
   const { toast } = useToast();
   const handleNext = () => {
     dispatch(handleNextStep());
+  };
+  const handlePrevious = () => {
+    dispatch(handlePreviousStep());
   };
   const changeStepTo3 = () => {
     dispatch(changeStep3());
@@ -122,6 +126,7 @@ const useOnboarding = () => {
     changeStepTo3,
     changeStepTo4,
     allCountries,
+    handlePrevious,
   };
 };
 export default useOnboarding;
