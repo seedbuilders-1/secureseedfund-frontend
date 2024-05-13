@@ -8,7 +8,7 @@ interface Props {
 }
 const UploadFile = ({ file, handleUpload }: Props) => {
   return (
-    <div className="border border-slate-400  border-dashed rounded-md w-full py-8 px-8 flex flex-col justify-center items-center text-center">
+    <div className="border border-slate-400  border-dashed rounded-md w-full py-8  px-8 flex flex-col justify-center items-center text-center">
       <Dropzone onDrop={handleUpload} minSize={1024} maxSize={3072000}>
         {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => {
           const additionalClass = isDragAccept
@@ -27,10 +27,17 @@ const UploadFile = ({ file, handleUpload }: Props) => {
               <div className="flex justify-center items-center">
                 {file && file.type === "application/pdf" ? (
                   <FaFilePdf size={50} />
+                ) : file && file.type.startsWith("image/") ? (
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt="Uploaded"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  />
                 ) : (
                   <MdOutlineFileUpload />
                 )}
               </div>
+
               {file ? (
                 ""
               ) : (

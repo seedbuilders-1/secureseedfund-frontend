@@ -4,6 +4,7 @@ import {
   EntityInformationSchema,
   EntityInformationValidation,
 } from "@/lib/validations/onboarding";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -30,18 +31,33 @@ interface Props {
   selectedOption: string;
   handleEntityInformation: (x: EntityInformationValidation) => void;
   logo: FileWithPath | null;
+  entityInformationValues: EntityInformationValidation;
 }
 
 const EntityInformationForm = ({
   selectedOption,
   handleEntityInformation,
+  entityInformationValues,
   logo,
 }: Props) => {
   const form = useForm<EntityInformationValidation>({
     resolver: zodResolver(EntityInformationSchema),
   });
   const { user } = useUserAuth();
-  const { handleNext, allCountries } = useOnboarding();
+  const { handleNext, allCountries, steps } = useOnboarding();
+  useEffect(() => {
+    const updatedDefaultValues = {
+      dateofbirth: entityInformationValues?.dateofbirth,
+      address: entityInformationValues?.address,
+      city: entityInformationValues?.city,
+      companyname: entityInformationValues?.companyname,
+      postalcode: entityInformationValues?.postalcode,
+      country: entityInformationValues?.country,
+      phonenumber: entityInformationValues?.phonenumber,
+    };
+
+    form.reset(updatedDefaultValues);
+  }, [steps]);
 
   const onSubmit = (values: EntityInformationValidation) => {
     handleEntityInformation(values);

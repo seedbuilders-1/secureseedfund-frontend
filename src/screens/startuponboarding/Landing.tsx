@@ -26,7 +26,7 @@ const Landing = () => {
   const handleDocumentType = (value: string) => {
     setDocumentType(value);
   };
-  console.log(companyInformationValues);
+
   return (
     <>
       {steps === 1 && (

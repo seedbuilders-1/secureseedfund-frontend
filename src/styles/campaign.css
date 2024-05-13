@@ -1,0 +1,31 @@
+.step-item {
+  @apply relative flex flex-col justify-center items-center w-36;
+}
+
+.step-item:not(:first-child):before {
+  @apply content-[''] bg-[#77B900] absolute w-[3px] h-full; /* Set the width and height of the line */
+  left: 50%; /* Position the line in the center horizontally */
+  top: -36%;
+  transform: translateX(-50%) rotate(180deg); /* Rotate the line and adjust horizontal alignment */
+}
+
+.step {
+  @apply w-10 h-10 flex items-center justify-center z-10 relative bg-slate-700 rounded-full font-semibold text-white;
+}
+
+.active .step {
+  @apply bg-sky-600;
+}
+
+.complete .step {
+  @apply bg-green-600;
+}
+
+.complete p {
+  @apply text-white;
+}
+
+.complete:not(:first-child):before,
+.active:not(:first-child):before {
+  @apply bg-green-600;
+}

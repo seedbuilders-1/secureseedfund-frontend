@@ -12,6 +12,7 @@ interface Props {
   handleChange: (x: string) => void;
   handleEntityInformation: (x: EntityInformationValidation) => void;
   logoFile: FileWithPath | null;
+  entityInformationValues: EntityInformationValidation;
   handleLogoUpload: (x: FileWithPath[]) => void;
 }
 
@@ -19,6 +20,7 @@ const EntityInformation = ({
   selectedValue,
   handleChange,
   handleEntityInformation,
+  entityInformationValues,
   logoFile,
   handleLogoUpload,
 }: Props) => {
@@ -104,6 +106,7 @@ const EntityInformation = ({
             selectedOption={selectedValue}
             handleEntityInformation={handleEntityInformation}
             logo={logoFile}
+            entityInformationValues={entityInformationValues}
           />
         </div>
       </div>
