@@ -16,8 +16,8 @@ const UploadComponent = ({ file, handleUpload, imageUrl }: Props) => {
           const additionalClass = isDragAccept
             ? "accept"
             : isDragReject
-              ? "reject"
-              : "";
+            ? "reject"
+            : "";
 
           return (
             <div
@@ -32,7 +32,11 @@ const UploadComponent = ({ file, handleUpload, imageUrl }: Props) => {
                     {file && file.type === "application/pdf" ? (
                       <FaFilePdf size={50} />
                     ) : file && file.type.startsWith("image/") ? (
-                      <img src={URL.createObjectURL(file)} alt="Uploaded" style={{ maxWidth: "100%", maxHeight: "200px" }} />
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt="Uploaded"
+                        style={{ maxWidth: "100%", maxHeight: "200px" }}
+                      />
                     ) : (
                       <PiFilesThin className="w-[42px] h-[32px]" />
                     )}
@@ -40,21 +44,21 @@ const UploadComponent = ({ file, handleUpload, imageUrl }: Props) => {
                 ) : (
                   <>
                     {imageUrl.toLowerCase().endsWith(".pdf") ? (
-
                       <div className="flex justify-center mx-auto items-center">
                         <FaFilePdf size={50} />
-                        <p>   {imageUrl}</p>
+                        <p> {imageUrl}</p>
                       </div>
-
                     ) : (
-                      <img src={imageUrl} alt="Uploaded" style={{ maxWidth: "100%", maxHeight: "200px" }} />
+                      <img
+                        src={imageUrl}
+                        alt="Uploaded"
+                        style={{ maxWidth: "100%", maxHeight: "200px" }}
+                      />
                     )}
                   </>
                 )}
-
               </div>
 
-            
               {!imageUrl && (
                 <div>
                   <p className="text-[14px] font-bold">

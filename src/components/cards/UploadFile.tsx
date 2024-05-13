@@ -28,7 +28,11 @@ const UploadFile = ({ file, handleUpload }: Props) => {
                 {file && file.type === "application/pdf" ? (
                   <FaFilePdf size={50} />
                 ) : file && file.type.startsWith("image/") ? (
-                  <img src={URL.createObjectURL(file)} alt="Uploaded" style={{ maxWidth: "100%", maxHeight: "200px" }} />
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt="Uploaded"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  />
                 ) : (
                   <MdOutlineFileUpload />
                 )}

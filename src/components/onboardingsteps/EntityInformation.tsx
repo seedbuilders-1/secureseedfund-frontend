@@ -12,7 +12,7 @@ interface Props {
   handleChange: (x: string) => void;
   handleEntityInformation: (x: EntityInformationValidation) => void;
   logoFile: FileWithPath | null;
-  entityInformationValues:EntityInformationValidation;
+  entityInformationValues: EntityInformationValidation;
   handleLogoUpload: (x: FileWithPath[]) => void;
 }
 

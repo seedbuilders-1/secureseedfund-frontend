@@ -2,20 +2,26 @@ import {
   CreateCampaignRequestType,
   CreateCampaignResponseType,
   GetCampaignResponseType,
-  CampaignDetail
-} from "./typings"; 
+  CampaignDetail,
+} from "./typings";
 import api from "../api/apiSlice";
 
 const campaign = api.injectEndpoints({
   endpoints: (build) => ({
-    createCampaign: build.mutation<CreateCampaignResponseType, CreateCampaignRequestType>({
+    createCampaign: build.mutation<
+      CreateCampaignResponseType,
+      CreateCampaignRequestType
+    >({
       query: (payload) => ({
         url: "/campaigns",
         method: "POST",
         body: payload,
       }),
     }),
-    editCampaign: build.mutation<CreateCampaignResponseType,  { id: string; payload: CreateCampaignRequestType }>({
+    editCampaign: build.mutation<
+      CreateCampaignResponseType,
+      { id: string; payload: CreateCampaignRequestType }
+    >({
       query: ({ id, payload }) => ({
         url: `/campaigns/${id}`,
         method: "PATCH",
@@ -24,13 +30,13 @@ const campaign = api.injectEndpoints({
     }),
     getCampaign: build.query<GetCampaignResponseType, void>({
       query: () => ({
-        url: `/campaigns`, 
+        url: `/campaigns`,
         method: "GET",
       }),
     }),
-    getCampaignById: build.query<CampaignDetail, string  | undefined>({ 
-      query: (id) => ({ 
-        url: `/campaigns/${id}`, 
+    getCampaignById: build.query<CampaignDetail, string | undefined>({
+      query: (id) => ({
+        url: `/campaigns/${id}`,
         method: "GET",
       }),
     }),
@@ -38,4 +44,9 @@ const campaign = api.injectEndpoints({
   overrideExisting: true,
 });
 
-export const { useCreateCampaignMutation, useGetCampaignQuery, useGetCampaignByIdQuery ,  useEditCampaignMutation} = campaign;
+export const {
+  useCreateCampaignMutation,
+  useGetCampaignQuery,
+  useGetCampaignByIdQuery,
+  useEditCampaignMutation,
+} = campaign;

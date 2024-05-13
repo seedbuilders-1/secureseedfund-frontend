@@ -31,7 +31,7 @@ interface Props {
   selectedOption: string;
   handleEntityInformation: (x: EntityInformationValidation) => void;
   logo: FileWithPath | null;
-  entityInformationValues:EntityInformationValidation
+  entityInformationValues: EntityInformationValidation;
 }
 
 const EntityInformationForm = ({
@@ -40,8 +40,6 @@ const EntityInformationForm = ({
   entityInformationValues,
   logo,
 }: Props) => {
-    
-  
   const form = useForm<EntityInformationValidation>({
     resolver: zodResolver(EntityInformationSchema),
   });
@@ -58,11 +56,8 @@ const EntityInformationForm = ({
       phonenumber: entityInformationValues?.phonenumber,
     };
 
-  
     form.reset(updatedDefaultValues);
-  }, [steps]); 
-
-
+  }, [steps]);
 
   const onSubmit = (values: EntityInformationValidation) => {
     handleEntityInformation(values);

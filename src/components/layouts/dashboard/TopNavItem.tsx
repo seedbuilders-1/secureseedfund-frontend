@@ -3,7 +3,7 @@ import React, { ComponentType } from "react";
 interface Props {
   label: string;
   active: boolean;
-  Icon:ComponentType<{}>
+  Icon: ComponentType<{}>;
 }
 
 const TopNavItem = ({ label, active, Icon }: Props) => {
@@ -13,8 +13,10 @@ const TopNavItem = ({ label, active, Icon }: Props) => {
         active && "border bg-[#F3FFDE] text-[#6C8C3C]"
       }`}
     >
-
-    <div className="w-[19px] h-[19px]"><Icon />  </div>{label}
+      <div className="w-[19px] h-[19px]">
+        <Icon />{" "}
+      </div>
+      {label}
     </div>
   );
 };

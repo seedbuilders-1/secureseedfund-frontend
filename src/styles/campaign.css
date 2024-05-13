@@ -5,7 +5,7 @@
 .step-item:not(:first-child):before {
   @apply content-[''] bg-[#77B900] absolute w-[3px] h-full; /* Set the width and height of the line */
   left: 50%; /* Position the line in the center horizontally */
-  top:-36%;
+  top: -36%;
   transform: translateX(-50%) rotate(180deg); /* Rotate the line and adjust horizontal alignment */
 }
 
