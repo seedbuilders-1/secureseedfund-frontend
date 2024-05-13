@@ -85,6 +85,7 @@ const Landing = () => {
           handleChange={handleInvestorType}
           handleEntityInformation={handleEntityInformation}
           logoFile={logoFile}
+          entityInformationValues={entityInformationValues}
           handleLogoUpload={handleLogoUpload}
         />
       )}

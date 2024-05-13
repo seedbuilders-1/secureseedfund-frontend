@@ -7,7 +7,7 @@ interface Props {
 
 const StatCard = ({ children }: Props) => {
   return (
-    <div className="w-full rounded-[1.25rem] bg-white border border-[#CBD5E1] p-6 min-h-[13rem] flex flex-col shadow-stat-card">
+    <div className="w-full rounded-[1.25rem] bg-white border border-[#CBD5E1] p-6 min-h-[10rem] flex flex-col shadow-stat-card">
       {children}
     </div>
   );

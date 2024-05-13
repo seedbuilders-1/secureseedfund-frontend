@@ -1,100 +1,122 @@
 "use client";
-
-import RecommendedInvestor from "@/components/cards/RecommendedInvestor";
 import StatCard, {
-  StatCardBody,
-  StatCardTitle,
   StateCardMetric,
 } from "@/components/cards/StatCard";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { ArrowUp } from "lucide-react";
 import Image from "next/image";
 import RecentFunding from "./RecentFunding";
-import BorderCard from "@/components/cards/BorderCard";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import EventsAndNews from "./EventsAndNews";
+import useCampaign from "@/hooks/campaign/useCampaign";
+import { Loader2 } from "lucide-react";
+import { thousandFormatter } from "@/lib/helpers";
+
 
 const DashboardOverview = () => {
+  const { campaigns, loadingCampaign } = useCampaign()
+  console.log(campaigns);
+  const currentCampaign = campaigns && campaigns?.items[campaigns?.items.length - 1]
+  if (loadingCampaign) {
+    return (
+      <Loader2 className="flex items-center justify-center animate-spin mx-auto w-[300px]" />
+    )
+  }
+
   return (
-    <div className="w-full">
-      <div className="w-full grid grid-cols-[2fr_1fr] gap-x-4">
+    <div className="w-full mt-[4rem]">
+      <div className="w-[90%] mx-auto grid grid-cols-[1fr_1fr_1fr] gap-x-4">
+
         <StatCard>
-          <StatCardTitle>Funding Progress</StatCardTitle>
-          <StatCardBody>
-            <div className="flex flex-col justify-between h-full">
-              <StateCardMetric>
-                <span>
-                  $32,460{" "}
-                  <span className="text-[1rem] font-[500] text-slate-500">
-                    / $100,000
-                  </span>
+          <div className="flex items-center justify-between mt-2">
+            <div className="space-y-4">
+              <h2>Total funds raised</h2>
+              <StateCardMetric >
+                <span className="text-[#050505]">
+                  0
                 </span>
               </StateCardMetric>
-              <Progress className="w-full mt-auto" value={80} />
             </div>
-          </StatCardBody>
-        </StatCard>
-        <StatCard>
-          <StatCardTitle>Profile Engagement</StatCardTitle>
-          <StatCardBody>
-            <div className="flex flex-col justify-between h-full">
-              <div className="flex items-center space-x-3">
-                <StateCardMetric>12,122</StateCardMetric>
-                <Badge className="space-x-1 rounded-[0.3rem] px-1 text-[.8rem] text-green-600 bg-green-100 font-[400]">
-                  <ArrowUp size={14} /> <span>12.8%</span>
-                </Badge>
-              </div>
-              <span className="text-slate-400 text-[.75rem]">
-                <span className="text-green-600 font-[600]">+4,000</span> more
-                than last week
-              </span>
+            <div className="bg-[#F3FFDE] p-4 rounded-full w-[60px] h-[60px] ">
               <Image
-                src="/assets/images/avatars.png"
+                src="/assets/images/fundraised.png"
                 alt="avatars"
-                width={90}
-                height={30}
+                width={40}
+                height={40}
               />
             </div>
-          </StatCardBody>
+          </div>
+        </StatCard>
+
+        <StatCard>
+          <div className="flex items-center justify-between mt-2">
+            <div className="space-y-4">
+              <h2>Active  Investors</h2>
+              <StateCardMetric >
+                <span className="text-[#050505]">
+                  0
+                </span>
+              </StateCardMetric>
+            </div>
+            <div className="bg-[#F3FFDE] p-4 rounded-full w-[60px] h-[60px] ">
+              <Image
+                src="/assets/images/activeinvestor.png"
+                alt="avatars"
+                width={40}
+                height={40}
+              />
+            </div>
+          </div>
+        </StatCard>
+        <StatCard>
+          <div className="flex items-center justify-between mt-2">
+            <div className="space-y-4">
+              <h2>Current campaigns</h2>
+              <StateCardMetric >
+                <span className="text-[#050505]">
+                  {campaigns?.items.length || "0"}
+                </span>
+              </StateCardMetric>
+            </div>
+            <div className="bg-[#F3FFDE] p-4 rounded-full w-[60px] h-[60px] ">
+              <Image
+                src="/assets/images/campaign.png"
+                alt="avatars"
+                width={40}
+                height={40}
+              />
+            </div>
+          </div>
         </StatCard>
       </div>
 
-      {/* Investor Recommendations */}
-      <div className="w-full flex flex-col space-y-2 mt-8">
-        <div className="flex items-center w-full justify-between">
-          <h3 className="text-slate-700 text-[1.15rem] font-[600]">
-            Investors recommended for you
-          </h3>
-          <Button variant="link" className="px-0 text-green-700">
-            See more
-          </Button>
+      <div className="mt-[3rem] w-[90%] mx-auto grid grid-cols-[2fr_1fr] gap-x-4">
+        <div>
+          <h3 className="text-[28px] mb-4"> Current Campaign</h3>
+          <RecentFunding currentCampaign={currentCampaign && currentCampaign} />
         </div>
+        <div>
+          <h3 className="text-[28px] mb-4"> Transactions</h3>
+          <div className="bg-[#0F8B3A] w-full py-[3rem] px-4 rounded-md h-[668px] flex flex-col justify-between items-center">
 
-        <div className="w-full grid grid-cols-4 gap-x-4">
-          <RecommendedInvestor />
-          <RecommendedInvestor />
-          <RecommendedInvestor />
-          <RecommendedInvestor />
+            {
+              currentCampaign?.milestones.length ?
+                currentCampaign?.milestones.map((milestone,index ) => (
+                  <div className="bg-[#0A742F] py-5 px-4 rounded-[60px] w-full flex justify-between items-center" key={index}>
+                    <div className="flex gap-2">
+                      <div className="bg-white rounded-full w-[42px] h-[42px]"></div>
+                      <div>
+                        <h2 className="text-white font-medium text-[18px]"> {milestone.milestoneTitle}</h2>
+                        <p className="text-white  text-[14px]">{milestone.milestoneDescription}</p>
+                      </div>
+                    </div>
+                    <span className="text-[#FFFFFF] text-[18px]">
+                      {`N${thousandFormatter(milestone.targetAmount)}`}
+                    </span>
+                  </div>
+                ))
+                : <div className="flex  justify-center items-center">
+                  <h2 className="font-bold text-white text-[18px]">   You have no transactions </h2>
+                </div>
+            }
+          </div>
         </div>
-      </div>
-      <div className="mt-8 w-full grid grid-cols-[1fr_2fr] gap-x-4">
-        <RecentFunding />
-        <BorderCard btnText="View SecureSeedFund blog">
-          <Tabs
-            defaultValue="events-and-news"
-            className="flex flex-col flex-1 h-full"
-          >
-            <TabsList className="w-fit">
-              <TabsTrigger value="events-and-news">Events and news</TabsTrigger>
-              <TabsTrigger value="recent-messages">Recent Messages</TabsTrigger>
-            </TabsList>
-            <TabsContent value="events-and-news" className="flex-grow flex">
-              <EventsAndNews />
-            </TabsContent>
-          </Tabs>
-        </BorderCard>
       </div>
     </div>
   );

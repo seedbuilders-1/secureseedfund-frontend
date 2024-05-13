@@ -38,6 +38,7 @@
     "country-state-picker": "^1.1.5",
     "embla-carousel-react": "^8.0.0",
     "lucide-react": "^0.292.0",
+    "moment": "^2.30.1",
     "next": "14.0.1",
     "react": "^18",
     "react-dom": "^18",
