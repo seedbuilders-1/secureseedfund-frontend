@@ -199,7 +199,7 @@ const Review = ({
           Complete
         </Button>
       </div>
-      {isCampaignCreated || (CampaignEdited && <SuccessComponent />)}
+      {isCampaignCreated || CampaignEdited ? <SuccessComponent /> : null}
     </>
   );
 };

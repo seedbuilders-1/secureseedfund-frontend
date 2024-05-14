@@ -23,7 +23,7 @@ const Campaign = () => {
             className="flex  gap-1 items-center rounded-[30px] w-[159px]  font-[500] px-3 py-1  text-[.875rem] cursor-pointer   bg-[#77B900] text-[white]"
           >
             <FiPlus className="w-[9px] h-[9px]" />
-            <h2 className=" mt-1 text-[white] font-normal">Start Campaign</h2>
+            <h2 className=" mt-1 text-[white] font-normal">Create Campaign</h2>
           </div>
         </div>
         <Image

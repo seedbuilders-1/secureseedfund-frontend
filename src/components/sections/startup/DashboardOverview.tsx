@@ -8,7 +8,6 @@ import { thousandFormatter } from "@/lib/helpers";
 
 const DashboardOverview = () => {
   const { campaigns, loadingCampaign } = useCampaign();
-  console.log(campaigns);
   const currentCampaign =
     campaigns && campaigns?.items[campaigns?.items.length - 1];
   if (loadingCampaign) {
@@ -86,7 +85,7 @@ const DashboardOverview = () => {
         </div>
         <div>
           <h3 className="text-[28px] mb-4"> Transactions</h3>
-          <div className="bg-[#0F8B3A] w-full py-[3rem] px-4 rounded-md h-[668px] flex flex-col justify-between items-center">
+          <div className="bg-[#0F8B3A] w-full py-[3rem] px-4 rounded-md h-[668px] gap-4 flex flex-col items-center">
             {currentCampaign?.milestones.length ? (
               currentCampaign?.milestones.map((milestone, index) => (
                 <div
