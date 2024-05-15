@@ -4,7 +4,6 @@ import {
   EntityInformationSchema,
   EntityInformationValidation,
 } from "@/lib/validations/onboarding";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -24,13 +23,12 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import useOnboarding from "@/hooks/onboarding/useOnboarding";
-import { FileWithPath } from "react-dropzone";
 import useUserAuth from "@/hooks/auth/useAuth";
 
 interface Props {
   selectedOption: string;
   handleEntityInformation: (x: EntityInformationValidation) => void;
-  logo: FileWithPath | null;
+  handleNext: () => void;
   entityInformationValues: EntityInformationValidation;
 }
 
@@ -38,33 +36,27 @@ const EntityInformationForm = ({
   selectedOption,
   handleEntityInformation,
   entityInformationValues,
-  logo,
+  handleNext,
 }: Props) => {
+  const updatedDefaultValues = {
+    dateofbirth: entityInformationValues?.dateofbirth,
+    address: entityInformationValues?.address,
+    city: entityInformationValues?.city,
+    companyname: entityInformationValues?.companyname,
+    postalcode: entityInformationValues?.postalcode,
+    country: entityInformationValues?.country,
+    phonenumber: entityInformationValues?.phonenumber,
+  };
   const form = useForm<EntityInformationValidation>({
     resolver: zodResolver(EntityInformationSchema),
+    defaultValues: updatedDefaultValues,
   });
   const { user } = useUserAuth();
-  const { handleNext, allCountries, steps } = useOnboarding();
-  useEffect(() => {
-    const updatedDefaultValues = {
-      dateofbirth: entityInformationValues?.dateofbirth,
-      address: entityInformationValues?.address,
-      city: entityInformationValues?.city,
-      companyname: entityInformationValues?.companyname,
-      postalcode: entityInformationValues?.postalcode,
-      country: entityInformationValues?.country,
-      phonenumber: entityInformationValues?.phonenumber,
-    };
-
-    form.reset(updatedDefaultValues);
-  }, [steps]);
+  const { allCountries } = useOnboarding();
 
   const onSubmit = (values: EntityInformationValidation) => {
     handleEntityInformation(values);
-
-    if (Object.keys(form.formState.errors).length === 0) {
-      handleNext();
-    }
+    handleNext();
   };
 
   return (

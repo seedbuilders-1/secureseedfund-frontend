@@ -3,9 +3,15 @@ import { CompanyInformationValidation } from "@/lib/validations/startuponboardin
 
 interface Props {
   handleCompanyInformation: (x: CompanyInformationValidation) => void;
+  handleNext: () => void;
+  companyInformationValues: CompanyInformationValidation;
 }
 
-const CompanyInfo = ({ handleCompanyInformation }: Props) => {
+const CompanyInfo = ({
+  handleCompanyInformation,
+  companyInformationValues,
+  handleNext,
+}: Props) => {
   return (
     <div>
       <h2 className="text-primaryMain mt-4">Need help?</h2>
@@ -18,6 +24,8 @@ const CompanyInfo = ({ handleCompanyInformation }: Props) => {
         <div className="mt-8">
           <CompanyInformationform
             handleCompanyInformation={handleCompanyInformation}
+            handleNext={handleNext}
+            companyInformationValues={companyInformationValues}
           />
         </div>
       </div>

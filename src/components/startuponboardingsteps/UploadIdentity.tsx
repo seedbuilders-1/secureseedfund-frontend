@@ -21,22 +21,21 @@ interface Props {
   handleDocumentType: (x: string) => void;
   documentType: string;
   companyInformationValues: CompanyInformationValidation;
+  handleNext: () => void;
+  handlePrevious: () => void;
 }
 
 const UploadIdentity = ({
   handleDocumentType,
   documentType,
   companyInformationValues,
+  handleNext,
+  handlePrevious,
 }: Props) => {
   const [evidenceFile, setEvidenceFile] = useState<FileWithPath | null>(null);
   const [documentUrl, setDocumentUrl] = useState<string | undefined>("");
-  const {
-    handleNext,
-    isCreatingStartup,
-    isSuccess,
-    startupOnboarding,
-    handlePrevious,
-  } = useStartupOnboarding();
+  const { isCreatingStartup, isSuccess, startupOnboarding } =
+    useStartupOnboarding();
   const [fileUpload, { error: uploadError, isLoading: isUploading }] =
     useUploadfileMutation();
   const { toast } = useToast();

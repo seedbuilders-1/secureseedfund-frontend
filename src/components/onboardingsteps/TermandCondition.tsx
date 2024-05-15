@@ -2,10 +2,11 @@
 import React from "react";
 import { Button } from "../ui/button";
 import * as Switch from "@radix-ui/react-switch";
-import useOnboarding from "@/hooks/onboarding/useOnboarding";
 
-const TermandCondition = () => {
-  const { handleNext } = useOnboarding();
+interface Props {
+  handleNext: () => void;
+}
+const TermandCondition = ({ handleNext }: Props) => {
   return (
     <>
       <div className="w-full">

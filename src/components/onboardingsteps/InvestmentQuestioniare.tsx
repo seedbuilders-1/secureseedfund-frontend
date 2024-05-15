@@ -16,8 +16,11 @@ interface Question {
   title: string;
   options: Option[];
 }
+interface Props {
+  handleNext: () => void;
+}
 
-const InvestmentQuestioniare = () => {
+const InvestmentQuestioniare = ({ handleNext }: Props) => {
   const ListOfQuestioniare: Question[] = [
     {
       id: "1",
@@ -123,7 +126,6 @@ const InvestmentQuestioniare = () => {
   };
 
   const {
-    handleNext,
     AddInvestorQuestioniare,
     isLoadingQuestioniare,
     hasAddedQuestioniare,
