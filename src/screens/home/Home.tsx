@@ -25,7 +25,7 @@ const Home = () => {
           Create new organization
         </Button>
       </div>
-      {!userProfile?.investor || !userProfile?.startup ? (
+      {!userProfile?.investor && !userProfile?.startup ? (
         <h2 className="text-[1.2rem text-gray text-center max-w-[600px] mt-[8rem] mx-auto">
           You need to create an organization to access the dashboard. Please
           create an organization to proceed.
@@ -40,14 +40,14 @@ const Home = () => {
               type={"Investor"}
             />
           )}
-          {userProfile.investor &&
-            userProfile?.startup?.map((startup) => (
-              <OrganizationCard
-                key={startup.id}
-                name={startup?.companyName}
-                type={"Startup"}
-              />
-            ))}
+          {userProfile?.startup?.map((startup) => (
+            <OrganizationCard
+              key={startup.id}
+              id={startup.id}
+              name={startup?.companyName}
+              type={"Startup"}
+            />
+          ))}
         </div>
       )}
 

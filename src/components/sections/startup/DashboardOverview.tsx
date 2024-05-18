@@ -6,8 +6,10 @@ import useCampaign from "@/hooks/campaign/useCampaign";
 import { Loader2 } from "lucide-react";
 import { thousandFormatter } from "@/lib/helpers";
 
-const DashboardOverview = () => {
-  const { campaigns, loadingCampaign } = useCampaign();
+const DashboardOverview = ({ params }: { params: { startupid: string } }) => {
+  const { campaigns, loadingCampaign } = useCampaign({
+    startupId: params.startupid,
+  });
   const currentCampaign =
     campaigns && campaigns?.items[campaigns?.items.length - 1];
   if (loadingCampaign) {

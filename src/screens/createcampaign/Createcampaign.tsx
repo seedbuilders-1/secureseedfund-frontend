@@ -54,7 +54,7 @@ const Createcampaign = () => {
   };
   const searchParams = useSearchParams();
   const id = searchParams.get("id") ?? "";
-  const { singleCampaign } = useCampaign(id);
+  const { singleCampaign } = useCampaign({ id });
 
   useEffect(() => {
     if (singleCampaign && id) {

@@ -18,7 +18,6 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import useStartupOnboarding from "@/hooks/startup/useStartupOnboarding";
 import useOnboarding from "@/hooks/onboarding/useOnboarding";
 import {
   CompanyInformationSchema,
@@ -27,13 +26,19 @@ import {
 
 interface Props {
   handleCompanyInformation: (x: CompanyInformationValidation) => void;
+  handleNext: () => void;
+  companyInformationValues: CompanyInformationValidation;
 }
-const CompanyInformationform = ({ handleCompanyInformation }: Props) => {
+const CompanyInformationform = ({
+  handleCompanyInformation,
+  companyInformationValues,
+  handleNext,
+}: Props) => {
   const form = useForm<CompanyInformationValidation>({
     resolver: zodResolver(CompanyInformationSchema),
+    defaultValues: companyInformationValues,
   });
 
-  const { handleNext } = useStartupOnboarding();
   const onSubmit = (values: CompanyInformationValidation) => {
     handleCompanyInformation(values);
     handleNext();

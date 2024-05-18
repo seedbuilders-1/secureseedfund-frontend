@@ -76,6 +76,7 @@ const StartupInfo = ({
                     className="py-[1.9rem]  rounded-[48px]"
                     {...field}
                     type="number"
+                    min="0"
                   />
                 </FormControl>
                 <FormMessage />
@@ -94,6 +95,7 @@ const StartupInfo = ({
                     className="py-[1.9rem] rounded-[48px]"
                     {...field}
                     type="number"
+                    min="0"
                   />
                 </FormControl>
                 <FormMessage />

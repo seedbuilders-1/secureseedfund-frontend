@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   title: string;
+  startupId?: string | undefined;
 }
-const Successpage = ({ title }: Props) => {
+const Successpage = ({ title, startupId }: Props) => {
   const router = useRouter();
 
   return (
@@ -34,7 +35,7 @@ const Successpage = ({ title }: Props) => {
             type="submit"
             className="w-[30%] rounded-md mx-auto h-[40px] mt-8"
             onClick={() => {
-              router.push("/home");
+              router.push(`/startup/${startupId}/dashboard`);
             }}
           >
             Go to Dashboard

@@ -1,27 +1,16 @@
 "use client";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentStep } from "@/redux/startup/selectors";
-import { handleNextStep, handlePreviousStep } from "@/redux/startup/reducer";
 import { useStartupOnboardsMutation } from "@/services/startuponboarding";
 import { StartupOnboardingRequestType } from "@/services/startuponboarding/typings";
 import { useToast } from "@/components/ui/use-toast";
 
 const useStartupOnboarding = () => {
-  const [startupOnboard, { isLoading: isCreatingStartup, isSuccess }] =
-    useStartupOnboardsMutation();
+  const [
+    startupOnboard,
+    { isLoading: isCreatingStartup, isSuccess, data: startupResponse },
+  ] = useStartupOnboardsMutation();
+
   const { toast } = useToast();
-  const steps = useSelector(selectCurrentStep);
-  const dispatch = useDispatch();
-  const handleNext = () => {
-    dispatch(handleNextStep());
-  };
-  const handlePrevious = () => {
-    dispatch(handlePreviousStep());
-  };
-  const calculateProgress = () => {
-    const totalSteps = 3;
-    return (steps / totalSteps) * 100;
-  };
+
   const startupOnboarding = async (values: StartupOnboardingRequestType) => {
     const {
       address,
@@ -36,7 +25,7 @@ const useStartupOnboarding = () => {
       userId,
     } = values;
     try {
-      const res = await startupOnboard({
+      await startupOnboard({
         address,
         city,
         companyEmail,
@@ -48,8 +37,6 @@ const useStartupOnboarding = () => {
         countryId,
         userId,
       }).unwrap();
-
-      const {} = res;
     } catch (err: any) {
       console.log({ err });
       toast({
@@ -60,13 +47,10 @@ const useStartupOnboarding = () => {
   };
 
   return {
-    steps,
-    handleNext,
-    calculateProgress,
     startupOnboarding,
     isCreatingStartup,
     isSuccess,
-    handlePrevious,
+    startupResponse,
   };
 };
 export default useStartupOnboarding;

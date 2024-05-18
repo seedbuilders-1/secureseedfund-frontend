@@ -27,6 +27,8 @@ interface Props {
   setEvidenceFile: (x: FileWithPath | null) => void;
   entityInformationValues: EntityInformationValidation;
   selectInvestorType: string;
+  handleNext: () => void;
+  handlePrevious: () => void;
 }
 const Uploadidentity = ({
   documentType,
@@ -38,14 +40,10 @@ const Uploadidentity = ({
   evidenceFile,
   setEvidenceFile,
   entityInformationValues,
+  handleNext,
+  handlePrevious,
 }: Props) => {
-  const {
-    investorOnboarding,
-    isSuccess,
-    handleNext,
-    handlePrevious,
-    isLoadingInvestor,
-  } = useOnboarding();
+  const { investorOnboarding, isSuccess, isLoadingInvestor } = useOnboarding();
   const { toast } = useToast();
   const { user } = useUserAuth();
   const [fileUpload, { error: uploadError, isLoading: isUploading }] =

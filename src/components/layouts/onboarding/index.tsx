@@ -2,10 +2,18 @@
 import Image from "next/image";
 import { ReactNode } from "react";
 import { Progress } from "@/components/ui/progress";
-import useOnboarding from "@/hooks/onboarding/useOnboarding";
 
-const OnboardLayout = ({ children }: { children: ReactNode }) => {
-  const { steps, calculateProgress } = useOnboarding();
+const OnboardLayout = ({
+  children,
+  steps,
+}: {
+  children: ReactNode;
+  steps: number;
+}) => {
+  const calculateProgress = () => {
+    const totalSteps = 4;
+    return (steps / totalSteps) * 100;
+  };
 
   return (
     <div className="flex">

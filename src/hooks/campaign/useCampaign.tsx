@@ -7,7 +7,12 @@ import {
 import { CreateCampaignRequestType } from "@/services/campaign/typings";
 import { useToast } from "@/components/ui/use-toast";
 
-const useCampaign = (id?: string) => {
+interface CampaignPayload {
+  startupId?: string;
+  id?: string;
+}
+
+const useCampaign = ({ startupId, id }: CampaignPayload) => {
   const [
     createCampaigns,
     { isLoading: isCreatingCampaign, isSuccess: isCampaignCreated },
@@ -16,7 +21,10 @@ const useCampaign = (id?: string) => {
     editCampaigns,
     { isLoading: isEditingCampaign, isSuccess: CampaignEdited },
   ] = useEditCampaignMutation();
-  const { data: campaigns, isLoading: loadingCampaign } = useGetCampaignQuery();
+
+  const { data: campaigns, isLoading: loadingCampaign } = useGetCampaignQuery({
+    startupId,
+  });
   const { data: singleCampaign } = useGetCampaignByIdQuery(id);
 
   const { toast } = useToast();

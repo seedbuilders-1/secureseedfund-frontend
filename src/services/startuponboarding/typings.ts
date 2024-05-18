@@ -12,4 +12,5 @@ export type StartupOnboardingRequestType = {
 };
 export type StartupOnboardingResponseType = {
   phone: string;
+  id: string;
 };

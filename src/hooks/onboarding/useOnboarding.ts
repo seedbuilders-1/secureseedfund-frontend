@@ -1,13 +1,5 @@
 "use client";
-import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "@/components/ui/use-toast";
-import { selectCurrentStep } from "@/redux/onboarding/selectors";
-import {
-  handleNextStep,
-  changeStep3,
-  handlePreviousStep,
-  changeStep4,
-} from "@/redux/onboarding/reducer";
 import {
   OnboardingInvestmentUserRequestType,
   InvestmentQuestioniareRequestType,
@@ -35,25 +27,8 @@ const useOnboarding = () => {
     limit: 239,
   });
 
-  const steps = useSelector(selectCurrentStep);
-  const dispatch = useDispatch();
   const { toast } = useToast();
-  const handleNext = () => {
-    dispatch(handleNextStep());
-  };
-  const handlePrevious = () => {
-    dispatch(handlePreviousStep());
-  };
-  const changeStepTo3 = () => {
-    dispatch(changeStep3());
-  };
-  const changeStepTo4 = () => {
-    dispatch(changeStep4());
-  };
-  const calculateProgress = () => {
-    const totalSteps = 4;
-    return (steps / totalSteps) * 100;
-  };
+
   const investorOnboarding = async (
     values: OnboardingInvestmentUserRequestType
   ) => {
@@ -113,9 +88,6 @@ const useOnboarding = () => {
   };
 
   return {
-    steps,
-    handleNext,
-    calculateProgress,
     isLoadingInvestor,
     investorOnboarding,
     isSuccess,
@@ -123,10 +95,7 @@ const useOnboarding = () => {
     isLoadingQuestioniare,
     hasAddedQuestioniare,
     individualInvestor,
-    changeStepTo3,
-    changeStepTo4,
     allCountries,
-    handlePrevious,
   };
 };
 export default useOnboarding;

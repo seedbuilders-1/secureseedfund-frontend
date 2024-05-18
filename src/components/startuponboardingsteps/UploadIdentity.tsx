@@ -11,8 +11,6 @@ import {
 import UploadFile from "../cards/UploadFile";
 import { Button } from "../ui/button";
 import { FileWithPath } from "react-dropzone";
-import useStartupOnboarding from "@/hooks/startup/useStartupOnboarding";
-import useUserAuth from "@/hooks/auth/useAuth";
 import { useToast } from "../ui/use-toast";
 import { CompanyInformationValidation } from "@/lib/validations/startuponboarding";
 import { useUploadfileMutation } from "@/services/fileupload";
@@ -21,26 +19,26 @@ interface Props {
   handleDocumentType: (x: string) => void;
   documentType: string;
   companyInformationValues: CompanyInformationValidation;
+  handleNext: () => void;
+  handlePrevious: () => void;
+  setDocumentUrl: (x: string | undefined) => void;
+  onStartupOnboarding: () => void;
+  isCreatingStartup: boolean;
 }
 
 const UploadIdentity = ({
   handleDocumentType,
   documentType,
-  companyInformationValues,
+  handlePrevious,
+  setDocumentUrl,
+  isCreatingStartup,
+  onStartupOnboarding,
 }: Props) => {
   const [evidenceFile, setEvidenceFile] = useState<FileWithPath | null>(null);
-  const [documentUrl, setDocumentUrl] = useState<string | undefined>("");
-  const {
-    handleNext,
-    isCreatingStartup,
-    isSuccess,
-    startupOnboarding,
-    handlePrevious,
-  } = useStartupOnboarding();
+
   const [fileUpload, { error: uploadError, isLoading: isUploading }] =
     useUploadfileMutation();
   const { toast } = useToast();
-  const { user } = useUserAuth();
 
   const handleUpload = async (acceptedFiles: FileWithPath[]) => {
     const uploadedFile = acceptedFiles[0];
@@ -53,15 +51,6 @@ const UploadIdentity = ({
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      handleNext();
-      toast({
-        variant: "default",
-        title: " information Saved Successfully ",
-      });
-    }
-  }, [isSuccess]);
-  useEffect(() => {
     if (uploadError) {
       toast({
         variant: "destructive",
@@ -69,44 +58,6 @@ const UploadIdentity = ({
       });
     }
   }, [uploadError]);
-
-  const onStartupOnboarding = () => {
-    const {
-      companyPhone,
-      companyEmail,
-      address,
-      city,
-      postalcode,
-      companyname,
-      country,
-    } = companyInformationValues;
-    if (!documentType) {
-      return toast({
-        variant: "destructive",
-        title: "double check.",
-        description: "Add the type of document you  have",
-      });
-    }
-    if (!evidenceFile) {
-      return toast({
-        variant: "destructive",
-        title: "double check.",
-        description: "Add evidence of company registration",
-      });
-    }
-    startupOnboarding({
-      companyPhone,
-      countryId: parseInt(country),
-      address,
-      city,
-      postalCode: postalcode,
-      companyEmail,
-      companyName: companyname,
-      documentType: documentType,
-      documentUrl: documentUrl || "",
-      userId: user?.userId || "",
-    });
-  };
 
   return (
     <div className="">

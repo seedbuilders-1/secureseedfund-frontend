@@ -5,15 +5,16 @@ import Uploadidentity from "@/components/onboardingsteps/Uploadidentity";
 import InvestmentQuestioniare from "@/components/onboardingsteps/InvestmentQuestioniare";
 import TermandCondition from "@/components/onboardingsteps/TermandCondition";
 import Successpage from "@/components/onboardingsteps/Successpage";
-import useOnboarding from "@/hooks/onboarding/useOnboarding";
 import { EntityInformationValidation } from "@/lib/validations/onboarding";
 import { FileWithPath } from "react-dropzone";
 import useProfile from "@/hooks/profile/useProfile";
 import { useUploadfileMutation } from "@/services/fileupload";
 import { useToast } from "@/components/ui/use-toast";
+import OnboardLayout from "@/components/layouts/onboarding";
 
 const Landing = () => {
   const { toast } = useToast();
+  const [steps, setSteps] = useState(1);
   const [logoUrl, setLogoUrl] = useState<string>("");
   const [evidenceFile, setEvidenceFile] = useState<FileWithPath | null>(null);
   const [logoFile, setLogoFile] = useState<FileWithPath | null>(null);
@@ -50,19 +51,23 @@ const Landing = () => {
     const res = await fileUpload(formData).unwrap();
     setLogoUrl(res);
   };
-  const { changeStepTo3, changeStepTo4 } = useOnboarding();
-  const { steps } = useOnboarding();
+  const handleNext = () => {
+    setSteps(steps + 1);
+  };
+  const handlePrevious = () => {
+    setSteps(steps - 1);
+  };
   useEffect(() => {
     if (
       steps <= 3 &&
       userProfile?.investor?.id &&
       userProfile?.investor?.investmentQuestionnaire?.id
     ) {
-      changeStepTo4();
+      setSteps(4);
     } else if (steps <= 3 && userProfile?.investor?.id) {
-      changeStepTo3();
+      setSteps(3);
     }
-  }, [userProfile, changeStepTo3, changeStepTo4, steps]);
+  }, [userProfile, steps]);
 
   useEffect(() => {
     refetchProfile();
@@ -78,35 +83,40 @@ const Landing = () => {
 
   return (
     <>
-      {steps === 1 && (
-        <EntityInformation
-          selectedValue={selectInvestorType}
-          setSelectedValue={setSelectInvestorType}
-          handleChange={handleInvestorType}
-          handleEntityInformation={handleEntityInformation}
-          logoFile={logoFile}
-          entityInformationValues={entityInformationValues}
-          handleLogoUpload={handleLogoUpload}
-        />
-      )}
-      {steps === 2 && (
-        <Uploadidentity
-          selectInvestorType={selectInvestorType}
-          entityInformationValues={entityInformationValues}
-          logoUrl={logoUrl}
-          documentType={documentType}
-          handleDocumentType={handleDocumentType}
-          documentUrl={documentUrl}
-          setDocumentUrl={setDocumentUrl}
-          evidenceFile={evidenceFile}
-          setEvidenceFile={setEvidenceFile}
-        />
-      )}
-      {steps === 3 && <InvestmentQuestioniare />}
-      {steps === 4 && <TermandCondition />}
-      {steps === 5 && (
-        <Successpage title={"Thank you for becoming an investor"} />
-      )}
+      <OnboardLayout steps={steps}>
+        {steps === 1 && (
+          <EntityInformation
+            selectedValue={selectInvestorType}
+            setSelectedValue={setSelectInvestorType}
+            handleChange={handleInvestorType}
+            handleEntityInformation={handleEntityInformation}
+            logoFile={logoFile}
+            entityInformationValues={entityInformationValues}
+            handleLogoUpload={handleLogoUpload}
+            handleNext={handleNext}
+          />
+        )}
+        {steps === 2 && (
+          <Uploadidentity
+            selectInvestorType={selectInvestorType}
+            entityInformationValues={entityInformationValues}
+            logoUrl={logoUrl}
+            documentType={documentType}
+            handleDocumentType={handleDocumentType}
+            documentUrl={documentUrl}
+            setDocumentUrl={setDocumentUrl}
+            handleNext={handleNext}
+            evidenceFile={evidenceFile}
+            handlePrevious={handlePrevious}
+            setEvidenceFile={setEvidenceFile}
+          />
+        )}
+        {steps === 3 && <InvestmentQuestioniare handleNext={handleNext} />}
+        {steps === 4 && <TermandCondition handleNext={handleNext} />}
+        {steps === 5 && (
+          <Successpage title={"Thank you for becoming an investor"} />
+        )}
+      </OnboardLayout>
     </>
   );
 };
