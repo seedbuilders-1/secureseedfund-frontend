@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   title: string;
-  startupId: string | undefined;
+  startupId?: string | undefined;
 }
 const Successpage = ({ title, startupId }: Props) => {
   const router = useRouter();
