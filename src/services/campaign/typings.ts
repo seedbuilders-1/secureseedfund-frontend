@@ -82,3 +82,9 @@ export type CampaignDetail = {
 export type GetCampaignResponseType = {
   items: CampaignDetail[];
 };
+
+export type GetCampaignRequestType = {
+  userId?: string;
+  keyword?: string;
+  startupId?: string;
+};

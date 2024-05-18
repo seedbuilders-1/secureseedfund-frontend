@@ -108,6 +108,7 @@ const Milestone = ({ handleNext, handleMilestone, milestoneDetail }: Props) => {
                     type="number"
                     placeholder="15,000"
                     {...field}
+                    min="0"
                   />
                 </FormControl>
                 <FormMessage />
@@ -238,6 +239,7 @@ const Milestone = ({ handleNext, handleMilestone, milestoneDetail }: Props) => {
                         placeholder="15,000"
                         {...field}
                         type="number"
+                        min="0"
                       />
                     </FormControl>
                     <FormMessage />

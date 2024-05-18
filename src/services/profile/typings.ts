@@ -1,4 +1,5 @@
 export type UserProfileResponseType = {
+  id: string;
   firstName: string;
   lastName: string;
   companyName: string;

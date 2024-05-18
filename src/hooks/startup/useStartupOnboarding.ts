@@ -4,8 +4,11 @@ import { StartupOnboardingRequestType } from "@/services/startuponboarding/typin
 import { useToast } from "@/components/ui/use-toast";
 
 const useStartupOnboarding = () => {
-  const [startupOnboard, { isLoading: isCreatingStartup, isSuccess }] =
-    useStartupOnboardsMutation();
+  const [
+    startupOnboard,
+    { isLoading: isCreatingStartup, isSuccess, data: startupResponse },
+  ] = useStartupOnboardsMutation();
+
   const { toast } = useToast();
 
   const startupOnboarding = async (values: StartupOnboardingRequestType) => {
@@ -22,7 +25,7 @@ const useStartupOnboarding = () => {
       userId,
     } = values;
     try {
-      const res = await startupOnboard({
+      await startupOnboard({
         address,
         city,
         companyEmail,
@@ -34,8 +37,6 @@ const useStartupOnboarding = () => {
         countryId,
         userId,
       }).unwrap();
-
-      const {} = res;
     } catch (err: any) {
       console.log({ err });
       toast({
@@ -49,6 +50,7 @@ const useStartupOnboarding = () => {
     startupOnboarding,
     isCreatingStartup,
     isSuccess,
+    startupResponse,
   };
 };
 export default useStartupOnboarding;

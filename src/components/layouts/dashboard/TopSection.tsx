@@ -18,6 +18,8 @@ const TopSection = () => {
   const { logoutUser, user } = useUserAuth();
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href;
+  const pathSegments = pathname.split("/");
+  const startupId = pathSegments[pathSegments.length - 2];
   return (
     <header className="w-[90%] h-[45vh]  mx-auto px-8 pt-4">
       <div className="flex w-full items-center justify-between mt-4">
@@ -26,10 +28,10 @@ const TopSection = () => {
           {user?.firstName}
         </h1>
         <nav className="flex space-x-4 items-center">
-          <Link href="/startup/dashboard">
+          <Link href={`/startup/${startupId}/dashboard`}>
             <div
               className={` flex  gap-1 items-center justify-between rounded-[30px] text-[#050505]   font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
-                isActive("/startup/dashboard") &&
+                isActive(`/startup/${startupId}/dashboard`) &&
                 "border bg-[#F3FFDE] text-[#6C8C3C]"
               }`}
             >
@@ -37,10 +39,10 @@ const TopSection = () => {
               <h2 className=" mt-1  font-normal">Dashboard</h2>
             </div>
           </Link>
-          <Link href="/startup/campaign">
+          <Link href={`/startup/${startupId}/campaign`}>
             <div
               className={` flex  gap-1 items-center justify-between rounded-[30px]   font-[500] px-3 py-2 text-[.875rem] cursor-pointer text-[#050505] ${
-                isActive("/startup/campaign") &&
+                isActive(`/startup/${startupId}/campaign`) &&
                 "border bg-[#F3FFDE] text-[#6C8C3C]"
               }`}
             >

@@ -4,7 +4,7 @@ import { StartupInfoValidation } from "@/lib/validations/campaign";
 import { thousandFormatter } from "@/lib/helpers";
 import { Button } from "../ui/button";
 import useCampaign from "@/hooks/campaign/useCampaign";
-import useProfile from "@/hooks/profile/useProfile";
+import { useStartupIdUrl } from "@/lib/utils";
 import SuccessComponent from "./SuccessComponent";
 
 interface Props {
@@ -30,13 +30,13 @@ const Review = ({
     editCampaign,
     isCampaignCreated,
     CampaignEdited,
-  } = useCampaign();
+  } = useCampaign({});
 
-  const { userProfile } = useProfile();
+  const startupId = useStartupIdUrl();
 
   const handleCreateCampaign = () => {
     const payload = {
-      startupId: userProfile && userProfile.startup[0].id,
+      startupId: startupId,
       title: milestoneDetail.title,
       description: milestoneDetail.description,
       fundingGoal: parseInt(milestoneDetail.fundinggoal),

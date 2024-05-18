@@ -3,6 +3,7 @@ import {
   CreateCampaignResponseType,
   GetCampaignResponseType,
   CampaignDetail,
+  GetCampaignRequestType,
 } from "./typings";
 import api from "../api/apiSlice";
 
@@ -28,9 +29,9 @@ const campaign = api.injectEndpoints({
         body: payload,
       }),
     }),
-    getCampaign: build.query<GetCampaignResponseType, void>({
-      query: () => ({
-        url: `/campaigns`,
+    getCampaign: build.query<GetCampaignResponseType, GetCampaignRequestType>({
+      query: ({ startupId }) => ({
+        url: `/campaigns?startupId=${startupId}`,
         method: "GET",
       }),
     }),

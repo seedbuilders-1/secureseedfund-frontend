@@ -2,9 +2,12 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { HiCheckBadge } from "react-icons/hi2";
+import { useStartupIdUrl } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 const SuccessComponent = () => {
   const router = useRouter();
+  const startupId = useStartupIdUrl();
+
   return (
     <div className="fixed top-0 right-0  w-full h-full bg-white flex justify-center items-center overflow-hidden">
       <div className="flex justify-center items-center flex-col">
@@ -20,7 +23,7 @@ const SuccessComponent = () => {
           you within [X] business days.
         </h3>
         <Button
-          onClick={() => router.push("/startup/campaign")}
+          onClick={() => router.push(`/startup/${startupId}/campaign`)}
           className="w-[30%] rounded-3xl bg-[#241A3F] mt-[2rem]"
         >
           Proceed

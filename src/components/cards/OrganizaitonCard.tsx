@@ -6,17 +6,18 @@ import { Badge } from "../ui/badge";
 import { useRouter } from "next/navigation";
 
 interface Props {
-  name: string;
-  type: string;
+  name?: string;
+  type?: string;
+  id?: string;
 }
 
-const OrganizationCard = ({ name, type }: Props) => {
+const OrganizationCard = ({ name, type, id }: Props) => {
   const router = useRouter();
   return (
     <BorderCard
       btnText="Go to dashboard"
       onBtnClick={() => {
-        router.push("/startup/dashboard");
+        router.push(`/startup/${id}/dashboard`);
       }}
     >
       <div className="flex flex-col items-center justify-center space-y-2 pb-20 pt-4">
