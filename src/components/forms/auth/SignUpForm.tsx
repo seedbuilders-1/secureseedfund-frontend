@@ -55,7 +55,7 @@ const SignUpForm = () => {
             control={form.control}
             name="firstName"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-2 md:col-span-1" >
                 <FormLabel>First Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Ex. Jane" {...field} />
@@ -68,7 +68,7 @@ const SignUpForm = () => {
             control={form.control}
             name="lastName"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-2 md:col-span-1"> 
                 <FormLabel>Last Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Ex. Doe" {...field} />

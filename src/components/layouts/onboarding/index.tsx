@@ -16,8 +16,8 @@ const OnboardLayout = ({
   };
 
   return (
-    <div className="flex">
-      <div className="basis-[50%] bg-secondaryblue fixed h-full w-[50%] overflow-hidden mr-[50%] p-2 ">
+    <div className="flex-col md:flex-row flex">
+      <div className="hidden  md:block basis-[50%] bg-secondaryblue fixed h-full w-[50%] overflow-hidden mr-[50%] p-2 ">
         <Image
           src="/assets/icons/logo-white.svg"
           alt="logo"
@@ -94,8 +94,14 @@ const OnboardLayout = ({
           </div>
         </div>
       </div>
+         <div className="md:hidden  space-y-7 pl-4 bg-secondaryblue  p-6 ">
+                <Progress
+              className="mt-2 w-2/4 h-[0.7rem] ml-[2rem]"
+              value={calculateProgress()}
+            ></Progress>
+          </div>
 
-      <div className="basis-[50%] ml-[50%] py-4 px-20">{children}</div>
+      <div className="w-[100%] px-10 md:ml-[50%] basis-[50%]  py-4 md:px-20">{children}</div>
     </div>
   );
 };

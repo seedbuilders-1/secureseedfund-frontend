@@ -54,7 +54,7 @@ const ChooseOrg = () => {
       </header>
 
       <main className="mt-10 mx-auto flex flex-col justify-center text-center">
-        <h2 className="text-[#334155] text-[1.9rem]">
+        <h2 className="text-[#334155] text-[25px] md:text-[30px] ">
           Create a new business account
         </h2>
         <p className="text-[#475569] mt-2">
