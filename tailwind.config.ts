@@ -14,6 +14,8 @@ module.exports = {
       screens: {
         "2xl": "1400px",
         sm: "500px",
+        md:'(max-width: 768px)',
+ 
       },
     },
     extend: {
@@ -69,5 +71,6 @@ module.exports = {
       },
     },
   },
+
   plugins: [require("tailwindcss-animate")],
 };

@@ -5,12 +5,12 @@ import { FaGoogle, FaFacebook } from "react-icons/fa";
 
 const SignIn = () => {
   return (
-    <div className="flex flex-col h-full items-center justify-center w-full space-y-10 mt-8">
+    <div className="flex flex-col h-full items-center mx-auto justify-center w-full space-y-10 mt-8">
       <div>
         <h1 className="h2 text-center">Signin to account</h1>
         <p className="p-ui text-center">Provide your credentials to signin</p>
 
-        <div className="mt-2 grid grid-cols-2 gap-x-2">
+        <div className="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
           <Button variant="secondary" className="space-x-2">
             <FaGoogle />
 

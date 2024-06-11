@@ -85,7 +85,7 @@ const CompanyInformationform = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-[15px]">
-                  Company Phone number
+                   Phone number
                 </FormLabel>
                 <FormControl>
                   <Input placeholder=" Enter company phone number" {...field} />

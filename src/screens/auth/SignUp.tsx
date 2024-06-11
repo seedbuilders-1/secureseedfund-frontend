@@ -12,7 +12,7 @@ const SignUp = () => {
           Fill in the form to join Secure Seed Fund
         </p>
 
-        <div className="mt-2 grid grid-cols-2 gap-x-2">
+        <div className="mt-2 grid grid-cols-2 gap-4 md:grid-cols-2">
           <Button variant="secondary" className="space-x-2">
             <FaGoogle />
 

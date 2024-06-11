@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { ReactNode } from "react";
 
-const AuthLayout = ({ children }: { children: ReactNode }) => {
+const AuthLayout = ({ children }: { children: ReactNode }) => { 
   return (
-    <div className="flex">
-      <div className="basis-[50%] bg-secondaryblue fixed h-full w-[50%] overflow-hidden mr-[50%] p-2 flex justify-center items-center flex-col">
+    <div className="flex ">
+      <div className="basis-[50%] bg-secondaryblue fixed h-full w-[50%] overflow-hidden mr-[50%] p-2 hidden justify-center items-center flex-col  md:flex">
         <Image
           src="/assets/icons/logo-white.svg"
           alt="logo"
@@ -22,7 +22,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
         </p>
       </div>
 
-      <div className="basis-[50%] ml-[50%] py-4 px-20">{children}</div>
+      <div className="basis-[100%]  py-4 px-20 md:ml-[50%]">{children}</div>
     </div>
   );
 };

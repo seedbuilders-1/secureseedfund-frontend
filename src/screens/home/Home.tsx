@@ -13,15 +13,15 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      <div className="w-full flex items-center justify-between">
-        <div className="flex flex-col space-y-2">
+      <div className="flex-col md:flex-row  w-full flex items-center justify-between ">
+        <div className="flex flex-col space-y-2  mr-auto">
           <h1 className="h2">Welcome back, {user?.firstName}</h1>
           <p className="p-ui">
             Choose your organization and access the dashboard
           </p>
         </div>
 
-        <Button onClick={() => setOpenModal(!openModal)}>
+        <Button onClick={() => setOpenModal(!openModal)} className="mr-auto  space-y-2 mt-4 md:mr-0 md: ">
           Create new organization
         </Button>
       </div>
@@ -31,7 +31,7 @@ const Home = () => {
           create an organization to proceed.
         </h2>
       ) : (
-        <div className="w-full grid grid-cols-3 gap-4 mt-8">
+        <div className="md:grid-cols-3 w-full grid sm:grid-cols-2 grid-col-auto  gap-4 mt-8">
           {userProfile?.investor && (
             <OrganizationCard
               name={
