@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import ChooseOrg from "@/components/cards/ChooseOrg";
 import useUserAuth from "@/hooks/auth/useAuth";
 import useProfile from "@/hooks/profile/useProfile";
-///P@55w0rd
-//
+
 const Home = () => {
   const { user } = useUserAuth();
   const { userProfile } = useProfile();
