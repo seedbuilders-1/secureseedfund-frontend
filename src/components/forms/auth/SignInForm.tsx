@@ -8,19 +8,17 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { useRouter } from "next/navigation";
 import facebook from "../../../../public/assets/icons/icons8-facebook.svg";
 import linkednin from "../../../../public/assets/icons/icons8-linkedin.svg";
 import google from "../../../../public/assets/icons/icons8-google.svg";
 import Image from "next/image";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import SignUpForm from "./SignUpForm";
 
 import GetStarted from "@/screens/getStarted/GetStarted";
@@ -54,14 +52,9 @@ const SignInForm = () => {
 
   const handleCardClick = (text: string) => {
     setIsModalOpen(false);
-    console.log(text);
-    setSelectedCard((prev) => (prev = text));
-    // console.log(selectedCard);
+    setSelectedCard((prev: string) => (prev = text));
+    console.log(selectedCard);
   };
-
-  useEffect(() => {
-    console.log("Updated Selected Card:", selectedCard); // Logs the latest selectedCard value after state update
-  }, [selectedCard]);
 
   return (
     <Fragment>
@@ -131,7 +124,6 @@ const SignInForm = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          {/* <FormLabel>Email address</FormLabel> */}
                           <FormControl>
                             <Input placeholder="Email" {...field} />
                           </FormControl>
@@ -144,7 +136,6 @@ const SignInForm = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          {/* <FormLabel>Password</FormLabel> */}
                           <FormControl>
                             <Input
                               type="password"
@@ -164,14 +155,6 @@ const SignInForm = () => {
                   >
                     Login
                   </Button>
-                  {/* <p className="text-[.8rem] text-center text-slate-700 leading-[1.25rem] mt-6">
-              Don’t have an account?{" "}
-              <Link href="/auth/sign-up">
-                <span className="font-[500] text-primaryMain hover:underline cursor-pointer">
-                  Create an account
-                </span>
-              </Link>
-            </p> */}
                 </form>
               </Form>
             )}

@@ -9,20 +9,13 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-
-import facebook from "../../../../public/assets/icons/icons8-facebook.svg";
-import linkednin from "../../../../public/assets/icons/icons8-linkedin.svg";
-import google from "../../../../public/assets/icons/icons8-google.svg";
-import Image from "next/image";
 
 const SignUpForm = () => {
   const { loading, registerUser, Registered } = useUserAuth();
@@ -61,7 +54,6 @@ const SignUpForm = () => {
             name="firstName"
             render={({ field }) => (
               <FormItem className="col-span-2">
-                {/* <FormLabel>First Name</FormLabel> */}
                 <FormControl>
                   <Input placeholder="First Name" {...field} />
                 </FormControl>
@@ -74,7 +66,6 @@ const SignUpForm = () => {
             name="lastName"
             render={({ field }) => (
               <FormItem className="col-span-2">
-                {/* <FormLabel>Last Name</FormLabel> */}
                 <FormControl>
                   <Input placeholder="Last Name" {...field} />
                 </FormControl>
@@ -87,7 +78,6 @@ const SignUpForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem className="col-span-2">
-                {/* <FormLabel>Email address</FormLabel> */}
                 <FormControl>
                   <Input placeholder="Email Address" {...field} />
                 </FormControl>
@@ -100,7 +90,6 @@ const SignUpForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem className="col-span-2">
-                {/* <FormLabel>Password</FormLabel> */}
                 <FormControl>
                   <Input type="password" placeholder="Password" {...field} />
                 </FormControl>
@@ -113,7 +102,6 @@ const SignUpForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem className="col-span-2">
-                {/* <FormLabel>Confirm Password</FormLabel> */}
                 <FormControl>
                   <Input
                     type="password"
@@ -133,14 +121,6 @@ const SignUpForm = () => {
         >
           Create account
         </Button>
-        {/* <p className="text-[.8rem] text-center text-slate-700 leading-[1.25rem] mt-6">
-              Already have an account?{" "}
-              <Link href="/auth/sign-in">
-                <span className="font-[500] text-primaryMain hover:underline cursor-pointer">
-                  Sign in
-                </span>
-              </Link>
-            </p> */}
       </form>
     </Form>
   );
