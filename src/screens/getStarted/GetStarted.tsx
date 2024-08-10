@@ -1,33 +1,9 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import startupIcon from "../../../public/assets/icons/Startup.png";
 import investorIcon from "../../../public/assets/icons/Investor.png";
 import institutionIcon from "../../../public/assets/icons/Building.png";
-
-// interface GetStartedCardsProps {
-//   icon: string;
-//   header: string;
-//   text: string;
-// }
-
-// const GetStartedCards: React.FC<GetStartedCardsProps> = ({
-//   icon,
-//   header,
-//   text,
-// }) => {
-//   return (
-//     <div className="rounded-md bg-gradient-to-b from-[#F1F1F147] to-[#51476FE0] flex items-center justify-center shadow-lg">
-//       <div className="text-center p-10">
-//         <div>
-//           <Image src={icon} alt="icon" />
-//         </div>
-//         <h2>{header}</h2>
-//         <p>{text}</p>
-//       </div>
-//     </div>
-//   );
-// };
 
 interface ModalProps {
   onCardClick: (text: string) => void;
