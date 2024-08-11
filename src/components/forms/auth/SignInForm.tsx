@@ -22,6 +22,7 @@ import { Fragment, useState } from "react";
 import SignUpForm from "./SignUpForm";
 
 import GetStarted from "@/screens/getStarted/GetStarted";
+import authLogo from "../../../../public/assets/images/authLogo.png";
 
 const SignInForm = () => {
   const form = useForm<SignInValidation>({
@@ -63,6 +64,7 @@ const SignInForm = () => {
       ) : (
         <div className="w-full">
           <div className="flex flex-col items-center justify-center">
+            <Image src={authLogo} alt="logo" width={150} height={150} />
             <div className="rounded-3xl border-solid border-[1px] border-#241A3F w-[400px] flex justify-between items-center p-1">
               <div
                 className={`bg-${

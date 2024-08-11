@@ -4,6 +4,7 @@ import React from "react";
 import startupIcon from "../../../public/assets/icons/Startup.png";
 import investorIcon from "../../../public/assets/icons/Investor.png";
 import institutionIcon from "../../../public/assets/icons/Building.png";
+import authLogo from "../../../public/assets/images/authlogo.png";
 
 interface ModalProps {
   onCardClick: (text: string) => void;
@@ -14,6 +15,7 @@ const GetStarted: React.FC<ModalProps> = ({ onCardClick }) => {
     <>
       <div className=" bg-[white] absolute top-0 left-0 w-full h-full">
         <div className="h-full flex flex-col items-center justify-center">
+          <Image src={authLogo} alt="logo" width={150} height={150} />
           <div className="p-3">
             <h3 className="font-bold text-center">Get Started</h3>
             <p>How would you like to SecureSeedFund?</p>
