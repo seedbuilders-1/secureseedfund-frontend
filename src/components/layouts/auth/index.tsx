@@ -5,7 +5,7 @@ import threeImage from "../../../../public/assets/images/threeImage.png";
 const AuthLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex">
-      <div className="basis-[50%] bg-[#F1F1F1] fixed h-full w-[50%] overflow-hidden mr-[50%] p-2 hidden flex-col md:flex">
+      <div className="basis-[50%] bg-[#F1F1F1] fixed h-full w-[50%] overflow-hidden mr-[50%] p-2 hidden flex-col lg:flex">
         <div className="w-full m-0 p-0 h-full">
           <p className="flex items-center justify-center mt-20 text-[24px]">
             Invest Securely-Raise Confidently
@@ -19,7 +19,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
         </div>
       </div>
 
-      <div className="basis-[100%] py-4 px-20 md:ml-[50%]">{children}</div>
+      <div className="basis-[100%] py-4 px-20 lg:ml-[50%]">{children}</div>
     </div>
   );
 };
