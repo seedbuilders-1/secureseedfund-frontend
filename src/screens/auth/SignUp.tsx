@@ -1,12 +1,9 @@
 import SignUpForm from "@/components/forms/auth/SignUpForm";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { FaGoogle, FaFacebook } from "react-icons/fa";
 
 const SignUp = () => {
   return (
     <div className="flex flex-col h-full items-center justify-center w-full mt-6">
-      <div>
+      {/* <div>
         <h1 className="h2 text-center">Create an account</h1>
         <p className="p-ui text-center">
           Fill in the form to join Secure Seed Fund
@@ -31,7 +28,7 @@ const SignUp = () => {
           or
         </span>
         <Separator className="w-[45%]" />
-      </div>
+      </div> */}
 
       <SignUpForm />
     </div>
