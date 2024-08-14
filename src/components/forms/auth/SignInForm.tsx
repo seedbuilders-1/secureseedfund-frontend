@@ -20,9 +20,8 @@ import google from "../../../../public/assets/icons/icons8-google.svg";
 import Image from "next/image";
 import { Fragment, useState } from "react";
 import SignUpForm from "./SignUpForm";
-
 import GetStarted from "@/screens/getStarted/GetStarted";
-import authLogo from "../../../../public/assets/images/authLogo.png";
+import authLogo from "../../../../public/assets/images/authlogo.png";
 
 const SignInForm = () => {
   const form = useForm<SignInValidation>({
