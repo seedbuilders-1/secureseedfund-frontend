@@ -4,34 +4,40 @@ import threeImage from "../../../../public/assets/images/threeImage.png";
 
 const AuthLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="flex">
-      <div className="basis-[50%] bg-[#F1F1F1] fixed h-full w-[50%] overflow-hidden mr-[50%] p-2 hidden flex-col lg:flex">
-        <div className="w-full m-0 p-0 h-full">
-          <p className="flex items-center justify-center mt-20 text-[24px]">
-            Invest Securely-Raise Confidently
-          </p>
-          <Image
-            src={threeImage}
-            alt="logo"
-            layout="intrinsic"
-            className="absolute bottom-0 left-0 right-0"
-          />
+    // <div className="flex flex-col lg:flex-row min-h-screen">
+    //   <div className="lg:basis-[50%] bg-[#F1F1F1] lg:fixed h-[50vh] lg:h-full w-full lg:w-[50%] relative overflow-hidden p-2 flex-col hidden lg:flex">
+    //     <div className="w-full h-full flex flex-col justify-center items-center">
+    //       <p className="text-center text-[24px] mb-4">
+    //         Invest Securely-Raise Confidently
+    //       </p>
+    //       <div className="w-full h-[300px]">
+    //         <Image
+    //           src={threeImage}
+    //           alt="logo"
+    //           // layout="fill"
+    //           // objectFit="contain"
+    //           className="absolute bottom-0 left-0 right-0"
+    //         />
+    //       </div>
+    //     </div>
+    //   </div>
+
+    //   <div className="flex-grow py-4 px-6 lg:px-20 lg:ml-[50%]">{children}</div>
+    // </div>
+
+    <div className="min-h-screen flex justify-between w-full">
+      <div className="hidden lg:flex lg:flex-col lg:justify-between w-[50%] relative">
+        <div className="hidden lg:block"></div>
+        <div className="w-full text-center text-[24px]">
+          <p>Invest Securely-Raise Confidently</p>
+        </div>
+        <div className="relative bottom-0 left-0 right-0 w-full">
+          <Image src={threeImage} alt="logo" className="w-full" />
         </div>
       </div>
-
-      <div className="basis-[100%] py-4 px-20 lg:ml-[50%]">{children}</div>
+      <div className="lg:w-[50%] w-full">{children}</div>
     </div>
   );
 };
 
 export default AuthLayout;
-
-{
-  /* <Image
-  src="/assets/icons/logo-white.svg"
-  alt="logo"
-  width={47}
-  height={50}
-  className="absolute top-8 left-8"
-/>; */
-}

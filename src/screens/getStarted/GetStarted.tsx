@@ -4,7 +4,7 @@ import React from "react";
 import startupIcon from "../../../public/assets/icons/Startup.png";
 import investorIcon from "../../../public/assets/icons/Investor.png";
 import institutionIcon from "../../../public/assets/icons/Building.png";
-import authLogo from "../../../public/assets/images/authlogo.png";
+import authLogo from "../../../public/assets/images/authLogo.png";
 
 interface ModalProps {
   onCardClick: (text: string) => void;
@@ -13,7 +13,7 @@ interface ModalProps {
 const GetStarted: React.FC<ModalProps> = ({ onCardClick }) => {
   return (
     <>
-      <div className=" bg-[white] absolute top-0 left-0 w-full h-full">
+      <div className=" bg-[white] fixed inset-0 z-50">
         <div className="h-full flex flex-col items-center justify-center">
           <Image src={authLogo} alt="logo" width={150} height={150} />
           <div className="p-3">
