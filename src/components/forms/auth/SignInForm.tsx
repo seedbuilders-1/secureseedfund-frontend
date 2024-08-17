@@ -65,7 +65,7 @@ const SignInForm = () => {
           defaultValue="login"
           className="w-full flex items-center justify-center flex-col"
         >
-          <TabsList className="bg-white rounded-full border flex justify-between items-center p-1 border-#241A3F h-14 w-[70%] sm:w-[60%] lg:w-[60%]">
+          <TabsList className="bg-white rounded-full border flex justify-between items-center p-1 border-#241A3F h-14 w-full sm:w-[60%] lg:w-[60%]">
             <TabsTrigger
               value="login"
               className="font-normal text-[1rem] bg-white w-full rounded-3xl p-3 text-center text-[black] data-[state=active]:bg-[#241A3F] data-[state=active]:text-white"
@@ -80,7 +80,7 @@ const SignInForm = () => {
               Sign Up
             </TabsTrigger>
           </TabsList>
-          <div className="w-[60%] flex justify-between mt-12 space-x-5">
+          <div className="w-full md:w-[60%] flex justify-between mt-12 space-x-5">
             <div className="bg-[#D9D9D93B] rounded-lg p-3 shadow cursor-pointer">
               <Image src={facebook} alt="logo" layout="intrinsic" />
             </div>
@@ -91,7 +91,7 @@ const SignInForm = () => {
               <Image src={linkednin} alt="logo" layout="intrinsic" />
             </div>
           </div>
-          <div className="flex items-center mt-10 w-[60%] space-x-5">
+          <div className="flex items-center mt-10 w-full md:w-[60%] space-x-5">
             <div className="flex-grow border-b border-[black] border-dashed border"></div>
             <span className="text-[black]">OR</span>
             <div className="flex-grow border-b border-[black] border-dashed border"></div>
@@ -99,13 +99,13 @@ const SignInForm = () => {
           <div className="flex items-center justify-center my-6">
             <p className="text-[#2B2B2B]">Provide your credentials to login</p>
           </div>
-          <TabsContent value="sign-up" className="w-[60%]">
+          <TabsContent value="sign-up" className="w-full md:w-[60%] lg:w-[65%]">
             <SignUpForm />
           </TabsContent>
-          <TabsContent value="login" className="w-[60%]">
+          <TabsContent value="login" className="w-full md:w-[60%] lg:w-[65%]">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="">
-                <div className="mb-10 flex flex-col space-y-6">
+                <div className="mb-10 flex flex-col space-y-6 w-full">
                   <FormField
                     control={form.control}
                     name="email"
