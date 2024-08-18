@@ -1,27 +1,58 @@
 "use client";
 import * as RadioGroup from "@radix-ui/react-radio-group";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { useFieldArray, useForm } from "react-hook-form";
+import { CampaignValidation, CampaignSchema } from "@/lib/validations/campaign";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "../ui/button";
 interface Props {
   handleNext: () => void;
   handleChange: (x: string) => void;
+  handleCampaign: (v: CampaignValidation) => void;
   selectFundingCampaign: string;
+  campaignDetails: CampaignValidation;
 }
 const StartCampaign = ({
   handleNext,
   handleChange,
+  handleCampaign,
   selectFundingCampaign,
+  campaignDetails,
 }: Props) => {
   const fundingTypes = [
     { type: "Equity", value: "EQUITY", icon: "/equity.svg" },
     { type: "Debt", value: "DEBT", icon: "/debt.svg" },
     { type: "Reward", value: "REWARD", icon: "/reward.svg" },
     { type: "Revenue Share", value: "REVENUE_SHARE", icon: "/revenue.svg" },
+    { type: "Grants", value: "GRANTS", icon: "/grant.svg" },
+    { type: "Partnership", value: "PARTNERSHIP", icon: "/partnership.svg" },
+    { type: "SAFE", value: "SAFE", icon: "/safe.svg" },
+    { type: "Mentorship", value: "MENTORSHIP", icon: "/mentorship.svg" },
+    // { type: "Others", value: "OTHERS", icon: "/others.svg" },
   ];
+
+  const form = useForm<CampaignValidation>({
+    resolver: zodResolver(CampaignSchema),
+    defaultValues: campaignDetails,
+  });
+
+  const onSubmit = (values: CampaignValidation) => {
+    handleCampaign(values);
+    handleNext();
+  };
   return (
     <div className="w-full  ">
       <h2 className="text-[#0F172A] text-[24px] font-medium">
-        Funding Campaign
+        Provide Campaign Details
       </h2>
       <h3 className="text-[#747474] text-[16px] mt-3">
         Select the type of fundraising campaign that aligns with your funding
@@ -33,7 +64,7 @@ const StartCampaign = ({
           value={selectFundingCampaign}
           onValueChange={handleChange}
         >
-          <div className="flex gap-4 ">
+          <div className="flex gap-12 flex-wrap ">
             {fundingTypes.map((funding, index) => (
               <RadioGroup.Item value={funding.value} key={index}>
                 <div
@@ -63,17 +94,116 @@ const StartCampaign = ({
             ))}
           </div>
         </RadioGroup.Root>
+
+        <div className="mb-3 grid grid-cols-1 gap-x-2 gap-y-4 space-y-2 mt-6">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full  ">
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Campaign Title</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[1.9rem] rounded-[48px]"
+                        placeholder="Provide a title"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Campaign description</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[3rem]"
+                        placeholder="Provide a description"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="fundinggoal"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Funding Goal</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[1.9rem] rounded-[48px]"
+                        type="number"
+                        placeholder="15,000"
+                        {...field}
+                        min="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex space-x-12">
+                <FormField
+                  control={form.control}
+                  name="startdate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Start Date</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="py-[1.9rem] rounded-[48px] w-[200px]"
+                          type="date"
+                          placeholder="DD-MM-YY"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="enddate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Enddate</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="py-[1.9rem] rounded-[48px] w-[200px]"
+                          type="date"
+                          placeholder="DD-MM-YY"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              {selectFundingCampaign && (
+                <Button
+                  type="submit"
+                  className="w-[30%] rounded-3xl bg-[#241A3F] mt-8"
+                >
+                  Proceed
+                </Button>
+              )}
+            </form>
+          </Form>
+        </div>
       </div>
-      {selectFundingCampaign && (
-        <Button
-          onClick={() => {
-            handleNext();
-          }}
-          className="w-[30%] rounded-3xl bg-[#241A3F] mt-8"
-        >
-          Proceed
-        </Button>
-      )}
     </div>
   );
 };

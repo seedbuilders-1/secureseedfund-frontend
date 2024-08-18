@@ -1,27 +1,32 @@
 import React from "react";
-import { MilestoneValidation } from "@/lib/validations/campaign";
+import {
+  CampaignValidation,
+  MilestoneValidation,
+} from "@/lib/validations/campaign";
 import { StartupInfoValidation } from "@/lib/validations/campaign";
 import { thousandFormatter } from "@/lib/helpers";
 import { Button } from "../ui/button";
-import useCampaign from "@/hooks/campaign/useCampaign";
 import { useStartupIdUrl } from "@/lib/utils";
 import SuccessComponent from "./SuccessComponent";
+import useCampaign from "@/app/startup/hooks/useCampaign";
 
 interface Props {
-  startupDetail: StartupInfoValidation;
+  // startupDetail: StartupInfoValidation;
   milestoneDetail: MilestoneValidation;
-  coverPhoto: string;
+  // coverPhoto: string;
   selectFundingCampaign: string;
-  businessPlanUrl: string;
+  // businessPlanUrl: string;
   id: string;
+  campaignDetail: CampaignValidation;
 }
 const Review = ({
-  startupDetail,
+  // startupDetail,
   id,
   milestoneDetail,
-  coverPhoto,
-  businessPlanUrl,
+  // coverPhoto,
+  // businessPlanUrl,
   selectFundingCampaign,
+  campaignDetail,
 }: Props) => {
   const {
     createCampaign,
@@ -37,24 +42,24 @@ const Review = ({
   const handleCreateCampaign = () => {
     const payload = {
       startupId: startupId,
-      title: milestoneDetail.title,
-      description: milestoneDetail.description,
-      fundingGoal: parseInt(milestoneDetail.fundinggoal),
+      title: campaignDetail.title,
+      description: campaignDetail.description,
+      fundingGoal: parseInt(campaignDetail.fundinggoal),
       campaignType: selectFundingCampaign,
-      coverPhotoUrl: coverPhoto,
-      startDate: milestoneDetail.startdate,
-      endDate: milestoneDetail.enddate,
-      companyType: startupDetail.companyType,
-      cofounders: parseInt(startupDetail.cofounders),
-      teamMembers: parseInt(startupDetail.teamMembers),
-      about: startupDetail.about,
+      // coverPhotoUrl: coverPhoto,
+      startDate: campaignDetail.startdate,
+      endDate: campaignDetail.enddate,
+      // companyType: startupDetail.companyType,
+      // cofounders: parseInt(startupDetail.cofounders),
+      // teamMembers: parseInt(startupDetail.teamMembers),
+      // about: startupDetail.about,
       milestones: milestoneDetail.milestones.map(
         ({ targetAmount, ...milestone }) => ({
           targetAmount: parseInt(targetAmount),
           ...milestone,
         })
       ),
-      businessPlanUrl,
+      // businessPlanUrl,
     };
     if (id) {
       editCampaign(id, payload);
@@ -77,13 +82,13 @@ const Review = ({
             Cover Photo
           </h2>
           <div className="border border-[#6C8C3C30] rounded-lg bg-[#F9F9FA] px-4 py-4">
-            <img
+            {/* <img
               src={coverPhoto}
               alt={"cover"}
               width={325}
               height={183}
               className="rounded-tl-md rounded-tr-md"
-            />
+            /> */}
           </div>
         </div>
 
@@ -93,10 +98,10 @@ const Review = ({
           </h2>
           <div className="border border-[#6C8C3C30] rounded-lg bg-[#F9F9FA] px-4 py-4">
             <h2 className="text-[#0F172A] text-[18px] font-medium rounded-lg">
-              {milestoneDetail.title}
+              {campaignDetail.title}
             </h2>
             <h3 className="text-[#747474] text-[16px] mt-3">
-              {milestoneDetail.description}
+              {campaignDetail.description}
             </h3>
 
             <div className="flex items-center gap-4">
@@ -120,19 +125,19 @@ const Review = ({
             <div>
               <span className="text-[#747474] ">Company Type</span>
               <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
-                {startupDetail.companyType}
+                {/* {startupDetail.companyType} */}
               </h2>
             </div>
             <div>
               <span className="text-[#747474] ">No of Cofounders</span>
               <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
-                {startupDetail.cofounders}
+                {/* {startupDetail.cofounders} */}
               </h2>
             </div>
             <div>
               <span className="text-[#747474] ">No of Teams</span>
               <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
-                {startupDetail.teamMembers}
+                {/* {startupDetail.teamMembers} */}
               </h2>
             </div>
           </div>
@@ -146,19 +151,19 @@ const Review = ({
             <div>
               <span className="text-[#747474] ">Funding Goal</span>
               <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">{`${thousandFormatter(
-                parseInt(milestoneDetail.fundinggoal)
+                parseInt(campaignDetail.fundinggoal)
               )}`}</h2>
             </div>
             <div>
               <span className="text-[#747474] ">Start Date</span>
               <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
-                {milestoneDetail.startdate}
+                {campaignDetail.startdate}
               </h2>
             </div>
             <div>
               <span className="text-[#747474] ">End Date</span>
               <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
-                {milestoneDetail.enddate}
+                {campaignDetail.enddate}
               </h2>
             </div>
           </div>

@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { FiPlus } from "react-icons/fi";
 import Image from "next/image";
 import CampaignCard from "@/components/cards/CampaignCard";
-import useCampaign from "@/hooks/campaign/useCampaign";
 import { Loader2 } from "lucide-react";
+import useCampaign from "@/app/startup/hooks/useCampaign";
 
 const Campaign = ({ params }: { params: { startupid: string } }) => {
   const router = useRouter();

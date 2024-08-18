@@ -2,9 +2,9 @@
 import StatCard, { StateCardMetric } from "@/components/cards/StatCard";
 import Image from "next/image";
 import RecentFunding from "./RecentFunding";
-import useCampaign from "@/hooks/campaign/useCampaign";
 import { Loader2 } from "lucide-react";
 import { thousandFormatter } from "@/lib/helpers";
+import useCampaign from "@/app/startup/hooks/useCampaign";
 
 const DashboardOverview = ({ params }: { params: { startupid: string } }) => {
   const { campaigns, loadingCampaign } = useCampaign({

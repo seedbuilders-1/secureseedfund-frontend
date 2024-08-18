@@ -5,12 +5,15 @@ import Milestone from "@/components/campaign/Milestone";
 import StartCampaign from "@/components/campaign/StartCampaign";
 import StartupInfo from "@/components/campaign/StartupInfo";
 import UploadDocuments from "@/components/campaign/UploadDocuments";
-import { MilestoneValidation } from "@/lib/validations/campaign";
+import {
+  CampaignValidation,
+  MilestoneValidation,
+} from "@/lib/validations/campaign";
 import Review from "@/components/campaign/Review";
 import { StartupInfoValidation } from "@/lib/validations/campaign";
 import { useSearchParams } from "next/navigation";
-import useCampaign from "@/hooks/campaign/useCampaign";
 import moment from "moment";
+import useCampaign from "@/app/startup/hooks/useCampaign";
 
 const Createcampaign = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -19,11 +22,6 @@ const Createcampaign = () => {
   const [coverPhoto, setCoverPhoto] = useState<string>("");
   const [businessPlanUrl, setBuisnessPlanUrl] = useState<string>("");
   const [milestoneDetail, setMilestoneDetail] = useState<MilestoneValidation>({
-    title: "",
-    description: "",
-    startdate: "",
-    enddate: "",
-    fundinggoal: "",
     milestones: [
       {
         date: "",
@@ -39,12 +37,22 @@ const Createcampaign = () => {
     teamMembers: "",
     companyType: "",
   });
+  const [campaignDetail, setCampaignDetail] = useState<CampaignValidation>({
+    title: "",
+    description: "",
+    startdate: "",
+    enddate: "",
+    fundinggoal: "",
+  });
 
   const handleSelectFundingCampaign = (value: string) => {
     setSelectFundingCampaign(value);
   };
   const handleMilestone = (details: MilestoneValidation) => {
     setMilestoneDetail(details);
+  };
+  const handleCampaign = (details: CampaignValidation) => {
+    setCampaignDetail(details);
   };
   const handleStartupInfo = (details: StartupInfoValidation) => {
     setStartupDetail(details);
@@ -60,11 +68,6 @@ const Createcampaign = () => {
     if (singleCampaign && id) {
       setSelectFundingCampaign(singleCampaign?.campaignType);
       setMilestoneDetail({
-        title: singleCampaign?.title,
-        description: singleCampaign?.description,
-        startdate: moment(singleCampaign?.startDate).format("YYYY-MM-DD"),
-        enddate: moment(singleCampaign?.endDate).format("YYYY-MM-DD"),
-        fundinggoal: singleCampaign?.fundingGoal.toString(),
         milestones: singleCampaign?.milestones.map(
           ({ targetAmount, date, ...milestone }) => ({
             targetAmount: targetAmount.toString(),
@@ -72,6 +75,13 @@ const Createcampaign = () => {
             ...milestone,
           })
         ),
+      });
+      setCampaignDetail({
+        title: singleCampaign?.title,
+        description: singleCampaign?.description,
+        startdate: moment(singleCampaign?.startDate).format("YYYY-MM-DD"),
+        enddate: moment(singleCampaign?.endDate).format("YYYY-MM-DD"),
+        fundinggoal: singleCampaign?.fundingGoal.toString(),
       });
       setStartupDetail({
         about: singleCampaign?.about,
@@ -87,12 +97,14 @@ const Createcampaign = () => {
   return (
     <div className="w-full  h-full bg-white flex gap-[3rem]">
       <CampaignStepper currentStep={currentStep} />
-      <div className="w-[70%] max-w-[800px] py-[3rem]">
+      <div className="w-[80%] max-w-[1000px] py-[3rem]">
         {currentStep === 1 && (
           <StartCampaign
             handleNext={handleNext}
             selectFundingCampaign={selectFundingCampaign}
             handleChange={handleSelectFundingCampaign}
+            handleCampaign={handleCampaign}
+            campaignDetails={campaignDetail}
           />
         )}
         {currentStep === 2 && (
@@ -102,7 +114,7 @@ const Createcampaign = () => {
             milestoneDetail={milestoneDetail}
           />
         )}
-        {currentStep === 3 && (
+        {/* {currentStep === 3 && (
           <StartupInfo
             handleNext={handleNext}
             handleStartupInfo={handleStartupInfo}
@@ -117,13 +129,14 @@ const Createcampaign = () => {
             setCoverPhoto={setCoverPhoto}
             handleNext={handleNext}
           />
-        )}
-        {currentStep === 5 && (
+        )} */}
+        {currentStep === 3 && (
           <Review
-            startupDetail={startupDetail}
+            campaignDetail={campaignDetail}
+            // startupDetail={startupDetail}
             milestoneDetail={milestoneDetail}
-            coverPhoto={coverPhoto}
-            businessPlanUrl={businessPlanUrl}
+            // coverPhoto={coverPhoto}
+            // businessPlanUrl={businessPlanUrl}
             id={id}
             selectFundingCampaign={selectFundingCampaign}
           />
