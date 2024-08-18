@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import startupIcon from "../../../public/assets/icons/Startup.png";
-import investorIcon from "../../../public/assets/icons/Investor.png";
-import institutionIcon from "../../../public/assets/icons/Building.png";
-import authLogo from "../../../public/assets/images/authLogo.png";
+import startupIcon from "../../../../public/assets/icons/Startup.png";
+import investorIcon from "../../../../public/assets/icons/Investor.png";
+import institutionIcon from "../../../../public/assets/icons/Building.png";
+import authLogo from "../../../../public/assets/images/authLogo.png";
 
 interface ModalProps {
   onCardClick: (text: string) => void;
@@ -13,8 +13,8 @@ interface ModalProps {
 const GetStarted: React.FC<ModalProps> = ({ onCardClick }) => {
   return (
     <>
-      <div className=" bg-[white] fixed inset-0 z-50">
-        <div className="h-full flex flex-col items-center justify-center">
+      <div className=" bg-[white] fixed inset-0 z-50 h-full overflow-y-auto">
+        <div className="min-h-full flex flex-col items-center justify-center">
           <Image src={authLogo} alt="logo" width={150} height={150} />
           <div className="p-3">
             <h3 className="font-bold text-center">Get Started</h3>
