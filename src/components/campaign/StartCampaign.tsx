@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { CampaignValidation, CampaignSchema } from "@/lib/validations/campaign";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";

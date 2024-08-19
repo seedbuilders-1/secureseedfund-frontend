@@ -3,7 +3,6 @@ import {
   CampaignValidation,
   MilestoneValidation,
 } from "@/lib/validations/campaign";
-import { StartupInfoValidation } from "@/lib/validations/campaign";
 import { thousandFormatter } from "@/lib/helpers";
 import { Button } from "../ui/button";
 import { useStartupIdUrl } from "@/lib/utils";

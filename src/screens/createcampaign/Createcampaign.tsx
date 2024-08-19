@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import CampaignStepper from "@/components/cards/CampaignStepper";
 import Milestone from "@/components/campaign/Milestone";
 import StartCampaign from "@/components/campaign/StartCampaign";
-import StartupInfo from "@/components/campaign/StartupInfo";
-import UploadDocuments from "@/components/campaign/UploadDocuments";
 import {
   CampaignValidation,
   MilestoneValidation,
@@ -19,8 +17,6 @@ const Createcampaign = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectFundingCampaign, setSelectFundingCampaign] =
     useState<string>("");
-  const [coverPhoto, setCoverPhoto] = useState<string>("");
-  const [businessPlanUrl, setBuisnessPlanUrl] = useState<string>("");
   const [milestoneDetail, setMilestoneDetail] = useState<MilestoneValidation>({
     milestones: [
       {
@@ -31,12 +27,7 @@ const Createcampaign = () => {
       },
     ],
   });
-  const [startupDetail, setStartupDetail] = useState<StartupInfoValidation>({
-    about: "",
-    cofounders: "1",
-    teamMembers: "",
-    companyType: "",
-  });
+
   const [campaignDetail, setCampaignDetail] = useState<CampaignValidation>({
     title: "",
     description: "",
@@ -54,9 +45,7 @@ const Createcampaign = () => {
   const handleCampaign = (details: CampaignValidation) => {
     setCampaignDetail(details);
   };
-  const handleStartupInfo = (details: StartupInfoValidation) => {
-    setStartupDetail(details);
-  };
+
   const handleNext = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -83,14 +72,6 @@ const Createcampaign = () => {
         enddate: moment(singleCampaign?.endDate).format("YYYY-MM-DD"),
         fundinggoal: singleCampaign?.fundingGoal.toString(),
       });
-      setStartupDetail({
-        about: singleCampaign?.about,
-        cofounders: singleCampaign?.cofounders.toString(),
-        teamMembers: singleCampaign?.teamMmbers.toString(),
-        companyType: singleCampaign?.companyType,
-      });
-      setBuisnessPlanUrl(singleCampaign?.businessPlanUrl);
-      setCoverPhoto(singleCampaign?.coverPhotoUrl);
     }
   }, [id, singleCampaign]);
 
