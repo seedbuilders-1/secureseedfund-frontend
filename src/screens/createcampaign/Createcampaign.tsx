@@ -8,7 +8,6 @@ import {
   MilestoneValidation,
 } from "@/lib/validations/campaign";
 import Review from "@/components/campaign/Review";
-import { StartupInfoValidation } from "@/lib/validations/campaign";
 import { useSearchParams } from "next/navigation";
 import moment from "moment";
 import useCampaign from "@/app/startup/hooks/useCampaign";
