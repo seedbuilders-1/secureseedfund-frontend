@@ -20,56 +20,80 @@ const TopSection = () => {
   const isActive = (href: string) => pathname === href;
   const pathSegments = pathname.split("/");
   const startupId = pathSegments[pathSegments.length - 2];
+
   return (
-    <header className="w-[90%] h-[45vh]  mx-auto px-8 pt-4">
+    <header className="w-full h-[10vh] mx-auto px-8 pt-4 max-w-[1200px]">
       <div className="flex w-full items-center justify-between mt-4">
-        <h1 className="font-semibold text-[28px]">
-          Good Morning,
-          {user?.firstName}
+        <h1 className="font-semibold text-[1.2rem] md:text-[1.7rem]">
+          Good Morning, {user?.firstName}
         </h1>
-        <nav className="flex space-x-4 items-center">
+        <nav className="hidden space-x-4 items-center md:flex">
           <Link href={`/startup/${startupId}/dashboard`}>
             <div
-              className={` flex  gap-1 items-center justify-between rounded-[30px] text-[#050505]   font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
-                isActive(`/startup/${startupId}/dashboard`) &&
-                "border bg-[#F3FFDE] text-[#6C8C3C]"
+              className={`flex gap-1 items-center justify-between rounded-[30px] font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
+                isActive(`/startup/${startupId}/dashboard`)
+                  ? "bg-[#CDEED3] text-[#0F8B3A]"
+                  : "text-[#6f2f2f]"
               }`}
             >
               <RiHome5Line className="w-[19px] h-[19px]" />
-              <h2 className=" mt-1  font-normal">Dashboard</h2>
+              <h2
+                className={`mt-1 font-normal ${
+                  isActive(`/startup/${startupId}/dashboard`)
+                    ? "text-[#0F8B3A]"
+                    : "text-[#6f2f2f]"
+                }`}
+              >
+                Dashboard
+              </h2>
             </div>
           </Link>
           <Link href={`/startup/${startupId}/campaign`}>
             <div
-              className={` flex  gap-1 items-center justify-between rounded-[30px]   font-[500] px-3 py-2 text-[.875rem] cursor-pointer text-[#050505] ${
-                isActive(`/startup/${startupId}/campaign`) &&
-                "border bg-[#F3FFDE] text-[#6C8C3C]"
+              className={`flex gap-1 items-center justify-between rounded-[30px] font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
+                isActive(`/startup/${startupId}/campaign`)
+                  ? "bg-[#CDEED3] text-[#0F8B3A]"
+                  : "text-[#050505]"
               }`}
             >
               <IoSettingsOutline className="w-[19px] h-[19px]" />
-              <h2 className="mt-1  font-normal">Campaign</h2>
+              <h2
+                className={`mt-1 font-normal ${
+                  isActive(`/startup/${startupId}/campaign`)
+                    ? "text-[#0F8B3A]"
+                    : "text-[#050505]"
+                }`}
+              >
+                Campaign
+              </h2>
             </div>
           </Link>
           <Link href="/startup/profile">
             <div
-              className={` flex  gap-1 items-center justify-between rounded-[30px] text-[#050505]  font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
-                isActive("/startup/profile") &&
-                "border bg-[#F3FFDE] text-[#6C8C3C]"
+              className={`flex gap-1 items-center justify-between rounded-[30px] font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
+                isActive("/startup/profile")
+                  ? "bg-[#CDEED3] text-[#0F8B3A]"
+                  : "text-[#050505]"
               }`}
             >
               <RiUserLine className="w-[19px] h-[19px]" />
-              <h2 className="mt-1  font-normal">Profile</h2>
+              <h2
+                className={`mt-1 font-normal ${
+                  isActive("/startup/profile")
+                    ? "text-[#0F8B3A]"
+                    : "text-[#050505]"
+                }`}
+              >
+                Profile
+              </h2>
             </div>
           </Link>
         </nav>
 
         <div className="flex items-center space-x-4 ">
-          <div className="bg-[#EEF6E0] rounded-full p-[0.6rem]">
-            <Bell className="text-[#77B900]" />
-          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className="flex items-center space-x-2 cursor-pointer ">
+              <div className="flex items-center space-x-2 cursor-pointer">
                 <Avatar className="bg-[#77B900] text-[#EEF6E0]">
                   <AvatarFallback>
                     {user?.firstName.charAt(0).toUpperCase()}{" "}
@@ -79,7 +103,7 @@ const TopSection = () => {
                 <ChevronDown size={16} />
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-20 bg-[#77B900]">
+            <DropdownMenuContent className="w- bg-[#77B900]">
               <DropdownMenuItem
                 onClick={() => logoutUser()}
                 className="cursor-pointer"
@@ -91,6 +115,7 @@ const TopSection = () => {
           </DropdownMenu>
         </div>
       </div>
+      <div className="" />
     </header>
   );
 };
