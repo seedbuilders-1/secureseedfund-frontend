@@ -75,9 +75,9 @@ const Createcampaign = () => {
   }, [id, singleCampaign]);
 
   return (
-    <div className="w-full  h-full bg-white flex gap-[3rem]">
+    <div className="w-full h-full flex flex-col lg:flex-row bg-white gap-[3rem]">
       <CampaignStepper currentStep={currentStep} />
-      <div className="w-[80%] max-w-[1000px] py-[3rem]">
+      <div className="w-full lg:w-[80%] max-w-[1000px] py-[3rem] flex justify-center items-center">
         {currentStep === 1 && (
           <StartCampaign
             handleNext={handleNext}

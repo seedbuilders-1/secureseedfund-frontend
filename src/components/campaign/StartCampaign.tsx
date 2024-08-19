@@ -50,11 +50,11 @@ const StartCampaign = ({
     handleNext();
   };
   return (
-    <div className="w-full  ">
-      <h2 className="text-[#0F172A] text-[24px] font-medium">
+    <div className="w-full px-6">
+      <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
         Provide Campaign Details
       </h2>
-      <h3 className="text-[#747474] text-[16px] mt-3">
+      <h3 className="text-[#747474] text-[16px] mt-3 text-center lg:text-left">
         Select the type of fundraising campaign that aligns with your funding
         needs and goals.
       </h3>
@@ -64,7 +64,7 @@ const StartCampaign = ({
           value={selectFundingCampaign}
           onValueChange={handleChange}
         >
-          <div className="flex gap-12 flex-wrap ">
+          <div className="flex gap-12 flex-wrap justify-center">
             {fundingTypes.map((funding, index) => (
               <RadioGroup.Item value={funding.value} key={index}>
                 <div
@@ -95,7 +95,7 @@ const StartCampaign = ({
           </div>
         </RadioGroup.Root>
 
-        <div className="mb-3 grid grid-cols-1 gap-x-2 gap-y-4 space-y-2 mt-6">
+        <div className="mb-3 lex gap-12 flex-wrap justify-center mt-6">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full  ">
               <FormField
@@ -153,7 +153,7 @@ const StartCampaign = ({
                   </FormItem>
                 )}
               />
-              <div className="flex space-x-12">
+              <div className="flex flex-col lg:flex-row lg:space-x-12">
                 <FormField
                   control={form.control}
                   name="startdate"
