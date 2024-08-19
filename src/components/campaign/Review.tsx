@@ -78,22 +78,7 @@ const Review = ({
         </h3>
 
         <div>
-          <h2 className="text-[#6C8C3C] text-[24px] font-normal mt-8">
-            Cover Photo
-          </h2>
-          <div className="border border-[#6C8C3C30] rounded-lg bg-[#F9F9FA] px-4 py-4">
-            {/* <img
-              src={coverPhoto}
-              alt={"cover"}
-              width={325}
-              height={183}
-              className="rounded-tl-md rounded-tr-md"
-            /> */}
-          </div>
-        </div>
-
-        <div>
-          <h2 className="text-[#6C8C3C] text-[24px] font-normal mt-8">
+          <h2 className="text-[#1AA657] text-[24px] font-normal mt-8">
             Campaign Info
           </h2>
           <div className="border border-[#6C8C3C30] rounded-lg bg-[#F9F9FA] px-4 py-4">
@@ -118,33 +103,7 @@ const Review = ({
         </div>
 
         <div>
-          <h2 className="text-[#6C8C3C] text-[24px] font-normal mt-8">
-            Startup Information
-          </h2>
-          <div className="border border-[#6C8C3C30]  rounded-lg bg-[#F9F9FA] px-4 py-4 flex justify-between ">
-            <div>
-              <span className="text-[#747474] ">Company Type</span>
-              <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
-                {/* {startupDetail.companyType} */}
-              </h2>
-            </div>
-            <div>
-              <span className="text-[#747474] ">No of Cofounders</span>
-              <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
-                {/* {startupDetail.cofounders} */}
-              </h2>
-            </div>
-            <div>
-              <span className="text-[#747474] ">No of Teams</span>
-              <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
-                {/* {startupDetail.teamMembers} */}
-              </h2>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h2 className="text-[#6C8C3C] text-[24px] font-normal mt-8">
+          <h2 className="text-[#1AA657] text-[24px] font-normal mt-8">
             Funding Goal
           </h2>
           <div className="border border-[#6C8C3C30]  rounded-lg bg-[#F9F9FA] px-4 py-4 flex justify-between ">
@@ -169,7 +128,7 @@ const Review = ({
           </div>
         </div>
         <div>
-          <h2 className="text-[#6C8C3C] text-[24px] font-normal mt-8">
+          <h2 className="text-[#1AA657] text-[24px] font-normal mt-8">
             Milestones
           </h2>
 
