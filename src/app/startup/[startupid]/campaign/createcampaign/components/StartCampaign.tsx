@@ -8,12 +8,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "../../../../../../components/ui/form";
+import { Input } from "../../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { CampaignValidation, CampaignSchema } from "@/lib/validations/campaign";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../ui/button";
+import { Button } from "../../../../../../components/ui/button";
 interface Props {
   handleNext: () => void;
   handleChange: (x: string) => void;
@@ -124,7 +124,7 @@ const StartCampaign = ({
                     <FormLabel>Campaign description</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[3rem]"
+                        className="py-[3rem] h-[200px]"
                         placeholder="Provide a description"
                         {...field}
                       />
@@ -153,7 +153,7 @@ const StartCampaign = ({
                   </FormItem>
                 )}
               />
-              <div className="flex flex-col lg:flex-row lg:space-x-12">
+              <div className="flex flex-col md:flex-row md:space-x-12">
                 <FormField
                   control={form.control}
                   name="startdate"

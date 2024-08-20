@@ -4,7 +4,7 @@ import {
   MilestoneValidation,
 } from "@/lib/validations/campaign";
 import { thousandFormatter } from "@/lib/helpers";
-import { Button } from "../ui/button";
+import { Button } from "../../../../../../components/ui/button";
 import { useStartupIdUrl } from "@/lib/utils";
 import SuccessComponent from "./SuccessComponent";
 import useCampaign from "@/app/startup/hooks/useCampaign";
@@ -68,12 +68,12 @@ const Review = ({
   };
   return (
     <>
-      <div className="w-full  space-y-6">
-        <h2 className="text-[#0F172A] text-[24px] font-medium">
+      <div className="w-full  space-y-6 px-5">
+        <h2 className="text-[#0F172A] text-[24px] font-medium text-center">
           Preview and Submit
         </h2>
-        <h3 className="text-[#747474] text-[16px] mt-3">
-          double check the information added before submitting
+        <h3 className="text-[#747474] text-[16px] mt-3 text-center">
+          Carefully go over your inputs before submission
         </h3>
 
         <div>
@@ -105,20 +105,20 @@ const Review = ({
           <h2 className="text-[#1AA657] text-[24px] font-normal mt-8">
             Funding Goal
           </h2>
-          <div className="border border-[#6C8C3C30]  rounded-lg bg-[#F9F9FA] px-4 py-4 flex justify-between ">
-            <div>
+          <div className="border border-[#6C8C3C30]  rounded-lg bg-[#F9F9FA] px-4 py-4 flex flex-col lg:flex- justify-between ">
+            <div className="py-3">
               <span className="text-[#747474] ">Funding Goal</span>
               <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">{`${thousandFormatter(
                 parseInt(campaignDetail.fundinggoal)
               )}`}</h2>
             </div>
-            <div>
+            <div className="py-3">
               <span className="text-[#747474] ">Start Date</span>
               <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
                 {campaignDetail.startdate}
               </h2>
             </div>
-            <div>
+            <div className="py-3">
               <span className="text-[#747474] ">End Date</span>
               <h2 className="text-[#0F172A] text-[16px] font-medium rounded-lg">
                 {campaignDetail.enddate}

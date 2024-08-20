@@ -51,12 +51,15 @@ const Milestone = ({ handleNext, handleMilestone, milestoneDetail }: Props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full  ">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full  px-5 lg:px-0"
+      >
         <div className="mt-8">
-          <h2 className="text-[#0F172A] text-[24px] font-medium">
+          <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
             Set up Campaign Milstones
           </h2>
-          <h3 className="text-[#747474] text-[16px] mt-3">
+          <h3 className="text-[#747474] text-[16px] mt-3 text-center lg:text-left">
             Add compelling images or videos to showcase your startup and attract
             potential investors
           </h3>
@@ -154,7 +157,7 @@ const Milestone = ({ handleNext, handleMilestone, milestoneDetail }: Props) => {
                     <FormLabel>Date</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.9rem] rounded-[48px] block"
                         type="date"
                         placeholder="DD-MM-YY"
                         {...field}

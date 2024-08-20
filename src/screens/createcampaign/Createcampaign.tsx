@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import CampaignStepper from "@/components/cards/CampaignStepper";
-import Milestone from "@/components/campaign/Milestone";
-import StartCampaign from "@/components/campaign/StartCampaign";
+import Milestone from "@/app/startup/[startupid]/campaign/createcampaign/components/Milestone";
+import StartCampaign from "@/app/startup/[startupid]/campaign/createcampaign/components/StartCampaign";
 import {
   CampaignValidation,
   MilestoneValidation,
 } from "@/lib/validations/campaign";
-import Review from "@/components/campaign/Review";
+import Review from "@/app/startup/[startupid]/campaign/createcampaign/components/Review";
 import { useSearchParams } from "next/navigation";
 import moment from "moment";
 import useCampaign from "@/app/startup/hooks/useCampaign";
@@ -75,7 +75,7 @@ const Createcampaign = () => {
   }, [id, singleCampaign]);
 
   return (
-    <div className="w-full h-full flex flex-col lg:flex-row bg-white gap-[3rem]">
+    <div className="w-full h-full flex flex-col lg:flex-row bg-white lg:gap-[3rem] gap-1">
       <CampaignStepper currentStep={currentStep} />
       <div className="w-full lg:w-[80%] max-w-[1000px] py-[3rem] flex justify-center items-center">
         {currentStep === 1 && (

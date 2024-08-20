@@ -2,11 +2,11 @@
 import StatCard, { StateCardMetric } from "@/components/cards/StatCard";
 import Image from "next/image";
 import RecentFunding from "../../components/RecentFunding";
-import useCampaign from "@/hooks/campaign/useCampaign";
 import { Loader2 } from "lucide-react";
 import { thousandFormatter } from "@/lib/helpers";
 import InvestorComponent from "../../components/InvestorComponent";
 import Milestones from "../../components/Milestones";
+import useCampaign from "../../hooks/useCampaign";
 
 export default function StartupDashboard({
   params,

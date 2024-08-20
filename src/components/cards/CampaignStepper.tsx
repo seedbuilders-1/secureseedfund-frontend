@@ -9,7 +9,7 @@ const CampaignStepper = ({ currentStep }: Props) => {
 
   return (
     <>
-      <div className="w-full lg:w-[20%] lg:bg-[#CDEED3] lg:min-h-screen flex justify-center items-center">
+      <div className="w-full lg:w-[20%] lg:bg-[#CDEED3] lg:min-h-screen flex justify-center items-center mt-[30px] lg:mt-0">
         <ol className=" text-gray-500  flex lg:gap-[2.2rem] gap-8 lg:absolute lg:top-[50px] justify-center items-center lg:flex-col">
           {steps.map((step, index) => (
             <li
