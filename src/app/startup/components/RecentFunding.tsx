@@ -37,7 +37,7 @@ const RecentFunding = ({ currentCampaign }: Props) => {
   }) => (
     <div className="bg-[#CDEED3] px-3 py-2 flex items-center rounded-md w-full">
       <div className="flex-grow min-w-0 mr-2">
-        <h3 className="font-normal text-[#2B2B2BCC] text-sm whitespace-nowrap overflow-hidden text-ellipsis">
+        <h3 className="font-normal text-[#2B2B2BCC] text-sm whitespace-nowrap">
           {title}
         </h3>
         <h2 className="font-bold text-[#0F8B3A] text-base whitespace-nowrap overflow-hidden text-ellipsis">

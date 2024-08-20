@@ -22,7 +22,7 @@ const TopSection = () => {
   const startupId = pathSegments[pathSegments.length - 2];
 
   return (
-    <header className="w-full h-[10vh] mx-auto px-8 pt-4 max-w-[1200px]">
+    <header className="w-full h-[10vh] mx-auto px-8 pt-4 max-w-[1200px]  border-b border-[#E6D9D9]">
       <div className="flex w-full items-center justify-between mt-4">
         <h1 className="font-semibold text-[1.2rem] md:text-[1.7rem]">
           Good Morning, {user?.firstName}
