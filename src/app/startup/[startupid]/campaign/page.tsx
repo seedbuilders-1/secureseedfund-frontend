@@ -1,4 +1,6 @@
-import Campaign from "@/screens/campaign/Campaign";
+// import Campaign from "@/app/startup/[startupid]/campaign/createcampaign/components/Campaign";
+
+import Campaign from "./createcampaign/components/Campaign";
 
 export default function CampaignDashboard({
   params,

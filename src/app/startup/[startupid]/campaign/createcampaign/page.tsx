@@ -1,4 +1,4 @@
-import Createcampaign from "@/screens/createcampaign/Createcampaign";
+import Createcampaign from "./components/Createcampaign";
 
 export default function CampaignDashboard() {
   return <Createcampaign />;
