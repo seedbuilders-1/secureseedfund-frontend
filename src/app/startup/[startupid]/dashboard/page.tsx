@@ -1,5 +1,5 @@
 "use client";
-import StatCard, { StateCardMetric } from "@/components/cards/StatCard";
+import StatCard from "@/components/cards/StatCard";
 import Image from "next/image";
 import RecentFunding from "../../components/RecentFunding";
 import useCampaign from "@/hooks/campaign/useCampaign";
