@@ -68,7 +68,7 @@ const StartCampaign = ({
             {fundingTypes.map((funding, index) => (
               <RadioGroup.Item value={funding.value} key={index}>
                 <div
-                  className={`w-[200px] h-[200px] flex justify-center items-center flex-col text-center px-8 py-4 border-[2px] rounded-[16px] cursor-pointer ${
+                  className={`w-[130px] shrink flex-wrap lg:w-[200px] lg:h-[200px] flex justify-center items-center flex-col text-center px-8 py-4 border-[2px] rounded-[16px] cursor-pointer ${
                     selectFundingCampaign === funding.value
                       ? "border-primaryMain"
                       : "border-slate-300"
