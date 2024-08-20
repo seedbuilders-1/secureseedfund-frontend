@@ -1,29 +1,22 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import CampaignStepper from "@/components/cards/CampaignStepper";
-import Milestone from "@/components/campaign/Milestone";
-import StartCampaign from "@/components/campaign/StartCampaign";
-import StartupInfo from "@/components/campaign/StartupInfo";
-import UploadDocuments from "@/components/campaign/UploadDocuments";
-import { MilestoneValidation } from "@/lib/validations/campaign";
-import Review from "@/components/campaign/Review";
-import { StartupInfoValidation } from "@/lib/validations/campaign";
+import Milestone from "@/app/startup/[startupid]/campaign/createcampaign/components/Milestone";
+import StartCampaign from "@/app/startup/[startupid]/campaign/createcampaign/components/StartCampaign";
+import {
+  CampaignValidation,
+  MilestoneValidation,
+} from "@/lib/validations/campaign";
+import Review from "@/app/startup/[startupid]/campaign/createcampaign/components/Review";
 import { useSearchParams } from "next/navigation";
-import useCampaign from "@/hooks/campaign/useCampaign";
 import moment from "moment";
+import useCampaign from "@/app/startup/hooks/useCampaign";
 
 const Createcampaign = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectFundingCampaign, setSelectFundingCampaign] =
     useState<string>("");
-  const [coverPhoto, setCoverPhoto] = useState<string>("");
-  const [businessPlanUrl, setBuisnessPlanUrl] = useState<string>("");
   const [milestoneDetail, setMilestoneDetail] = useState<MilestoneValidation>({
-    title: "",
-    description: "",
-    startdate: "",
-    enddate: "",
-    fundinggoal: "",
     milestones: [
       {
         date: "",
@@ -33,11 +26,13 @@ const Createcampaign = () => {
       },
     ],
   });
-  const [startupDetail, setStartupDetail] = useState<StartupInfoValidation>({
-    about: "",
-    cofounders: "1",
-    teamMembers: "",
-    companyType: "",
+
+  const [campaignDetail, setCampaignDetail] = useState<CampaignValidation>({
+    title: "",
+    description: "",
+    startdate: "",
+    enddate: "",
+    fundinggoal: "",
   });
 
   const handleSelectFundingCampaign = (value: string) => {
@@ -46,9 +41,10 @@ const Createcampaign = () => {
   const handleMilestone = (details: MilestoneValidation) => {
     setMilestoneDetail(details);
   };
-  const handleStartupInfo = (details: StartupInfoValidation) => {
-    setStartupDetail(details);
+  const handleCampaign = (details: CampaignValidation) => {
+    setCampaignDetail(details);
   };
+
   const handleNext = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -60,11 +56,6 @@ const Createcampaign = () => {
     if (singleCampaign && id) {
       setSelectFundingCampaign(singleCampaign?.campaignType);
       setMilestoneDetail({
-        title: singleCampaign?.title,
-        description: singleCampaign?.description,
-        startdate: moment(singleCampaign?.startDate).format("YYYY-MM-DD"),
-        enddate: moment(singleCampaign?.endDate).format("YYYY-MM-DD"),
-        fundinggoal: singleCampaign?.fundingGoal.toString(),
         milestones: singleCampaign?.milestones.map(
           ({ targetAmount, date, ...milestone }) => ({
             targetAmount: targetAmount.toString(),
@@ -73,26 +64,27 @@ const Createcampaign = () => {
           })
         ),
       });
-      setStartupDetail({
-        about: singleCampaign?.about,
-        cofounders: singleCampaign?.cofounders.toString(),
-        teamMembers: singleCampaign?.teamMmbers.toString(),
-        companyType: singleCampaign?.companyType,
+      setCampaignDetail({
+        title: singleCampaign?.title,
+        description: singleCampaign?.description,
+        startdate: moment(singleCampaign?.startDate).format("YYYY-MM-DD"),
+        enddate: moment(singleCampaign?.endDate).format("YYYY-MM-DD"),
+        fundinggoal: singleCampaign?.fundingGoal.toString(),
       });
-      setBuisnessPlanUrl(singleCampaign?.businessPlanUrl);
-      setCoverPhoto(singleCampaign?.coverPhotoUrl);
     }
   }, [id, singleCampaign]);
 
   return (
-    <div className="w-full  h-full bg-white flex gap-[3rem]">
+    <div className="w-full h-full flex flex-col lg:flex-row bg-white lg:gap-[3rem] gap-1">
       <CampaignStepper currentStep={currentStep} />
-      <div className="w-[70%] max-w-[800px] py-[3rem]">
+      <div className="w-full lg:w-[80%] max-w-[1000px] py-[3rem] flex justify-center items-center">
         {currentStep === 1 && (
           <StartCampaign
             handleNext={handleNext}
             selectFundingCampaign={selectFundingCampaign}
             handleChange={handleSelectFundingCampaign}
+            handleCampaign={handleCampaign}
+            campaignDetails={campaignDetail}
           />
         )}
         {currentStep === 2 && (
@@ -102,7 +94,7 @@ const Createcampaign = () => {
             milestoneDetail={milestoneDetail}
           />
         )}
-        {currentStep === 3 && (
+        {/* {currentStep === 3 && (
           <StartupInfo
             handleNext={handleNext}
             handleStartupInfo={handleStartupInfo}
@@ -117,13 +109,14 @@ const Createcampaign = () => {
             setCoverPhoto={setCoverPhoto}
             handleNext={handleNext}
           />
-        )}
-        {currentStep === 5 && (
+        )} */}
+        {currentStep === 3 && (
           <Review
-            startupDetail={startupDetail}
+            campaignDetail={campaignDetail}
+            // startupDetail={startupDetail}
             milestoneDetail={milestoneDetail}
-            coverPhoto={coverPhoto}
-            businessPlanUrl={businessPlanUrl}
+            // coverPhoto={coverPhoto}
+            // businessPlanUrl={businessPlanUrl}
             id={id}
             selectFundingCampaign={selectFundingCampaign}
           />

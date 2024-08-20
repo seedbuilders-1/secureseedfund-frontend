@@ -7,5 +7,6 @@
     "source.fixAll.format": "explicit"
   },
   "vue.features.codeActions.enable": false,
-  "dotenv.enableAutocloaking": false
+  "dotenv.enableAutocloaking": false,
+  "liveServer.settings.port": 5501
 }

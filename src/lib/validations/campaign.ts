@@ -9,11 +9,6 @@ export const BasicSchema = z.object({
 export type BasicsValidation = z.infer<typeof BasicSchema>;
 
 export const MilestonSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  startdate: z.string(),
-  enddate: z.string(),
-  fundinggoal: z.string(),
   milestones: z.array(
     z.object({
       milestoneTitle: z.string().min(1, "Milestone name is required"),
@@ -26,6 +21,14 @@ export const MilestonSchema = z.object({
     })
   ),
 });
+
+export const CampaignSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Descriptiom is required"),
+  startdate: z.string().min(1, "Start Date is required"),
+  enddate: z.string().min(1, "End Date is required"),
+  fundinggoal: z.string().min(1, "Funding Goal is required"),
+});
 export type MilestoneValidation = z.infer<typeof MilestonSchema>;
 
 export const StartupInfoSchema = z.object({
@@ -37,4 +40,5 @@ export const StartupInfoSchema = z.object({
     .min(1, "required")
     .max(40, "maximum can only be 70 characters"),
 });
+export type CampaignValidation = z.infer<typeof CampaignSchema>;
 export type StartupInfoValidation = z.infer<typeof StartupInfoSchema>;

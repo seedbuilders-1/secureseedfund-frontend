@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FileWithPath } from "react-dropzone";
-import { Button } from "../ui/button";
+import { Button } from "../../../../../../components/ui/button";
 import UploadComponent from "./UploadComponent";
 import { useUploadfileMutation } from "@/services/fileupload";
 import { useToast } from "@/components/ui/use-toast";
