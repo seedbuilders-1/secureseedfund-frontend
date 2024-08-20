@@ -18,7 +18,7 @@ const Campaign = ({ params }: { params: { startupid: string } }) => {
     <div className="w-[90%] flex flex-col  mx-auto h-[100vh] bg-white mt-[4rem]">
       <div className="bg-[#241A3F] rounded-2xl  w-full py-[1rem] px-5 flex justify-between items-center space-y-3">
         <div>
-          <h2 className="text-white  text-[28px] font-semibold">
+          <h2 className="text-white text-[28px] font-semibold">
             Launch Your Dream Project Today
           </h2>
           <div
@@ -27,10 +27,10 @@ const Campaign = ({ params }: { params: { startupid: string } }) => {
                 `/startup/${params.startupid}/campaign/createcampaign`
               )
             }
-            className="flex  gap-1 items-center rounded-[30px] w-[159px]  font-[500] px-3 py-1  text-[.875rem] cursor-pointer   bg-[#77B900] text-[white]"
+            className="flex gap-1 items-center rounded-[30px] w-[159px] font-[500] px-3 py-1 lg:py-2 lg:mt-5  text-[.875rem] cursor-pointer   bg-[#77B900] text-[white]"
           >
             <FiPlus className="w-[9px] h-[9px]" />
-            <h2 className=" mt-1 text-[white] font-normal">Create Campaign</h2>
+            <h2 className="text-[white] font-normal">Create Campaign</h2>
           </div>
         </div>
         <Image
@@ -46,7 +46,7 @@ const Campaign = ({ params }: { params: { startupid: string } }) => {
         {loadingCampaign ? (
           <Loader2 className="flex items-center justify-center animate-spin mx-auto w-[300px]" />
         ) : (
-          <div className="grid grid-cols-2 mt-6 mb-8 md:grid-cols-3">
+          <div className="mt-6 mb-8 gap-6 flex flex-col md:flex-row">
             {campaigns?.items.length ? (
               campaigns?.items.map((campaign) => (
                 <div key={campaign.id}>
