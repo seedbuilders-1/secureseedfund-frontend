@@ -21,7 +21,10 @@ const Home = () => {
           </p>
         </div>
 
-        <Button onClick={() => setOpenModal(!openModal)} className="mr-auto  space-y-2 mt-4 md:mr-0 md: ">
+        <Button
+          onClick={() => setOpenModal(!openModal)}
+          className="mr-auto  space-y-2 mt-4 md:mr-0 md: "
+        >
           Create new organization
         </Button>
       </div>

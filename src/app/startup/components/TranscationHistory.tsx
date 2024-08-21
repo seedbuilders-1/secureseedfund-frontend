@@ -38,7 +38,9 @@ const TranscationHistory = () => {
               className="flex justify-between items-center py-3 border-b border-[#F3EFEF] last:border-b-0"
             >
               <div className="w-1/4">
-                <h2 className="text-[#2B2B2B] font-normal text-[13px]">{investor.date}</h2>
+                <h2 className="text-[#2B2B2B] font-normal text-[13px]">
+                  {investor.date}
+                </h2>
               </div>
               <div className="w-1/4 text-right">
                 <p className="text-[#2B2B2B] text-sm">{investor.type}</p>
@@ -47,7 +49,9 @@ const TranscationHistory = () => {
                 {investor.amount}
               </div>
               <div className="w-1/4 text-right ">
-                <span className="text-sm bg-[#CEECDB] text-[#16A34A] p-[5px] rounded-full">{investor.status}</span>
+                <span className="text-sm bg-[#CEECDB] text-[#16A34A] p-[5px] rounded-full">
+                  {investor.status}
+                </span>
               </div>
             </div>
           ))}
