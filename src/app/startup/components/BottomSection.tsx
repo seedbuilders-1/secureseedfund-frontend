@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { RiHome5Line } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
-import { RiUserLine } from "react-icons/ri";
+import { Wallet } from 'lucide-react';
 
 const BottomSection = () => {
   const pathname = usePathname();
@@ -38,14 +38,14 @@ const BottomSection = () => {
             <span className="text-xs mt-1">Campaign</span>
           </div>
         </Link>
-        <Link href="/startup/profile">
+        <Link href={`/startup/${startupId}/wallet`}>
           <div
             className={`flex flex-col items-center justify-center ${
-              isActive("/startup/profile") ? "text-[#0F8B3A]" : "text-[#050505]"
+              isActive(`/startup/${startupId}/wallet`)? "text-[#0F8B3A]" : "text-[#050505]"
             }`}
           >
-            <RiUserLine className="w-6 h-6" />
-            <span className="text-xs mt-1">Profile</span>
+            <Wallet className="w-6 h-6" />
+            <span className="text-xs mt-1">Wallet</span>
           </div>
         </Link>
       </div>
