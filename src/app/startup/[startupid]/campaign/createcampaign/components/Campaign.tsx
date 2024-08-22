@@ -47,7 +47,7 @@ const Campaign = ({ params }: { params: { startupid: string } }) => {
         {loadingCampaign ? (
           <Loader2 className="flex items-center justify-center animate-spin mx-auto w-[300px]" />
         ) : (
-          <div className="mt-6 mb-8 gap-6 flex flex-col md:flex-row">
+          <div className="mt-6 mb-8 gap-6 grid grid-cols-1 lg:grid-cols-3">
             {campaigns?.items.length ? (
               campaigns?.items.map((campaign) => (
                 <div key={campaign.id}>
