@@ -8,12 +8,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../../../../components/ui/form";
-import { Input } from "../../../../../../components/ui/input";
+} from "../../../components/ui/form";
+import { Input } from "../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { CampaignValidation, CampaignSchema } from "@/lib/validations/campaign";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../../../../../../components/ui/button";
+import { Button } from "../../../components/ui/button";
 interface Props {
   handleNext: () => void;
   handleChange: (x: string) => void;

@@ -68,10 +68,10 @@ const TopSection = () => {
               </h2>
             </div>
           </Link>
-          <Link href="/startup/profile">
+          <Link href={`/startup/${startupId}/account`}>
             <div
               className={`flex gap-1 items-center justify-between rounded-[30px] font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
-                isActive("/startup/profile")
+                isActive(`/startup/${startupId}/account`)
                   ? "bg-[#CDEED3] text-[#0F8B3A]"
                   : "text-[#050505]"
               }`}
@@ -79,7 +79,7 @@ const TopSection = () => {
               <RiUserLine className="w-[19px] h-[19px]" />
               <h2
                 className={`mt-1 font-normal ${
-                  isActive("/startup/profile")
+                  isActive(`/startup/${startupId}/account`)
                     ? "text-[#0F8B3A]"
                     : "text-[#050505]"
                 }`}

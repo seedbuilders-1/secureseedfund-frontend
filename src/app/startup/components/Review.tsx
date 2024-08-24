@@ -4,7 +4,7 @@ import {
   MilestoneValidation,
 } from "@/lib/validations/campaign";
 import { thousandFormatter } from "@/lib/helpers";
-import { Button } from "../../../../../../components/ui/button";
+import { Button } from "../../../components/ui/button";
 import { useStartupIdUrl } from "@/lib/utils";
 import SuccessComponent from "./SuccessComponent";
 import useCampaign from "@/app/startup/hooks/useCampaign";
