@@ -1,16 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
-import useCampaign from "../hooks/useCampaign";
+import { FiPlus } from "react-icons/fi";
 
 const Account = ({ params }: { params: { startupid: string } }) => {
   const router = useRouter();
-
-  const { campaigns, loadingCampaign } = useCampaign({
-    startupId: params.startupid,
-  });
-
-  console.log(campaigns, loadingCampaign);
 
   return (
     <>
@@ -23,10 +19,11 @@ const Account = ({ params }: { params: { startupid: string } }) => {
             </p>
             <div
               onClick={() =>
-                router.push(`/startup/${params.startupid}/campaign/accountinfo`)
+                router.push(`/startup/${params.startupid}/account/accountform`)
               }
-              className="rounded-[30px] w-[200px] font-[500] px-5 py-1 mt-4 lg:py-3 lg:mt-5  text-[.875rem] cursor-pointer bg-[#241A3F] text-[white] justify-between"
+              className="flex rounded-[30px] w-[200px] font-[500] px-5 py-1 mt-4 lg:py-3 lg:mt-5  text-[.875rem] cursor-pointer bg-[#241A3F] text-[white] justify-between"
             >
+              <FiPlus className="w-[19px] h-[19px]" />
               <h2 className="text-[white] font-normal w-full text-center">
                 Click to get started
               </h2>

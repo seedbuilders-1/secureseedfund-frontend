@@ -1,6 +1,5 @@
 "use client";
-import "../../styles/campaign.css";
-
+import "../../../styles/campaign.css";
 interface Props {
   currentStep: number;
 }

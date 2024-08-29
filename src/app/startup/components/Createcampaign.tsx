@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import CampaignStepper from "@/components/cards/CampaignStepper";
+import CampaignStepper from "@/app/startup/components/CampaignStepper";
 import Milestone from "@/app/startup/components/Milestone";
 import StartCampaign from "@/app/startup/components/StartCampaign";
 import {
