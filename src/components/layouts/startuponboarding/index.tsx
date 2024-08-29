@@ -84,13 +84,14 @@ const StartupOnboardLayout = ({
         </div>
       </div>
       <div className="md:hidden  space-y-7 pl-4 bg-secondaryblue  p-6 ">
-         
-                <Progress
-              className="mt-2 w-2/4 h-[0.7rem] ml-[2rem]"
-              value={calculateProgress()}
-            ></Progress>
-          </div>
-      <div className="w-[100%] px-10 md:ml-[50%] basis-[50%]  py-4 md:px-20">{children}</div>
+        <Progress
+          className="mt-2 w-2/4 h-[0.7rem] ml-[2rem]"
+          value={calculateProgress()}
+        ></Progress>
+      </div>
+      <div className="w-[100%] px-10 md:ml-[50%] basis-[50%]  py-4 md:px-20">
+        {children}
+      </div>
     </div>
   );
 };

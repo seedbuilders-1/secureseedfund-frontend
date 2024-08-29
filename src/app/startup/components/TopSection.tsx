@@ -12,7 +12,7 @@ import useUserAuth from "@/hooks/auth/useAuth";
 import { usePathname } from "next/navigation";
 import { RiHome5Line } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
-import { RiUserLine } from "react-icons/ri";
+import { Wallet } from "lucide-react";
 
 const TopSection = () => {
   const { logoutUser, user } = useUserAuth();
@@ -68,6 +68,20 @@ const TopSection = () => {
               </h2>
             </div>
           </Link>
+          
+            <Link href={`/startup/${startupId}/wallet`}>
+            <div
+              className={`flex gap-1 items-center justify-center ${
+                isActive(`/startup/${startupId}/wallet`)
+                  ? "text-[#0F8B3A]"
+                  : "text-[#050505]"
+              }`}
+            >
+              <Wallet className="w-6 h-6" />
+              <span className="text-xs mt-1">Wallet</span>
+            </div>
+          </Link>
+
           <Link href={`/startup/${startupId}/account`}>
             <div
               className={`flex gap-1 items-center justify-between rounded-[30px] font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
@@ -86,8 +100,7 @@ const TopSection = () => {
               >
                 Profile
               </h2>
-            </div>
-          </Link>
+        
         </nav>
 
         <div className="flex items-center space-x-4 ">
