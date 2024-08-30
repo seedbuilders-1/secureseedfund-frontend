@@ -5,7 +5,7 @@ interface Props {
   currentStep: number;
 }
 const MobileStepper = ({ numberOfSteps, currentStep }: Props) => {
-  let steps = Array.from({ length: numberOfSteps }, (_, i) => i + 1);
+  const steps = Array.from({ length: numberOfSteps }, (_, i) => i + 1);
 
   return (
     <>

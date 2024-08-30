@@ -14,7 +14,6 @@ import TeamInformation from "@/app/startup/components/TeamInformation";
 import CompanyInformation from "@/app/startup/components/CompanyInformation";
 import BusinessInformation from "@/app/startup/components/BusinessInformation";
 import FundingInformation from "@/app/startup/components/FundingInformation";
-import MobileStepper from "@/app/startup/components/MobileStepper";
 
 export default function AccountForm() {
   const [currentStep, setCurrentStep] = useState(1);
