@@ -30,7 +30,6 @@ const FounderInformation = ({
   founderDetails,
   handleNext,
   handleFounder,
-  handleBack,
 }: Props) => {
   const form = useForm<FounderValidation>({
     resolver: zodResolver(FounderSchema),
@@ -44,6 +43,9 @@ const FounderInformation = ({
   const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(
     null
   );
+
+  console.log(profileImageFile);
+
   const onSubmit = (values: FounderValidation) => {
     if (!profileImageUrl) {
       return toast({
