@@ -6,51 +6,81 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../components/ui/form";
-import { Input } from "../../../components/ui/input";
+} from "../../../../../components/ui/form";
+import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../../../components/ui/button";
+import { Button } from "../../../../../components/ui/button";
 import { FounderSchema, FounderValidation } from "@/lib/validations/account";
-import { ChangeEvent, useState } from "react";
-import MobileStepper from "./MobileStepper";
+import { useEffect, useState } from "react";
+import MobileStepper from "../../../components/MobileStepper";
+import UploadProfileImage from "./UploadProfileImage";
+import { useToast } from "@/components/ui/use-toast";
+import { useUploadfileMutation } from "@/services/fileupload";
+import { FileWithPath } from "react-dropzone";
 
 interface Props {
   founderDetails: FounderValidation;
   handleFounder: (v: FounderValidation) => void;
   handleNext: () => void;
+  handleBack: () => void;
 }
 
 const FounderInformation = ({
   founderDetails,
   handleNext,
   handleFounder,
+  handleBack,
 }: Props) => {
   const form = useForm<FounderValidation>({
     resolver: zodResolver(FounderSchema),
     defaultValues: founderDetails,
   });
 
+  const { toast } = useToast();
+  const [fileUpload, { error: uploadError }] = useUploadfileMutation();
+
+  const [profileImageUrl, setProfileImageUrl] = useState<string>("");
+  const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(
+    null
+  );
   const onSubmit = (values: FounderValidation) => {
+    if (!profileImageUrl) {
+      return toast({
+        variant: "destructive",
+        title: "Double check.",
+        description: "Some file uploads are missing",
+      });
+    }
     handleFounder(values);
     handleNext();
   };
 
-  const [imagePreview, setImagePreview] = useState<string>(
-    "/assets/icons/account.svg"
-  );
-  const [imageName, setImageName] = useState<string>("Upload Image");
+  useEffect(() => {
+    if (uploadError) {
+      toast({
+        variant: "destructive",
+        title: `${"unable to upload file please try again"}`,
+      });
+      setProfileImageFile(null);
+    }
+  }, [uploadError]);
+  const handleUpload = async (
+    acceptedFiles: FileWithPath[],
+    fileType: string
+  ) => {
+    const uploadedFile = acceptedFiles[0];
+    if (fileType === "profileImage") {
+      setProfileImageFile(uploadedFile);
+    }
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setImageName(file.name);
+    const formData = new FormData();
+    formData.append("file", uploadedFile);
+    const res = await fileUpload(formData).unwrap();
 
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (fileType === "profileImage") {
+      setProfileImageUrl(res);
+      form.setValue("image", res); // Set form value to include the image URL
     }
   };
 
@@ -59,7 +89,7 @@ const FounderInformation = ({
       <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
         Founder Information
       </h2>
-      <MobileStepper numberOfSteps={6} currentStep={5} />
+      <MobileStepper numberOfSteps={6} currentStep={1} />
 
       <div className="mt-8">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
@@ -74,27 +104,20 @@ const FounderInformation = ({
                 render={({ field }) => (
                   <FormItem className="col-span-2 flex flex-col items-center justify-center">
                     <FormControl>
-                      <div
-                        className="w-[200px] h-[200px] lg:w-[300px] lg:h-[300px] bg-[#D9D9D9] rounded-md"
-                        style={{
-                          backgroundImage: `url(${imagePreview})`,
-                          backgroundRepeat: "no-repeat",
-                          backgroundSize: "50%",
-                          backgroundPosition: "center",
-                        }}
-                        onChange={handleImageChange}
-                      >
-                        <Input
-                          type="file"
-                          {...field}
-                          value={field.value}
-                          className="opacity-0 w-full h-full cursor-pointer rounded-full"
-                        />
-                      </div>
+                      <Input
+                        {...field}
+                        value={profileImageUrl}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        className="hidden"
+                      />
                     </FormControl>
-                    <FormLabel className="p-5 text-center">
-                      {imageName}
-                    </FormLabel>
+
+                    <UploadProfileImage
+                      handleUpload={(files) =>
+                        handleUpload(files, "profileImage")
+                      }
+                    />
+
                     <FormMessage />
                   </FormItem>
                 )}

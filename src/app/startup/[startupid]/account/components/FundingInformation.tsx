@@ -6,11 +6,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../components/ui/form";
-import { Input } from "../../../components/ui/input";
+} from "../../../../../components/ui/form";
+import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../../../components/ui/button";
+import { Button } from "../../../../../components/ui/button";
 import {
   FundingInformationSchema,
   FundingInformationValidation,
@@ -20,18 +20,20 @@ import { FileWithPath } from "react-dropzone";
 import { useToast } from "@/components/ui/use-toast";
 import { useUploadfileMutation } from "@/services/fileupload";
 import UploadComponent from "./UploadComponent";
-import MobileStepper from "./MobileStepper";
+import MobileStepper from "../../../components/MobileStepper";
 
 interface Props {
   fundingDetails: FundingInformationValidation;
   handleFundingInformation: (v: FundingInformationValidation) => void;
   handleNext: () => void;
+  handleBack: () => void;
 }
 
 const FundingInformation = ({
   fundingDetails,
   handleNext,
   handleFundingInformation,
+  handleBack,
 }: Props) => {
   const form = useForm<FundingInformationValidation>({
     resolver: zodResolver(FundingInformationSchema),
@@ -376,6 +378,14 @@ const FundingInformation = ({
                   </FormItem>
                 )}
               />
+
+              <Button
+                className="w-full md:w-[30%] rounded-3xl bg-light mt-8
+                mr-2"
+                onClick={handleBack}
+              >
+                Back
+              </Button>
 
               <Button
                 type="submit"

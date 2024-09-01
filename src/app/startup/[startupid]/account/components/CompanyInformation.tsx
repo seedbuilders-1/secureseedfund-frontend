@@ -6,11 +6,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../components/ui/form";
-import { Input } from "../../../components/ui/input";
+} from "../../../../../components/ui/form";
+import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../../../components/ui/button";
+import { Button } from "../../../../../components/ui/button";
 import {
   CompanyInformationSchema,
   CompanyInformationValidation,
@@ -20,18 +20,20 @@ import { useUploadfileMutation } from "@/services/fileupload";
 import { useEffect, useState } from "react";
 import { FileWithPath } from "react-dropzone";
 import UploadComponent from "./UploadComponent";
-import MobileStepper from "./MobileStepper";
+import MobileStepper from "../../../components/MobileStepper";
 
 interface Props {
   companyDetails: CompanyInformationValidation;
   handleCompanyInformation: (v: CompanyInformationValidation) => void;
   handleNext: () => void;
+  handleBack: () => void;
 }
 
 const CompanyInformation = ({
   companyDetails,
   handleNext,
   handleCompanyInformation,
+  handleBack,
 }: Props) => {
   const form = useForm<CompanyInformationValidation>({
     resolver: zodResolver(CompanyInformationSchema),
@@ -417,6 +419,14 @@ const CompanyInformation = ({
               />
               <br />
               <br className="lg:hidden" />
+
+              <Button
+                className="w-full md:w-[30%] rounded-3xl bg-light mt-8
+                mr-2"
+                onClick={handleBack}
+              >
+                Back
+              </Button>
 
               <Button
                 type="submit"

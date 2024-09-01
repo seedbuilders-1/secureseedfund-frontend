@@ -6,46 +6,47 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../components/ui/form";
-import { Input } from "../../../components/ui/input";
+} from "../../../../../components/ui/form";
+import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../../../components/ui/button";
+import { Button } from "../../../../../components/ui/button";
 import {
-  TeamInformationSchema,
-  TeamInformationValidation,
+  BusinessInformationSchema,
+  BusinessInformationValidation,
 } from "@/lib/validations/account";
-import MobileStepper from "./MobileStepper";
+import MobileStepper from "../../../components/MobileStepper";
 
 interface Props {
-  teamDetails: TeamInformationValidation;
-  handleTeamInformation: (v: TeamInformationValidation) => void;
+  businessDetails: BusinessInformationValidation;
+  handleBusinessInformation: (v: BusinessInformationValidation) => void;
   handleNext: () => void;
+  handleBack: () => void;
 }
 
-const TeamInformation = ({
-  teamDetails,
+const BusinessInformation = ({
+  businessDetails,
   handleNext,
-  handleTeamInformation,
+  handleBusinessInformation,
+  handleBack,
 }: Props) => {
-  const form = useForm<TeamInformationValidation>({
-    resolver: zodResolver(TeamInformationSchema),
-    defaultValues: teamDetails,
+  const form = useForm<BusinessInformationValidation>({
+    resolver: zodResolver(BusinessInformationSchema),
+    defaultValues: businessDetails,
   });
 
-  const onSubmit = (values: TeamInformationValidation) => {
-    handleTeamInformation(values);
+  const onSubmit = (values: BusinessInformationValidation) => {
+    handleBusinessInformation(values);
     handleNext();
   };
   return (
     <div className="w-full px-6">
       <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
-        Team Information
+        Business Information
       </h2>
+      <MobileStepper numberOfSteps={6} currentStep={4} />
 
-      <MobileStepper numberOfSteps={6} currentStep={5} />
-
-      <div className="mt-8 border border-solid border-[#D8D8E2] rounded-2xl grid place-content-center p-5 lg:p-12">
+      <div className="mt-8 border border-solid border-[#D8D8E2] rounded-2xl grid place-content-center lg:p-12 p-5">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
           <Form {...form}>
             <form
@@ -54,14 +55,14 @@ const TeamInformation = ({
             >
               <FormField
                 control={form.control}
-                name="titleofcofounder"
+                name="businessstage"
                 render={({ field }) => (
                   <FormItem className="col-span-2 py-">
-                    <FormLabel>Title of Co-founder:</FormLabel>
+                    <FormLabel>Business Stage:</FormLabel>
                     <FormControl>
                       <Input
                         className="py-[1.9rem] rounded-[48px]"
-                        placeholder="Provide a title"
+                        placeholder="Eg (Pre-seed/Ideation, Minimum Viable Product, Early stage, Growth, Expansion, Merger/Acquisition/Exit)"
                         {...field}
                       />
                     </FormControl>
@@ -72,14 +73,14 @@ const TeamInformation = ({
 
               <FormField
                 control={form.control}
-                name="firstnameofcofounder"
+                name="businessmodel"
                 render={({ field }) => (
                   <FormItem className="col-span-2 py-2">
-                    <FormLabel>First Name of Co-founder:</FormLabel>
+                    <FormLabel>Business Model::</FormLabel>
                     <FormControl>
                       <Input
                         className="py-[1.9rem] rounded-[48px]"
-                        placeholder="Provide your First Name"
+                        placeholder="Eg (B2B, B2G, B2C, B2P, Multiple, others)"
                         {...field}
                       />
                     </FormControl>
@@ -90,14 +91,14 @@ const TeamInformation = ({
 
               <FormField
                 control={form.control}
-                name="lastnameofcofounder"
+                name="buesinessrevenuechannels"
                 render={({ field }) => (
                   <FormItem className="col-span-2 py-2">
-                    <FormLabel>Last Name of Co-founder:</FormLabel>
+                    <FormLabel>Business Revenue Channels:</FormLabel>
                     <FormControl>
                       <Input
                         className="py-[1.9rem] rounded-[48px]"
-                        placeholder="Provide your Last Name"
+                        placeholder="Eg (Freemium, Fee, Subscription, Commissions, Advertisement, Referrals, SAAS, Affiliate, Others)"
                         {...field}
                       />
                     </FormControl>
@@ -108,15 +109,15 @@ const TeamInformation = ({
 
               <FormField
                 control={form.control}
-                name="emailofcofounder"
+                name="marketsize"
                 render={({ field }) => (
                   <FormItem className="col-span-2 py-2">
-                    <FormLabel>Email Address of Co-founder</FormLabel>
+                    <FormLabel>Market size:</FormLabel>
                     <FormControl>
                       <Input
-                        type="email"
+                        type="text"
                         className="py-[1.9rem] rounded-[48px]"
-                        placeholder="Eg; keneeneh@gmail.com"
+                        placeholder="Eg ($100,000- $1,000,000, $1,000,000-$10,000,000, $10,000,000-$100,000,000, $100,000,000-above)"
                         {...field}
                       />
                     </FormControl>
@@ -127,14 +128,16 @@ const TeamInformation = ({
 
               <FormField
                 control={form.control}
-                name="educationofcofounder"
+                name="howmuchrevenuegeneratedsinceoperation"
                 render={({ field }) => (
                   <FormItem className="col-span-2 py-2">
-                    <FormLabel>Education of Co-founder:</FormLabel>
+                    <FormLabel>
+                      How much revenue generated since operation:
+                    </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px] h-[150px]"
-                        placeholder="Talk about your education history"
+                        className="py-[1.9rem] rounded-[48px]"
+                        placeholder="(In USD)"
                         {...field}
                       />
                     </FormControl>
@@ -143,17 +146,17 @@ const TeamInformation = ({
                 )}
               />
 
-              <div className="flex flex-col md:flex-row md:justify-between w-full md:space-x-12">
+              <div className="flex flex-col md:flex-row md:space-x-12">
                 <FormField
                   control={form.control}
-                  name="linkedinprofileofcofounder"
+                  name="customeracquisitioncost"
                   render={({ field }) => (
-                    <FormItem className="py-2 w-full lg:w-[50%]">
-                      <FormLabel>LikendIn Profile of Co-founder</FormLabel>
+                    <FormItem className="col-span-2 py-2">
+                      <FormLabel>Customer Acquisition Cost:</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
-                          placeholder="Provide a LinkedIn Profile"
+                          className="py-[1.9rem] rounded-[48px]"
+                          placeholder="(In USD)"
                           {...field}
                         />
                       </FormControl>
@@ -164,15 +167,33 @@ const TeamInformation = ({
 
                 <FormField
                   control={form.control}
-                  name="phonenumberofcofounder"
+                  name="numberofcurrentusers"
                   render={({ field }) => (
-                    <FormItem className="py-2 w-full lg:w-[50%]">
-                      <FormLabel>Phone Number of Co-founder</FormLabel>
+                    <FormItem className="col-span-2 py-2">
+                      <FormLabel>Industry/Sector</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
+                          className="py-[1.9rem] rounded-[48px]"
+                          placeholder=""
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="monthlyrecurrringrevenue"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Monthly Recurring Revenue:</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="py-[1.9rem] rounded-[48px] w-[200px]"
                           type="number"
-                          placeholder="Enter a Phone Number"
+                          placeholder="(In USD)"
                           {...field}
                         />
                       </FormControl>
@@ -184,15 +205,15 @@ const TeamInformation = ({
 
               <FormField
                 control={form.control}
-                name="experienceofcofounder"
+                name="monthlyrecurringexpense"
                 render={({ field }) => (
                   <FormItem className="col-span-2 py-2">
-                    <FormLabel>Expereince of Co-founder</FormLabel>
+                    <FormLabel>Monthly Recurring Expense:</FormLabel>
                     <FormControl>
                       <Input
                         type="textarea"
-                        className="py-[1.9rem] rounded-[48px] h-[150px]"
-                        placeholder="Provide an expereince"
+                        className="py-[1.9rem] rounded-[48px]"
+                        placeholder="(In USD)"
                         {...field}
                       />
                     </FormControl>
@@ -203,14 +224,14 @@ const TeamInformation = ({
 
               <FormField
                 control={form.control}
-                name="numberofteammembers"
+                name="businessmodeldescription"
                 render={({ field }) => (
                   <FormItem className="col-span-2 py-2">
-                    <FormLabel>Number of Team Memebrs</FormLabel>
+                    <FormLabel>Business Model Description:</FormLabel>
                     <FormControl>
                       <Input
                         className="py-[1.9rem] rounded-[48px]"
-                        placeholder="Number of Team Memebrs"
+                        placeholder=""
                         {...field}
                       />
                     </FormControl>
@@ -219,49 +240,16 @@ const TeamInformation = ({
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="teammembers"
-                render={({ field }) => (
-                  <FormItem className="col-span-2 py-2">
-                    <FormLabel>
-                      Names, roles and titles of team members:
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        type="text"
-                        className="py-[1.9rem] rounded-[48px] h-[150px]"
-                        placeholder="Provide an expereince"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="executiveprimarilybased"
-                render={({ field }) => (
-                  <FormItem className="col-span-2 py-2">
-                    <FormLabel>
-                      Where is the executive team primarily based
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        className="py-[1.9rem] rounded-[48px]"
-                        placeholder="Provide an expereince"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <Button
+                className="w-full md:w-[30%] rounded-3xl bg-light mt-8
+                mr-2"
+                onClick={handleBack}
+              >
+                Back
+              </Button>
               <Button
                 type="submit"
-                className="w-full lg:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
+                className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
               >
                 Proceed
               </Button>
@@ -273,4 +261,4 @@ const TeamInformation = ({
   );
 };
 
-export default TeamInformation;
+export default BusinessInformation;

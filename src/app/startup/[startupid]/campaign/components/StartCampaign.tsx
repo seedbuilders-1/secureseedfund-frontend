@@ -1,6 +1,11 @@
 "use client";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import Image from "next/image";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { CampaignValidation, CampaignSchema } from "@/lib/validations/campaign";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,12 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../components/ui/form";
-import { Input } from "../../../components/ui/input";
-import { useForm } from "react-hook-form";
-import { CampaignValidation, CampaignSchema } from "@/lib/validations/campaign";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../../../components/ui/button";
+} from "@/components/ui/form";
 interface Props {
   handleNext: () => void;
   handleChange: (x: string) => void;

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import AccountStepper from "@/app/startup/components/AccountStepper";
-import FounderInformation from "@/app/startup/components/FounderInformation";
+import AccountStepper from "@/app/startup/[startupid]/account/components/AccountStepper";
+import FounderInformation from "@/app/startup/[startupid]/account/components/FounderInformation";
 import {
   BusinessInformationValidation,
   CompanyInformationValidation,
@@ -10,10 +10,10 @@ import {
   FundingInformationValidation,
   TeamInformationValidation,
 } from "@/lib/validations/account";
-import TeamInformation from "@/app/startup/components/TeamInformation";
-import CompanyInformation from "@/app/startup/components/CompanyInformation";
-import BusinessInformation from "@/app/startup/components/BusinessInformation";
-import FundingInformation from "@/app/startup/components/FundingInformation";
+import TeamInformation from "@/app/startup/[startupid]/account/components/TeamInformation";
+import CompanyInformation from "@/app/startup/[startupid]/account/components/CompanyInformation";
+import BusinessInformation from "@/app/startup/[startupid]/account/components/BusinessInformation";
+import FundingInformation from "@/app/startup/[startupid]/account/components/FundingInformation";
 
 export default function AccountForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -119,6 +119,10 @@ export default function AccountForm() {
     setCurrentStep(currentStep + 1);
   };
 
+  const handleBack = () => {
+    setCurrentStep(currentStep - 1);
+  };
+
   return (
     <>
       <div className="w-full h-full flex flex-col lg:flex-row bg-white lg:gap-[3rem] gap-1">
@@ -130,12 +134,14 @@ export default function AccountForm() {
               founderDetails={founderDetail}
               handleNext={handleNext}
               handleFounder={handleFounder}
+              handleBack={handleBack}
             />
           )}
           {currentStep === 2 && (
             <TeamInformation
               handleNext={handleNext}
               handleTeamInformation={handleTeamInformation}
+              handleBack={handleBack}
               teamDetails={teamDetails}
             />
           )}
@@ -144,6 +150,7 @@ export default function AccountForm() {
               handleNext={handleNext}
               handleCompanyInformation={handleCompanyInformation}
               companyDetails={companyDetails}
+              handleBack={handleBack}
             />
           )}
           {currentStep === 4 && (
@@ -151,6 +158,7 @@ export default function AccountForm() {
               handleNext={handleNext}
               handleBusinessInformation={handleBusinessInformation}
               businessDetails={businessDetails}
+              handleBack={handleBack}
             />
           )}
           {currentStep === 5 && (
@@ -158,35 +166,9 @@ export default function AccountForm() {
               handleNext={handleNext}
               handleFundingInformation={handleFundingInformation}
               fundingDetails={fundingDetails}
+              handleBack={handleBack}
             />
           )}
-          {/* {currentStep === 3 && (
-          <StartupInfo
-            handleNext={handleNext}
-            handleStartupInfo={handleStartupInfo}
-            startupDetail={startupDetail}
-          />
-        )}
-        {currentStep === 4 && (
-          <UploadDocuments
-            businessPlanUrl={businessPlanUrl}
-            coverPhoto={coverPhoto}
-            setBuisnessPlanUrl={setBuisnessPlanUrl}
-            setCoverPhoto={setCoverPhoto}
-            handleNext={handleNext}
-          />
-        )} */}
-          {/* {currentStep === 3 && (
-            <Review
-              campaignDetail={campaignDetail}
-              // startupDetail={startupDetail}
-              milestoneDetail={milestoneDetail}
-              // coverPhoto={coverPhoto}
-              // businessPlanUrl={businessPlanUrl}
-              id={id}
-              selectFundingCampaign={selectFundingCampaign}
-            />
-          )} */}
         </div>
       </div>
     </>
