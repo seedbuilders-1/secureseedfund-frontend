@@ -10,7 +10,7 @@ import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { usePathname } from "next/navigation";
-import { RiHome5Line } from "react-icons/ri";
+import { RiHome5Line, RiUserLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 import { Wallet } from "lucide-react";
 
@@ -68,6 +68,7 @@ const TopSection = () => {
               </h2>
             </div>
           </Link>
+
           <Link href={`/startup/${startupId}/wallet`}>
             <div
               className={`flex gap-1 items-center justify-center ${
@@ -78,6 +79,27 @@ const TopSection = () => {
             >
               <Wallet className="w-6 h-6" />
               <span className="text-xs mt-1">Wallet</span>
+            </div>
+          </Link>
+
+          <Link href={`/startup/${startupId}/account`}>
+            <div
+              className={`flex gap-1 items-center justify-between rounded-[30px] font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
+                isActive(`/startup/${startupId}/account`)
+                  ? "bg-[#CDEED3] text-[#0F8B3A]"
+                  : "text-[#050505]"
+              }`}
+            >
+              <RiUserLine className="w-[19px] h-[19px]" />
+              <h2
+                className={`mt-1 font-normal ${
+                  isActive(`/startup/${startupId}/account`)
+                    ? "text-[#0F8B3A]"
+                    : "text-[#050505]"
+                }`}
+              >
+                Profile
+              </h2>
             </div>
           </Link>
         </nav>

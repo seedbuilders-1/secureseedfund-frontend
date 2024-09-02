@@ -21,7 +21,7 @@ const CampaignCard = ({
   const router = useRouter();
   const startupId = useStartupIdUrl();
   return (
-    <div className=" border border-slate-300 rounded-[0.6rem] min-h-[5rem] flex flex-col max-w-[380px] mt-4">
+    <div className=" border border-slate-300 rounded-[0.6rem] min-h-[5rem] flex flex-col w-[380px] mt-4">
       <div className="w-full  h-full">
         <div className="flex flex-col space-y-2 pb-5 ">
           <div className="w-full h-[200px] overflow-hidden relative">

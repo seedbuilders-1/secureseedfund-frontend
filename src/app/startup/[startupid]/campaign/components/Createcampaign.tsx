@@ -1,16 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import CampaignStepper from "@/components/cards/CampaignStepper";
-import Milestone from "@/app/startup/[startupid]/campaign/createcampaign/components/Milestone";
-import StartCampaign from "@/app/startup/[startupid]/campaign/createcampaign/components/StartCampaign";
+import Milestone from "@/app/startup/components/Milestone";
 import {
   CampaignValidation,
   MilestoneValidation,
 } from "@/lib/validations/campaign";
-import Review from "@/app/startup/[startupid]/campaign/createcampaign/components/Review";
+import Review from "@/app/startup/[startupid]/account/components/Review";
 import { useSearchParams } from "next/navigation";
 import moment from "moment";
 import useCampaign from "@/app/startup/hooks/useCampaign";
+import CampaignStepper from "./CampaignStepper";
+import StartCampaign from "./StartCampaign";
 
 const Createcampaign = () => {
   const [currentStep, setCurrentStep] = useState(1);

@@ -13,7 +13,8 @@ export default function StartupLayout({ children }: { children: ReactNode }) {
 
   return (
     <PrivateRoute>
-      {isActive(`/startup/${startupId}/campaign/createcampaign`) ? (
+      {isActive(`/startup/${startupId}/campaign/createcampaign`) ||
+      isActive(`/startup/${startupId}/account/accountform`) ? (
         children
       ) : (
         <div className="flex flex-col min-h-screen bg-white">
