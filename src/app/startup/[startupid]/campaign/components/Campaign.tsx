@@ -2,7 +2,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { FiPlus } from "react-icons/fi";
-// import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import useCampaign from "@/app/startup/hooks/useCampaign";
 import Image from "next/image";
