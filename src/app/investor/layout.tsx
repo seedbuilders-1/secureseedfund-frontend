@@ -1,44 +1,41 @@
 "use client";
-
 import { ReactNode } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { RiHome5Line } from "react-icons/ri";
 import { SiWpexplorer } from "react-icons/si";
 import { Wallet } from "lucide-react";
 import { User } from 'lucide-react';
-import { useParams } from 'next/navigation';
 
-const Layout = ({ children }: { children: ReactNode }) => {
-  const { startupid } = useParams();
-
+const layout = ({ children }: { children: ReactNode }) => {
   const items = [
     {
       name: "Dashboard",
       icon: RiHome5Line,
-      path: `/startup/${startupid}/dashboard`,
+      path: "/investor/dashboard",
     },
     {
-      name: "Campaign",
+      name: "Explore",
       icon: SiWpexplorer,
-      path: `/startup/${startupid}/campaign`,
+      path: "/investor/explore",
     },
     {
       name: "Wallet",
       icon: Wallet,
-      path: `/startup/${startupid}/wallet`,
+      path: "/investor/walletInvestor",
     },
     {
       name: "Account",
       icon: User,
-      path: `/startup/${startupid}/account`,
+      path: "/investor/account",
     }
   ];
 
   return (
     <DashboardLayout items={items}>
+    
       {children}
     </DashboardLayout>
   );
 };
 
-export default Layout;
+export default layout;
