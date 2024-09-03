@@ -1,7 +1,8 @@
 import React from "react";
+import Account from "./components/Account";
 
-const page = () => {
-  return <div>page</div>;
+const AccountPage = ({ params }: { params: { startupid: string } }) => {
+  return <Account params={params} />;
 };
 
-export default page;
+export default AccountPage;
