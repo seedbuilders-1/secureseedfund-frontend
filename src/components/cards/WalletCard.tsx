@@ -11,7 +11,10 @@ interface WalletCardsProps {
   imageSrc: StaticImageData; // Change the type to StaticImageData
 }
 
-const WalletCards: React.FC<WalletCardsProps> = ({ walletAddress, imageSrc }) => {
+const WalletCards: React.FC<WalletCardsProps> = ({
+  walletAddress,
+  imageSrc,
+}) => {
   const [showAddress, setShowAddress] = useState(true);
 
   const handleToggleAddress = () => {
@@ -52,12 +55,7 @@ const WalletCards: React.FC<WalletCardsProps> = ({ walletAddress, imageSrc }) =>
             </div>
           </div>
           <div className="bg-[#F3FFDE] p-2 rounded-full">
-            <Image
-              src={imageSrc}
-              alt="avatar"
-              width={30}
-              height={30}
-            />
+            <Image src={imageSrc} alt="avatar" width={30} height={30} />
           </div>
         </div>
       </StatCard>

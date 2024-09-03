@@ -1,8 +1,8 @@
 import React from "react";
-import DangoteLogo from '@/assets/iconspng/dangote.png'; 
+import DangoteLogo from "@/assets/iconspng/dangote.png";
 
 interface Investor {
-  CompanyLogo: string; 
+  CompanyLogo: string;
   CompanyName: string;
   Type: string;
   amount: string;
@@ -13,35 +13,37 @@ interface Investor {
 const Investment = () => {
   const investors: Investor[] = [
     {
-      CompanyLogo: DangoteLogo.src, 
+      CompanyLogo: DangoteLogo.src,
       CompanyName: "Cutting Grass",
       Type: "Completed",
       amount: "$30,000",
       FoundingGoal: "$20,000",
-      Progress: "60%"
+      Progress: "60%",
     },
     {
-      CompanyLogo: DangoteLogo.src, 
+      CompanyLogo: DangoteLogo.src,
       CompanyName: "Cutting Grass",
       Type: "Completed",
       amount: "$30,000",
       FoundingGoal: "$20,000",
-      Progress: "60%"
+      Progress: "60%",
     },
     {
-      CompanyLogo: DangoteLogo.src, 
+      CompanyLogo: DangoteLogo.src,
       CompanyName: "Cutting Grass",
       Type: "Completed",
       amount: "$30,000",
       FoundingGoal: "$20,000",
-      Progress: "60%"
+      Progress: "60%",
     },
   ];
 
   return (
     <div className="border border-[#1F9347] w-full py-4 px-4 rounded-md h-full">
       {investors.length ? (
-        <div className="w-full overflow-x-auto"> {/* Make the table horizontally scrollable */}
+        <div className="w-full overflow-x-auto">
+          {" "}
+          {/* Make the table horizontally scrollable */}
           <div className="min-w-full">
             <div className="flex flex-wrap mb-3 text-gray-500 text-xs md:text-sm font-medium">
               <div className="w-1/6 text-center md:text-left">Company Logo</div>

@@ -14,7 +14,7 @@ import { ChevronDown, LogOut } from "lucide-react";
 
 type NavItem = {
   name: string;
-  icon: React.ElementType;  
+  icon: React.ElementType;
   path: string;
 };
 
@@ -27,9 +27,12 @@ const TopSection = ({ items }: TopSectionProps) => {
   const pathname = usePathname();
 
   const isActive = (href: string) => {
-    const normalizedPathname = pathname.replace(/\/$/, '');
-    const normalizedHref = href.replace(/\/$/, '');
-    return normalizedPathname === normalizedHref || normalizedPathname.startsWith(normalizedHref + '/');
+    const normalizedPathname = pathname.replace(/\/$/, "");
+    const normalizedHref = href.replace(/\/$/, "");
+    return (
+      normalizedPathname === normalizedHref ||
+      normalizedPathname.startsWith(normalizedHref + "/")
+    );
   };
 
   return (
@@ -44,17 +47,17 @@ const TopSection = ({ items }: TopSectionProps) => {
             return (
               <Link key={index} href={item.path}>
                 <div
-                  className={`flex gap-1 items-center justify-between rounded-[30px] font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${isActive(item.path)
-                    ? "bg-[#CDEED3] text-[#0F8B3A]"
-                    : "text-[#6f2f2f]"
-                    }`}
-                >
-                  <IconComponent style={{ width: '20px', height: '20px' }} />
-                  <h2
-                    className={`mt-1 font-normal ${isActive(item.path)
-                      ? "text-[#0F8B3A]"
+                  className={`flex gap-1 items-center justify-between rounded-[30px] font-[500] px-3 py-2 text-[.875rem] cursor-pointer ${
+                    isActive(item.path)
+                      ? "bg-[#CDEED3] text-[#0F8B3A]"
                       : "text-[#6f2f2f]"
-                      }`}
+                  }`}
+                >
+                  <IconComponent style={{ width: "20px", height: "20px" }} />
+                  <h2
+                    className={`mt-1 font-normal ${
+                      isActive(item.path) ? "text-[#0F8B3A]" : "text-[#6f2f2f]"
+                    }`}
                   >
                     {item.name}
                   </h2>
@@ -69,7 +72,8 @@ const TopSection = ({ items }: TopSectionProps) => {
               <div className="flex items-center space-x-2 cursor-pointer">
                 <Avatar className="bg-[#77B900] text-[#EEF6E0]">
                   <AvatarFallback>
-                    {user?.firstName.charAt(0).toUpperCase()} {user?.lastName.charAt(0).toUpperCase()}
+                    {user?.firstName.charAt(0).toUpperCase()}{" "}
+                    {user?.lastName.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <ChevronDown size={16} />

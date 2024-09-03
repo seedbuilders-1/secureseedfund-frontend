@@ -1,10 +1,10 @@
 "use client";
-import { ReactNode } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
+import { ReactNode } from "react";
+import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { RiHome5Line } from "react-icons/ri";
 import { SiWpexplorer } from "react-icons/si";
 import { Wallet } from "lucide-react";
-import { User } from 'lucide-react';
+import { User } from "lucide-react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   const items = [
@@ -27,15 +27,10 @@ const layout = ({ children }: { children: ReactNode }) => {
       name: "Account",
       icon: User,
       path: "/investor/account",
-    }
+    },
   ];
 
-  return (
-    <DashboardLayout items={items}>
-    
-      {children}
-    </DashboardLayout>
-  );
+  return <DashboardLayout items={items}>{children}</DashboardLayout>;
 };
 
 export default layout;

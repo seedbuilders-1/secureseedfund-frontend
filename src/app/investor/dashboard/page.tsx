@@ -1,14 +1,13 @@
 "use client";
-import React from 'react'
+import React from "react";
 import { GoPlus } from "react-icons/go";
 import { AiOutlineMinus } from "react-icons/ai";
-import Investment from '../components/Investment';
-import InvesmentTransaction from '../components/InvestmentTransaction';
+import Investment from "../components/Investment";
+import InvesmentTransaction from "../components/InvestmentTransaction";
 const page = () => {
   return (
- <div>
-  
-  <div className="flex flex-col">
+    <div>
+      <div className="flex flex-col">
         <div className=" w-full h-full border border-[#0F8B3A] rounded-[0.6rem] px-4 py-4 mt-[2rem] md:w-[600px] md:m-auto md:mt-10 ">
           <h2 className="font-normal text-[0.8rem] text-center">
             Cash Availabler
@@ -60,27 +59,23 @@ const page = () => {
       </div>
 
       <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10">
-        <h2 className="text-[1rem] font-bold mb-[1rem]">
-        Investment
-        </h2>
-      <Investment/>
+        <h2 className="text-[1rem] font-bold mb-[1rem]">Investment</h2>
+        <Investment />
       </div>
 
       <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10">
         <h2 className="text-[1rem] font-bold mb-[1rem]">
-       Top performing invested start-up of the week
+          Top performing invested start-up of the week
         </h2>
-      <Investment/>
+        <Investment />
       </div>
 
       <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10">
-        <h2 className="text-[1rem] font-bold mb-[1rem]">
-       Transaction History
-        </h2>
-      <InvesmentTransaction/>
+        <h2 className="text-[1rem] font-bold mb-[1rem]">Transaction History</h2>
+        <InvesmentTransaction />
       </div>
- </div>
-  )
-}
+    </div>
+  );
+};
 
-export default page
+export default page;
