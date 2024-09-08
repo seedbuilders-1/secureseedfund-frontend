@@ -12,7 +12,7 @@ function page() {
       <WalletCards walletAddress={walletAddress} imageSrc={walletinvest} />
       <div className=" w-full h-full border border-[#0F8B3A] rounded-[0.6rem] px-4 py-4 mt-[2rem] md:w-[600px] md:m-auto md:mt-10 ">
         <h2 className="font-normal text-[0.8rem] text-center">
-          Cash Availabler
+          Cash Available
         </h2>
         <p className="text-center text-[#0F8B3A] text-[1.2rem] font-semibold">
           {" "}

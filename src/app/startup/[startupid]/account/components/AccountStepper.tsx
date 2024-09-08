@@ -3,17 +3,9 @@ import "../../../../../styles/campaign.css";
 
 interface Props {
   currentStep: number;
+  steps: string[];
 }
-const AccountStepper = ({ currentStep }: Props) => {
-  const steps = [
-    "Founder Information",
-    "Team Information",
-    "Company Information",
-    "Business Information",
-    "Funding Information",
-    "Review & Submit",
-  ];
-
+const AccountStepper = ({ steps, currentStep }: Props) => {
   return (
     <>
       <div className="hidden lg:w-[20%] lg:bg-[#CDEED3] lg:flex justify-center items-center lg:min-h-screen lg:mt-0">
