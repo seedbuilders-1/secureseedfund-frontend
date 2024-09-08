@@ -305,7 +305,7 @@ const InvestorInformation = ({
                         <FormControl>
                           <Input
                             className="py-[1.9rem] rounded-[48px] w-[100%]"
-                            type="number"
+                            type="string"
                             {...field}
                           />
                         </FormControl>

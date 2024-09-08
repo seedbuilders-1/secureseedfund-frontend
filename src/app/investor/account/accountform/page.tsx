@@ -38,7 +38,7 @@ export default function AccountForm() {
     setCurrentStep(currentStep - 1);
   };
 
-  const steps = ["Investor Information"];
+  const steps = ["Investor Information", "Review and Submit"];
 
   return (
     <>
