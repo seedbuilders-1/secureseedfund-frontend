@@ -134,7 +134,7 @@ const FounderInformation = ({
                       <FormLabel>Title</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="Provide a title"
                           {...field}
                         />
@@ -152,7 +152,7 @@ const FounderInformation = ({
                       <FormLabel>First Name</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="Provide your First Name"
                           {...field}
                         />
@@ -170,7 +170,7 @@ const FounderInformation = ({
                       <FormLabel>Last Name</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="Provide your Last Name"
                           {...field}
                         />
@@ -189,7 +189,7 @@ const FounderInformation = ({
                       <FormControl>
                         <Input
                           type="email"
-                          className="py-[1.9rem] rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="Eg; keneeneh@gmail.com"
                           {...field}
                         />
@@ -207,7 +207,7 @@ const FounderInformation = ({
                       <FormLabel>Education</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] h-[150px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
                           placeholder="Talk about your education history"
                           {...field}
                         />
@@ -226,7 +226,7 @@ const FounderInformation = ({
                         <FormLabel>LikendIn Profile</FormLabel>
                         <FormControl>
                           <Input
-                            className="py-[1.9rem] rounded-[48px] w-[100%]"
+                            className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                             placeholder="Provide a LinkedIn Profile"
                             {...field}
                           />
@@ -244,7 +244,7 @@ const FounderInformation = ({
                         <FormLabel>Phone Number</FormLabel>
                         <FormControl>
                           <Input
-                            className="py-[1.9rem] rounded-[48px] w-[100%]"
+                            className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                             type="number"
                             placeholder="Enter a Phone Number"
                             {...field}
@@ -264,7 +264,7 @@ const FounderInformation = ({
                       <FormLabel>Expereince</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] h-[150px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
                           placeholder="Provide an expereince"
                           {...field}
                         />

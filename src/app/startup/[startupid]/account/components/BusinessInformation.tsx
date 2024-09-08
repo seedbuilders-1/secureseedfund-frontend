@@ -61,7 +61,7 @@ const BusinessInformation = ({
                     <FormLabel>Business Stage:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Eg (Pre-seed/Ideation, Minimum Viable Product, Early stage, Growth, Expansion, Merger/Acquisition/Exit)"
                         {...field}
                       />
@@ -79,7 +79,7 @@ const BusinessInformation = ({
                     <FormLabel>Business Model::</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Eg (B2B, B2G, B2C, B2P, Multiple, others)"
                         {...field}
                       />
@@ -97,7 +97,7 @@ const BusinessInformation = ({
                     <FormLabel>Business Revenue Channels:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Eg (Freemium, Fee, Subscription, Commissions, Advertisement, Referrals, SAAS, Affiliate, Others)"
                         {...field}
                       />
@@ -116,7 +116,7 @@ const BusinessInformation = ({
                     <FormControl>
                       <Input
                         type="text"
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Eg ($100,000- $1,000,000, $1,000,000-$10,000,000, $10,000,000-$100,000,000, $100,000,000-above)"
                         {...field}
                       />
@@ -136,7 +136,7 @@ const BusinessInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="(In USD)"
                         {...field}
                       />
@@ -155,7 +155,7 @@ const BusinessInformation = ({
                       <FormLabel>Customer Acquisition Cost:</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="(In USD)"
                           {...field}
                         />
@@ -173,7 +173,7 @@ const BusinessInformation = ({
                       <FormLabel>Industry/Sector</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder=""
                           {...field}
                         />
@@ -191,7 +191,7 @@ const BusinessInformation = ({
                       <FormLabel>Monthly Recurring Revenue:</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[200px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[200px]"
                           type="number"
                           placeholder="(In USD)"
                           {...field}
@@ -212,7 +212,7 @@ const BusinessInformation = ({
                     <FormControl>
                       <Input
                         type="textarea"
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="(In USD)"
                         {...field}
                       />
@@ -230,7 +230,7 @@ const BusinessInformation = ({
                     <FormLabel>Business Model Description:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder=""
                         {...field}
                       />

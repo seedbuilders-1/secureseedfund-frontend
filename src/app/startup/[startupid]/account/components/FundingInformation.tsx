@@ -110,7 +110,7 @@ const FundingInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder=""
                         {...field}
                       />
@@ -128,7 +128,7 @@ const FundingInformation = ({
                     <FormLabel>If yes, Company Post Money Valuation:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="(In USD)"
                         {...field}
                       />
@@ -146,7 +146,7 @@ const FundingInformation = ({
                     <FormLabel>Rationale for Company Valuation?</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder=""
                         {...field}
                       />
@@ -167,7 +167,7 @@ const FundingInformation = ({
                     <FormControl>
                       <Input
                         type="text"
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="(In USD, $0, up to $100k, $100k-$500k, $500,000-$1m, $1m-above)"
                         {...field}
                       />
@@ -187,7 +187,7 @@ const FundingInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         {...field}
                       />
                     </FormControl>
@@ -204,7 +204,7 @@ const FundingInformation = ({
                     <FormLabel>Use of Funds:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         //   placeholder="(In USD)"
                         {...field}
                       />
@@ -224,7 +224,7 @@ const FundingInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Yes or No"
                         {...field}
                       />
@@ -245,7 +245,7 @@ const FundingInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         type="number"
                         {...field}
                       />
@@ -266,7 +266,7 @@ const FundingInformation = ({
                     <FormControl>
                       <Input
                         type="textarea"
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Yes or No"
                         {...field}
                       />
@@ -284,7 +284,7 @@ const FundingInformation = ({
                     <FormLabel>If Yes, which program?</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder=""
                         {...field}
                       />
@@ -302,7 +302,7 @@ const FundingInformation = ({
                     <FormLabel>What investment are you seeking?</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Eg: (Grants, SAFE, Equity, Debt servicing/ROI, Partnership, Mentorship, Others)"
                         {...field}
                       />
@@ -320,7 +320,7 @@ const FundingInformation = ({
                     <FormLabel>When are you looking at raise? </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Eg: (3 months, 6 months, 1 year or more)"
                         {...field}
                       />
@@ -351,7 +351,7 @@ const FundingInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder=""
                         {...field}
                       />
@@ -369,7 +369,7 @@ const FundingInformation = ({
                     <FormLabel>Due diligence disclaimer information</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder=""
                         {...field}
                       />

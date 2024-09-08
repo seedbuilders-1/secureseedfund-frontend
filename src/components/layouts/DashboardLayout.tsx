@@ -12,7 +12,6 @@ const DashboardLayout = ({
 }) => {
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href;
-  console.log(isActive);
 
   return (
     <>
