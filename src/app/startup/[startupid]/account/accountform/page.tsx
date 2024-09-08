@@ -123,10 +123,19 @@ export default function AccountForm() {
     setCurrentStep(currentStep - 1);
   };
 
+  const steps = [
+    "Founder Information",
+    "Team Information",
+    "Company Information",
+    "Business Information",
+    "Funding Information",
+    "Review & Submit",
+  ];
+
   return (
     <>
       <div className="w-full h-full flex flex-col lg:flex-row bg-white lg:gap-[3rem] gap-1">
-        <AccountStepper currentStep={currentStep} />
+        <AccountStepper steps={steps} currentStep={currentStep} />
 
         <div className="w-full lg:w-[80%] max-w-[1000px] py-[3rem] flex justify-center items-center">
           {currentStep === 1 && (

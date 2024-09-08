@@ -145,6 +145,32 @@ export const FundingInformationSchema = z.object({
   duedilligence: z.string().min(1, "Due Diligence is required"),
 });
 
+// investor account
+
+export const InvestorInfoSchema = z.object({
+  image: z.string().min(1, "Image is required"),
+  firstName: z.string().min(1, "First Name is required"),
+  lastName: z.string().min(1, "Last Name is required"),
+  phone: z.string().min(1, "Phone Number is required"),
+  address: z.string().min(1, "Phone Number is required"),
+  nationality: z.string().min(1, "Nationality is required"),
+  investorStatus: z.string().min(1, "Investor Status is required"),
+  typeOfInvestmentPreferred: z
+    .string()
+    .min(1, "Type of Investment is required"),
+  howLongDoYouPlanToInvest: z
+    .string()
+    .min(1, "How Long Do You Plan To Invest?"),
+  countryOfResidence: z.string().min(1, "Country of Residence is required"),
+  city: z.string().min(1, "City is required"),
+  investmentExperience: z.string().min(1, "Investment Experience is required"),
+  liquidityImportance: z.string().min(1, "Liquidity Importance is required"),
+  goal: z.string().min(1, "What is your goal"),
+  annualIncome: z.string().min(1, "What is your annual income?"),
+
+  //
+});
+
 export type FounderValidation = z.infer<typeof FounderSchema>;
 export type TeamInformationValidation = z.infer<typeof TeamInformationSchema>;
 export type CompanyInformationValidation = z.infer<
@@ -156,3 +182,6 @@ export type BusinessInformationValidation = z.infer<
 export type FundingInformationValidation = z.infer<
   typeof FundingInformationSchema
 >;
+
+// investor account
+export type InvestorInfoValidation = z.infer<typeof InvestorInfoSchema>;
