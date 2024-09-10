@@ -192,7 +192,7 @@ const InvestorInformation = ({
                       <FormControl>
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
-                          placeholder="As written on your registration documents"
+                          placeholder="Enter your Address"
                           {...field}
                         />
                       </FormControl>
@@ -210,7 +210,7 @@ const InvestorInformation = ({
                       <FormControl>
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
-                          placeholder="As written on your Registration Documents"
+                          placeholder="Enter your Nationality"
                           {...field}
                         />
                       </FormControl>
@@ -228,7 +228,7 @@ const InvestorInformation = ({
                       <FormControl>
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
-                          placeholder="As written on your Registration Documents"
+                          placeholder="What is your Investor Status"
                           {...field}
                         />
                       </FormControl>
@@ -249,6 +249,7 @@ const InvestorInformation = ({
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
                           {...field}
+                          placeholder="What type of investment do you prefer?"
                         />
                       </FormControl>
                       <FormMessage />
@@ -268,6 +269,7 @@ const InvestorInformation = ({
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
                           {...field}
+                          placeholder="  How long do you plan to invest your money"
                         />
                       </FormControl>
                       <FormMessage />
@@ -286,6 +288,7 @@ const InvestorInformation = ({
                           <Input
                             className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                             {...field}
+                            placeholder="Enter your country of Residence"
                           />
                         </FormControl>
                         <FormMessage />
@@ -304,6 +307,7 @@ const InvestorInformation = ({
                             className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                             type="string"
                             {...field}
+                            placeholder="Enter your city"
                           />
                         </FormControl>
                         <FormMessage />
@@ -322,6 +326,7 @@ const InvestorInformation = ({
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
                           {...field}
+                          placeholder="What is your experience in investing?"
                         />
                       </FormControl>
                       <FormMessage />
@@ -339,6 +344,7 @@ const InvestorInformation = ({
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
                           {...field}
+                          placeholder="How important is liquidity to you?"
                         />
                       </FormControl>
                       <FormMessage />
@@ -356,6 +362,7 @@ const InvestorInformation = ({
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
                           {...field}
+                          placeholder="What is your goal?"
                         />
                       </FormControl>
                       <FormMessage />
@@ -373,6 +380,7 @@ const InvestorInformation = ({
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
                           {...field}
+                          placeholder="What is your annual income?"
                         />
                       </FormControl>
                       <FormMessage />
