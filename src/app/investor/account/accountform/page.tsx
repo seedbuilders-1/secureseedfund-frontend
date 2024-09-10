@@ -34,10 +34,6 @@ export default function AccountForm() {
     setCurrentStep(currentStep + 1);
   };
 
-  const handleBack = () => {
-    setCurrentStep(currentStep - 1);
-  };
-
   const steps = ["Investor Information", "Review and Submit"];
 
   return (
@@ -51,7 +47,6 @@ export default function AccountForm() {
               investorDetails={investorInfo}
               handleNext={handleNext}
               handleInvestor={handleInvestorInfo}
-              handleBack={handleBack}
             />
           )}
         </div>

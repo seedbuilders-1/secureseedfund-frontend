@@ -62,7 +62,7 @@ const TeamInformation = ({
                     <FormLabel>Title of Co-founder:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Provide a title"
                         {...field}
                       />
@@ -80,7 +80,7 @@ const TeamInformation = ({
                     <FormLabel>First Name of Co-founder:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Provide your First Name"
                         {...field}
                       />
@@ -98,7 +98,7 @@ const TeamInformation = ({
                     <FormLabel>Last Name of Co-founder:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Provide your Last Name"
                         {...field}
                       />
@@ -117,7 +117,7 @@ const TeamInformation = ({
                     <FormControl>
                       <Input
                         type="email"
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Eg; keneeneh@gmail.com"
                         {...field}
                       />
@@ -135,7 +135,7 @@ const TeamInformation = ({
                     <FormLabel>Education of Co-founder:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px] h-[150px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
                         placeholder="Talk about your education history"
                         {...field}
                       />
@@ -154,7 +154,7 @@ const TeamInformation = ({
                       <FormLabel>LikendIn Profile of Co-founder</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                           placeholder="Provide a LinkedIn Profile"
                           {...field}
                         />
@@ -172,7 +172,7 @@ const TeamInformation = ({
                       <FormLabel>Phone Number of Co-founder</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                           type="number"
                           placeholder="Enter a Phone Number"
                           {...field}
@@ -193,7 +193,7 @@ const TeamInformation = ({
                     <FormControl>
                       <Input
                         type="textarea"
-                        className="py-[1.9rem] rounded-[48px] h-[150px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
                         placeholder="Provide an expereince"
                         {...field}
                       />
@@ -211,7 +211,7 @@ const TeamInformation = ({
                     <FormLabel>Number of Team Memebrs</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Number of Team Memebrs"
                         {...field}
                       />
@@ -232,7 +232,7 @@ const TeamInformation = ({
                     <FormControl>
                       <Input
                         type="text"
-                        className="py-[1.9rem] rounded-[48px] h-[150px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
                         placeholder="Provide an expereince"
                         {...field}
                       />
@@ -252,7 +252,7 @@ const TeamInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Provide an expereince"
                         {...field}
                       />

@@ -148,7 +148,7 @@ const CompanyInformation = ({
                     <FormLabel>Legal Company Name:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="As written on your registration documents"
                         {...field}
                       />
@@ -166,7 +166,7 @@ const CompanyInformation = ({
                     <FormLabel>Company Address:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="As written on your registration documents"
                         {...field}
                       />
@@ -184,7 +184,7 @@ const CompanyInformation = ({
                     <FormLabel>Contact Email Address:</FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="Eg; keneeneh@gmail.com"
                         {...field}
                       />
@@ -204,7 +204,7 @@ const CompanyInformation = ({
                       <FormControl>
                         <Input
                           type="text"
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                           placeholder=""
                           {...field}
                         />
@@ -223,7 +223,7 @@ const CompanyInformation = ({
                       <FormControl>
                         <Input
                           type="number"
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                           placeholder="+234"
                           {...field}
                         />
@@ -243,7 +243,7 @@ const CompanyInformation = ({
                       <FormLabel>Industry/Sector</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                           placeholder=""
                           {...field}
                         />
@@ -261,7 +261,7 @@ const CompanyInformation = ({
                       <FormLabel>Year of Oncorporation</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                           type="number"
                           placeholder=""
                           {...field}
@@ -283,7 +283,7 @@ const CompanyInformation = ({
                       <FormControl>
                         <Input
                           type="textarea"
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                           placeholder=""
                           {...field}
                         />
@@ -301,7 +301,7 @@ const CompanyInformation = ({
                       <FormLabel>City of Operations</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[100%]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
                           placeholder="City of Operations"
                           {...field}
                         />
@@ -321,7 +321,7 @@ const CompanyInformation = ({
                     <FormControl>
                       <Input
                         type="text"
-                        className="py-[1.9rem] rounded-[48px] h-[150px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
                         placeholder="Company Description"
                         {...field}
                       />
@@ -341,7 +341,7 @@ const CompanyInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder=""
                         {...field}
                       />
@@ -363,7 +363,7 @@ const CompanyInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="py-[1.9rem] rounded-[48px] h-[150px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
                         placeholder=""
                         {...field}
                       />
