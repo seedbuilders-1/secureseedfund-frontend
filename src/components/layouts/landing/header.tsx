@@ -55,7 +55,7 @@ const Header = () => {
 
                 {/* Pricing */}
                 <NavigationMenuItem>
-                  <Link href="/investors" legacyBehavior passHref>
+                  <Link href="/pricing" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
                     >
@@ -66,7 +66,7 @@ const Header = () => {
 
                 {/* Services */}
                 <NavigationMenuItem>
-                  <Link href="/investors" legacyBehavior passHref>
+                  <Link href="/services" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
                     >
@@ -132,7 +132,7 @@ const Header = () => {
 
                     {/* Pricing */}
                     <NavigationMenuItem className="mt-4">
-                      <Link href="/investors" legacyBehavior passHref>
+                      <Link href="/pricing" legacyBehavior passHref>
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
@@ -143,7 +143,7 @@ const Header = () => {
 
                     {/* Services */}
                     <NavigationMenuItem className="mt-4">
-                      <Link href="/investors" legacyBehavior passHref>
+                      <Link href="/services" legacyBehavior passHref>
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >

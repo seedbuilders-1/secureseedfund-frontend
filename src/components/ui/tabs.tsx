@@ -16,6 +16,8 @@ const tabsTriggerVariants = cva(
         line: "bg-transparent text-white data-[state=active]:border-b data-[state=active]:border-white w-fit",
         retro:
           "rounded-full h-12 data-[state=active]:bg-primary data-[state=active]:text-white text-[#8A8F90] font-[400] px-6",
+        landing:
+          "text-[1rem] bg-white w-full rounded-3xl text-center text-[black] data-[state=active]:bg-[#93F3A5]  data-[state=active]:text-bold",
       },
     },
     defaultVariants: {
