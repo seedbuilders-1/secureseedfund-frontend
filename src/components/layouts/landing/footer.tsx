@@ -8,61 +8,100 @@ const Footer = () => {
     <footer className="my-10 w-full h-fit">
       <PaddingContainer>
         <div className="w-full mx-auto flex flex-col md:w-[70%]">
-          <h2 className="text-[2.5rem]  font-[400] text-center text-primary mt-10 md:text-[7rem] ">
+          <h2 className="text-[2.5rem]  font-[400] text-center text-[#0F8B3A] mt-10 md:text-[5rem] lg:text-[7rem] ">
             SecureSeedFund
           </h2>
 
-          <div className="mt-10 w-full grid grid-cols-3 gap-8">
+          <div className="mt-10 w-full grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="flex flex-col space-y-6">
               <span className="text-[#0A142F] font-[500] cursor-pointer">
-                Quick Links
+                Get to know us
               </span>
               <div className="flex flex-col space-y-4">
                 <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Auto Capture
+                  Our story
                 </span>
                 <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Data Governance
-                </span>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Virtual Events
-                </span>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Virtual Users
-                </span>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Behavioral Analytics
-                </span>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Connect
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-col space-y-6">
-              <span className="text-[#0A142F] font-[500] cursor-pointer">
-                Explore
-              </span>
-              <div className="flex flex-col space-y-4">
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Resources
+                  Careers
                 </span>
                 <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
                   Blog
                 </span>
                 <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Documents
+                  Partnerships
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Contact us
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-6">
+              <span className="text-[#0A142F] font-[500] cursor-pointer">
+                Get Started
+              </span>
+              <div className="flex flex-col space-y-4">
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Secure seed funds
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Invest securely
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Account login
                 </span>
               </div>
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col space-y-6">
               <span className="text-[#0A142F] font-[500] cursor-pointer">
-                OFFICE LOCATION
+                Legal & Guides
               </span>
-              <div className="flex flex-col space-y-4 mt-6">
-                <span className="text-[#0A142F] opacity-[.5] cursor-pointer">
-                  ABC Company, 123 East, 17th Street, St. louis 10001
+              <div className="flex flex-col space-y-4">
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Investor FAQ
                 </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Startup FAQ
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Guidelines
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Privacy Policy
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Terms of Service
+                </span>
+              </div>
+            </div>
+
+            <div className="flex h-full justify-between flex-col">
+              <div className="flex flex-col">
+                <span className="text-[#0A142F] font-[500] cursor-pointer">
+                  OFFICE LOCATION
+                </span>
+                <div className="flex flex-col space-y-4 mt-6">
+                  <span className="text-[#0A142F] opacity-[.5] cursor-pointer">
+                    ABC Company, 123 East, 17th Street, St. louis 10001
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[#0A142F] font-[500] cursor-pointer">
+                  News Letter
+                </span>
+                <div className="flex items-center border-b py-2">
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 leading-tight focus:outline-none"
+                  />
+                  <img
+                    src="https://www.svgrepo.com/show/517643/mail.svg"
+                    alt="Email Icon"
+                    className="h-6 w-6 text-gray-400"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -104,6 +143,9 @@ const Footer = () => {
                 of type and scrambled it t
               </p>
             </div>
+            <p className="text-[0.9rem] opacity-[0.703] text-center mt-12">
+              All Rights Reserved
+            </p>
           </div>
         </div>
       </PaddingContainer>
