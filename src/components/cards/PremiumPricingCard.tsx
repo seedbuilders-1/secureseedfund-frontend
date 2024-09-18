@@ -7,11 +7,10 @@ import React, { useState } from "react";
 interface PricingCardProps {
   title: string;
   description: string;
-  prices: { [key: string]: string }; // An object where keys are periods and values are prices
-  periodOptions: string[]; // Array of billing period options, e.g., ['Month', '6 Month', 'Year']
+  prices: { [key: string]: string };
+  periodOptions: string[];
   features: string[];
   buttonText: string;
-  //   onButtonClick: () => void;
 }
 
 const PricingCard: React.FC<PricingCardProps> = ({
@@ -21,7 +20,6 @@ const PricingCard: React.FC<PricingCardProps> = ({
   periodOptions,
   features,
   buttonText,
-  //   onButtonClick,
 }) => {
   const [selectedPeriod, setSelectedPeriod] = useState(periodOptions[0]);
 
@@ -64,7 +62,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
         <h3 className="text-md font-bold">What’s included</h3>
         <ul className="mt-2 space-y-2 text-sm">
           {features.map((feature, index) => (
-            <li key={index} className="flex items-center gap-2">
+            <li key={index} className="flex items-center gap-2 py-2">
               <WhitCheckIcon />
               {feature}
             </li>

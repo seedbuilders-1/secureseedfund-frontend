@@ -40,7 +40,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
         <h3 className="text-md font-bold text-gray-800">What’s included</h3>
         <ul className="mt-2 space-y-2 text-sm">
           {features.map((feature, index) => (
-            <li key={index} className="flex items-center gap-2">
+            <li key={index} className="flex items-center gap-2 py-2">
               <GreenCheckIcon />
               {feature}
             </li>
