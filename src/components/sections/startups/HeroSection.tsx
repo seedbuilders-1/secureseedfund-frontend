@@ -1,104 +1,111 @@
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
-const Card = () => {
-  return (
-    <div className="bg-[#001517] pt-4 mx-auto max-w-[1200px] rounded-sm relative top-[-31px]">
-      <Image
-        src="/assets/images/startupitem.png"
-        alt=""
-        width={700}
-        height={500}
-        className="rounded-xl"
-      />
-      <div className=" px-4 w-full absolute bottom-[15px] left-0  ">
-        <h3 className="text-white text-[1rem] font-semibold md:text-[1.3rem]">
-          Startup/Brand name
-        </h3>
-        <div className="flex flex-col gap-4  md:flex-row  justify-between ">
-          <div className="flex gap-4">
-            <div className="font-[500] bg-[#FACFF1] px-2 py-4 text-center  w-[25%] rounded-[5rem]  md:w-full">
-              <span>Fintech</span>
-            </div>
-            <div className="font-[500] bg-[#ffff] px-2 py-4  justify-center gap-3 w-[25%] items-center rounded-[5rem] flex md:w-full">
-              <span className="text-center">Scale</span>
-              <ArrowRight size={14} />
-            </div>
-          </div>
-          <div className="bg-[#6A6363] border flex justify-between items-center gap-3 rounded-3xl h-[70px] border-[#CDEED3] px-4 py-2 w-full md:[50%}">
-            <div>
-              <h2 className="font-normal text-[1rem] text-[#CDEED3]">
-                US$6.6M
-              </h2>
-              <span className="text-[.7rem text-[#CDEED3]"> Raised</span>
-            </div>
-            <div>
-              <h2 className="font-normal text-[1rem] text-[#CDEED3]">4197 </h2>
-              <span className="text-[.7rem text-[#CDEED3]"> Investors</span>
-            </div>
-            <div>
-              <h2 className="font-normal text-[1rem] text-[#CDEED3]">MIN</h2>
-              <span className="text-[.7rem text-[#CDEED3]"> Investment</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { Button } from "@/components/ui/button";
+import startupbackground from "@/assets/iconspng/startbackground.png";
+import BigStartupbg from "@/assets/iconspng/bigstartup.png";
 
 const HeroSection = () => {
   return (
-    <section className="w-full  min-h-[100vh] grid grid-cols-[1fr]">
-      <div className="bg-[#001D21] p-10  flex flex-col justify-center  mt-0 md:mt-7">
-        <div className="max-w-[600px] space-y-4  mt-8">
-          <h1 className="font-[400] text-[3.2rem] text-white leading-tight md:text-[4.5rem]">
-            Tomorrow’s <span className="text-[#D9F3A9]">Unicorn </span>Starts
-            Here
-          </h1>
-
-          <p className="text-[1rem] text-[#F7F8F6] font-[300] md:text-[1.3rem]">
-            Let us help you attract the right investors in a few days. Raise
-            capital from hundreds of verified and experienced global investors.
-            Let us secure your funding needs while you get back to building your
-            company.
+    <section className="px-[1rem] mt-[3rem]">
+      <div className="flex justify-center items-center flex-col md:flex-row gap-[8rem] px-[10rem]">
+        <div className="flex items-center md:items-start justify-center flex-col space-y-6   ">
+          <p className="text-[1rem] text-[#2B2B2B] md:text-left font-medium md:text-[1.2rem]">
+            “Tomorrow’s Unicorn Starts Here”
           </p>
-          <div className="flex gap-4 flex-col sm:flex-row">
-            <div className="font-[500] bg-none border border-[#CDEED3] px-4 py-4  w-[70%] rounded-3xl  md:w-[70%]">
-              <span className="text-white">Yourexample@email.com</span>
+          <h1 className="font-bold text-3xl md:text-[2.4rem] text-center md:text-left">
+            <span>
+              Secure your{" "}
+              <span className="text-[#0BA53C] text-3xl md:text-[2.4rem]">
+                <br className="block md:hidden" /> SEED FUND
+              </span>
+              <br className="hidden md:block" /> here
+            </span>
+          </h1>
+          <p className="text-[1rem] text-[#2B2B2B] font-medium text-center md:text-left md:text-[1.2rem]">
+            let us help you <br />{" "}
+            <span className="font-normal md:text-left">
+              Attract the right investors in a few days. Raise capital from
+              hundreds of verified and experienced global investors.
+            </span>
+          </p>
+          <p className="text-[1rem] text-[#2B2B2B] font-medium text-center md:text-left md:text-[1.2rem]">
+            {" "}
+            Let us secure your funding needs while you get back to building your
+            company
+          </p>
+
+          <div className="mt-[1rem]">
+            <div className="flex items-center justify-between w-full  gap-4 p-3 text-black bg-white border rounded-md hover:bg-gray-100 border-neutral-800">
+              <input
+                type="email"
+                placeholder="Your email address"
+                className="flex-1 text-sm bg-transparent outline-none"
+                aria-label="Email address"
+              />
+              <Button
+                variant="default"
+                className="bg-[#241A3F] text-white hover:bg-[#362d4f]"
+              >
+                Get Started
+              </Button>
             </div>
-            <div className="font-[500] bg-[#CDEED3] px-4 py-4  justify-between w-[50%] items-center rounded-3xl flex md:w-[30%]">
-              <span>Get started</span>
-              <ArrowRight size={14} />
+          </div>
+        </div>
+
+        <div className=" ">
+          <div className="relative px-[1.5rem]">
+            <Image
+              src={startupbackground}
+              alt=""
+              className="block md:hidden min-w-[300px] w-[600px]"
+            />
+            <Image
+              src={BigStartupbg}
+              alt=""
+              className="hidden md:block min-w-[300px] w-[600px]"
+            />
+
+            <div
+              className="absolute bg-[#F5F5F5] px-9 p-2 text-[0.6rem]  rounded-[1rem] top-[-2.5rem] right-[2rem]  text-bold"
+              style={{
+                boxShadow: "0px 11.75px 24.49px 0px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <p className="font-bold ">
+                From comprehensive product management and advanced architectural
+                design to seamless construction and sustainable practices, our
+                expert team ensures every project is delivered.{" "}
+              </p>
+            </div>
+
+            <div
+              className="absolute bg-[#F5F5F5] px-9 p-2 text-[0.6rem]  rounded-[1rem] right-[16rem] top-[4rem] md:right-[19rem]  text-bold"
+              style={{
+                boxShadow: "0px 11.75px 24.49px 0px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <p className="font-bold ">
+                We are in the business of developing products for the building
+                and construction eco system.{" "}
+              </p>
+            </div>
+
+            <div
+              className="absolute bg-[#F5F5F5] px-9 p-2 text-[0.6rem]  rounded-[1rem] left-[4rem] bottom-[-1rem] md:left-[10rem]  text-bold"
+              style={{
+                boxShadow: "0px 11.75px 24.49px 0px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <p className="font-bold ">
+                $3,500,000{" "}
+                <span className="text-[#2B2B2B8C]">from 150 investors</span>{" "}
+              </p>
+              <p className="font-bold ">
+                $40.26M <span className="text-[#2B2B2B8C]">valuations</span>{" "}
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <Carousel>
-        <CarouselContent>
-          <CarouselItem className="w-full">
-            <Card />
-          </CarouselItem>
-          <CarouselItem className="w-full">
-            <Card />
-          </CarouselItem>
-          <CarouselItem className="w-full">
-            <Card />
-          </CarouselItem>
-          <CarouselItem className="w-full">
-            <Card />
-          </CarouselItem>
-        </CarouselContent>
-        <CarouselPrevious className="absolute top-[-40px] left-[90%] transform translate-x-[-100%] invisible md:visible" />
-        <CarouselNext className="absolute top-[-40px] left-[90%] transform translate-x-[100%] invisible md:visible" />
-      </Carousel>
     </section>
   );
 };

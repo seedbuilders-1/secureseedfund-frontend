@@ -10,14 +10,25 @@ import Link from "next/link";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { MenuIcon } from "lucide-react";
+import Image from "next/image";
+import LOGO from "@/assets/iconspng/LOGO.png";
 
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width:768px)");
   return (
     <>
       {isDesktop ? (
-        <header className="w-full bg-[#F7F8F6] fixed left-0 top-0 z-10 h-[10vh] flex items-center">
-          <nav className="flex w-full items-center justify-between px-5">
+        <header className="w-full bg-[#F7F8F6]  left-0 top-0 z-10  flex items-center md:flex-col">
+          <div className="bg-[#0F8B3A] flex w-full items-center justify-center  p-[1rem]">
+            <p className="text-[#FFFFFF] text-[12px]">
+              We will pay you <span className="text-[#93F3A5]"> $50</span>
+              Just for referring an eligible{" "}
+              <span className="text-[#93F3A5]">Startup Founder</span> to
+              SecureSeedFund{" "}
+            </p>{" "}
+          </div>
+          <nav className="flex w-full items-center justify-between ">
+            <Image src={LOGO} alt="" className="px-5 py-7 " />
             <NavigationMenu>
               <NavigationMenuList>
                 {/* Home */}
@@ -77,22 +88,25 @@ const Header = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 px-8">
               <Link href="/auth/sign-in">
                 <Button variant="outline">Login</Button>
               </Link>
               <Link href="/auth/sign-up">
-                <Button>Create Account</Button>
+                <Button className="bg-[#241A3F]">Get started</Button>
               </Link>
             </div>
           </nav>
         </header>
       ) : (
-        <div className="w-full h-full bg-white">
+        <div className="w-full  bg-white ">
           <Drawer direction="right">
-            <DrawerTrigger className="relative top-0 right-[-86%] px-4 py-8">
-              <MenuIcon />
-            </DrawerTrigger>
+            <div className="flex justify-between">
+              <Image src={LOGO} alt="" className="px-5 py-7 " />
+              <DrawerTrigger className=" px-4 py-8">
+                <MenuIcon />
+              </DrawerTrigger>
+            </div>
             <DrawerContent>
               <nav className="flex w-full flex-col px-5 ">
                 <NavigationMenu>

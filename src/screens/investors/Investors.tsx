@@ -1,13 +1,15 @@
 import HeroSection from "@/components/sections/investors/HeroSection";
-import InvestorsBacked from "@/components/sections/investors/InvestorsBacked";
-import HowToInvest from "@/components/sections/investors/HowToInvest";
+import InvestArticleCarousel from "@/app/(landing)/home/components/InvestArticle";
+import StepstoInvest from "@/app/(landing)/investors/components/StepstoInvest";
+import InvesmentIInfor from "@/app/(landing)/investors/components/InvesmentIInfor";
 
 const Investors = () => {
   return (
     <>
       <HeroSection />
-      <InvestorsBacked />
-      <HowToInvest />
+      <InvestArticleCarousel title="Most Raised This Week" />
+      <StepstoInvest />
+      <InvesmentIInfor />
     </>
   );
 };
