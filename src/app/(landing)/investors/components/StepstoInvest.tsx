@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Investor1 from "@/assets/iconspng/investor1.png";
 import Investor2 from "@/assets/iconspng/investor2.png";
-import Investor3 from "@/assets/iconspng/investor3.jpg";
+import Investor3 from "@/assets/iconspng/invest33.png";
 import Investor4 from "@/assets/iconspng/investor4.png";
 
 const StepstoInvest = () => {
