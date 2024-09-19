@@ -9,8 +9,8 @@ import FrequentlyAskedQuestions from "./FrequentlyAsk";
 const WhyInvest = () => {
   return (
     <section className="px-4 ">
-      <div className="flex items-center justify-center flex-col md:flex-row  md:gap-[2rem] md:h-[300px]  border-2 border-[#000] md:border-[#0000004D] mb-3 rounded-[16px] text-center px-3 py-3">
-        <div className="md:flex md:flex-col items-center justify-center">
+      <div className="flex items-center justify-center flex-col md:flex-row  md:gap-[2rem] md:h-[300px]  border-2 border-[#000] md:border-[#0000004D] mb-3 rounded-[16px] text-center px-[1rem] py-3">
+        <div className="md:flex md:flex-col items-center justify-center ">
           <h3 className="text-xl md:text-[30px] font-medium md:leading-10 md:text-left">
             Startups receive funding in a few days and{" "}
             <br className="hidden md:block" /> investors invest in a few days

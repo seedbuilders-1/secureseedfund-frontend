@@ -86,7 +86,7 @@ const InvestArticleCarousel: React.FC<InvestArticleCarouselProps> = ({
               {data.map((item, index) => (
                 <CarouselItem
                   key={index}
-                  className=" border gap-[4rem] border-[#dcdcdc] rounded-lg md:basis-1/2  lg:basis-[400px] "
+                  className=" border gap-[4rem] border-[#dcdcdc] rounded-lg md:basis-1/2  lg:basis-[400px] pl-[0rem] "
                 >
                   <Image
                     src={item.image}
