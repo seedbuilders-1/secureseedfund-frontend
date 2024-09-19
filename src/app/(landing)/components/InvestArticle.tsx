@@ -6,7 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"; // Adjust import according to your library
+} from "@/components/ui/carousel";
 import explore1 from "@/assets/iconspng/explore1.png";
 import explore2 from "@/assets/iconspng/explore2.png";
 import explore3 from "@/assets/iconspng/explore3.png";

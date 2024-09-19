@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../../../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import invest from "@/assets/iconspng/whyInvest.png";
 import Image from "next/image";
 import WhyInvestCards from "./WhyInvestCards";

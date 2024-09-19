@@ -2,7 +2,7 @@ import PaddingContainer from "@/components/shared/PaddingContainer";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import investsecureimage from "@/assets/iconspng/investsecureimage.png";
-import InvestArticle from "@/app/(landing)/home/components/InvestArticle";
+import InvestArticle from "@/app/(landing)/components/InvestArticle";
 
 const InvestSecurely = () => {
   return (
