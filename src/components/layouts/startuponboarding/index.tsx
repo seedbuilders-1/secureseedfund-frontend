@@ -17,7 +17,7 @@ const StartupOnboardLayout = ({
 
   return (
     <div className="flex-col md:flex-row flex ">
-      <div className=" hidden md:block basis-[50%] bg-secondaryblue fixed h-full  w-[50%] overflow-hidden mr-[50%] p-2  ">
+      <div className=" hidden md:block basis-[50%] bg-secondaryblue fixed h-full  w-[50%] overflow-hidden mr-[50%] p-2">
         <Image
           src="/assets/icons/logo-white.svg"
           alt="logo"

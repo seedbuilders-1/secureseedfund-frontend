@@ -1,31 +1,95 @@
-import { ArrowRight } from "lucide-react";
+import InvestorImage from "@/assets/iconspng/investorlanding.png";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const HeroSection = () => {
   return (
-    <section className="w-full grid grid-cols-[1fr] min-h-[90vh] md:grid-cols-[1.5fr_1fr]">
-      <div className="bg-[#ffff] p-10 justify-center flex flex-col text-[#011012] mt-0 md:mt-7">
-        <div className="max-w-[600px] mx-auto mt-[-10rem] md:mt-0">
-          <div className="font-[500] bg-[#D9F3A9] px-4 py-4 w-full items-center rounded-2xl flex md:w-[50%] ">
-            <span>Securely Invest in startups here</span>
-            <ArrowRight size={14} />
-          </div>
-          <h1 className="font-[400] text-[3.2rem] leading-tight md:text-[4.5rem]">
-            Tomorrow’s Unicorn Starts Here
+    <section className="">
+      <div className="flex flex-col md:flex-row items-center justify-center bg-[linear-gradient(180deg,#FFFFFF_0%,rgba(146,227,169,0.53)_100%)] py-[1rem] px-[2rem] md:px-[4rem] md:rounded-xl md:m-[2rem]">
+        <div className=" w-full">
+          <h1 className="font-medium text-3xl md:text-[3rem] text-center md:text-left">
+            <span>
+              Securely invest{" "}
+              <span className="text-[#0BA53C] text-3xl md:text-[3rem]">
+                invest
+              </span>
+              <br /> in startups here
+            </span>
           </h1>
-
-          <p className="text-[1rem] font-[300] md:text-[1.3rem]">
-            Let us help you verify, vet, access and monitor your startup
-            investments portfolios in one dashboard across the globe
-            <strong className="font-[500]">Invest as little as $1000</strong>
+          <p className="text-sm md:text-lg md:text-left mt-6 text-center">
+            <span className="text-[#2B2B2B] font-normal text-md md:text-[1.2rem]">
+              Let us help you verify, vet, access and monitor your{" "}
+              <br className="hidden md:block" /> startup investments portfolios
+              in one dashboard across the globe.
+            </span>{" "}
+            <br />
+            <strong className="font-semibold text-md">
+              Invest as little as $1000
+            </strong>
           </p>
         </div>
+
+        <div className="flex flex-col items-center justify-center mt-[1rem] leading-7">
+          <Image src={InvestorImage} alt="" />
+          <strong className="font-semibold text-[1.2rem] text-center mt-[1rem]">
+            We are in the business of developing products for the building and
+            construction eco system.
+          </strong>
+          <Button className="bg-dark mt-3"> View opportunity</Button>
+        </div>
       </div>
-      <div className="relative bg-dark">
-        <div className="flex bg-white gap-3 px-6 py-5  rounded-xl w-[280px] absolute bottom-[53px] ml-[1rem]">
-          <div className="text-[#628F0F] flex justify-center items-center bg-[#D9F3A9] w-[20px] h-[20px] border rounded-[100%] border-[#628F0F]">
-            $
+
+      <div className="flex gap-8 px-6 mt-12 items-start">
+        <div className="flex flex-col items-start w-full">
+          <div className="flex flex-col items-start w-full">
+            <h2 className="text-[1.6rem] font-medium">Overview</h2>
+            <hr className="mt-2 mb-4 w-full border-2 border-[#00A539]  max-w-[300px]" />
           </div>
-          <span className="">Invest in the future</span>
+          <Select>
+            <SelectTrigger className="mt-2 text-slate-900 border border-slate-300 h-[44px] max-w-[300px]">
+              <SelectValue placeholder="Industry" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Industry</SelectLabel>
+                <SelectItem value="apple">Apple</SelectItem>
+                <SelectItem value="banana">Banana</SelectItem>
+                <SelectItem value="blueberry">Blueberry</SelectItem>
+                <SelectItem value="grapes">Grapes</SelectItem>
+                <SelectItem value="pineapple">Pineapple</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex flex-col items-start w-full">
+          <div className="flex flex-col items-start w-full">
+            <h2 className="text-[1.6rem] font-normal text-[#2B2B2B4D]">News</h2>
+          </div>
+          <Select>
+            <SelectTrigger className=" text-slate-900 border border-slate-300 h-[44px] max-w-[300px] mt-[2.2rem]">
+              <SelectValue placeholder="Sort by status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>sort by </SelectLabel>
+                <SelectItem value="apple">Apple</SelectItem>
+                <SelectItem value="banana">Banana</SelectItem>
+                <SelectItem value="blueberry">Blueberry</SelectItem>
+                <SelectItem value="grapes">Grapes</SelectItem>
+                <SelectItem value="pineapple">Pineapple</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </section>

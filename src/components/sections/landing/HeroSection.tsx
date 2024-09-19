@@ -1,37 +1,63 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import home from "@/assets/iconspng/home.png";
+import HomeDeskTop from "@/assets/iconspng/HomeDeskTop.png";
 
 const HeroSection = () => {
   return (
-    <section className="w-full grid grid-cols-[1fr] min-h-[90vh] md:grid-cols-[1.5fr_1fr]">
-      <div className="bg-[#ffff] p-10 justify-center flex flex-col text-[#011012] md:bg-[#CDEED3]">
-        <div className="font-[600] bg-[#CDEED3] px-4 py-4 rounded-2xl">
-          Tommorrow’s Unicorn starts here
-        </div>
-        <h1 className="font-[400] text-[3.2rem] leading-tight md:text-[5.3125rem]">
-          Securely Invest in <br /> Startups Here.
+    <section className="w-full min-h-screen relative grid grid-cols-1">
+      <div className="hidden md:block">
+        <Image
+          src={HomeDeskTop}
+          alt="Desktop Hero Image"
+          priority
+          layout="fill"
+          objectFit="cover"
+          className="hidden md:block h-[100%] absolute top-0 left-0 w-full "
+        />
+      </div>
+
+      <div className="absolute md:top-[20%] left-0 md:right-[30rem] text-right p-6 md:p-12 text-[#011012] md:bg-transparent flex flex-col items-center md:items-start">
+        <h1 className="font-bold text-2xl md:text-4xl text-center md:text-left">
+          <span>Tomorrow’s Unicorn</span>
+          <br />
+          <span className="text-[#0BA53C] text-3xl md:text-4xl">
+            starts here
+          </span>
         </h1>
 
-        <p className="text-[1rem] font-[300] md:text-[1.5rem]">
-          Let us help you verify, vet, access and monitor your startup <br />
-          investments portfolios in one dashboard across the globe. <br />
-          <strong className="font-[500]">Invest as little as $1000</strong>
+        <p className="text-sm md:text-lg md:text-left mt-4 text-center">
+          <strong className="font-semibold text-xl md:text-2xl">
+            Securely invest in startups here
+          </strong>{" "}
+          <br />
+          <span className="text-[#2B2B2B] font-normal text-xs md:text-base">
+            Let us help you verify, vet, access, and monitor your startup
+            investments portfolios in one dashboard across the globe.
+          </span>{" "}
+          <br />
+          <strong className="font-semibold">Invest as little as $1000</strong>
         </p>
-        <div className="flex items-center space-x-4 mt-6">
-          <Button className="bg-dark text-[#ffff] md:bg-primary">
-            Join SecureSeedFund
+
+        <div className="flex items-center justify-center space-x-4 mt-6">
+          <Button className="bg-dark text-white md:bg-[#241A3F] text-xs md:text-sm">
+            Join Secure Seedfund
           </Button>
-          <Button variant="outline">Explore Startups</Button>
+          <Button variant="outline" className="text-xs md:text-sm">
+            Explore Startups
+          </Button>
         </div>
       </div>
-      <div className="flex-1 relative h-full">
+
+      {/* Mobile Hero Image */}
+      <div className="relative  mt-[19rem] block md:hidden">
         <Image
-          src="/assets/images/hero-image.png"
+          src={home}
           alt="Hero Image"
           priority
-          width={500}
-          height={500}
-          className="object-cover object-right-bottom h-full w-full"
+          layout="fill"
+          objectFit="cover"
+          className="object-cover md:hidden w-[100%] "
         />
       </div>
     </section>
