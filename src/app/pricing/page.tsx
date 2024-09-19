@@ -44,7 +44,7 @@ export default function PricingPage() {
                     price="$0"
                     period="monthly"
                     features={[
-                      "Navigate the web/bobile application",
+                      "Navigate the web/mobile application",
                       "Demo video on how it works",
                       "See a global sample of global investors",
                       "See investors that have funded startups",

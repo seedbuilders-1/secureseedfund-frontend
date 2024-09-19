@@ -17,31 +17,31 @@ const ServicesPage = () => {
               imageSrc="/assets/images/service1.png"
               title="Learn how to pitch like a PRO"
               price={100}
-              buttonText="Explore"
+              buttonText="Get Started"
             />
             <ServiceCard
               imageSrc="/assets/images/service5.png"
               title="Pitch Deck Generator"
               price={200}
-              buttonText="Explore"
+              buttonText="Get Started"
             />
             <ServiceCard
               imageSrc="/assets/images/service2.png"
               title="Financial projections, profit and loss with financial modelling for 5 years"
               price={375}
-              buttonText="Explore"
+              buttonText="Get Started"
             />
             <ServiceCard
               imageSrc="/assets/images/service3.png"
               title="Virtual office setup"
               price={300}
-              buttonText="Explore"
+              buttonText="Get Started"
             />
             <ServiceCard
               imageSrc="/assets/images/service4.png"
               title="Financial/Bookeeping service for a year"
               price={750}
-              buttonText="Explore"
+              buttonText="Get Started"
             />
           </div>
         </div>
