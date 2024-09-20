@@ -1,3 +1,4 @@
+/* globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,7 +8,6 @@ body {
 }
 
 @layer components {
-  /* Text stlyes */
   .large {
     @apply text-slate-700 text-[1rem] font-[600] leading-[1.75rem];
   }
@@ -18,5 +18,41 @@ body {
 
   .p-ui {
     @apply text-[.9rem] text-slate-600;
+  }
+}
+.vertical-line {
+  width: 1px;
+  height: 100%;
+  background-color: #000;
+  margin: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .vertical-line {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .vertical-line {
+    display: block;
+  }
+}
+.horizontal-line {
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+  margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .horizontal-line {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .horizontal-line {
+    display: none;
   }
 }

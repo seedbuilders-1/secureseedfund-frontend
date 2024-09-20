@@ -55,7 +55,7 @@ const useUserAuth = () => {
       toast({
         variant: "destructive",
         title: `${
-          (err?.data?.statusCode, err?.data?.message || "unable to register")
+          (err?.data?.statusCode, err?.data?.message || "unable to login")
         }`,
       });
     }

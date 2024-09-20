@@ -11,15 +11,15 @@ export type CreateCampaignRequestType = {
   description: string;
   fundingGoal: number;
   campaignType: string;
-  coverPhotoUrl: string;
+  // coverPhotoUrl: string;
   startDate: string;
   endDate: string;
-  companyType: string;
-  cofounders: number;
-  teamMembers: number;
-  about: string;
+  // companyType: string;
+  // cofounders: number;
+  // teamMembers: number;
+  // about: string;
   milestones: Milestones[];
-  businessPlanUrl: string;
+  // businessPlanUrl: string;
 };
 export type CreateCampaignResponseType = {
   businessPlanUrl: string;

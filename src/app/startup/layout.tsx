@@ -1,23 +1,40 @@
 "use client";
-import DashboardLayout from "@/components/layouts/dashboard";
-import PrivateRoute from "@/components/route-helpers/PrivateRoute";
+
 import { ReactNode } from "react";
-import { usePathname } from "next/navigation";
-import { useStartupIdUrl } from "@/lib/utils";
+import DashboardLayout from "@/components/layouts/DashboardLayout";
+import { RiHome5Line } from "react-icons/ri";
+import { SiWpexplorer } from "react-icons/si";
+import { Wallet } from "lucide-react";
+import { User } from "lucide-react";
+import { useParams } from "next/navigation";
 
-export default function StartupLayout({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
-  const isActive = (href: string) => pathname === href;
+const Layout = ({ children }: { children: ReactNode }) => {
+  const { startupid } = useParams();
 
-  const startupId = useStartupIdUrl();
+  const items = [
+    {
+      name: "Dashboard",
+      icon: RiHome5Line,
+      path: `/startup/${startupid}/dashboard`,
+    },
+    {
+      name: "Campaign",
+      icon: SiWpexplorer,
+      path: `/startup/${startupid}/campaign`,
+    },
+    {
+      name: "Wallet",
+      icon: Wallet,
+      path: `/startup/${startupid}/wallet`,
+    },
+    {
+      name: "Account",
+      icon: User,
+      path: `/startup/${startupid}/account`,
+    },
+  ];
 
-  return (
-    <PrivateRoute>
-      {isActive(`/startup/${startupId}/campaign/createcampaign`) ? (
-        children
-      ) : (
-        <DashboardLayout>{children}</DashboardLayout>
-      )}
-    </PrivateRoute>
-  );
-}
+  return <DashboardLayout items={items}>{children}</DashboardLayout>;
+};
+
+export default Layout;

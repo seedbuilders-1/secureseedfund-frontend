@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/campaign/StartCampaign"
+    "src/app/startup/[startupid]/campaign/components/campaign/StartCampaign"
   ],
   "exclude": ["node_modules"]
 }
