@@ -81,12 +81,12 @@ const InvestArticleCarousel: React.FC<InvestArticleCarouselProps> = ({
         </div>
 
         <div className="mt-11 relative ">
-          <Carousel className="w-full max-w-full">
-            <CarouselContent className="relative gap-8">
+          <Carousel className="w-full max-w-full ">
+            <CarouselContent className="relative gap-8 ">
               {data.map((item, index) => (
                 <CarouselItem
                   key={index}
-                  className=" border gap-[4rem] border-[#dcdcdc] rounded-lg md:basis-1/2  lg:basis-[400px] pl-[0rem] "
+                  className=" border gap-[4rem] border-[#dcdcdc] basis-[100%] rounded-lg md:basis-1/2  lg:basis-[400px] pl-[0rem] "
                 >
                   <Image
                     src={item.image}

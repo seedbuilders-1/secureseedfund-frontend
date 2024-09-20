@@ -11,6 +11,7 @@ export type RegisterUserRequestType = {
   otherName?: string;
   phone?: string;
   password: string;
+  accountType: string;
   role?: "USER" | "ADMIN" | "STARTUP";
 };
 export type RegisterError = {

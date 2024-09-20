@@ -20,16 +20,16 @@ const AttractInvestor = () => {
         <p className="text-gray-600  font-medium">
           Attract several investors today
         </p>
-        <div className="flex items-center justify-between w-full max-w-md gap-4 p-3 text-black bg-white border rounded-md hover:bg-gray-100 border-neutral-800">
+        <div className="flex items-center mt-[1rem] h-11 justify-between w-full md:w-[80%]  gap-4 px-2 py-2  text-black bg-white border border-neutral-300 rounded-md shadow-sm hover:shadow-md transition-all duration-300">
           <input
             type="email"
             placeholder="Your email address"
-            className="flex-1 text-sm bg-transparent outline-none"
+            className="w-[70%]  text-sm bg-transparent focus:border-indigo-500 outline-none transition-colors duration-300"
             aria-label="Email address"
           />
           <Button
             variant="default"
-            className="bg-[#241A3F] text-white hover:bg-[#362d4f]"
+            className="bg-gradient-to-r w-[30%] py-3 h-9 rounded-md from-[#241A3F] to-[#362d4f] text-white hover:from-[#2f2355] hover:to-[#453a61] transition-all duration-300 shadow-md hover:shadow-lg"
           >
             Get Started
           </Button>

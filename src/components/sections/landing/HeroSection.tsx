@@ -1,64 +1,57 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import home from "@/assets/iconspng/home.png";
-import HomeDeskTop from "@/assets/iconspng/HomeDeskTop.png";
+import Home from "@/assets/icons/home.svg";
 
 const HeroSection = () => {
   return (
-    <section className="w-full min-h-screen relative grid grid-cols-1">
-      <div className="hidden md:block">
-        <Image
-          src={HomeDeskTop}
-          alt="Desktop Hero Image"
-          priority
-          layout="fill"
-          objectFit="cover"
-          className="hidden md:block h-[100%] absolute top-0 left-0 w-full "
-        />
-      </div>
+    <section className="w-full   mt-[4rem] flex flex-col md:flex-row">
+      <div className=" flex flex-col  p-6 md:p-12 text-[#011012]">
+        <div className="max-w-2xl mx-auto md:mx-0">
+          <h1 className="font-bold text-2xl md:text-4xl text-center md:text-left">
+            <span>Tomorrow's Unicorn</span>
+            <br />
+            <span className="text-[#0BA53C] text-3xl md:text-4xl">
+              starts here
+            </span>
+          </h1>
 
-      <div className="absolute md:top-[20%] left-0 md:right-[30rem] text-right p-6 md:p-12 text-[#011012] md:bg-transparent flex flex-col items-center md:items-start">
-        <h1 className="font-bold text-2xl md:text-4xl text-center md:text-left">
-          <span>Tomorrow’s Unicorn</span>
-          <br />
-          <span className="text-[#0BA53C] text-3xl md:text-4xl">
-            starts here
-          </span>
-        </h1>
+          <p className="text-sm md:text-lg mt-4 text-center md:text-left">
+            <strong className="font-semibold text-xl md:text-2xl block mb-2">
+              Securely invest in startups here
+            </strong>
+            <span className="text-[#2B2B2B] font-normal text-xs md:text-base block mb-2">
+              Let us help you verify, vet, access, and monitor your startup
+              investments portfolios in one dashboard across the globe.
+            </span>
+            <strong className="font-semibold block">
+              Invest as little as $1000
+            </strong>
+          </p>
 
-        <p className="text-sm md:text-lg md:text-left mt-4 text-center">
-          <strong className="font-semibold text-xl md:text-2xl">
-            Securely invest in startups here
-          </strong>{" "}
-          <br />
-          <span className="text-[#2B2B2B] font-normal text-xs md:text-base">
-            Let us help you verify, vet, access, and monitor your startup
-            investments portfolios in one dashboard across the globe.
-          </span>{" "}
-          <br />
-          <strong className="font-semibold">Invest as little as $1000</strong>
-        </p>
-
-        <div className="flex items-center justify-center space-x-4 mt-6">
-          <Button className="bg-dark text-white md:bg-[#241A3F] text-xs md:text-sm">
-            Join Secure Seedfund
-          </Button>
-          <Button variant="outline" className="text-xs md:text-sm">
-            Explore Startups
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 mt-6">
+            <Button className="bg-dark text-white md:bg-[#241A3F] text-xs md:text-sm w-full sm:w-auto">
+              Join Secure Seedfund
+            </Button>
+            <Button
+              variant="outline"
+              className="text-xs md:text-sm w-full sm:w-auto"
+            >
+              Explore Startups
+            </Button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Hero Image */}
-      <div className="relative  mt-[19rem] block md:hidden">
-        <Image
-          src={home}
-          alt="Hero Image"
-          priority
-          layout="fill"
-          objectFit="cover"
-          className="object-cover md:hidden w-[100%] "
-        />
+      <div className=" flex justify-center items-center md:block">
+        <div className="relative w-[296px] h-[283px] md:w-[612px] md:h-[520px]">
+          <Image
+            src={Home}
+            alt="Hero Image"
+            layout="fill"
+            objectFit="contain"
+            priority
+          />
+        </div>
       </div>
     </section>
   );

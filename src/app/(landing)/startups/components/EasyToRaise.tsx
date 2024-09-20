@@ -68,7 +68,7 @@ const EasyToRaise: React.FC = () => {
               alt={step.title}
               isLastThree={index >= 2}
             />
-            <div className="text-center">
+            <div className="">
               <h3 className="font-medium text-[1rem] md:text-xl mt-2">
                 {step.title}
               </h3>

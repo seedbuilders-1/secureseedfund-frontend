@@ -50,7 +50,7 @@ const Header = () => {
                         className={cx(
                           "px-4 py-2 text-black text-sm font-normal transition-colors hover:text-gray-700",
                           {
-                            "bg-[#93F3A5] text-black font-medium": isActive(
+                            "bg-[#93F3A5] text-black font-bold": isActive(
                               item.href
                             ),
                           }
