@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <>
       {isDesktop ? (
-        <header className="w-full bg-[#F7F8F6] left-0 top-0 z-10 flex items-center md:flex-col">
+        <header className="w-full bg-[#ffff] left-0 top-0 z-10 flex items-center md:flex-col">
           <div className="bg-[#0F8B3A] flex w-full items-center justify-center p-[1rem]">
             <p className="text-[#FFFFFF] text-[12px]">
               We will pay you <span className="text-[#93F3A5]">$50</span> just

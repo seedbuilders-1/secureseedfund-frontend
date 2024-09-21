@@ -34,7 +34,7 @@ const useUserAuth = () => {
         lastName,
         otherName,
         refreshToken,
-        role,
+        accountType,
         userId,
       } = res;
       dispatch(
@@ -44,7 +44,7 @@ const useUserAuth = () => {
             firstName,
             lastName,
             otherName: otherName,
-            role,
+            accountType,
             userId,
           },
           accessToken: accessToken,

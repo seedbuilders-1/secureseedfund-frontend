@@ -11,6 +11,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useUserAuth from "@/hooks/auth/useAuth";
@@ -38,11 +39,12 @@ const SignInPage = () => {
       email,
       password,
     });
-    if (LoggedIn) {
-      router.push("/onboarding");
-    }
   };
-
+  useEffect(() => {
+    if (LoggedIn) {
+      router.push("/dashboard");
+    }
+  }, [LoggedIn]);
   return (
     <Fragment>
       <div className=" flex flex-col items-center px-6">

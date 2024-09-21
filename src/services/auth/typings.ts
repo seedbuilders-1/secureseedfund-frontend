@@ -28,7 +28,7 @@ export type AuthResponseType = {
   firstName: string;
   lastName: string;
   otherName: string;
-  role: string;
   accessToken: string;
+  accountType: string;
   refreshToken: string;
 };

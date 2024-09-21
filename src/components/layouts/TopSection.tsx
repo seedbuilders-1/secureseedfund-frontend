@@ -29,10 +29,7 @@ const TopSection = ({ items }: TopSectionProps) => {
   const isActive = (href: string) => {
     const normalizedPathname = pathname.replace(/\/$/, "");
     const normalizedHref = href.replace(/\/$/, "");
-    return (
-      normalizedPathname === normalizedHref ||
-      normalizedPathname.startsWith(normalizedHref + "/")
-    );
+    return normalizedPathname === normalizedHref;
   };
 
   return (

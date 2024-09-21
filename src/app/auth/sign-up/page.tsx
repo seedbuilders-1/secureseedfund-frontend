@@ -25,33 +25,33 @@ const SignUpPage = () => {
   });
   const { toast } = useToast();
   const router = useRouter();
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
-    const [selectedCard, setSelectedCard] = useState<string>("");
-    const onSubmit = (values: SignUpValidation) => {
-      const { email, firstName, lastName, password } = values;
-      registerUser({
-        email,
-        firstName,
-        lastName,
-        password,
-        accountType: selectedCard,
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  const [selectedCard, setSelectedCard] = useState<string>("");
+  const onSubmit = (values: SignUpValidation) => {
+    const { email, firstName, lastName, password } = values;
+    registerUser({
+      email,
+      firstName,
+      lastName,
+      password,
+      accountType: selectedCard,
+    });
+  };
+  useEffect(() => {
+    if (Registered) {
+      toast({
+        variant: "default",
+        title: "Congratulations",
+        description: "You have succesfully created your account",
       });
-    };
-    useEffect(() => {
-      if (Registered) {
-        toast({
-          variant: "default",
-          title: "Congratulations",
-          description: "You have succesfully created your account",
-        });
-        router.push("/auth/sign-in");
-      }
-    }, [Registered, router, toast]);
+      router.push("/auth/sign-in");
+    }
+  }, [Registered, router, toast]);
 
-    const handleCardClick = (text: string) => {
-      setIsModalOpen(false);
-      setSelectedCard((prev: string) => (prev = text));
-    };
+  const handleCardClick = (text: string) => {
+    setIsModalOpen(false);
+    setSelectedCard((prev: string) => (prev = text));
+  };
 
   return (
     <Fragment>

@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import TopSection from "./TopSection";
 import BottomSection from "./BottomSection";
 import { usePathname } from "next/navigation";
-
 const DashboardLayout = ({
   children,
   items,

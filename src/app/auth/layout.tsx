@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ReactNode } from "react";
 import threeImage from "../../../public/assets/images/threeImage.png";
-import NotAuthenticatedRoute from "@/components/route-helpers/NotAuthenticatedRoute";
+import NotAuthenticatedRoute from "@/route-helpers/NotAuthenticatedRoute";
 
 import { Metadata } from "next";
 
