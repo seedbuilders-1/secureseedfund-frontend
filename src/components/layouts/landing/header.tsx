@@ -12,7 +12,7 @@ import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import LOGO from "@/assets/iconspng/LOGO.png";
 import { usePathname } from "next/navigation";
-import cx from "classnames"; // import a utility for combining class names
+import cx from "classnames";
 
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width:768px)");
@@ -48,11 +48,10 @@ const Header = () => {
                     <Link href={item.href} legacyBehavior passHref>
                       <NavigationMenuLink
                         className={cx(
-                          "px-4 py-2 text-black text-sm font-normal transition-colors hover:text-gray-700",
+                          "px-4 py-2 text-[#001D21] text-sm font-medium transition-colors hover:text-gray-700",
                           {
-                            "bg-[#93F3A5] text-black font-bold": isActive(
-                              item.href
-                            ),
+                            "bg-[#93F3A5] text-[#001D21] font-bold rounded-md":
+                              isActive(item.href),
                           }
                         )}
                       >
