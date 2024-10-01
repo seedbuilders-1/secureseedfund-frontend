@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <>
       {isDesktop ? (
-        <header className="w-full bg-[#ffff] left-0 top-0 z-10 flex items-center md:flex-col">
+        <header className="w-full bg-[#ffff] left-0 top-0 z-10 flex items-center md:flex-col ">
           <div className="bg-[#0F8B3A] flex w-full items-center justify-center p-[1rem]">
             <p className="text-[#FFFFFF] text-[12px]">
               We will pay you <span className="text-[#93F3A5]">$50</span> just
@@ -74,7 +74,7 @@ const Header = () => {
           </nav>
         </header>
       ) : (
-        <div className="w-full bg-white">
+        <div className="w-full bg-white px-[1.5rem]">
           <Drawer direction="right">
             <div className="flex justify-between">
               <Image src={LOGO} alt="Logo" className="px-5 py-7" />
@@ -86,7 +86,7 @@ const Header = () => {
               <nav className="flex w-full flex-col px-5">
                 <NavigationMenu>
                   <NavigationMenuList className="flex w-full flex-col justify-center items-center ml-[3.7rem] mt-4">
-                    {/* Navigation Items for Drawer */}
+                 
                     {[
                       { href: "/", label: "Home" },
                       { href: "/investors", label: "Investors" },

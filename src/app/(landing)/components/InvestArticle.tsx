@@ -138,8 +138,8 @@ const InvestArticleCarousel: React.FC<InvestArticleCarouselProps> = ({
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute top-[-70px] left-[90%] transform translate-x-[-100%]  text-bold " />
-            <CarouselNext className="absolute top-[-70px] left-[90%] transform translate-x-[100%] " />
+            <CarouselPrevious className="absolute top-[-56px] left-[90%]  transform translate-x-[-100%]  text-bold " />
+            <CarouselNext className="absolute top-[-56px] left-[90%] transform translate-x-[100%] " />
           </Carousel>
         </div>
       </div>
