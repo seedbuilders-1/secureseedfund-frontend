@@ -14,7 +14,7 @@ interface StepButtonProps {
 
 const StepButton: React.FC<StepButtonProps> = ({ icon, alt, isLastThree }) => (
   <button
-    className={`rounded-full w-12 h-12 flex items-center justify-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-opacity-50 shrink-0 ${
+    className={`rounded-full gap-[1rem] w-12 h-12 flex items-center justify-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-opacity-50 shrink-0 ${
       isLastThree
         ? "bg-[#D4D4D4] hover:bg-[#BDBDBD] focus:ring-[#D4D4D4]"
         : "bg-[#93F3A5] hover:bg-[#7ad98b] focus:ring-[#93F3A5]"
@@ -53,11 +53,12 @@ const EasyToRaise: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center">
+    <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center  ">
       <h1 className="font-medium text-3xl md:text-5xl text-center mb-8">
         It is Easy To Raise
       </h1>
-      <div className="flex flex-col justify-center gap-6 md:gap-8 items-center">
+      <div className="container mx-auto px-4  flex flex-col items-center justify-center relative gap-[1rem]">
+        <div className="hidden md:block absolute left-[3.5rem] top-[4.5rem] w-[2px] h-[20.5rem] bg-[#738DED] z-0"></div>
         {steps.map((step, index) => (
           <div
             key={index}

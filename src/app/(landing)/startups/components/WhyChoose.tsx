@@ -28,7 +28,7 @@ const WhyChoose = () => {
         Why you should choose us?
       </h1>
 
-      <div className="flex items-center justify-center flex-col-reverse md:flex-row px-[1rem] md:px-[3rem] mb-[2rem]">
+      <div className="flex items-center justify-center flex-col-reverse md:flex-row px-[1rem] md:px-[3rem] mb-[2rem] relative">
         <Image src={whychoose} alt="" className="mt-[1rem] md:mt-[0rem]" />
         <div className="container mx-auto ">
           <div className="flex flex-col items-start gap-4 justify-center ">
@@ -37,7 +37,7 @@ const WhyChoose = () => {
                 key={button.number}
                 className="flex p-4 text-center gap-4 items-center"
               >
-                <button className="mt-2 px-4 py-3 bg-[#93F3A5] text-[#000]  rounded-full font-medium">
+                <button className="mt-2 px-4 py-3 bg-[#ccefd3] text-[#000]  rounded-full font-medium">
                   {button.number}
                 </button>
                 <div>

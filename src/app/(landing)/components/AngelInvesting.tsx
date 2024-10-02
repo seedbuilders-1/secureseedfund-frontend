@@ -50,7 +50,7 @@ const AngelInvesting = () => {
               <button
                 className={`${
                   index === 0 ? "bg-[#93F3A5]" : "bg-[#c6c0c04d]"
-                } text-black font-medium rounded-full text-center w-12 h-12 flex items-center z-[100] justify-center text-lg`}
+                } text-black font-medium rounded-full text-center md:w-12 md:h-12   w-12 h-12 flex items-center z-[100] justify-center text-lg`}
               >
                 {step.number}
               </button>

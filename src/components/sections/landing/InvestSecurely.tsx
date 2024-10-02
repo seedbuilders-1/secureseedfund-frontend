@@ -8,7 +8,7 @@ const InvestSecurely = () => {
     <section className="w-full py-20">
       <div>
         <div className="flex flex-col md:flex-row items-center justify-center  text-dark">
-          <div className="flex items-center justify-center flex-col">
+          <div className="flex items-center justify-center flex-col px-3">
             <h2 className="text-[1.9rem] font-[600] md:text-3xl text-center  leading-[40px]">
               Securely invest in{" "}
               <span className="text-[#00A539]">startups</span> that you can
