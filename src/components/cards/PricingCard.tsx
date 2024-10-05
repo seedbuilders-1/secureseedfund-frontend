@@ -29,13 +29,11 @@ const PricingCard: React.FC<PricingCardProps> = ({
         </div>
       </div>
 
-      {/* Price */}
       <div className="mt-6">
         <span className="text-4xl font-bold text-[#241A3F]">{price}</span>
         <span className="text-gray-500">/{period}</span>
       </div>
 
-      {/* Features */}
       <div className="mt-4">
         <h3 className="text-md font-bold text-gray-800">What’s included</h3>
         <ul className="mt-2 space-y-2 text-sm">
@@ -48,7 +46,6 @@ const PricingCard: React.FC<PricingCardProps> = ({
         </ul>
       </div>
 
-      {/* Get Started Button */}
       <div className="mt-6">
         <button className="w-full bg-[#241A3F] text-white py-2 rounded-md">
           Get Started
