@@ -12,7 +12,7 @@ const StepstoInvest = () => {
         {" "}
         How To <span className="text-[#0BA53C]"> Invest</span>
       </h2>
-      <div className="mt-[3rem] md:flex items-center justify-between md:px-[8rem]">
+      <div className="mt-[3rem] md:flex items-center justify-between md:px-[8rem] ">
         <div className="flex flex-col items-center justify-center gap-[1rem] ">
           <p className="text-[#2B2B2B4D] text-[1rem] ml-[-3rem] font-medium md:ml-[0rem]">
             steps
