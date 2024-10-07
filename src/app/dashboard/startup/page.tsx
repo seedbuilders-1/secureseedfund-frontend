@@ -8,6 +8,7 @@ import Milestones from "./components/Milestones";
 import useCampaign from "./hooks/useCampaign";
 import { Skeleton } from "@/components/ui/skeleton";
 import useUserAuth from "@/hooks/auth/useAuth";
+import Link from "next/link";
 export default function StartupDashboard({
   params,
 }: {
@@ -40,8 +41,8 @@ export default function StartupDashboard({
   }
   return (
     <div className="w-full mt-[2rem]">
-      <div className="flex justify-center items-center my-6">
-        <div className="border-[3px] p-3 border-solid w-full mx-32 flex gap-5 items-center text-[#fff] border-[#0F8B3A] bg-[#0F8B3A] h-[100px] rounded-lg mb-4">
+      <div className="flex justify-center items-center my-6 flex-wrap">
+        <div className="border-[3px] p-3 border-solid w-full md:mx-32 flex gap-5 items-center text-[#fff] border-[#0F8B3A] bg-[#0F8B3A]  rounded-lg mb-4">
           <Image
             src="/assets/icons/InfoIcon.svg"
             alt="avatars"
@@ -51,7 +52,13 @@ export default function StartupDashboard({
           <p>
             Hello {user?.firstName}, you are currently on the free plan which
             allows you to set up and account with us, kindly upgrade to a paid
-            plan to enjoy more features
+            plan to enjoy more features.
+            <Link
+              className="border-b text-black"
+              href={"/dashboard/startup/pricing"}
+            >
+              Upgrade Now
+            </Link>
           </p>
         </div>
       </div>
