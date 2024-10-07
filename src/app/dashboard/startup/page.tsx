@@ -7,6 +7,7 @@ import InvestorComponent from "./components/InvestorComponent";
 import Milestones from "./components/Milestones";
 import useCampaign from "./hooks/useCampaign";
 import { Skeleton } from "@/components/ui/skeleton";
+import useUserAuth from "@/hooks/auth/useAuth";
 export default function StartupDashboard({
   params,
 }: {
@@ -15,6 +16,7 @@ export default function StartupDashboard({
   const { campaigns, loadingCampaign } = useCampaign({
     startupId: params.startupid,
   });
+  const { user } = useUserAuth();
   const currentCampaign =
     campaigns && campaigns?.items[campaigns?.items.length - 1];
   if (loadingCampaign) {
@@ -38,6 +40,22 @@ export default function StartupDashboard({
   }
   return (
     <div className="w-full mt-[2rem]">
+      <div className="flex justify-center items-center my-6">
+        <div className="border-[3px] p-3 border-solid w-full mx-32 flex gap-5 items-center text-[#fff] border-[#0F8B3A] bg-[#0F8B3A] h-[100px] rounded-lg mb-4">
+          <Image
+            src="/assets/icons/InfoIcon.svg"
+            alt="avatars"
+            width={30}
+            height={30}
+          />
+          <p>
+            Hello {user?.firstName}, you are currently on the free plan which
+            allows you to set up and account with us, kindly upgrade to a paid
+            plan to enjoy more features
+          </p>
+        </div>
+      </div>
+
       <div className="w-full gap-x-4 grid grid-cols-2 md:max-w-[900px] mx-auto">
         <StatCard>
           <div className="flex items-center justify-between   p-3 text-white md:h-[150px] md:justify-around">
@@ -81,7 +99,6 @@ export default function StartupDashboard({
           </div>
         </StatCard>
       </div>
-
       <div className="mt-[3rem] w-full mx-auto gap-8 grid grid-cols-[1fr] gap-x-4 md:grid-cols-2 lg:grid-cols-3 p-4">
         <div>
           <h3 className="text-[1rem] md:text-[1.5rem] font-medium">

@@ -32,13 +32,6 @@ const BottomSection = ({ items }: BottomSectionProps) => {
                 }`}
               >
                 <IconComponent style={{ width: "20px", height: "20px" }} />
-                <h2
-                  className={`mt-1 font-normal ${
-                    isActive(item.path) ? "text-[#0F8B3A]" : "text-[#6f2f2f]"
-                  }`}
-                >
-                  {item.name}
-                </h2>
               </div>
             </Link>
           );

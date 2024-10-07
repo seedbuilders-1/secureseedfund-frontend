@@ -1,36 +1,22 @@
 "use client";
-import React from "react";
-import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useStartupIdUrl } from "@/lib/utils";
+import React from "react";
 
 interface Props {
   title: string;
   description: string;
-  coverPhoto: string;
   isApprove: boolean;
   id: string;
 }
-const CampaignCard = ({
-  title,
-  coverPhoto,
-  description,
-  isApprove,
-  id,
-}: Props) => {
+const CampaignCard = ({ title, description, isApprove, id }: Props) => {
   const router = useRouter();
-  const startupId = useStartupIdUrl();
   return (
-    <div className=" border border-slate-300 rounded-[0.6rem] min-h-[5rem] flex flex-col w-[380px] mt-4">
+    <div
+      className=" border border-slate-300 rounded-[0.6rem] min-h-[5rem] flex flex-col w-[380px] mt-4 cursor-pointer"
+      onClick={() => router.push(`/dashboard/startup/campaign/${id}`)}
+    >
       <div className="w-full  h-full">
         <div className="flex flex-col space-y-2 pb-5 ">
-          <div className="w-full h-[200px] overflow-hidden relative">
-            <img
-              src={coverPhoto}
-              alt="cover photo"
-              className="w-full h-full object-cover rounded-t-lg "
-            />
-          </div>
           <div className="flex flex-col text-left p-4">
             <h2 className="text-[#334155] font-medium text-[1.2rem]">
               {title}
@@ -43,15 +29,6 @@ const CampaignCard = ({
             </div>
           </div>
         </div>
-      </div>
-      <div
-        onClick={() =>
-          router.push(`/startup/${startupId}/campaign/createcampaign?id=${id}`)
-        }
-        className="flex w-full items-center justify-between px-4 py-2 border-t border-slate-300 text-slate-600 text-[.875rem] mt-auto cursor-pointer hover:bg-slate-100 transition-all duration-200"
-      >
-        <span>Edit Campaign</span>
-        <ChevronRight size={14} />
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { CiCalendar } from "react-icons/ci";
 import { CampaignDetail } from "@/services/campaign/typings";
 import { thousandFormatter } from "@/lib/helpers";
 import moment from "moment";
+import CircularProgress from "./CircularProgression";
 
 interface Props {
   currentCampaign?: CampaignDetail;
@@ -50,9 +51,14 @@ const RecentFunding = ({ currentCampaign }: Props) => {
 
   return (
     <div className="w-full h-full border border-[#0F8B3A] rounded-[0.6rem] px-4 flex flex-col py-4">
-      <h1 className="text-[1rem] font-medium md:text-[1.4rem]">
-        {currentCampaign.title}
-      </h1>
+      <div className="flex justify-between">
+        <h1 className="text-[1rem] font-medium md:text-[1.4rem]">
+          {currentCampaign.title}
+        </h1>
+        <div className="self-center md:self-auto">
+          <CircularProgress percentage={60} />
+        </div>
+      </div>
       <p className="text-[1rem] max-w-[658px] mt-4 text-[#292D32] m-0">
         {currentCampaign.description}
       </p>
