@@ -52,7 +52,6 @@ const Campaign = ({ params }: { params: { startupid: string } }) => {
                     id={campaign.id}
                     title={campaign.title}
                     description={campaign.description}
-                    coverPhoto={campaign.coverPhotoUrl}
                     isApprove={campaign.isApprove}
                   />
                 </div>
