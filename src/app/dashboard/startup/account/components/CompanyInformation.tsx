@@ -16,115 +16,181 @@ import {
   CompanyInformationValidation,
 } from "@/lib/validations/account";
 import { useToast } from "@/components/ui/use-toast";
-import { useUploadfileMutation } from "@/services/fileupload";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FileWithPath } from "react-dropzone";
 import UploadComponent from "./UploadComponent";
 import MobileStepper from "../../components/MobileStepper";
+import useUserAuth from "@/hooks/auth/useAuth";
+import useAccount from "../hooks/useAccount";
+
+interface Files {
+  businessPlan: FileWithPath | null;
+  pitchDeck: FileWithPath | null;
+  demoVideo: FileWithPath | null;
+  companyLogo: FileWithPath | null;
+  companyRegistration: FileWithPath | null;
+}
 
 interface Props {
-  companyDetails: CompanyInformationValidation;
-  handleCompanyInformation: (v: CompanyInformationValidation) => void;
   handleNext: () => void;
   handleBack: () => void;
+  files: Files;
+  setFiles: React.Dispatch<React.SetStateAction<Files>>;
 }
 
 const CompanyInformation = ({
-  companyDetails,
   handleNext,
-  handleCompanyInformation,
   handleBack,
+  files,
+  setFiles,
 }: Props) => {
   const form = useForm<CompanyInformationValidation>({
     resolver: zodResolver(CompanyInformationSchema),
-    defaultValues: companyDetails,
   });
 
-  const onSubmit = (values: CompanyInformationValidation) => {
-    if (
-      !businessPlanUrl ||
-      !pitchDeckUrl ||
-      !demoVideoUrl ||
-      !companyLogoUrl ||
-      !companyRegistrationUrl
-    ) {
-      return toast({
-        variant: "destructive",
-        title: "Double check.",
-        description: "Some file uploads are missing",
-      });
-    }
-    handleCompanyInformation(values);
-    handleNext();
-  };
+  const { user } = useUserAuth();
+  const creatorId = user?.userId as string;
+  const {
+    createCompanyInformation,
+    isCreatingCompanyInformation,
+    createdCompanyInfo,
+    accountInformation,
+  } = useAccount(creatorId);
 
   const { toast } = useToast();
-  const [fileUpload, { error: uploadError }] = useUploadfileMutation();
-  const [businessPlanFile, setBusinessPlanFile] = useState<FileWithPath | null>(
-    null
-  );
-  const [businessPlanUrl, setBusinessPlanUrl] = useState<string>("");
-  const [pitchDeckFile, setPitchDeckFile] = useState<FileWithPath | null>(null);
-  const [pitchDeckUrl, setPitchDeckUrl] = useState<string>("");
-  const [demoVideoFile, setDemoVideoFile] = useState<FileWithPath | null>(null);
-  const [demoVideoUrl, setDemoVideoUrl] = useState<string>("");
-  const [companyLogoFile, setCompanyLogoFile] = useState<FileWithPath | null>(
-    null
-  );
-  const [companyLogoUrl, setCompanyLogoUrl] = useState<string>("");
-  const [companyRegistrationFile, setCompanyRegistrationFile] =
-    useState<FileWithPath | null>(null);
-  const [companyRegistrationUrl, setCompanyRegistrationUrl] =
-    useState<string>("");
 
-  useEffect(() => {
-    if (uploadError) {
+  const handleUpload = (acceptedFiles: FileWithPath[], fileType: string) => {
+    const uploadedFile = acceptedFiles[0];
+    const { type } = uploadedFile;
+
+    const fileTypeValidation: Record<string, string[]> = {
+      businessPlan: ["application/pdf"],
+      pitchDeck: ["application/pdf"],
+      demoVideo: ["video/"],
+      companyLogo: ["image/"],
+      companyRegistration: ["application/pdf"],
+    };
+
+    if (
+      fileTypeValidation[fileType].some((validType) =>
+        type.startsWith(validType)
+      )
+    ) {
+      setFiles((prev) => ({ ...prev, [fileType]: uploadedFile }));
+    } else {
       toast({
         variant: "destructive",
-        title: `${"unable to upload file please try again"}`,
+        title: "Invalid file type",
+        description: `The ${fileType} must be a ${fileTypeValidation[
+          fileType
+        ].join(" or ")} file.`,
       });
-      setBusinessPlanFile(null);
-      setDemoVideoFile(null);
-      setPitchDeckFile(null);
-      setCompanyLogoFile(null);
-      setCompanyRegistrationFile(null);
-    }
-  }, [uploadError]);
-
-  const handleUpload = async (
-    acceptedFiles: FileWithPath[],
-    fileType: string
-  ) => {
-    const uploadedFile = acceptedFiles[0];
-    // setBusinessPlanFile(uploadedFile);
-    if (fileType === "businessPlan") {
-      setBusinessPlanFile(uploadedFile);
-    } else if (fileType === "demoVideo") {
-      setDemoVideoFile(uploadedFile);
-    } else if (fileType === "pitchDeck") {
-      setPitchDeckFile(uploadedFile);
-    } else if (fileType === "companyLogo") {
-      setCompanyLogoFile(uploadedFile);
-    } else {
-      setCompanyRegistrationFile(uploadedFile);
-    }
-
-    const formData = new FormData();
-    formData.append("file", uploadedFile);
-    const res = await fileUpload(formData).unwrap();
-
-    if (fileType === "businessPlan") {
-      setBusinessPlanUrl(res);
-    } else if (fileType === "demoVideo") {
-      setDemoVideoUrl(res);
-    } else if (fileType === "pitchDeck") {
-      setPitchDeckUrl(res);
-    } else if (fileType === "companyLogo") {
-      setCompanyLogoUrl(res);
-    } else {
-      setCompanyRegistrationUrl(res);
     }
   };
+
+  const onSubmit = (values: CompanyInformationValidation) => {
+    if (Object.values(files).some((file) => !file)) {
+      toast({
+        variant: "destructive",
+        title: "Missing files",
+        description: "Please upload all required files.",
+      });
+      return;
+    }
+
+    const createCompanyInformationDto = new FormData();
+    createCompanyInformationDto.append("company_name", values.companyname);
+    createCompanyInformationDto.append("company_email", values.contactemail);
+    createCompanyInformationDto.append(
+      "company_address",
+      values.companyaddress
+    );
+    createCompanyInformationDto.append(
+      "company_website",
+      values.companywebsite
+    );
+    createCompanyInformationDto.append("company_industry", values.industry);
+    createCompanyInformationDto.append(
+      "company_phone",
+      values.companyphonenumber as string
+    );
+    createCompanyInformationDto.append("company_city", values.cityofoperation);
+    createCompanyInformationDto.append(
+      "company_geography",
+      values.geographicfocus
+    );
+    createCompanyInformationDto.append("company_desc", values.companyaddress);
+    createCompanyInformationDto.append(
+      "company_bullet_point",
+      values.threeorfivepointswhycompanyisagoodinvestment
+    );
+    createCompanyInformationDto.append("country", values.companyincorporatedin);
+    createCompanyInformationDto.append(
+      "company_business_plan",
+      files.businessPlan as File
+    );
+    createCompanyInformationDto.append(
+      "company_pitchDeck",
+      files.pitchDeck as File
+    );
+    createCompanyInformationDto.append(
+      "company_video",
+      files.demoVideo as File
+    );
+    createCompanyInformationDto.append(
+      "company_logo",
+      files.companyLogo as File
+    );
+    createCompanyInformationDto.append(
+      "company_cac",
+      files.companyRegistration as File
+    );
+
+    const payload = {
+      creatorId,
+      createCompanyInformationDto,
+    };
+    // handleNext();
+    createCompanyInformation(payload);
+  };
+
+  useEffect(() => {
+    if (createdCompanyInfo) {
+      handleNext();
+    }
+  }, [createdCompanyInfo]);
+
+  useEffect(() => {
+    if (accountInformation?.companyInformation?.id) {
+      const {
+        company_name,
+        company_email,
+        company_address,
+        company_website,
+        company_industry,
+        company_phone,
+        company_city,
+        company_geography,
+        company_desc,
+        company_bullet_point,
+        // country,
+      } = accountInformation.companyInformation;
+      form.setValue("companyname", company_name);
+      form.setValue("contactemail", company_email);
+      form.setValue("companyaddress", company_address);
+      form.setValue("companywebsite", company_website);
+      form.setValue("industry", company_industry);
+      form.setValue("companyphonenumber", company_phone);
+      form.setValue("cityofoperation", company_city);
+      form.setValue("geographicfocus", company_geography);
+      form.setValue("companydescription", company_desc);
+      form.setValue(
+        "threeorfivepointswhycompanyisagoodinvestment",
+        company_bullet_point
+      );
+      // form.setValue("companyincorporatedin", country);
+    }
+  }, [accountInformation, form]);
   return (
     <div className="w-full px-6">
       <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
@@ -205,7 +271,7 @@ const CompanyInformation = ({
                         <Input
                           type="text"
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
-                          placeholder=""
+                          placeholder="www.example.com"
                           {...field}
                         />
                       </FormControl>
@@ -224,7 +290,7 @@ const CompanyInformation = ({
                         <Input
                           type="number"
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
-                          placeholder="+234"
+                          placeholder="+234 0997868474"
                           {...field}
                         />
                       </FormControl>
@@ -244,7 +310,7 @@ const CompanyInformation = ({
                       <FormControl>
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
-                          placeholder=""
+                          placeholder="eg . farmer"
                           {...field}
                         />
                       </FormControl>
@@ -262,8 +328,8 @@ const CompanyInformation = ({
                       <FormControl>
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
-                          type="number"
-                          placeholder=""
+                          type="date"
+                          placeholder="eg : 12/1:/2020"
                           {...field}
                         />
                       </FormControl>
@@ -284,7 +350,7 @@ const CompanyInformation = ({
                         <Input
                           type="textarea"
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
-                          placeholder=""
+                          placeholder="eg . kampala"
                           {...field}
                         />
                       </FormControl>
@@ -302,7 +368,7 @@ const CompanyInformation = ({
                       <FormControl>
                         <Input
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
-                          placeholder="City of Operations"
+                          placeholder="eg.abuja , lagos"
                           {...field}
                         />
                       </FormControl>
@@ -321,7 +387,7 @@ const CompanyInformation = ({
                     <FormControl>
                       <Input
                         type="text"
-                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[80px]"
                         placeholder="Company Description"
                         {...field}
                       />
@@ -330,7 +396,6 @@ const CompanyInformation = ({
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="companyincorporatedin"
@@ -342,7 +407,7 @@ const CompanyInformation = ({
                     <FormControl>
                       <Input
                         className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
-                        placeholder=""
+                        placeholder="eg . Nigeria"
                         {...field}
                       />
                     </FormControl>
@@ -375,65 +440,78 @@ const CompanyInformation = ({
 
               <FormLabel>Upload Business Plan</FormLabel>
               <UploadComponent
-                imageUrl={businessPlanUrl}
-                file={businessPlanFile}
-                handleUpload={(files) => handleUpload(files, "businessPlan")}
+                file={files.businessPlan}
+                handleUpload={handleUpload}
+                fileType="businessPlan"
+                accept={{ "application/pdf": [".pdf"] }}
+                maxSize={5 * 1024 * 1024}
+                label="Upload Business Plan (PDF only)"
               />
               <br />
               <br className="lg:hidden" />
 
               <FormLabel>Upload Pitch Deck</FormLabel>
               <UploadComponent
-                imageUrl={pitchDeckUrl}
-                file={pitchDeckFile}
-                handleUpload={(files) => handleUpload(files, "pitchDeck")}
+                file={files.pitchDeck}
+                handleUpload={handleUpload}
+                fileType="pitchDeck"
+                maxSize={5 * 1024 * 1024}
+                label="Upload Pitch Deck Plan (PDF only)"
               />
               <br />
               <br className="lg:hidden" />
               <FormLabel>Upload 5min Demo Video</FormLabel>
               <UploadComponent
-                imageUrl={demoVideoUrl}
-                file={demoVideoFile}
-                handleUpload={(files) => handleUpload(files, "demoVideo")}
+                file={files.demoVideo}
+                handleUpload={handleUpload}
+                fileType="demoVideo"
+                maxSize={5 * 1024 * 1024}
+                label="Upload Demo Video Deck Plan (Video only)"
               />
               <br />
               <br className="lg:hidden" />
 
               <FormLabel>Upload Company Logo</FormLabel>
+
               <UploadComponent
-                imageUrl={companyLogoUrl}
-                file={companyLogoFile}
-                handleUpload={(files) => handleUpload(files, "companyLogo")}
+                file={files.companyLogo}
+                handleUpload={handleUpload}
+                fileType="companyLogo"
+                maxSize={5 * 1024 * 1024}
+                label="Upload Company Logo (Image only)"
               />
               <br />
               <br className="lg:hidden" />
 
               <FormLabel>Upload Evidence of Company Registration</FormLabel>
-
               <UploadComponent
-                imageUrl={companyRegistrationUrl}
-                file={companyRegistrationFile}
-                handleUpload={(files) =>
-                  handleUpload(files, "companyRegistration")
-                }
+                file={files.companyRegistration}
+                handleUpload={handleUpload}
+                fileType="companyRegistration"
+                maxSize={5 * 1024 * 1024}
+                label="Upload Company Registration  (PDF only)"
               />
               <br />
               <br className="lg:hidden" />
 
-              <Button
-                className="w-full md:w-[30%] rounded-3xl bg-light mt-8
+              <div className="flex">
+                <Button
+                  className="w-full md:w-[30%] rounded-3xl mt-8
                 mr-2"
-                onClick={handleBack}
-              >
-                Back
-              </Button>
+                  variant="outline"
+                  onClick={handleBack}
+                >
+                  Back
+                </Button>
 
-              <Button
-                type="submit"
-                className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
-              >
-                Proceed
-              </Button>
+                <Button
+                  type="submit"
+                  loading={isCreatingCompanyInformation}
+                  className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
+                >
+                  Proceed
+                </Button>
+              </div>
             </form>
           </Form>
         </div>

@@ -11,77 +11,77 @@ import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../../../components/ui/button";
+import { useState } from "react";
 import {
   FundingInformationSchema,
   FundingInformationValidation,
 } from "@/lib/validations/account";
-import { useEffect, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { FileWithPath } from "react-dropzone";
 import { useToast } from "@/components/ui/use-toast";
-import { useUploadfileMutation } from "@/services/fileupload";
 import UploadComponent from "./UploadComponent";
 import MobileStepper from "../../components/MobileStepper";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface Props {
   fundingDetails: FundingInformationValidation;
   handleFundingInformation: (v: FundingInformationValidation) => void;
   handleNext: () => void;
   handleBack: () => void;
+  setFinancialFile: (x: FileWithPath | null) => void;
+  financialFile: FileWithPath | null;
 }
 
 const FundingInformation = ({
-  fundingDetails,
   handleNext,
-  handleFundingInformation,
+  setFinancialFile,
+  financialFile,
   handleBack,
+  fundingDetails,
+  handleFundingInformation,
 }: Props) => {
   const form = useForm<FundingInformationValidation>({
     resolver: zodResolver(FundingInformationSchema),
     defaultValues: fundingDetails,
   });
 
-  const [fileUpload, { error: uploadError }] = useUploadfileMutation();
   const { toast } = useToast();
-
-  const [financialUrl, setFinancialUrl] = useState<string>("");
-  const [financialFile, setFinancialFile] = useState<FileWithPath | null>(null);
-
-  useEffect(() => {
-    if (uploadError) {
-      toast({
-        variant: "destructive",
-        title: `${"unable to upload file please try again"}`,
-      });
-      setFinancialFile(null);
-    }
-  }, [uploadError]);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const handleUpload = async (
     acceptedFiles: FileWithPath[],
     fileType: string
   ) => {
     const uploadedFile = acceptedFiles[0];
-    if (fileType === "financialStatement") {
-      setFinancialFile(uploadedFile);
-    }
-    const formData = new FormData();
-    formData.append("file", uploadedFile);
-    const res = await fileUpload(formData).unwrap();
+    const { type } = uploadedFile;
 
-    if (fileType === "financialStatement") {
-      setFinancialUrl(res);
+    if (type === "application/pdf") {
+      setFinancialFile(uploadedFile);
+    } else {
+      toast({
+        variant: "destructive",
+        description: "The financial statement must be a PDF file.",
+      });
     }
   };
 
   const onSubmit = (values: FundingInformationValidation) => {
-    handleFundingInformation(values);
-    if (!financialUrl) {
-      return toast({
+    if (!financialFile) {
+      toast({
         variant: "destructive",
         title: "Double check.",
         description: "Upload your financial statement",
       });
+      return;
     }
+    handleFundingInformation(values);
     handleNext();
   };
   return (
@@ -103,17 +103,33 @@ const FundingInformation = ({
                 control={form.control}
                 name="fundingreceivedfromangelinvestororventurecapitalists"
                 render={({ field }) => (
-                  <FormItem className="col-span-2 py-">
+                  <FormItem>
                     <FormLabel>
                       Have you received external funding from Angel Investors or
-                      Venture Capitalists?:
+                      Venture Capitalists?
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
-                        placeholder=""
-                        {...field}
-                      />
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-full capitalize">
+                          <SelectValue placeholder="Select....." />
+                        </SelectTrigger>
+                        <SelectContent className="w-full bg-white">
+                          <SelectGroup>
+                            {["Yes", " No"].map((opt: string, idx: number) => (
+                              <SelectItem
+                                key={idx}
+                                className="capitalize"
+                                value={opt}
+                              >
+                                {opt}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -128,6 +144,7 @@ const FundingInformation = ({
                     <FormLabel>If yes, Company Post Money Valuation:</FormLabel>
                     <FormControl>
                       <Input
+                        type="number"
                         className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="(In USD)"
                         {...field}
@@ -166,7 +183,7 @@ const FundingInformation = ({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        type="text"
+                        type="number"
                         className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder="(In USD, $0, up to $100k, $100k-$500k, $500,000-$1m, $1m-above)"
                         {...field}
@@ -213,21 +230,36 @@ const FundingInformation = ({
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="haveyoucollectedanyloansorcredit"
                 render={({ field }) => (
-                  <FormItem className="w-full">
+                  <FormItem>
                     <FormLabel>
                       Have you collected any loans or Credit?
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
-                        placeholder="Yes or No"
-                        {...field}
-                      />
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-full capitalize">
+                          <SelectValue placeholder="Select....." />
+                        </SelectTrigger>
+                        <SelectContent className="w-full bg-white">
+                          <SelectGroup>
+                            {["Yes", " No"].map((opt: string, idx: number) => (
+                              <SelectItem
+                                key={idx}
+                                className="capitalize"
+                                value={opt}
+                              >
+                                {opt}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -238,7 +270,7 @@ const FundingInformation = ({
                 control={form.control}
                 name="ifyesstateyourcredithistorywithtenoramountinterestrateandcreditor"
                 render={({ field }) => (
-                  <FormItem className="w-full">
+                  <FormItem className="w-full mt-3">
                     <FormLabel>
                       If Yes, State your credit history with tenor, amount,
                       interest rate and creditor:
@@ -259,17 +291,32 @@ const FundingInformation = ({
                 control={form.control}
                 name="partofincubatororacceleratorprogram"
                 render={({ field }) => (
-                  <FormItem className="col-span-2 py-2">
+                  <FormItem className="mt-3">
                     <FormLabel>
                       Have you been part of an incubator or accelerator program?
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        type="textarea"
-                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
-                        placeholder="Yes or No"
-                        {...field}
-                      />
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-full capitalize">
+                          <SelectValue placeholder="Select....." />
+                        </SelectTrigger>
+                        <SelectContent className="w-full bg-white">
+                          <SelectGroup>
+                            {["Yes", " No"].map((opt: string, idx: number) => (
+                              <SelectItem
+                                key={idx}
+                                className="capitalize"
+                                value={opt}
+                              >
+                                {opt}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -330,13 +377,14 @@ const FundingInformation = ({
                 )}
               />
 
-              <FormLabel>Upload Business Plan</FormLabel>
+              <FormLabel>Upload Your Financial Statement</FormLabel>
+
               <UploadComponent
-                imageUrl={financialUrl}
                 file={financialFile}
-                handleUpload={(files) =>
-                  handleUpload(files, "financialStatement")
-                }
+                handleUpload={handleUpload}
+                fileType="financialStatment"
+                maxSize={5 * 1024 * 1024}
+                label="Upload Financtial Stament  (PDF only)"
               />
               <br />
               <br className="lg:hidden" />
@@ -361,38 +409,49 @@ const FundingInformation = ({
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="duedilligence"
-                render={({ field }) => (
-                  <FormItem className="col-span-2 py-2">
-                    <FormLabel>Due diligence disclaimer information</FormLabel>
-                    <FormControl>
-                      <Input
-                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
-                        placeholder=""
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button
-                className="w-full md:w-[30%] rounded-3xl bg-light mt-8
+              <div className="mt-4">
+                {" "}
+                <h2 className="font-medium">
+                  Due diligence disclaimer information
+                </h2>
+                <p className="text-[0.9rem] font-normal">
+                  Kindly note that all company information and data submitted in
+                  this form is solely collected to aid the SecureSeedFund Team.
+                  All information is treated with confidentiality and privacy.
+                  Thank you for your cooperation.
+                </p>
+                <div className="flex items-center space-x-2 mt-4">
+                  <Checkbox
+                    id="terms"
+                    checked={isChecked}
+                    onCheckedChange={() => setIsChecked(!isChecked)}
+                  />
+                  <label
+                    htmlFor="terms"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Click to Accept
+                  </label>
+                </div>
+              </div>
+              <div className="flex">
+                <Button
+                  className="w-full md:w-[30%] rounded-3xl mt-8
                 mr-2"
-                onClick={handleBack}
-              >
-                Back
-              </Button>
-
-              <Button
-                type="submit"
-                className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
-              >
-                Proceed
-              </Button>
+                  variant="outline"
+                  onClick={handleBack}
+                >
+                  Back
+                </Button>
+                {isChecked && (
+                  <Button
+                    type="submit"
+                    className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
+                  >
+                    Proceed
+                  </Button>
+                )}
+              </div>
             </form>
           </Form>
         </div>

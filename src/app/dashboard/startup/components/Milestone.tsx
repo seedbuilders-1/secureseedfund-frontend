@@ -21,9 +21,15 @@ import { Trash } from "lucide-react";
 interface Props {
   handleMilestone: (v: MilestoneValidation) => void;
   handleNext: () => void;
+  handleBack: () => void;
   milestoneDetail: MilestoneValidation;
 }
-const Milestone = ({ handleNext, handleMilestone, milestoneDetail }: Props) => {
+const Milestone = ({
+  handleNext,
+  handleMilestone,
+  milestoneDetail,
+  handleBack,
+}: Props) => {
   const form = useForm<MilestoneValidation>({
     resolver: zodResolver(MilestonSchema),
     defaultValues: milestoneDetail,
@@ -170,11 +176,11 @@ const Milestone = ({ handleNext, handleMilestone, milestoneDetail }: Props) => {
             </div>
           ))}
         </div>
-        <div className="">
-          <Button
-            type="submit"
-            className="w-[30%] rounded-3xl bg-[#241A3F] mt-[4rem]"
-          >
+        <div className="flex justify-between items-center mt-[2rem]">
+          <Button variant="outline" className="w-[30%]" onClick={handleBack}>
+            Back
+          </Button>
+          <Button type="submit" className="w-[30%] rounded-3xl bg-[#241A3F] ">
             Proceed
           </Button>
         </div>

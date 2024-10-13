@@ -51,6 +51,9 @@ const useUserAuth = () => {
           refreshToken: refreshToken,
         })
       );
+      if (res.accountType === "startup") {
+        console.log("ell");
+      }
     } catch (err: any) {
       toast({
         variant: "destructive",

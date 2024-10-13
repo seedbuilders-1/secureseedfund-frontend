@@ -9,123 +9,188 @@ import {
 } from "../../../../../components/ui/form";
 import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
+import { BiImageAdd } from "react-icons/bi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../../../components/ui/button";
 import { FounderSchema, FounderValidation } from "@/lib/validations/account";
 import { useEffect, useState } from "react";
 import MobileStepper from "../../components/MobileStepper";
-import UploadProfileImage from "./UploadProfileImage";
 import { useToast } from "@/components/ui/use-toast";
-import { useUploadfileMutation } from "@/services/fileupload";
 import { FileWithPath } from "react-dropzone";
+import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
+import Image from "next/image";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import useUserAuth from "@/hooks/auth/useAuth";
+import useAccount from "../hooks/useAccount";
 
 interface Props {
-  founderDetails: FounderValidation;
-  handleFounder: (v: FounderValidation) => void;
+  setProfileImageFile: (x: FileWithPath | null) => void;
+  profileImageFile: FileWithPath | null;
   handleNext: () => void;
-  handleBack: () => void;
 }
 
 const FounderInformation = ({
-  founderDetails,
   handleNext,
-  handleFounder,
+  profileImageFile,
+  setProfileImageFile,
 }: Props) => {
   const form = useForm<FounderValidation>({
     resolver: zodResolver(FounderSchema),
-    defaultValues: founderDetails,
   });
 
   const { toast } = useToast();
-  const [fileUpload, { error: uploadError }] = useUploadfileMutation();
 
-  const [profileImageUrl, setProfileImageUrl] = useState<string>("");
-  const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(
-    null
-  );
-
-  console.log(profileImageFile);
-
-  const onSubmit = (values: FounderValidation) => {
-    if (!profileImageUrl) {
-      return toast({
-        variant: "destructive",
-        title: "Double check.",
-        description: "Some file uploads are missing",
-      });
-    }
-    handleFounder(values);
-    handleNext();
-  };
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { user } = useUserAuth();
+  const creatorId = user?.userId as string;
+  const {
+    createFounderInformation,
+    isCreatingFounderInformation,
+    isSuccess,
+    accountInformation,
+  } = useAccount(creatorId);
 
   useEffect(() => {
-    if (uploadError) {
+    if (isSuccess) {
+      handleNext();
+    }
+  }, [isSuccess]);
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const validImageTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (!validImageTypes.includes(file.type)) {
       toast({
         variant: "destructive",
-        title: `${"unable to upload file please try again"}`,
+        title: "Invalid file type. Please upload an image (jpg, jpeg, png).",
       });
-      setProfileImageFile(null);
-    }
-  }, [uploadError]);
-  const handleUpload = async (
-    acceptedFiles: FileWithPath[],
-    fileType: string
-  ) => {
-    const uploadedFile = acceptedFiles[0];
-    if (fileType === "profileImage") {
-      setProfileImageFile(uploadedFile);
+      return;
     }
 
-    const formData = new FormData();
-    formData.append("file", uploadedFile);
-    const res = await fileUpload(formData).unwrap();
-
-    if (fileType === "profileImage") {
-      setProfileImageUrl(res);
-      form.setValue("image", res); // Set form value to include the image URL
+    const uploadLimit = file.size / 1024 / 1024 < 2.5;
+    if (!uploadLimit) {
+      toast({
+        variant: "destructive",
+        title: "File must not exceed 2.5MB",
+      });
+      return;
     }
+    setProfileImageFile(file);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setSelectedImage(event.target?.result as string);
+    };
+    reader.readAsDataURL(file);
   };
+
+  const onSubmit = (values: FounderValidation) => {
+    if (!profileImageFile) {
+      toast({
+        variant: "destructive",
+        title: "Please upload a profile image.",
+      });
+      return;
+    }
+
+    const createFounderDto = new FormData();
+    createFounderDto.append("founderTitle", values.title);
+    createFounderDto.append("founderGender", values.gender);
+    createFounderDto.append("founderFirstname", values.firstname);
+    createFounderDto.append("founderLastname", values.lastname);
+    createFounderDto.append("founderEmail", values.email);
+    createFounderDto.append("founderEducationHistory", values.education);
+    createFounderDto.append("founderPhone", values.phonenumber);
+    createFounderDto.append("founderLinkdln", values.linkedinprofile);
+    createFounderDto.append("profileImage", profileImageFile as File);
+
+    createFounderDto.append("founderExperience", values.experience);
+    const payload = {
+      creatorId,
+      createFounderDto,
+    };
+    createFounderInformation(payload);
+  };
+  useEffect(() => {
+    if (accountInformation?.founder?.id) {
+      setSelectedImage(accountInformation.founder.profileImage || "");
+      form.setValue("title", accountInformation.founder.founderTitle || "");
+      form.setValue("gender", accountInformation.founder.founderGender || "");
+      form.setValue(
+        "firstname",
+        accountInformation.founder.founderFirstname || ""
+      );
+      form.setValue(
+        "lastname",
+        accountInformation.founder.founderLastname || ""
+      );
+      form.setValue("email", accountInformation.founder.founderEmail || "");
+      form.setValue(
+        "education",
+        accountInformation.founder.founderEducationHistory || ""
+      );
+      form.setValue(
+        "phonenumber",
+        accountInformation.founder.founderPhone || ""
+      );
+      form.setValue(
+        "linkedinprofile",
+        accountInformation.founder.founderLinkdln || ""
+      );
+      form.setValue(
+        "experience",
+        accountInformation.founder.founderExperience || ""
+      );
+    }
+  }, [accountInformation]);
 
   return (
     <div className="w-full px-6">
-      <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
+      <h2 className="text-[#0F172A] text-[24px] font-medium text-center ">
         Founder Information
       </h2>
       <MobileStepper numberOfSteps={6} currentStep={1} />
 
       <div className="mt-8">
-        <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
+        <div className=" block lg:flex justify-center  items-center">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="md:w-[700px] sm:w-[500px]"
             >
-              <FormField
-                control={form.control}
-                name="image"
-                render={({ field }) => (
-                  <FormItem className="col-span-2 flex flex-col items-center justify-center">
-                    <FormControl>
-                      <Input
-                        {...field}
-                        value={profileImageUrl}
-                        onChange={(e) => field.onChange(e.target.value)}
-                        className="hidden"
-                      />
-                    </FormControl>
-
-                    <UploadProfileImage
-                      handleUpload={(files) =>
-                        handleUpload(files, "profileImage")
-                      }
-                    />
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="border border-solid border-[#D8D8E2] rounded-2xl p-5 lg:p-12">
+              <div className="flex justify-center relative w-fit items-center flex-col mx-auto border">
+                <label htmlFor="profileImage" style={{ cursor: "pointer" }}>
+                  <Image
+                    src={selectedImage || UserEmptyState}
+                    alt="logo"
+                    width={110}
+                    height={100}
+                    objectFit="contain"
+                    className="object-cover w-full h-[150px]  mx-auto rounded-md"
+                  />
+                  <input
+                    type="file"
+                    id="profileImage"
+                    accept="image/*"
+                    onChange={(e) => handleFile(e)}
+                    className="hidden"
+                  />
+                  <div className="absolute bottom-0 right-[-10px] bg-white p-[0.5rem] rounded-full cursor-pointer">
+                    <BiImageAdd className="text-xl text-gray-700" />
+                  </div>
+                </label>
+              </div>
+              <div className="border border-solid border-[#D8D8E2] mt-4 rounded-2xl p-5 lg:p-12">
                 <FormField
                   control={form.control}
                   name="title"
@@ -198,6 +263,41 @@ const FounderInformation = ({
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="gender"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Gender</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={(value) => field.onChange(value)}
+                          value={field.value}
+                        >
+                          <SelectTrigger className="w-full capitalize">
+                            <SelectValue placeholder="Select gender" />
+                          </SelectTrigger>
+                          <SelectContent className="w-full bg-white">
+                            <SelectGroup>
+                              {["male", "female"].map(
+                                (opt: string, idx: number) => (
+                                  <SelectItem
+                                    key={idx}
+                                    className="capitalize"
+                                    value={opt}
+                                  >
+                                    {opt}
+                                  </SelectItem>
+                                )
+                              )}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 <FormField
                   control={form.control}
@@ -207,7 +307,7 @@ const FounderInformation = ({
                       <FormLabel>Education</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
+                          className="py-[1.1rem] md:py-[1.2rem] rounded-[10px] md:rounded-[48px] h-[80px]"
                           placeholder="Talk about your education history"
                           {...field}
                         />
@@ -258,14 +358,14 @@ const FounderInformation = ({
 
                 <FormField
                   control={form.control}
-                  name="expereince"
+                  name="experience"
                   render={({ field }) => (
                     <FormItem className="col-span-2 py-2">
-                      <FormLabel>Expereince</FormLabel>
+                      <FormLabel>Experience</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[150px]"
-                          placeholder="Provide an expereince"
+                          className="py-[1.1rem] md:py-[1.3rem] rounded-[10px] md:rounded-[48px] h-[80px]"
+                          placeholder="Provide an experience"
                           {...field}
                         />
                       </FormControl>
@@ -277,6 +377,7 @@ const FounderInformation = ({
                 <Button
                   type="submit"
                   className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
+                  loading={isCreatingFounderInformation}
                 >
                   Proceed
                 </Button>

@@ -1,10 +1,10 @@
 import * as z from "zod";
 
 export const FounderSchema = z.object({
-  image: z.string().min(1, "Image is required"),
   title: z.string().min(1, "Title is required"),
   firstname: z.string().min(1, "First Name is required"),
   lastname: z.string().min(1, "Last Name required"),
+  gender: z.string().min(1, "gender required"),
   email: z.string().email("Enter a valid email"),
   education: z
     .string()
@@ -12,7 +12,7 @@ export const FounderSchema = z.object({
     .max(40, "maximum can only be 70 characters"),
   linkedinprofile: z.string().min(1, "LinkedIn Profile is required"),
   phonenumber: z.string().min(1, "Phone Number is required"),
-  expereince: z
+  experience: z
     .string()
     .min(1, "Experience is required")
     .max(40, "maximum can only be 70 characters"),
@@ -60,7 +60,7 @@ export const CompanyInformationSchema = z.object({
   companyaddress: z.string().min(1, "Company Address is required"),
   contactemail: z.string().email("Enter a valid email"),
   companywebsite: z.string().min(1, "Company Website is required"),
-  companyphonenumber: z.string().min(1, "Company Phone Number is required"),
+  companyphonenumber: z.string().optional(),
   industry: z.string().min(1, "Industry is required"),
   yearofincorporation: z.string().min(1, "Year of Incorporation is required"),
   geographicfocus: z.string().min(1, "Geographic Focus is required"),
@@ -77,6 +77,20 @@ export const CompanyInformationSchema = z.object({
     .min(1, "Three points why company is a good investment is required"),
 });
 
+export const AccountSettingsSchema = z.object({
+  companyaddress: z.string().min(1, "Company Address is required"),
+  companywebsite: z.string().min(1, "Company Website is required"),
+  companydescription: z
+    .string()
+    .min(1, "Comapny Description is required")
+    .max(1000, "maximum can only be 1000 characters"),
+  companyincorporatedin: z
+    .string()
+    .min(1, "Company Incorporated in is required"),
+  threeorfivepointswhycompanyisagoodinvestment: z
+    .string()
+    .min(1, "Three points why company is a good investment is required"),
+});
 export const BusinessInformationSchema = z.object({
   businessstage: z.string().min(1, "Business Stage is required"),
   businessmodel: z.string().min(1, "Business Model is required"),
@@ -105,9 +119,7 @@ export const BusinessInformationSchema = z.object({
 });
 
 export const FundingInformationSchema = z.object({
-  // Have you received funding from an Angel Investor or Venture Capitalits?
   fundingreceivedfromangelinvestororventurecapitalists: z.string(),
-  // if yes, company post money valuation
   companypostmoneyvaluation: z
     .string()
     .min(1, "Company post money valuation is required"),
@@ -138,11 +150,7 @@ export const FundingInformationSchema = z.object({
     .string()
     .min(1, "Which Investment are you seeking?"),
   whenareyoulookingatraise: z.string().min(1, "When are you looking at raise?"),
-  uploadfinancialstatement: z
-    .string()
-    .min(1, "Financial Statement is required"),
   howdidyouhearaboutus: z.string(),
-  duedilligence: z.string().min(1, "Due Diligence is required"),
 });
 
 // investor account
@@ -185,3 +193,5 @@ export type FundingInformationValidation = z.infer<
 
 // investor account
 export type InvestorInfoValidation = z.infer<typeof InvestorInfoSchema>;
+
+export type AccountSettingsValidation = z.infer<typeof AccountSettingsSchema>;

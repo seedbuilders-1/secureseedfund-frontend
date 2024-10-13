@@ -11,9 +11,9 @@ const UploadProfileImage = ({ handleUpload }: Props) => {
   );
 
   const onDropHandler = (acceptedFiles: FileWithPath[]) => {
-    handleUpload(acceptedFiles); // External handler for additional processing
+    handleUpload(acceptedFiles);
     if (acceptedFiles[0]) {
-      setImagePreview(URL.createObjectURL(acceptedFiles[0])); // Update preview for the current instance
+      setImagePreview(URL.createObjectURL(acceptedFiles[0]));
     }
   };
 

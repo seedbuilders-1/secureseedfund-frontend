@@ -9,7 +9,7 @@ const AccountStepper = ({ steps, currentStep }: Props) => {
   return (
     <>
       <div className="hidden lg:w-[20%] lg:bg-[#CDEED3] lg:flex justify-center items-center lg:min-h-screen lg:mt-0">
-        <ol className=" text-gray-500  flex lg:gap-[2.2rem] gap-8 lg:absolute lg:top-[50px] justify-center items-center lg:flex-col">
+        <ol className=" text-gray-500  flex lg:gap-[2.2rem] gap-8 lg:absolute lg:top-[140px] justify-center items-center lg:flex-col">
           {steps.map((step, index) => (
             <li
               key={index}

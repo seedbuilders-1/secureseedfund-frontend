@@ -49,6 +49,10 @@ export default function CampaignDashboard() {
   const handleNext = () => {
     setCurrentStep(currentStep + 1);
   };
+
+  const handleBack = () => {
+    setCurrentStep(currentStep - 1);
+  };
   const searchParams = useSearchParams();
   const id = searchParams.get("id") ?? "";
   const { singleCampaign } = useCampaign({ id });
@@ -93,32 +97,15 @@ export default function CampaignDashboard() {
             <Milestone
               handleNext={handleNext}
               handleMilestone={handleMilestone}
+              handleBack={handleBack}
               milestoneDetail={milestoneDetail}
             />
           )}
-          {/* {currentStep === 3 && (
-          <StartupInfo
-            handleNext={handleNext}
-            handleStartupInfo={handleStartupInfo}
-            startupDetail={startupDetail}
-          />
-        )}
-        {currentStep === 4 && (
-          <UploadDocuments
-            businessPlanUrl={businessPlanUrl}
-            coverPhoto={coverPhoto}
-            setBuisnessPlanUrl={setBuisnessPlanUrl}
-            setCoverPhoto={setCoverPhoto}
-            handleNext={handleNext}
-          />
-        )} */}
           {currentStep === 3 && (
             <Review
               campaignDetail={campaignDetail}
-              // startupDetail={startupDetail}
+              handleBack={handleBack}
               milestoneDetail={milestoneDetail}
-              // coverPhoto={coverPhoto}
-              // businessPlanUrl={businessPlanUrl}
               id={id}
               selectFundingCampaign={selectFundingCampaign}
             />

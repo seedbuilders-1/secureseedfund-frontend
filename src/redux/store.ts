@@ -11,6 +11,7 @@ import {
 } from "redux-persist";
 import rootReducer from "./rootReducer";
 import api from "@/services/api/apiSlice";
+import { emptySplitApi } from "@/generated/emptyApi";
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -19,7 +20,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE],
       },
-    }).concat(api.middleware),
+    }).concat(api.middleware, emptySplitApi.middleware as any),
   devTools: process.env.NODE_ENV !== "production",
 });
 

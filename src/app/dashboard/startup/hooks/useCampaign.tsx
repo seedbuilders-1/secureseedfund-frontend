@@ -46,11 +46,12 @@ const useCampaign = ({ startupId, id }: CampaignPayload) => {
   const editCampaign = async (
     id: string,
     values: CreateCampaignRequestType
-  ) => {
+  ) => { 
     try {
       await editCampaigns({ id, payload: values }).unwrap();
       toast({
         variant: "default",
+        
         title: `campaign edited successfully`,
       });
     } catch (err: any) {

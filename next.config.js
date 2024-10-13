@@ -1,4 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
+// next.config.js
 
-module.exports = nextConfig
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    domains: ['seedbuilders-uploader.s3.us-east-1.amazonaws.com'],
+  },
+}
+
+module.exports = nextConfig;

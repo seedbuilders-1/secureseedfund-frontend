@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { SignInSchema, SignInValidation } from "@/lib/validations/auth";
@@ -11,11 +10,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useUserAuth from "@/hooks/auth/useAuth";
-import { useRouter } from "next/navigation";
 import facebook from "../../../../public/assets/icons/icons8-facebook.svg";
 import linkednin from "../../../../public/assets/icons/icons8-linkedin.svg";
 import google from "../../../../public/assets/icons/icons8-google.svg";
@@ -30,8 +27,7 @@ const SignInPage = () => {
   const form = useForm<SignInValidation>({
     resolver: zodResolver(SignInSchema),
   });
-  const { loginUser, loading, LoggedIn } = useUserAuth();
-  const router = useRouter();
+  const { loginUser, loading } = useUserAuth();
 
   const onSubmit = (values: SignInValidation) => {
     const { email, password } = values;
@@ -40,11 +36,7 @@ const SignInPage = () => {
       password,
     });
   };
-  useEffect(() => {
-    if (LoggedIn) {
-      router.push("/dashboard");
-    }
-  }, [LoggedIn]);
+
   return (
     <Fragment>
       <div className=" flex flex-col items-center px-6">

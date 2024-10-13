@@ -5,11 +5,11 @@ import {
   CampaignValidation,
   MilestoneValidation,
 } from "@/lib/validations/campaign";
-import Review from "../account/components/Review";
 import { useSearchParams } from "next/navigation";
 import moment from "moment";
 import useCampaign from "../hooks/useCampaign";
 import CampaignStepper from "./CampaignStepper";
+import Review from "./Review";
 import StartCampaign from "./StartCampaign";
 
 const Createcampaign = () => {

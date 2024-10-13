@@ -9,6 +9,7 @@ import useCampaign from "./hooks/useCampaign";
 import { Skeleton } from "@/components/ui/skeleton";
 import useUserAuth from "@/hooks/auth/useAuth";
 import Link from "next/link";
+import WarningComponent from "@/components/cards/WarningComponent";
 export default function StartupDashboard({
   params,
 }: {
@@ -41,70 +42,57 @@ export default function StartupDashboard({
   }
   return (
     <div className="w-full mt-[2rem]">
-      <div className="flex justify-center items-center my-6 flex-wrap">
-        <div className="border-[3px] p-3 border-solid w-full md:mx-32 flex gap-5 items-center text-[#fff] border-[#0F8B3A] bg-[#0F8B3A]  rounded-lg mb-4">
-          <Image
-            src="/assets/icons/InfoIcon.svg"
-            alt="avatars"
-            width={30}
-            height={30}
-          />
-          <p>
-            Hello {user?.firstName}, you are currently on the free plan which
+      <div className="p-4">
+        <WarningComponent
+          showLink={true}
+          title={`   Hello ${user?.firstName}, you are currently on the free plan which
             allows you to set up and account with us, kindly upgrade to a paid
-            plan to enjoy more features.
-            <Link
-              className="border-b text-black"
-              href={"/dashboard/startup/pricing"}
-            >
-              Upgrade Now
-            </Link>
-          </p>
+            plan to enjoy more features.`}
+          linkTitle="Upgrade Now"
+        />
+        <div className="w-full gap-x-4 grid grid-cols-2 md:max-w-[900px] mx-auto">
+          <StatCard>
+            <div className="flex items-center justify-between   p-3 text-white md:h-[150px] md:justify-around">
+              <div className="">
+                <h2 className="font-medium text-[0.9rem] md:text-[1.4rem]">
+                  Campaign Goal
+                </h2>
+                <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
+                  {" "}
+                  {`N${thousandFormatter(20000)}`}
+                </span>
+              </div>
+              <div className="bg-[#F3FFDE] p-2 rounded-full  ">
+                <Image
+                  src="/assets/images/fundraised.png"
+                  alt="avatars"
+                  width={30}
+                  height={30}
+                />
+              </div>
+            </div>
+          </StatCard>
+          <StatCard>
+            <div className="flex items-center justify-between p-3 text-white md:h-[150px] md:justify-around">
+              <div className="">
+                <h2 className="font-medium text-[0.9rem] md:text-[1.4rem]">
+                  Total Funds Raised
+                </h2>
+                <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
+                  {`N${thousandFormatter(20000)}`}
+                </span>
+              </div>
+              <div className="bg-[#F3FFDE] p-2 rounded-full  ">
+                <Image
+                  src="/assets/images/activeinvestor.png"
+                  alt="avatars"
+                  width={30}
+                  height={30}
+                />
+              </div>
+            </div>
+          </StatCard>
         </div>
-      </div>
-
-      <div className="w-full gap-x-4 grid grid-cols-2 md:max-w-[900px] mx-auto">
-        <StatCard>
-          <div className="flex items-center justify-between   p-3 text-white md:h-[150px] md:justify-around">
-            <div className="">
-              <h2 className="font-medium text-[0.9rem] md:text-[1.4rem]">
-                Campaign Goal
-              </h2>
-              <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
-                {" "}
-                {`N${thousandFormatter(20000)}`}
-              </span>
-            </div>
-            <div className="bg-[#F3FFDE] p-2 rounded-full  ">
-              <Image
-                src="/assets/images/fundraised.png"
-                alt="avatars"
-                width={30}
-                height={30}
-              />
-            </div>
-          </div>
-        </StatCard>
-        <StatCard>
-          <div className="flex items-center justify-between p-3 text-white md:h-[150px] md:justify-around">
-            <div className="">
-              <h2 className="font-medium text-[0.9rem] md:text-[1.4rem]">
-                Total Funds Raised
-              </h2>
-              <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
-                {`N${thousandFormatter(20000)}`}
-              </span>
-            </div>
-            <div className="bg-[#F3FFDE] p-2 rounded-full  ">
-              <Image
-                src="/assets/images/activeinvestor.png"
-                alt="avatars"
-                width={30}
-                height={30}
-              />
-            </div>
-          </div>
-        </StatCard>
       </div>
       <div className="mt-[3rem] w-full mx-auto gap-8 grid grid-cols-[1fr] gap-x-4 md:grid-cols-2 lg:grid-cols-3 p-4">
         <div>
