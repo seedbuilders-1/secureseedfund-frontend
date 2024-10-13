@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {
   text: string;
-  value: string;
+  value: number;
   icon: React.ReactElement;
 };
 

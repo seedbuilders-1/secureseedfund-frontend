@@ -8,20 +8,21 @@ import Milestones from "./components/Milestones";
 import useCampaign from "./hooks/useCampaign";
 import { Skeleton } from "@/components/ui/skeleton";
 import useUserAuth from "@/hooks/auth/useAuth";
-import Link from "next/link";
 import WarningComponent from "@/components/cards/WarningComponent";
+import { CampaignsControllerFindOneApiArg } from "@/generated/service/campaign";
 export default function StartupDashboard({
   params,
 }: {
   params: { startupid: string };
 }) {
-  const { campaigns, loadingCampaign } = useCampaign({
-    startupId: params.startupid,
-  });
   const { user } = useUserAuth();
+  const { campaigns, loadingCampaigns } = useCampaign({
+    id: user?.userId,
+  } as CampaignsControllerFindOneApiArg);
   const currentCampaign =
     campaigns && campaigns?.items[campaigns?.items.length - 1];
-  if (loadingCampaign) {
+
+  if (loadingCampaigns) {
     return (
       <div className="w-full mt-[2rem]">
         <div className="grid grid-cols-2 gap-x-4 md:max-w-[900px] mx-auto">
