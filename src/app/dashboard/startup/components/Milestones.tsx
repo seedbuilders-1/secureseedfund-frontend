@@ -1,9 +1,9 @@
 import React from "react";
-import { CampaignDetail } from "@/services/campaign/typings";
 import { thousandFormatter } from "@/lib/helpers";
+import { CampaignDto } from "@/generated/service/campaign";
 
 interface Props {
-  currentCampaign?: CampaignDetail;
+  currentCampaign?: CampaignDto;
 }
 
 const Milestones = ({ currentCampaign }: Props) => {

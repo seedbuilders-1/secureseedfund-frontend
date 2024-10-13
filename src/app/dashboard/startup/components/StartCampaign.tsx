@@ -14,11 +14,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
+export type FundingCampaignTypes =
+  | "EQUITY"
+  | "DEBT"
+  | "REWARD"
+  | "REVENUE_SHARE"
+  | "GRANTS"
+  | "ROI"
+  | "SAFE"
+  | "OTHERS";
+
 interface Props {
   handleNext: () => void;
-  handleChange: (x: string) => void;
+  handleChange: (x: FundingCampaignTypes) => void;
   handleCampaign: (v: CampaignValidation) => void;
-  selectFundingCampaign: string;
+  selectFundingCampaign: FundingCampaignTypes;
   campaignDetails: CampaignValidation;
 }
 const StartCampaign = ({
@@ -33,11 +44,10 @@ const StartCampaign = ({
     { type: "Debt", value: "DEBT", icon: "/debt.svg" },
     { type: "Reward", value: "REWARD", icon: "/reward.svg" },
     { type: "Revenue Share", value: "REVENUE_SHARE", icon: "/revenue.svg" },
-    { type: "Grants", value: "GRANTS", icon: "/grant.svg" },
-    { type: "Partnership", value: "PARTNERSHIP", icon: "/partnership.svg" },
+    { type: "Grants", value: "ROI", icon: "/grant.svg" },
+    { type: "ROI", value: "PARTNERSHIP", icon: "/partnership.svg" },
     { type: "SAFE", value: "SAFE", icon: "/safe.svg" },
-    { type: "Mentorship", value: "MENTORSHIP", icon: "/mentorship.svg" },
-    // { type: "Others", value: "OTHERS", icon: "/others.svg" },
+    { type: "Others", value: "OTHERS", icon: "/mentorship.svg" },
   ];
 
   const form = useForm<CampaignValidation>({
@@ -76,7 +86,9 @@ const StartCampaign = ({
                 >
                   <div
                     className="rounded-[50%] py-3 px-3"
-                    style={{ backgroundColor: "rgba(205, 238, 211, 0.25)" }}
+                    style={{
+                      backgroundColor: "rgba(205, 238, 211, 0.25)",
+                    }}
                   >
                     <Image
                       src={`/assets/icons${funding.icon}`}
@@ -94,10 +106,9 @@ const StartCampaign = ({
             ))}
           </div>
         </RadioGroup.Root>
-
         <div className="mb-3 lex gap-12 flex-wrap justify-center mt-6">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full  ">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
               <FormField
                 control={form.control}
                 name="title"

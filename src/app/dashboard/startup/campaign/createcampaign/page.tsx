@@ -1,7 +1,6 @@
 "use client";
 
 import Milestone from "../../components/Milestone";
-import Review from "../../account/components/Review";
 import useCampaign from "../../hooks/useCampaign";
 import {
   CampaignValidation,
@@ -11,12 +10,17 @@ import moment from "moment";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CampaignStepper from "../../components/CampaignStepper";
-import StartCampaign from "../../components/StartCampaign";
+import StartCampaign, {
+  FundingCampaignTypes,
+} from "../../components/StartCampaign";
+import Review from "../../components/Review";
 
 export default function CampaignDashboard() {
   const [currentStep, setCurrentStep] = useState(1);
+
   const [selectFundingCampaign, setSelectFundingCampaign] =
-    useState<string>("");
+    useState<FundingCampaignTypes>("EQUITY");
+
   const [milestoneDetail, setMilestoneDetail] = useState<MilestoneValidation>({
     milestones: [
       {
@@ -36,7 +40,7 @@ export default function CampaignDashboard() {
     fundinggoal: "",
   });
 
-  const handleSelectFundingCampaign = (value: string) => {
+  const handleSelectFundingCampaign = (value: FundingCampaignTypes) => {
     setSelectFundingCampaign(value);
   };
   const handleMilestone = (details: MilestoneValidation) => {

@@ -6,13 +6,26 @@ import { Loader2 } from "lucide-react";
 import useCampaign from "../hooks/useCampaign";
 import Image from "next/image";
 import CampaignCard from "@/components/cards/CampaignCard";
+import useUserAuth from "@/hooks/auth/useAuth";
+import {
+  CampaignDto,
+  CampaignsControllerFindOneApiArg,
+} from "@/generated/service/campaign";
 
 const Campaign = ({ params }: { params: { startupid: string } }) => {
   const router = useRouter();
 
-  const { campaigns, loadingCampaign } = useCampaign({
-    startupId: params.startupid,
-  });
+  const { user } = useUserAuth();
+
+  const userId = user?.userId;
+
+  const { campaigns, loadingCampaigns } = useCampaign({
+    id: userId,
+  } as CampaignsControllerFindOneApiArg);
+
+  console.log("soks", campaigns);
+
+  const campaignItems = campaigns?.items;
 
   return (
     <div className="w-[90%] flex flex-col  mx-auto h-[100vh] bg-white mt-[4rem]">
@@ -41,12 +54,12 @@ const Campaign = ({ params }: { params: { startupid: string } }) => {
       </div>
       <div className="mt-[1.5rem] ">
         <h3 className="text-[#050505]  text-[28px] font-normal">Campaign</h3>
-        {loadingCampaign ? (
+        {loadingCampaigns ? (
           <Loader2 className="flex items-center justify-center animate-spin mx-auto w-[300px]" />
         ) : (
           <div className="mt-6 mb-8 gap-6 grid grid-cols-1 lg:grid-cols-3">
-            {campaigns?.items.length ? (
-              campaigns?.items.map((campaign) => (
+            {campaignItems?.length ? (
+              campaignItems?.map((campaign: CampaignDto) => (
                 <div key={campaign.id}>
                   <CampaignCard
                     id={campaign.id}
