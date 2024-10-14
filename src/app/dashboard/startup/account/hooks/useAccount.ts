@@ -40,6 +40,7 @@ const useAccount = (creatorId?: string) => {
     createTeamInformationStart,
     { isLoading: isCreatingTeamInformation, isSuccess: createdTeamInfo },
   ] = api.useStartupControllerCreateTeamInformationMutation();
+
   const { data: accountInformation, isLoading: loadingAccountInformation } =
     api.useStartupControllerGetStartupByUserIdQuery({
       userId: creatorId as string,

@@ -1,78 +1,67 @@
 import {
-  useCreateCampaignMutation,
-  useGetCampaignQuery,
-  useEditCampaignMutation,
-  useGetCampaignByIdQuery,
-} from "@/services/campaign";
-import { CreateCampaignRequestType } from "@/services/campaign/typings";
+  api,
+  CampaignsControllerCreateApiArg,
+  CampaignsControllerFindOneApiArg,
+  CreateCampaignDto,
+} from "@/generated/service/campaign";
 import { useToast } from "@/components/ui/use-toast";
+const useCampaign = (
+  campaignId?: CampaignsControllerFindOneApiArg,
+  userId?: string
+) => {
+  // Call the query with userId
+  const { data: campaigns, isLoading: loadingCampaigns } =
+    api.useCampaignsControllerFindAllQuery({
+      page: 1,
+      limit: 10,
+      userId: userId as string,
+      keyword: "",
+      campaignId: "",
+      campaignType: "",
+    });
 
-interface CampaignPayload {
-  startupId?: string;
-  id?: string;
-}
-
-const useCampaign = ({ startupId, id }: CampaignPayload) => {
+  const { data: singleCampaign, isLoading: loadingSingleCampaign } =
+    api.useCampaignsControllerFindOneQuery(
+      campaignId as CampaignsControllerFindOneApiArg
+    );
   const [
-    createCampaigns,
-    { isLoading: isCreatingCampaign, isSuccess: isCampaignCreated },
-  ] = useCreateCampaignMutation();
-  const [
-    editCampaigns,
-    { isLoading: isEditingCampaign, isSuccess: CampaignEdited },
-  ] = useEditCampaignMutation();
-
-  const { data: campaigns, isLoading: loadingCampaign } = useGetCampaignQuery({
-    startupId,
-  });
-  const { data: singleCampaign } = useGetCampaignByIdQuery(id);
+    createCampaignStart,
+    { isLoading: createCampaignLoading, isSuccess: createdCampaign },
+  ] = api.useCampaignsControllerCreateMutation();
 
   const { toast } = useToast();
-  const createCampaign = async (values: CreateCampaignRequestType) => {
+
+  const createCampaign = async (values: CampaignsControllerCreateApiArg) => {
     try {
-      await createCampaigns(values).unwrap();
+      await createCampaignStart(values).unwrap();
+      console.log(values);
+
       toast({
+        className:
+          "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
+        title: "Camoaign created ",
         variant: "default",
-        title: `campaign created successfully`,
       });
     } catch (err: any) {
-      console.log({ err });
+      console.log(err);
+
       toast({
         variant: "destructive",
-        title: `${err?.data?.message || "Uh oh! Something went wrong."}`,
-      });
-    }
-  };
-  const editCampaign = async (
-    id: string,
-    values: CreateCampaignRequestType
-  ) => { 
-    try {
-      await editCampaigns({ id, payload: values }).unwrap();
-      toast({
-        variant: "default",
-        
-        title: `campaign edited successfully`,
-      });
-    } catch (err: any) {
-      console.log({ err });
-      toast({
-        variant: "destructive",
-        title: `${err?.data?.message || "Uh oh! Something went wrong."}`,
+        title:
+          err?.data || err?.error?.message || "Uh oh! Something went wrong.",
       });
     }
   };
 
   return {
-    createCampaign,
-    isCreatingCampaign,
-    loadingCampaign,
     campaigns,
-    isCampaignCreated,
+    loadingCampaigns,
     singleCampaign,
-    editCampaign,
-    CampaignEdited,
-    isEditingCampaign,
+    loadingSingleCampaign,
+    createCampaign,
+    createCampaignLoading,
+    createdCampaign,
   };
 };
+
 export default useCampaign;

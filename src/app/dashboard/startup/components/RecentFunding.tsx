@@ -3,13 +3,13 @@ import { TbTargetArrow } from "react-icons/tb";
 import { BiCoinStack } from "react-icons/bi";
 import { MdDateRange } from "react-icons/md";
 import { CiCalendar } from "react-icons/ci";
-import { CampaignDetail } from "@/services/campaign/typings";
 import { thousandFormatter } from "@/lib/helpers";
 import moment from "moment";
 import CircularProgress from "./CircularProgression";
+import { CampaignDto } from "@/generated/service/campaign";
 
 interface Props {
-  currentCampaign?: CampaignDetail;
+  currentCampaign?: CampaignDto;
 }
 
 const RecentFunding = ({ currentCampaign }: Props) => {
@@ -24,8 +24,8 @@ const RecentFunding = ({ currentCampaign }: Props) => {
   }
 
   const endDate = moment(currentCampaign.endDate);
-  const today = moment();
-  const daysLeft = Math.max(endDate.diff(today, "days"), 0);
+  const startDate = moment(currentCampaign.startDate);
+  const daysLeft = Math.max(endDate.diff(startDate, "days"), 0);
   const lastMilestone =
     currentCampaign.milestones[currentCampaign.milestones.length - 1];
 

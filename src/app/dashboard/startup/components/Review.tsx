@@ -6,12 +6,18 @@ import {
 import { thousandFormatter } from "@/lib/helpers";
 import { Button } from "@/components/ui/button";
 import SuccessComponent from "@/components/cards/SuccessComponent";
-import useCampaign from "../hooks/useCampaign";
 import useUserAuth from "@/hooks/auth/useAuth";
+import useCampaign from "../hooks/useCampaign";
+import {
+  CampaignDto,
+  CampaignsControllerCreateApiArg,
+  CreateCampaignDto,
+} from "@/generated/service/campaign";
+import { FundingCampaignTypes } from "./StartCampaign";
 interface Props {
   handleBack: () => void;
   milestoneDetail: MilestoneValidation;
-  selectFundingCampaign: string;
+  selectFundingCampaign: FundingCampaignTypes;
   id: string;
   campaignDetail: CampaignValidation;
 }
@@ -22,37 +28,33 @@ const Review = ({
   selectFundingCampaign,
   campaignDetail,
 }: Props) => {
-  const {
-    createCampaign,
-    isCreatingCampaign,
-    isEditingCampaign,
-    editCampaign,
-    isCampaignCreated,
-    CampaignEdited,
-  } = useCampaign({});
-
   const { user } = useUserAuth();
+
+  const { createCampaign, createCampaignLoading, createdCampaign } =
+    useCampaign();
+
+  const createCampaignDto: CreateCampaignDto = {
+    title: campaignDetail.title,
+    description: campaignDetail.description,
+    fundingGoal: parseInt(campaignDetail.fundinggoal),
+    campaignType: selectFundingCampaign,
+    startDate: campaignDetail.startdate,
+    creator_id: user?.userId as string,
+    endDate: campaignDetail.enddate,
+    milestones: milestoneDetail.milestones.map(
+      ({ targetAmount, ...milestone }) => ({
+        targetAmount: parseInt(targetAmount),
+        ...milestone,
+      })
+    ),
+  };
+
   const handleCreateCampaign = () => {
-    const payload = {
-      title: campaignDetail.title,
-      description: campaignDetail.description,
-      fundingGoal: parseInt(campaignDetail.fundinggoal),
-      campaignType: selectFundingCampaign,
-      startDate: campaignDetail.startdate,
-      creator_id: user?.userId as string,
-      endDate: campaignDetail.enddate,
-      milestones: milestoneDetail.milestones.map(
-        ({ targetAmount, ...milestone }) => ({
-          targetAmount: parseInt(targetAmount),
-          ...milestone,
-        })
-      ),
+    const payload: CampaignsControllerCreateApiArg = {
+      createCampaignDto: createCampaignDto,
     };
-    if (id) {
-      editCampaign(id, payload);
-    } else {
-      createCampaign(payload);
-    }
+
+    createCampaign(payload);
   };
   return (
     <>
@@ -148,17 +150,17 @@ const Review = ({
           </Button>
           <Button
             onClick={() => handleCreateCampaign()}
-            loading={isCreatingCampaign || isEditingCampaign}
+            loading={createCampaignLoading}
             className="w-[30%] rounded-3xl bg-[#241A3F] "
           >
             Complete
           </Button>
         </div>
       </div>
-      {isCampaignCreated || CampaignEdited ? (
+      {createdCampaign ? (
         <SuccessComponent
-          link="/dashboard/campaign"
-          description="Congratulations! Your Campaign  has been successfully submitted .."
+          link="/dashboard/startup/campaign"
+          description="Congratulations! Your account information has been successfully submitted for review. Our team will carefully review your submission and get back to you within [X] business days."
           title="Campaign Successfully Submitted"
         />
       ) : null}

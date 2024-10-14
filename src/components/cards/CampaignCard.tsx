@@ -8,7 +8,7 @@ interface Props {
   isApprove: boolean;
   id: string;
 }
-const CampaignCard = ({ title, description, isApprove, id }: Props) => {
+const CampaignCard = ({ title, description, id, isApprove }: Props) => {
   const router = useRouter();
   return (
     <div
