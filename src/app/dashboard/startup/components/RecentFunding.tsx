@@ -16,7 +16,9 @@ const RecentFunding = ({ currentCampaign }: Props) => {
   if (!currentCampaign) {
     return (
       <div className="w-full h-full border border-[#0F8B3A] rounded-[0.6rem] px-4 py-4 flex items-center justify-center">
-        <h2 className="font-bold text-[1rem]">You have no Current Campaign</h2>
+        <h2 className="font-normal text-[1.1rem]">
+          You have no Current Campaign
+        </h2>
       </div>
     );
   }

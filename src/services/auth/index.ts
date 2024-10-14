@@ -22,6 +22,7 @@ const auth = api.injectEndpoints({
           url: "/auth/signup",
           method: "POST",
           body: payload,
+          responseHandler: (response) => response.text(),
         };
       },
     }),

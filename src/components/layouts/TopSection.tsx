@@ -37,7 +37,7 @@ const TopSection = ({ items }: TopSectionProps) => {
     <>
       <header className="w-full h-[10vh] mx-auto px-8 max-w-[1200px] border-b border-[#E6D9D9] flex items-center justify-between">
         <div className="flex w-full items-center justify-between mt-4">
-          <h1 className="font-semibold text-[14px] lg:text-[1.7rem]">
+          <h1 className="font-semibold text-[1.1rem] lg:text-[1.7rem]">
             Welcome, {user?.firstName}
           </h1>
           <nav className="hidden space-x-5 items-center md:flex">

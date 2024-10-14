@@ -59,7 +59,7 @@ export default function StartupDashboard({
                 </h2>
                 <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
                   {" "}
-                  {`N${thousandFormatter(20000)}`}
+                  {`₦ ${thousandFormatter(20000)}`}
                 </span>
               </div>
               <div className="bg-[#F3FFDE] p-2 rounded-full  ">
@@ -79,7 +79,7 @@ export default function StartupDashboard({
                   Total Funds Raised
                 </h2>
                 <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
-                  {`N${thousandFormatter(20000)}`}
+                  {`₦ ${thousandFormatter(20000)}`}
                 </span>
               </div>
               <div className="bg-[#F3FFDE] p-2 rounded-full  ">
@@ -94,7 +94,7 @@ export default function StartupDashboard({
           </StatCard>
         </div>
       </div>
-      <div className="mt-[3rem] w-full mx-auto gap-8 grid grid-cols-[1fr] gap-x-4 md:grid-cols-2 lg:grid-cols-3 p-4">
+      <div className="mt-[1.4rem] w-full mx-auto gap-8 grid grid-cols-[1fr] gap-x-4 md:grid-cols-2 lg:grid-cols-3 p-4">
         <div>
           <h3 className="text-[1rem] md:text-[1.5rem] font-medium">
             {" "}

@@ -40,13 +40,13 @@ const SignUpPage = () => {
   useEffect(() => {
     if (Registered) {
       toast({
+        className:
+          "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
+        title: "You have  successfully Created an account",
         variant: "default",
-        title: "Congratulations",
-        description: "You have succesfully created your account",
       });
-      router.push("/auth/sign-in");
     }
-  }, [Registered, router, toast]);
+  }, [Registered]);
 
   const handleCardClick = (text: string) => {
     setIsModalOpen(false);

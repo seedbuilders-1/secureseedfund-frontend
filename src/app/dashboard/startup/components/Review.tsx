@@ -5,7 +5,6 @@ import {
 } from "@/lib/validations/campaign";
 import { thousandFormatter } from "@/lib/helpers";
 import { Button } from "@/components/ui/button";
-import { useStartupIdUrl } from "@/lib/utils";
 import SuccessComponent from "@/components/cards/SuccessComponent";
 import useCampaign from "../hooks/useCampaign";
 import useUserAuth from "@/hooks/auth/useAuth";
@@ -33,8 +32,6 @@ const Review = ({
   } = useCampaign({});
 
   const { user } = useUserAuth();
-  const startupId = useStartupIdUrl();
-
   const handleCreateCampaign = () => {
     const payload = {
       title: campaignDetail.title,
@@ -160,8 +157,8 @@ const Review = ({
       </div>
       {isCampaignCreated || CampaignEdited ? (
         <SuccessComponent
-          link="/dashboard/account"
-          description="Congratulations! Your account information has been successfully submitted for review. Our team will carefully review your submission and get back to you within [X] business days."
+          link="/dashboard/campaign"
+          description="Congratulations! Your Campaign  has been successfully submitted .."
           title="Campaign Successfully Submitted"
         />
       ) : null}

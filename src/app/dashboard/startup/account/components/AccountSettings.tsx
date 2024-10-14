@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../../../components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Startup } from "@/generated/service/startups";
+import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
 import {
   AccountSettingsSchema,
   AccountSettingsValidation,
@@ -23,11 +24,20 @@ import { useEffect, useState } from "react";
 import { FileWithPath } from "react-dropzone";
 import UploadComponent from "./UploadComponent";
 import Image from "next/image";
+import useAccount from "../hooks/useAccount";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { BiImageAdd } from "react-icons/bi";
+import { File } from "buffer";
 
 interface Props {
   accountInformation: Startup | undefined;
+}
+interface UploadFiles {
+  businessPlan: FileWithPath | null;
+  pitchDeck: FileWithPath | null;
+  demoVideo: FileWithPath | null;
+  companyLogo: FileWithPath | null;
+  companyRegistration: FileWithPath | null;
 }
 const AccountSettings = ({ accountInformation }: Props) => {
   const { toast } = useToast();
@@ -36,14 +46,14 @@ const AccountSettings = ({ accountInformation }: Props) => {
   >(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { user } = useUserAuth();
-  const [files, setFiles] = useState<Record<string, FileWithPath | null>>({
+  const [files, setFiles] = useState<UploadFiles>({
     businessPlan: null,
     pitchDeck: null,
     demoVideo: null,
     companyLogo: null,
     companyRegistration: null,
   });
-
+  const { updateAccountSetting, isUpdatingAccountSettings } = useAccount();
   const handleUpload = (acceptedFiles: FileWithPath[], fileType: string) => {
     const uploadedFile = acceptedFiles[0];
     const { type } = uploadedFile;
@@ -107,7 +117,66 @@ const AccountSettings = ({ accountInformation }: Props) => {
     resolver: zodResolver(AccountSettingsSchema),
   });
 
-  const onSubmit = () => {};
+  const creatorId = user?.userId as string;
+
+  const onSubmit = (values: AccountSettingsValidation) => {
+    if (Object.values(files).some((file) => !file)) {
+      toast({
+        variant: "destructive",
+        title: "Missing files",
+        description: "Please upload all required files.",
+      });
+      return;
+    }
+
+    const updateNewCompanyInformationDto = new FormData();
+    updateNewCompanyInformationDto.append(
+      "company_address",
+      values.companyaddress
+    );
+    updateNewCompanyInformationDto.append(
+      "company_website",
+      values.companywebsite
+    );
+    updateNewCompanyInformationDto.append(
+      "company_desc",
+      values.companyaddress
+    );
+    updateNewCompanyInformationDto.append(
+      "company_bullet_point",
+      values.threeorfivepointswhycompanyisagoodinvestment
+    );
+    updateNewCompanyInformationDto.append(
+      "country",
+      values.companyincorporatedin
+    );
+    updateNewCompanyInformationDto.append(
+      "company_business_plan",
+      files.businessPlan as File
+    );
+    updateNewCompanyInformationDto.append(
+      "company_pitchDeck",
+      files.pitchDeck as File
+    );
+    updateNewCompanyInformationDto.append(
+      "company_video",
+      files.demoVideo as File
+    );
+    updateNewCompanyInformationDto.append(
+      "company_logo",
+      files.companyLogo as File
+    );
+    updateNewCompanyInformationDto.append(
+      "company_cac",
+      files.companyRegistration as File
+    );
+
+    const payload = {
+      creatorId,
+      updateNewCompanyInformationDto,
+    };
+    updateAccountSetting(payload);
+  };
 
   useEffect(() => {
     if (accountInformation?.founder?.id) {
@@ -141,12 +210,12 @@ kindly upgrade to a paid plan to enjoy more features`}
         <div className="flex justify-center relative w-fit items-center flex-col mx-auto border rounded-md">
           <label htmlFor="profileImage" style={{ cursor: "pointer" }}>
             <Image
-              src={selectedImage || ""}
+              src={selectedImage || UserEmptyState}
               alt="logo"
-              width={110}
+              width={170}
               height={100}
               objectFit="contain"
-              className="object-cover w-full h-[200px]  mx-auto rounded-md"
+              className="object-cover w-[300px] h-[300px]  mx-auto rounded-md"
             />
             <input
               type="file"
@@ -161,7 +230,7 @@ kindly upgrade to a paid plan to enjoy more features`}
           </label>
         </div>
 
-        <div className="mt-4 md:p-[8rem]">
+        <div className="mt-4 max-w-[1000px] mx-auto">
           <div className=" border border-solid border-[#D8D8E2] rounded-2xl grid place-content-center p-5">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="mt-5">
@@ -319,7 +388,7 @@ kindly upgrade to a paid plan to enjoy more features`}
 
                 <Button
                   type="submit"
-                  // loading={isCreatingCompanyInformation}
+                  loading={isUpdatingAccountSettings}
                   className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
                 >
                   Save & Continue

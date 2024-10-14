@@ -3,6 +3,7 @@ import {
   StartupControllerCreateTeamInformationApiArg,
   StartupControllerCreateCompanyInformationApiArg,
   StartupControllerCreateBusinessInformationApiArg,
+  StartupControllerUpdateCompanyInformationApiArg,
   StartupControllerCreateFundingInformationApiArg,
 } from "@/generated/service/startups";
 import { api } from "@/generated/service/startups";
@@ -29,6 +30,11 @@ const useAccount = (creatorId?: string) => {
     createFundingInformationStart,
     { isLoading: isCreatingFundingInformation, isSuccess: createdFundingInfo },
   ] = api.useStartupControllerCreateFundingInformationMutation();
+
+  const [
+    updateAccountSettingsStart,
+    { isLoading: isUpdatingAccountSettings, isSuccess: accountSettingsUpdated },
+  ] = api.useStartupControllerUpdateCompanyInformationMutation();
 
   const [
     createTeamInformationStart,
@@ -135,6 +141,26 @@ const useAccount = (creatorId?: string) => {
     }
   };
 
+  const updateAccountSetting = async (
+    values: StartupControllerUpdateCompanyInformationApiArg
+  ) => {
+    try {
+      await updateAccountSettingsStart(values).unwrap();
+      toast({
+        variant: "default",
+        title: "Account Updated",
+      });
+    } catch (err: any) {
+      console.log(err);
+      toast({
+        variant: "destructive",
+        title:
+          err?.message?.forEach((message: string) => message) ??
+          "Uh oh! Something went wrong.",
+      });
+    }
+  };
+
   return {
     createFounderInformation,
     isCreatingFounderInformation,
@@ -153,6 +179,9 @@ const useAccount = (creatorId?: string) => {
     isCreatingFundingInformation,
     createdFundingInfo,
     loadingAccountInformation,
+    updateAccountSetting,
+    isUpdatingAccountSettings,
+    accountSettingsUpdated,
   };
 };
 
