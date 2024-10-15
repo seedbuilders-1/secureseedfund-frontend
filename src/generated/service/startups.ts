@@ -56,7 +56,7 @@ const injectedRtkApi = api.injectEndpoints({
       StartupControllerUpdateCompanyInformationApiArg
     >({
       query: (queryArg) => ({
-        url: `/startups/update/company/${queryArg.creatorId}`,
+        url: `/startups/update/${queryArg.creatorId}/company`,
         method: "PUT",
         body: queryArg.updateNewCompanyInformationDto,
       }),
@@ -194,6 +194,7 @@ export type UpdateNewCompanyInformationDto = {
   company_business_plan?: Blob;
   company_pitchDeck?: Blob;
   company_video?: Blob;
+  profileImage?: Blob;
   company_address: string;
   company_website: string;
   company_desc: string;
@@ -353,13 +354,13 @@ export type Founder = {
 };
 export type Startup = {
   creator_id: User;
+  is_completed_info: boolean;
   businessInformation: BusinessInformation;
   companyInformation: CompanyInformation;
   fundingInformation: FundingInformation;
   teamInformation: Team;
   founder: Founder;
   campaignInformation: Campaign;
-  is_completed_info: boolean;
   id: string;
   createdAt: string;
   updatedAt: string;

@@ -1,6 +1,12 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import { Button } from "../ui/button";
 import WhitCheckIcon from "@/assets/icons/WhitCheckIcon";
+import useSubscription from "@/app/dashboard/startup/pricing/hooks/useSubscriptions";
+import useUserAuth from "@/hooks/auth/useAuth";
+
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface PlanCardProps {
   planName: string;
@@ -10,16 +16,76 @@ interface PlanCardProps {
   rate: string;
 }
 
-const AppPricingCard: React.FC<PlanCardProps> = ({
+type subscriptionType = "free" | "basic" | "premium";
+type platformType = "paystack" | "paydestal";
+
+const AppPricingCard = ({
   planName,
   price,
   features,
   isCurrentPlan,
   rate,
-}) => {
+}: PlanCardProps) => {
+  const { user } = useUserAuth();
+
+  const id = user?.userId as string;
+  const subsciptionType = planName.toLocaleLowerCase().split(" ")[0] as
+    | "free"
+    | "basic"
+    | "premium";
+
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+
+  const ref_id = searchParams.get("trxref") ?? "";
+  const { completeSubscription, createdSubscription } = useSubscription();
+
+  const verifySubscription = () => {
+    const completedSubscriptionDto = {
+      ref_id: ref_id as string,
+    };
+
+    const completedSubscriptionPayload = {
+      completeSubscriptionDto: completedSubscriptionDto,
+    };
+
+    completeSubscription(completedSubscriptionPayload);
+  };
+
+  useEffect(() => {
+    if (createdSubscription) {
+      verifySubscription();
+    }
+  }, [createdSubscription]);
+
+  const { createSubscription, response, creatingSubscription } =
+    useSubscription();
+
+  const handleSubscribe = () => {
+    if (isCurrentPlan) return;
+
+    const createSubscriptionDto = {
+      platform_type: "paystack" as platformType,
+      subscriptionType: subsciptionType as subscriptionType,
+      user: id,
+    };
+    const createSubscriptionPayload = {
+      createSubscriptionDto: createSubscriptionDto,
+      userId: id,
+    };
+
+    createSubscription(createSubscriptionPayload);
+  };
+
+  useEffect(() => {
+    if (response) {
+      router.push(response?.authorization_url);
+    }
+  }, [response]);
   return (
     <div
-      className={`rounded-lg p-6 w-64 flex flex-col justify-between ${
+      className={`rounded-lg p-6 w-80 flex flex-col justify-between ${
         isCurrentPlan ? "bg-green-100" : "bg-[#F0F0F0]"
       }`}
     >
@@ -47,9 +113,11 @@ const AppPricingCard: React.FC<PlanCardProps> = ({
           </ul>
         </div>
       </div>
-
       <Button
+        onClick={handleSubscribe}
         type="submit"
+        disabled={creatingSubscription}
+        loading={creatingSubscription}
         className="w-full bg-[#241A3F] hover:bg-[#241A3F]/90 rounded-3xl mt-6"
       >
         {isCurrentPlan ? "Current Plan" : "Subscribe"}
