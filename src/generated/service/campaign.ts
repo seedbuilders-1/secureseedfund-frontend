@@ -27,11 +27,17 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
+    campaignsControllerFindOneAllUser: build.query<
+      CampaignsControllerFindOneAllUserApiResponse,
+      CampaignsControllerFindOneAllUserApiArg
+    >({
+      query: (queryArg) => ({ url: `/campaigns/${queryArg.userId}/all` }),
+    }),
     campaignsControllerFindOne: build.query<
       CampaignsControllerFindOneApiResponse,
       CampaignsControllerFindOneApiArg
     >({
-      query: (queryArg) => ({ url: `/campaigns/${queryArg.id}` }),
+      query: (queryArg) => ({ url: `/campaigns/${queryArg.campaignId}` }),
     }),
     campaignsControllerUpdate: build.mutation<
       CampaignsControllerUpdateApiResponse,
@@ -67,10 +73,15 @@ export type CampaignsControllerFindAllApiArg = {
   /** Filter by campaign type */
   campaignType?: string;
 };
+export type CampaignsControllerFindOneAllUserApiResponse =
+  /** status 200  */ CampaignDto[];
+export type CampaignsControllerFindOneAllUserApiArg = {
+  userId: string;
+};
 export type CampaignsControllerFindOneApiResponse =
   /** status 200  */ CampaignDto;
 export type CampaignsControllerFindOneApiArg = {
-  id: string;
+  campaignId: string;
 };
 export type CampaignsControllerUpdateApiResponse =
   /** status 200  */ CampaignDto;
@@ -148,6 +159,7 @@ export type UpdateCampaignDto = {
 export const {
   useCampaignsControllerCreateMutation,
   useCampaignsControllerFindAllQuery,
+  useCampaignsControllerFindOneAllUserQuery,
   useCampaignsControllerFindOneQuery,
   useCampaignsControllerUpdateMutation,
 } = injectedRtkApi;
