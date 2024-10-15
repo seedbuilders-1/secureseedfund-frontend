@@ -15,7 +15,7 @@ export default function StartupDashboard() {
   const { user } = useUserAuth();
   const { campaigns, loadingCampaigns } = useCampaign({
     id: user?.userId,
-  } as CampaignsControllerFindOneApiArg);
+  });
 
   const currentCampaign =
     campaigns && campaigns?.items[campaigns?.items.length - 1];
@@ -77,7 +77,7 @@ export default function StartupDashboard() {
                   Total Funds Raised
                 </h2>
                 <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
-                  {`₦ ${thousandFormatter(20000)}`}
+                  {`₦${thousandFormatter(20000)}`}
                 </span>
               </div>
               <div className="bg-[#F3FFDE] p-2 rounded-full  ">
