@@ -2,9 +2,9 @@ import {
   api,
   CampaignsControllerCreateApiArg,
   CampaignsControllerFindOneApiArg,
-  CreateCampaignDto,
 } from "@/generated/service/campaign";
 import { useToast } from "@/components/ui/use-toast";
+
 const useCampaign = (
   campaignId?: CampaignsControllerFindOneApiArg,
   userid?: string

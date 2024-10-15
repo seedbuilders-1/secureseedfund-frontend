@@ -14,6 +14,14 @@ const config: ConfigFile = {
       filterEndpoints: (endpointName) =>
         endpointName.toLowerCase().startsWith("campaign"),
     },
+    "./src/generated/service/subscription.ts": {
+      filterEndpoints: (endpointName) =>
+        endpointName.toLowerCase().startsWith("subscriptions"),
+    },
+    "./src/generated/service/users.ts": {
+      filterEndpoints: (endpointName) =>
+        endpointName.toLowerCase().startsWith("users"),
+    },
   },
   exportName: "api",
   hooks: true,

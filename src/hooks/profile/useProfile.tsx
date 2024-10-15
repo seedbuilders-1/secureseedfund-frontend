@@ -1,16 +1,11 @@
-import { useUserProfileQuery } from "@/services/profile";
-import useUserAuth from "../auth/useAuth";
+import { useUsersControllerGetMeQuery } from "@/generated/service/users";
 
 const useProfile = () => {
-  const { accessToken } = useUserAuth();
   const {
     data: userProfile,
     isLoading: loadingProfile,
     refetch: refetchProfile,
-  } = useUserProfileQuery({
-    Authorization: `Bearer ${accessToken}`,
-    "Content-Type": "application/json",
-  });
+  } = useUsersControllerGetMeQuery();
 
   return {
     userProfile,
