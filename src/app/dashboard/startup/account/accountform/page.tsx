@@ -20,14 +20,15 @@ interface UploadFiles {
   companyRegistration: FileWithPath | null;
 }
 
-const [files, setFiles] = useState<UploadFiles>({
-  businessPlan: null,
-  pitchDeck: null,
-  demoVideo: null,
-  companyLogo: null,
-  companyRegistration: null,
-});
+
 export default function AccountForm() {
+  const [files, setFiles] = useState<UploadFiles>({
+    businessPlan: null,
+    pitchDeck: null,
+    demoVideo: null,
+    companyLogo: null,
+    companyRegistration: null,
+  });
   const [currentStep, setCurrentStep] = useState(1);
 
   const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(

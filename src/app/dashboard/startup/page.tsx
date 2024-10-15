@@ -8,20 +8,18 @@ import Milestones from "./components/Milestones";
 import useCampaign from "./hooks/useCampaign";
 import { Skeleton } from "@/components/ui/skeleton";
 import useUserAuth from "@/hooks/auth/useAuth";
-import Link from "next/link";
+import { CampaignsControllerFindOneApiArg } from "@/generated/service/campaign";
+
 import WarningComponent from "@/components/cards/WarningComponent";
-export default function StartupDashboard({
-  params,
-}: {
-  params: { startupid: string };
-}) {
-  const { campaigns, loadingCampaign } = useCampaign({
-    startupId: params.startupid,
-  });
+export default function StartupDashboard() {
   const { user } = useUserAuth();
+  const { campaigns, loadingCampaigns } = useCampaign({
+    id: user?.userId,
+  } as CampaignsControllerFindOneApiArg);
+
   const currentCampaign =
     campaigns && campaigns?.items[campaigns?.items.length - 1];
-  if (loadingCampaign) {
+  if (loadingCampaigns) {
     return (
       <div className="w-full mt-[2rem]">
         <div className="grid grid-cols-2 gap-x-4 md:max-w-[900px] mx-auto">
@@ -94,7 +92,7 @@ export default function StartupDashboard({
           </StatCard>
         </div>
       </div>
-      <div className="mt-[1.4rem] w-full mx-auto gap-8 grid grid-cols-[1fr] gap-x-4 md:grid-cols-2 lg:grid-cols-3 p-4">
+      <div className="mt-[3rem] w-full mx-auto gap-8 grid grid-cols-[1fr] gap-x-4 md:grid-cols-2 lg:grid-cols-3 p-4">
         <div>
           <h3 className="text-[1rem] md:text-[1.5rem] font-medium">
             {" "}
