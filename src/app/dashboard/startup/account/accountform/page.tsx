@@ -29,7 +29,7 @@ export default function AccountForm() {
     companyLogo: null,
     companyRegistration: null,
   });
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(4);
 
   const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(
     null

@@ -20,7 +20,7 @@ const Account = () => {
   }
   return (
     <>
-      {accountInformation?.is_completed_info ? (
+      {true ? (
         <AccountSettings accountInformation={accountInformation} />
       ) : (
         <div className="w-[90%] flex flex-col  mx-auto h-[100vh] bg-white mt-[4rem]">

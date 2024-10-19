@@ -535,7 +535,7 @@ const Review = ({
       </div>
       {createdFundingInfo && (
         <SuccessComponent
-          link="/dashboard/startup/account"
+          link="/dashboard/startup"
           description="   Congratulations! Your Account has been Successfully submitted for
           review. Our team will carefully review your submission and get back to
           you within [X] business days ."

@@ -8,7 +8,6 @@ import Milestones from "./components/Milestones";
 import useCampaign from "./hooks/useCampaign";
 import { Skeleton } from "@/components/ui/skeleton";
 import useUserAuth from "@/hooks/auth/useAuth";
-import { CampaignsControllerFindOneApiArg } from "@/generated/service/campaign";
 
 import WarningComponent from "@/components/cards/WarningComponent";
 export default function StartupDashboard() {
