@@ -147,7 +147,9 @@ const AccountSettings = ({ accountInformation }: Props) => {
               : "allows you to set up an account with us. Kindly upgrade to a paid plan to enjoy more features."
           }`}
           linkTitle={
-            userProfile?.subscription_plan === "premium" ? "" : "Upgrade Now"
+            userProfile?.subscription_plan === "premium"
+              ? "View Plans"
+              : "Upgrade Now"
           }
         />
         <div className="flex justify-center relative w-fit items-center flex-col mx-auto border rounded-md">

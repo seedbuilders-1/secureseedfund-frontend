@@ -58,7 +58,9 @@ export default function StartupDashboard({
               : "allows you to set up an account with us. Kindly upgrade to a paid plan to enjoy more features."
           }`}
           linkTitle={
-            userProfile?.subscription_plan === "premium" ? "" : "Upgrade Now"
+            userProfile?.subscription_plan === "premium"
+              ? "View Plans"
+              : "Upgrade Now"
           }
         />
 
