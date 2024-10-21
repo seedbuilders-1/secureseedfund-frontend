@@ -25,6 +25,7 @@ import UploadComponent from "./UploadComponent";
 import Image from "next/image";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { BiImageAdd } from "react-icons/bi";
+import useProfile from "@/hooks/profile/useProfile";
 
 interface Props {
   accountInformation: Startup | undefined;
@@ -43,6 +44,8 @@ const AccountSettings = ({ accountInformation }: Props) => {
     companyLogo: null,
     companyRegistration: null,
   });
+
+  const { userProfile } = useProfile();
 
   const handleUpload = (acceptedFiles: FileWithPath[], fileType: string) => {
     const uploadedFile = acceptedFiles[0];
@@ -134,9 +137,18 @@ const AccountSettings = ({ accountInformation }: Props) => {
       <div className="mt-5 p-4">
         <WarningComponent
           showLink={true}
-          linkTitle="Uprade Now"
-          title={`Hello ${user?.firstName}, you are currently on thr free plan which allows you to set up and account with us, 
-kindly upgrade to a paid plan to enjoy more features`}
+          title={`Hello ${user?.firstName}, you are currently on the ${
+            userProfile?.subscription_plan
+          } plan which ${
+            userProfile?.subscription_plan === "premium"
+              ? "grants you access to all our premium features."
+              : userProfile?.subscription_plan === "basic"
+              ? "provides you with great features, but you can upgrade to premium to allow investors see your full profile."
+              : "allows you to set up an account with us. Kindly upgrade to a paid plan to enjoy more features."
+          }`}
+          linkTitle={
+            userProfile?.subscription_plan === "premium" ? "" : "Upgrade Now"
+          }
         />
         <div className="flex justify-center relative w-fit items-center flex-col mx-auto border rounded-md">
           <label htmlFor="profileImage" style={{ cursor: "pointer" }}>
