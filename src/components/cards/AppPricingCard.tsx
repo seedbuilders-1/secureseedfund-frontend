@@ -79,9 +79,13 @@ const AppPricingCard = ({
     }
   }, [response]);
 
-  if (ref_id) {
-    verifySubscription();
-  }
+  useEffect(() => {
+    if (ref_id) {
+      console.log("soks");
+
+      verifySubscription();
+    }
+  }, []);
 
   return (
     <div
