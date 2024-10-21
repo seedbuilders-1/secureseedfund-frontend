@@ -31,7 +31,7 @@ import { File } from "buffer";
 import useProfile from "@/hooks/profile/useProfile";
 
 interface Props {
-  accountInformation: Startup | undefined;
+  accountInformation?: Startup;
 }
 interface UploadFiles {
   businessPlan: FileWithPath | null;
@@ -45,8 +45,11 @@ const AccountSettings = ({ accountInformation }: Props) => {
   const [profileImageFile, setProfileImageFile] = useState<
     string | FileWithPath | null
   >(null);
+
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const { user } = useUserAuth();
+
   const [files, setFiles] = useState<UploadFiles>({
     businessPlan: null,
     pitchDeck: null,
@@ -58,6 +61,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
   const { userProfile } = useProfile();
 
   const { updateAccountSetting, isUpdatingAccountSettings } = useAccount();
+
   const handleUpload = (acceptedFiles: FileWithPath[], fileType: string) => {
     const uploadedFile = acceptedFiles[0];
     const { type } = uploadedFile;
@@ -86,9 +90,9 @@ const AccountSettings = ({ accountInformation }: Props) => {
       });
     }
   };
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
-
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -120,19 +124,36 @@ const AccountSettings = ({ accountInformation }: Props) => {
   const form = useForm<AccountSettingsValidation>({
     resolver: zodResolver(AccountSettingsSchema),
   });
+  const pitchDeckUrl = accountInformation?.companyInformation
+    .company_pitchDeck as string;
+  const companyRegistrationUrl = accountInformation?.companyInformation
+    .company_cac as string;
+  const businessPlanUrl = accountInformation?.companyInformation
+    .company_business_plan as string;
+  const demoVideoUrl = accountInformation?.companyInformation
+    .company_video as string;
+  const companyLogo = accountInformation?.companyInformation
+    .company_logo as string;
 
   const creatorId = user?.userId as string;
 
   const onSubmit = (values: AccountSettingsValidation) => {
-    if (Object.values(files).some((file) => !file)) {
+    if (
+      (!profileImageFile && !selectedImage) ||
+      (!files.businessPlan && !pitchDeckUrl) ||
+      (!files.pitchDeck && !pitchDeckUrl) ||
+      (!files.demoVideo && !demoVideoUrl) ||
+      (!files.companyLogo && !companyLogo) ||
+      (!files.companyRegistration && !companyRegistrationUrl)
+    ) {
       toast({
         variant: "destructive",
-        title: "Missing files",
-        description: "Please upload all required files.",
+        title: "Missing information",
+        description:
+          "Please upload all required files or ensure previews are available.",
       });
       return;
     }
-
     const updateNewCompanyInformationDto = new FormData();
     updateNewCompanyInformationDto.append(
       "company_address",
@@ -154,31 +175,32 @@ const AccountSettings = ({ accountInformation }: Props) => {
       "country",
       values.companyincorporatedin
     );
-    updateNewCompanyInformationDto.append(
-      "company_business_plan",
-      files.businessPlan as File
-    );
-    updateNewCompanyInformationDto.append(
-      "company_pitchDeck",
-      files.pitchDeck as File
-    );
-    updateNewCompanyInformationDto.append(
-      "company_video",
-      files.demoVideo as File
-    );
-    updateNewCompanyInformationDto.append(
-      "company_logo",
-      files.companyLogo as File
-    );
-    updateNewCompanyInformationDto.append(
-      "company_cac",
-      files.companyRegistration as File
-    );
-
+    if (files.pitchDeck) {
+      updateNewCompanyInformationDto.append(
+        "company_pitchDeck",
+        files.pitchDeck
+      );
+    }
+    if (files.demoVideo) {
+      updateNewCompanyInformationDto.append("company_video", files.demoVideo);
+    }
+    if (files.companyLogo) {
+      updateNewCompanyInformationDto.append("company_logo", files.companyLogo);
+    }
+    if (files.companyRegistration) {
+      updateNewCompanyInformationDto.append(
+        "company_cac",
+        files.companyRegistration
+      );
+      if (profileImageFile) {
+        updateNewCompanyInformationDto.append("profileImage", profileImageFile);
+      }
+    }
     const payload = {
       creatorId,
       updateNewCompanyInformationDto,
     };
+    // @ts-ignore
     updateAccountSetting(payload);
   };
 
@@ -222,7 +244,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
               : "Upgrade Now"
           }
         />
-        <div className="flex justify-center relative w-fit items-center flex-col mx-auto border rounded-md">
+        <div className="flex justify-center relative w-fit items-center flex-col mx-auto  rounded-md">
           <label htmlFor="profileImage" style={{ cursor: "pointer" }}>
             <Image
               src={selectedImage || UserEmptyState}
@@ -325,6 +347,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
                 <FormLabel>Upload Business Plan</FormLabel>
                 <UploadComponent
                   file={files.businessPlan}
+                  previewUrl={businessPlanUrl}
                   handleUpload={handleUpload}
                   fileType="businessPlan"
                   accept={{ "application/pdf": [".pdf"] }}
@@ -337,6 +360,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
                 <FormLabel>Upload Pitch Deck</FormLabel>
                 <UploadComponent
                   file={files.pitchDeck}
+                  previewUrl={pitchDeckUrl}
                   handleUpload={handleUpload}
                   fileType="pitchDeck"
                   maxSize={5 * 1024 * 1024}
@@ -348,6 +372,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
                 <UploadComponent
                   file={files.demoVideo}
                   handleUpload={handleUpload}
+                  previewUrl={demoVideoUrl}
                   fileType="demoVideo"
                   maxSize={5 * 1024 * 1024}
                   label="Upload Demo Video Deck Plan (Video only)"
@@ -359,6 +384,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
 
                 <UploadComponent
                   file={files.companyLogo}
+                  previewUrl={companyLogo}
                   handleUpload={handleUpload}
                   fileType="companyLogo"
                   maxSize={5 * 1024 * 1024}
@@ -371,6 +397,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
                 <UploadComponent
                   file={files.companyRegistration}
                   handleUpload={handleUpload}
+                  previewUrl={companyRegistrationUrl}
                   fileType="companyRegistration"
                   maxSize={5 * 1024 * 1024}
                   label="Upload Company Registration  (PDF only)"

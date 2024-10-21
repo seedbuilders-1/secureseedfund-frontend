@@ -10,7 +10,7 @@ import BusinessInformation from "../components/BusinessInformation";
 import FundingInformation from "../components/FundingInformation";
 import Review from "../components/Review";
 import { FileWithPath } from "react-dropzone";
-
+import useUserAuth from "@/hooks/auth/useAuth";
 
 interface UploadFiles {
   businessPlan: FileWithPath | null;
@@ -20,7 +20,6 @@ interface UploadFiles {
   companyRegistration: FileWithPath | null;
 }
 
-
 export default function AccountForm() {
   const [files, setFiles] = useState<UploadFiles>({
     businessPlan: null,
@@ -29,7 +28,7 @@ export default function AccountForm() {
     companyLogo: null,
     companyRegistration: null,
   });
-  const [currentStep, setCurrentStep] = useState(4);
+  const [currentStep, setCurrentStep] = useState(6);
 
   const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(
     null
@@ -72,6 +71,8 @@ export default function AccountForm() {
     "Funding Information",
     "Review & Submit",
   ];
+  const { user } = useUserAuth();
+  const creatorId = user?.userId as string;
 
   return (
     <>
@@ -120,7 +121,6 @@ export default function AccountForm() {
               fundingDetails={fundingDetails}
               handleBack={handleBack}
               setStep={setCurrentStep}
-              files={files}
             />
           )}
         </div>

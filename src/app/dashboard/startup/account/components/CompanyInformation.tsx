@@ -11,6 +11,7 @@ import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../../../components/ui/button";
+import { useState } from "react";
 import {
   CompanyInformationSchema,
   CompanyInformationValidation,
@@ -36,6 +37,13 @@ interface Props {
   handleBack: () => void;
   files: Files;
   setFiles: React.Dispatch<React.SetStateAction<Files>>;
+}
+interface Preview {
+  businessPlan: string | null;
+  pitchDeck: string | null;
+  demoVideo: string | null;
+  companyLogo: string | null;
+  companyRegistration: string | null;
 }
 
 const CompanyInformation = ({
@@ -87,13 +95,27 @@ const CompanyInformation = ({
       });
     }
   };
+  const [preview, setPreview] = useState<Preview>({
+    businessPlan: null,
+    pitchDeck: null,
+    demoVideo: null,
+    companyLogo: null,
+    companyRegistration: null,
+  });
 
   const onSubmit = (values: CompanyInformationValidation) => {
-    if (Object.values(files).some((file) => !file)) {
+    if (
+      (!files.businessPlan && !preview.businessPlan) ||
+      (!files.pitchDeck && !preview.pitchDeck) ||
+      (!files.demoVideo && !preview.demoVideo) ||
+      (!files.companyLogo && !preview.companyLogo) ||
+      (!files.companyRegistration && !preview.companyRegistration)
+    ) {
       toast({
         variant: "destructive",
-        title: "Missing files",
-        description: "Please upload all required files.",
+        title: "Missing information",
+        description:
+          "Please upload all required files or ensure previews are available.",
       });
       return;
     }
@@ -125,31 +147,32 @@ const CompanyInformation = ({
       values.threeorfivepointswhycompanyisagoodinvestment
     );
     createCompanyInformationDto.append("country", values.companyincorporatedin);
-    createCompanyInformationDto.append(
-      "company_business_plan",
-      files.businessPlan as File
-    );
-    createCompanyInformationDto.append(
-      "company_pitchDeck",
-      files.pitchDeck as File
-    );
-    createCompanyInformationDto.append(
-      "company_video",
-      files.demoVideo as File
-    );
-    createCompanyInformationDto.append(
-      "company_logo",
-      files.companyLogo as File
-    );
-    createCompanyInformationDto.append(
-      "company_cac",
-      files.companyRegistration as File
-    );
-
+    if (files.businessPlan) {
+      createCompanyInformationDto.append(
+        "company_business_plan",
+        files.businessPlan
+      );
+    }
+    if (files.pitchDeck) {
+      createCompanyInformationDto.append("company_pitchDeck", files.pitchDeck);
+    }
+    if (files.demoVideo) {
+      createCompanyInformationDto.append("company_video", files.demoVideo);
+    }
+    if (files.companyLogo) {
+      createCompanyInformationDto.append("company_logo", files.companyLogo);
+    }
+    if (files.companyRegistration) {
+      createCompanyInformationDto.append(
+        "company_cac",
+        files.companyRegistration
+      );
+    }
     const payload = {
       creatorId,
       createCompanyInformationDto,
     };
+    // @ts-ignore
     createCompanyInformation(payload);
   };
 
@@ -172,7 +195,11 @@ const CompanyInformation = ({
         company_geography,
         company_desc,
         company_bullet_point,
-        // country,
+        company_business_plan,
+        company_pitchDeck,
+        company_video,
+        company_logo,
+        company_cac,
       } = accountInformation.companyInformation;
       form.setValue("companyname", company_name);
       form.setValue("contactemail", company_email);
@@ -187,6 +214,13 @@ const CompanyInformation = ({
         "threeorfivepointswhycompanyisagoodinvestment",
         company_bullet_point
       );
+      setPreview({
+        businessPlan: company_business_plan || null,
+        pitchDeck: company_pitchDeck || null,
+        demoVideo: company_video || null,
+        companyLogo: company_logo || null,
+        companyRegistration: company_cac || null,
+      });
       // form.setValue("companyincorporatedin", country);
     }
   }, [accountInformation, form]);
@@ -440,6 +474,7 @@ const CompanyInformation = ({
               <FormLabel>Upload Business Plan</FormLabel>
               <UploadComponent
                 file={files.businessPlan}
+                previewUrl={preview.businessPlan ?? undefined}
                 handleUpload={handleUpload}
                 fileType="businessPlan"
                 accept={{ "application/pdf": [".pdf"] }}
@@ -451,6 +486,7 @@ const CompanyInformation = ({
 
               <FormLabel>Upload Pitch Deck</FormLabel>
               <UploadComponent
+                previewUrl={preview.pitchDeck ?? undefined}
                 file={files.pitchDeck}
                 handleUpload={handleUpload}
                 fileType="pitchDeck"
@@ -463,6 +499,7 @@ const CompanyInformation = ({
               <UploadComponent
                 file={files.demoVideo}
                 handleUpload={handleUpload}
+                previewUrl={preview.demoVideo ?? undefined}
                 fileType="demoVideo"
                 maxSize={5 * 1024 * 1024}
                 label="Upload Demo Video Deck Plan (Video only)"
@@ -475,6 +512,7 @@ const CompanyInformation = ({
               <UploadComponent
                 file={files.companyLogo}
                 handleUpload={handleUpload}
+                previewUrl={preview.companyLogo ?? undefined}
                 fileType="companyLogo"
                 maxSize={5 * 1024 * 1024}
                 label="Upload Company Logo (Image only)"
@@ -486,6 +524,7 @@ const CompanyInformation = ({
               <UploadComponent
                 file={files.companyRegistration}
                 handleUpload={handleUpload}
+                previewUrl={preview.companyRegistration ?? undefined}
                 fileType="companyRegistration"
                 maxSize={5 * 1024 * 1024}
                 label="Upload Company Registration  (PDF only)"
