@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import useUserAuth from "@/hooks/auth/useAuth";
@@ -12,6 +13,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ChevronDown, LogOut } from "lucide-react";
 import { MdPriceChange } from "react-icons/md";
+import useProfile from "@/hooks/profile/useProfile";
 
 type NavItem = {
   name: string;
@@ -26,6 +28,12 @@ interface TopSectionProps {
 const TopSection = ({ items }: TopSectionProps) => {
   const { logoutUser, user } = useUserAuth();
   const pathname = usePathname();
+
+  const { userProfile } = useProfile();
+
+  useEffect(() => {
+    console.log("user profile", userProfile);
+  }, [userProfile?.subscription_plan]);
 
   const isActive = (href: string) => {
     const normalizedPathname = pathname.replace(/\/$/, "");
@@ -73,7 +81,9 @@ const TopSection = ({ items }: TopSectionProps) => {
               className="hidden md:block"
             >
               <div className="rounded-[30px] border-solid border-2 px-8 py-2 text-[.875rem] cursor-pointer bg-[#CDEED3] text-[#0F8B3A]">
-                Free
+                {userProfile?.subscription_plan?.replace(/^./, (match) =>
+                  match.toUpperCase()
+                )}
               </div>
             </Link>
 
@@ -94,7 +104,9 @@ const TopSection = ({ items }: TopSectionProps) => {
                   <Link href={"/dashboard/startup/pricing"}>
                     <span className="flex">
                       <MdPriceChange className="mr-2 h-4 w-4" />
-                      <span>Free</span>
+                      {userProfile?.subscription_plan?.replace(/^./, (match) =>
+                        match.toUpperCase()
+                      )}
                     </span>
                   </Link>
                 </DropdownMenuItem>

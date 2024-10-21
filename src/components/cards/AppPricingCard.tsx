@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import WhitCheckIcon from "@/assets/icons/WhitCheckIcon";
 import useSubscription from "@/app/dashboard/startup/pricing/hooks/useSubscriptions";
@@ -39,7 +39,7 @@ const AppPricingCard = ({
   const searchParams = useSearchParams();
 
   const ref_id = searchParams.get("trxref") ?? "";
-  const { completeSubscription, createdSubscription } = useSubscription();
+  const { completeSubscription } = useSubscription();
 
   const verifySubscription = () => {
     const completedSubscriptionDto = {
@@ -51,13 +51,8 @@ const AppPricingCard = ({
     };
 
     completeSubscription(completedSubscriptionPayload);
+    router.push("/dashboard/startup");
   };
-
-  useEffect(() => {
-    if (createdSubscription) {
-      verifySubscription();
-    }
-  }, [createdSubscription]);
 
   const { createSubscription, response, creatingSubscription } =
     useSubscription();
@@ -83,6 +78,15 @@ const AppPricingCard = ({
       router.push(response?.authorization_url);
     }
   }, [response]);
+
+  useEffect(() => {
+    if (ref_id) {
+      console.log("soks");
+
+      verifySubscription();
+    }
+  }, []);
+
   return (
     <div
       className={`rounded-lg p-6 w-80 flex flex-col justify-between ${

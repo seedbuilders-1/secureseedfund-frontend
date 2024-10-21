@@ -10,8 +10,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import useUserAuth from "@/hooks/auth/useAuth";
 
 import WarningComponent from "@/components/cards/WarningComponent";
+
+import useProfile from "@/hooks/profile/useProfile";
+
 export default function StartupDashboard() {
   const { user } = useUserAuth();
+  const { userProfile } = useProfile();
   const { campaigns, loadingCampaigns } = useCampaign({
     id: user?.userId,
   });
@@ -42,11 +46,22 @@ export default function StartupDashboard() {
       <div className="p-4">
         <WarningComponent
           showLink={true}
-          title={`   Hello ${user?.firstName}, you are currently on the free plan which
-            allows you to set up and account with us, kindly upgrade to a paid
-            plan to enjoy more features.`}
-          linkTitle="Upgrade Now"
+          title={`Hello ${user?.firstName}, you are currently on the ${
+            userProfile?.subscription_plan
+          } plan which ${
+            userProfile?.subscription_plan === "premium"
+              ? "grants you access to all our premium features."
+              : userProfile?.subscription_plan === "basic"
+              ? "provides you with great features, but you can upgrade to premium to allow investors see your full profile."
+              : "allows you to set up an account with us. Kindly upgrade to a paid plan to enjoy more features."
+          }`}
+          linkTitle={
+            userProfile?.subscription_plan === "premium"
+              ? "View Plans"
+              : "Upgrade Now"
+          }
         />
+
         <div className="w-full gap-x-4 grid grid-cols-2 md:max-w-[900px] mx-auto">
           <StatCard>
             <div className="flex items-center justify-between   p-3 text-white md:h-[150px] md:justify-around">

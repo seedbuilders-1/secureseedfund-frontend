@@ -3,11 +3,13 @@
 import AppPricingCard from "@/components/cards/AppPricingCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useUserAuth from "@/hooks/auth/useAuth";
+import useProfile from "@/hooks/profile/useProfile";
 import React from "react";
 
 const Pricing = () => {
   const { user } = useUserAuth();
-  //   const router = useRouter();
+  const { userProfile } = useProfile();
+
   const freePlanFeatures: string[] = [
     "Navigate the web/mobile application",
     "Demo video on how it works",
@@ -32,6 +34,12 @@ const Pricing = () => {
     "Verified badge for investor readiness",
     "Upload milestones and traction",
   ];
+
+  const userCurrentPlan = userProfile?.subscription_plan;
+
+  const isCurrentPlan = (planName: string) => {
+    return userCurrentPlan === planName;
+  };
 
   return (
     <>
@@ -66,13 +74,14 @@ const Pricing = () => {
                 </TabsTrigger>
               </TabsList>
             </div>
+
             <TabsContent value="monthly">
               <div className="flex flex-col lg:flex-row gap-8">
                 <AppPricingCard
                   planName="Free Plan"
                   price="$0"
                   features={freePlanFeatures}
-                  isCurrentPlan={true}
+                  isCurrentPlan={isCurrentPlan("free")}
                   rate="month"
                 />
 
@@ -80,69 +89,71 @@ const Pricing = () => {
                   planName="Basic Plan"
                   price="$15"
                   features={basicPlanFeatures}
+                  isCurrentPlan={isCurrentPlan("basic")}
                   rate="month"
-                  isCurrentPlan={false}
                 />
 
                 <AppPricingCard
                   planName="Premium Plan"
                   price="$20"
                   features={premiumPlanFeatures}
+                  isCurrentPlan={isCurrentPlan("premium")}
                   rate="month"
-                  isCurrentPlan={false}
                 />
               </div>
             </TabsContent>
+
             <TabsContent value="6-months">
               <div className="flex flex-col lg:flex-row gap-8">
                 <AppPricingCard
                   planName="Free Plan"
                   price="$0"
                   features={freePlanFeatures}
+                  isCurrentPlan={isCurrentPlan("Free Plan")}
                   rate="6-months"
-                  isCurrentPlan={true}
                 />
 
                 <AppPricingCard
                   planName="Basic Plan"
                   price="$90"
                   features={basicPlanFeatures}
+                  isCurrentPlan={isCurrentPlan("basic")}
                   rate="6-months"
-                  isCurrentPlan={false}
                 />
 
                 <AppPricingCard
                   planName="Premium Plan"
                   price="$100"
                   features={premiumPlanFeatures}
+                  isCurrentPlan={isCurrentPlan("premium")}
                   rate="6-months"
-                  isCurrentPlan={false}
                 />
               </div>
             </TabsContent>
+
             <TabsContent value="yearly">
               <div className="flex flex-col md:flex-row gap-8">
                 <AppPricingCard
                   planName="Free Plan"
                   price="$0"
                   features={freePlanFeatures}
+                  isCurrentPlan={isCurrentPlan("free")}
                   rate="year"
-                  isCurrentPlan={true}
                 />
 
                 <AppPricingCard
-                  planName="Free Plan"
+                  planName="Basic Plan"
                   price="$180"
                   features={basicPlanFeatures}
+                  isCurrentPlan={isCurrentPlan("basic")}
                   rate="year"
-                  isCurrentPlan={false}
                 />
 
                 <AppPricingCard
-                  planName="Free Plan"
+                  planName="Premium Plan"
                   price="$200"
                   features={premiumPlanFeatures}
-                  isCurrentPlan={false}
+                  isCurrentPlan={isCurrentPlan("premium")}
                   rate="year"
                 />
               </div>
