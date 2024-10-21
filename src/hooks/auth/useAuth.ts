@@ -51,9 +51,6 @@ const useUserAuth = () => {
           refreshToken: refreshToken,
         })
       );
-      if (res.accountType === "startup") {
-        console.log("ell");
-      }
     } catch (err: any) {
       toast({
         variant: "destructive",
@@ -66,7 +63,7 @@ const useUserAuth = () => {
 
   const registerUser = async (values: RegisterUserRequestType) => {
     try {
-      await register(values).unwrap();
+      const res = await register(values).unwrap();
     } catch (err: any) {
       toast({
         variant: "destructive",

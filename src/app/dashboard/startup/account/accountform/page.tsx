@@ -11,15 +11,26 @@ import FundingInformation from "../components/FundingInformation";
 import Review from "../components/Review";
 import { FileWithPath } from "react-dropzone";
 
+
+interface UploadFiles {
+  businessPlan: FileWithPath | null;
+  pitchDeck: FileWithPath | null;
+  demoVideo: FileWithPath | null;
+  companyLogo: FileWithPath | null;
+  companyRegistration: FileWithPath | null;
+}
+
+
 export default function AccountForm() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [files, setFiles] = useState<Record<string, FileWithPath | null>>({
+  const [files, setFiles] = useState<UploadFiles>({
     businessPlan: null,
     pitchDeck: null,
     demoVideo: null,
     companyLogo: null,
     companyRegistration: null,
   });
+  const [currentStep, setCurrentStep] = useState(4);
+
   const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(
     null
   );

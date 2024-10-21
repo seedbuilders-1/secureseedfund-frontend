@@ -95,7 +95,7 @@ const FounderInformation = ({
   };
 
   const onSubmit = (values: FounderValidation) => {
-    if (!profileImageFile) {
+    if (!profileImageFile && !selectedImage) {
       toast({
         variant: "destructive",
         title: "Please upload a profile image.",
@@ -112,8 +112,9 @@ const FounderInformation = ({
     createFounderDto.append("founderEducationHistory", values.education);
     createFounderDto.append("founderPhone", values.phonenumber);
     createFounderDto.append("founderLinkdln", values.linkedinprofile);
-    createFounderDto.append("profileImage", profileImageFile as File);
-
+    if (profileImageFile) {
+      createFounderDto.append("profileImage", profileImageFile as File);
+    }
     createFounderDto.append("founderExperience", values.experience);
     const payload = {
       creatorId,
@@ -168,7 +169,7 @@ const FounderInformation = ({
               onSubmit={form.handleSubmit(onSubmit)}
               className="md:w-[700px] sm:w-[500px]"
             >
-              <div className="flex justify-center relative w-fit items-center flex-col mx-auto border">
+              <div className="flex justify-center relative w-fit items-center flex-col mx-auto ">
                 <label htmlFor="profileImage" style={{ cursor: "pointer" }}>
                   <Image
                     src={selectedImage || UserEmptyState}

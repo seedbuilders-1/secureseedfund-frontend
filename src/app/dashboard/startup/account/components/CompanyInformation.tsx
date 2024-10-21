@@ -150,7 +150,6 @@ const CompanyInformation = ({
       creatorId,
       createCompanyInformationDto,
     };
-    // handleNext();
     createCompanyInformation(payload);
   };
 

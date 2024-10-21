@@ -21,7 +21,7 @@ const Wallet = () => {
   };
 
   return (
-    <div className="w-full mt-10 md:max-w-6xl md:m-auto md:mt-9">
+    <div className="w-full p-4 mt-10 md:max-w-6xl md:m-auto md:mt-9">
       <StatCard>
         <div className="flex items-center justify-between p-3 text-white md:h-[150px] md:justify-around ">
           <div className="">

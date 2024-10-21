@@ -8,22 +8,20 @@ import Milestones from "./components/Milestones";
 import useCampaign from "./hooks/useCampaign";
 import { Skeleton } from "@/components/ui/skeleton";
 import useUserAuth from "@/hooks/auth/useAuth";
+
 import WarningComponent from "@/components/cards/WarningComponent";
-import { CampaignsControllerFindOneApiArg } from "@/generated/service/campaign";
+
 import useProfile from "@/hooks/profile/useProfile";
-export default function StartupDashboard({
-  params,
-}: {
-  params: { startupid: string };
-}) {
+
+export default function StartupDashboard() {
   const { user } = useUserAuth();
   const { userProfile } = useProfile();
   const { campaigns, loadingCampaigns } = useCampaign({
     id: user?.userId,
-  } as CampaignsControllerFindOneApiArg);
+  });
+
   const currentCampaign =
     campaigns && campaigns?.items[campaigns?.items.length - 1];
-
   if (loadingCampaigns) {
     return (
       <div className="w-full mt-[2rem]">
@@ -73,7 +71,7 @@ export default function StartupDashboard({
                 </h2>
                 <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
                   {" "}
-                  {`N${thousandFormatter(20000)}`}
+                  {`₦ ${thousandFormatter(20000)}`}
                 </span>
               </div>
               <div className="bg-[#F3FFDE] p-2 rounded-full  ">
@@ -93,7 +91,7 @@ export default function StartupDashboard({
                   Total Funds Raised
                 </h2>
                 <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
-                  {`N${thousandFormatter(20000)}`}
+                  {`₦${thousandFormatter(20000)}`}
                 </span>
               </div>
               <div className="bg-[#F3FFDE] p-2 rounded-full  ">

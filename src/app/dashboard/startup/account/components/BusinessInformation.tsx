@@ -58,6 +58,7 @@ const BusinessInformation = ({ handleNext, handleBack }: Props) => {
       business_customer_acqui_cost: parseInt(values.customeracquisitioncost),
       business_current_users: parseInt(values.numberofcurrentusers),
       business_monthly_recur_expense: parseInt(values.monthlyrecurringexpense),
+      business_monthly_recur_revenue: 100,
       business_model_desc: values.businessmodeldescription,
     };
     const payload = {

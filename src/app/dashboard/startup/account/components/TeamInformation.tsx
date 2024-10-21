@@ -55,7 +55,6 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
       creatorId,
       createTeamDto,
     };
-    console.log(values);
     createTeamInformation(payload);
   };
 

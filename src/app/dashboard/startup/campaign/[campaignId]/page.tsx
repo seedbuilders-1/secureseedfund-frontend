@@ -18,8 +18,6 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
     id: campaignId as string,
   });
 
-  console.log(singleCampaign);
-
   return (
     <>
       <div className="px-4 sm:px-8 lg:px-32 py-4 bg-gray-100 min-h-screen">
