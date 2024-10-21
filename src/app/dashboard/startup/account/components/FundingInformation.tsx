@@ -278,7 +278,7 @@ const FundingInformation = ({
                     <FormControl>
                       <Input
                         className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
-                        type="number"
+                        type="text"
                         {...field}
                       />
                     </FormControl>

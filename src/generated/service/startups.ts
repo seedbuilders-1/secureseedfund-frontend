@@ -1,6 +1,12 @@
 import { emptySplitApi as api } from "../emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
+    startupControllerGetAllStartups: build.query<
+      StartupControllerGetAllStartupsApiResponse,
+      StartupControllerGetAllStartupsApiArg
+    >({
+      query: () => ({ url: `/startups/all` }),
+    }),
     startupControllerCreateTeamInformation: build.mutation<
       StartupControllerCreateTeamInformationApiResponse,
       StartupControllerCreateTeamInformationApiArg
@@ -71,6 +77,9 @@ const injectedRtkApi = api.injectEndpoints({
   overrideExisting: false,
 });
 export { injectedRtkApi as api };
+export type StartupControllerGetAllStartupsApiResponse =
+  /** status 200  */ Startup[];
+export type StartupControllerGetAllStartupsApiArg = void;
 export type StartupControllerCreateTeamInformationApiResponse =
   /** status 201  */ string;
 export type StartupControllerCreateTeamInformationApiArg = {
@@ -112,94 +121,6 @@ export type StartupControllerGetStartupByUserIdApiResponse =
 export type StartupControllerGetStartupByUserIdApiArg = {
   userId: string;
 };
-export type CreateTeamDto = {
-  team_cofounder_title: string;
-  team_cofounder_firstName: string;
-  team_cofounder_linkdln: string;
-  team_members: number;
-  team_cofounder_lastName: string;
-  team_cofounder_email: string;
-  team_cofounder_education: string;
-  team_cofounder_phone: string;
-  team_cofounder_experience: string;
-  team_details: string;
-  team_primary_base: string;
-};
-export type CreateBusinessInformationDto = {
-  business_stage: string;
-  business_model: "B2B" | "B2C" | "B2G" | "B2G" | "C2B" | "C2C";
-  business_revenue_channel: string;
-  business_market_size: number;
-  business_past_revenue_generated: number;
-  business_customer_acqui_cost: number;
-  business_current_users: number;
-  business_monthly_recur_expense: number;
-  business_monthly_recur_revenue: number;
-  business_model_desc: string;
-};
-export type CreateFounderDto = {
-  profileImage?: Blob;
-  founderTitle: string;
-  founderGender: string;
-  founderFirstname: string;
-  founderLastname: string;
-  founderEmail: string;
-  founderEducationHistory: string;
-  founderPhone: string;
-  founderLinkdln?: string;
-  founderExperience: string;
-};
-export type CreateCompanyInformationDto = {
-  company_business_plan?: Blob;
-  company_pitchDeck?: Blob;
-  company_video?: Blob;
-  company_logo?: Blob;
-  company_cac?: Blob;
-  company_name: string;
-  company_email: string;
-  company_address: string;
-  company_website: string;
-  company_industry: string;
-  company_phone: string;
-  company_city: string;
-  company_geography: string;
-  company_desc: string;
-  company_bullet_point: string;
-};
-export type CreateFundingInformationDto = {
-  financial_statement?: Blob;
-  external_funding: boolean;
-  external_funds_Value: number;
-  rationale_valuation: string;
-  previous_fundraise: number;
-  funding_history_desc: string;
-  funds_use: string;
-  collected_loans: boolean;
-  loan_desc: string;
-  incubator_program: boolean;
-  incubator_program_desc: string;
-  campaign_type:
-    | "EQUITY"
-    | "DEBT"
-    | "REWARD"
-    | "REVENUE_SHARE"
-    | "GRANTS"
-    | "ROI"
-    | "SAFE"
-    | "OTHERS";
-  raise_period: string;
-  about_secure_seedFund: string;
-};
-export type UpdateNewCompanyInformationDto = {
-  company_business_plan?: Blob;
-  company_pitchDeck?: Blob;
-  company_video?: Blob;
-  profileImage?: Blob;
-  company_address: string;
-  company_website: string;
-  company_desc: string;
-  company_bullet_point: string;
-};
 export type Milestone = {
   campaign: Campaign;
   milestoneTitle: string;
@@ -235,6 +156,64 @@ export type Campaign = {
   createdAt: string;
   updatedAt: string;
 };
+export type Investor = {
+  user: User;
+  investor_phonenumber: string;
+  investor_nationality: string;
+  investor_country_residence: string;
+  investor_residence_city: string;
+  investor_status: string;
+  investor_image: string;
+  investor_type:
+    | "EQUITY"
+    | "DEBT"
+    | "REWARD"
+    | "REVENUE_SHARE"
+    | "GRANTS"
+    | "ROI"
+    | "SAFE"
+    | "OTHERS";
+  investor_annual_income: string;
+  investor_investment_duration: string;
+  investor_investment_goal: string;
+  investor_experience: string;
+  investor_liquidity_importance: string;
+  is_completed_info: boolean;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+export type Institution = {
+  user: User;
+  institution_name: string;
+  institution_reg_number: string;
+  institution_address: string;
+  institution_website: string;
+  institution_industry_of_interest: string;
+  institution_funding_type:
+    | "EQUITY"
+    | "DEBT"
+    | "REWARD"
+    | "REVENUE_SHARE"
+    | "GRANTS"
+    | "ROI"
+    | "SAFE"
+    | "OTHERS";
+  institution_funding_size: string;
+  is_completed_info: boolean;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+export type Wallet = {
+  user: User;
+  balance: number;
+  last_transaction_ref: string;
+  last_transaction_type: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export type User = {
   email: string;
   firstName: string;
@@ -251,6 +230,10 @@ export type User = {
   createdAt: string;
   updatedAt: string;
   campaigns?: Campaign[];
+  startup: Startup;
+  investor: Investor;
+  institution: Institution;
+  wallet: Wallet;
   id: string;
 };
 export type BusinessInformation = {
@@ -365,7 +348,96 @@ export type Startup = {
   createdAt: string;
   updatedAt: string;
 };
+export type CreateTeamDto = {
+  team_cofounder_title: string;
+  team_cofounder_firstName: string;
+  team_cofounder_linkdln: string;
+  team_members: number;
+  team_cofounder_lastName: string;
+  team_cofounder_email: string;
+  team_cofounder_education: string;
+  team_cofounder_phone: string;
+  team_cofounder_experience: string;
+  team_details: string;
+  team_primary_base: string;
+};
+export type CreateBusinessInformationDto = {
+  business_stage: string;
+  business_model: "B2B" | "B2C" | "B2G" | "B2G" | "C2B" | "C2C";
+  business_revenue_channel: string;
+  business_market_size: number;
+  business_past_revenue_generated: number;
+  business_customer_acqui_cost: number;
+  business_current_users: number;
+  business_monthly_recur_expense: number;
+  business_monthly_recur_revenue: number;
+  business_model_desc: string;
+};
+export type CreateFounderDto = {
+  profileImage?: Blob;
+  founderTitle: string;
+  founderGender: string;
+  founderFirstname: string;
+  founderLastname: string;
+  founderEmail: string;
+  founderEducationHistory: string;
+  founderPhone: string;
+  founderLinkdln?: string;
+  founderExperience: string;
+};
+export type CreateCompanyInformationDto = {
+  company_business_plan?: Blob;
+  company_pitchDeck?: Blob;
+  company_video?: Blob;
+  company_logo?: Blob;
+  company_cac?: Blob;
+  company_name: string;
+  company_email: string;
+  company_address: string;
+  company_website: string;
+  company_industry: string;
+  company_phone: string;
+  company_city: string;
+  company_geography: string;
+  company_desc: string;
+  company_bullet_point: string;
+};
+export type CreateFundingInformationDto = {
+  financial_statement?: Blob;
+  external_funding: boolean;
+  external_funds_Value: number;
+  rationale_valuation: string;
+  previous_fundraise: number;
+  funding_history_desc: string;
+  funds_use: string;
+  collected_loans: boolean;
+  loan_desc: string;
+  incubator_program: boolean;
+  incubator_program_desc: string;
+  campaign_type:
+    | "EQUITY"
+    | "DEBT"
+    | "REWARD"
+    | "REVENUE_SHARE"
+    | "GRANTS"
+    | "ROI"
+    | "SAFE"
+    | "OTHERS";
+  raise_period: string;
+  about_secure_seedFund: string;
+};
+export type UpdateNewCompanyInformationDto = {
+  company_business_plan?: Blob;
+  company_pitchDeck?: Blob;
+  company_video?: Blob;
+  profileImage?: Blob;
+  company_address: string;
+  company_website: string;
+  company_desc: string;
+  company_bullet_point: string;
+};
 export const {
+  useStartupControllerGetAllStartupsQuery,
   useStartupControllerCreateTeamInformationMutation,
   useStartupControllerCreateBusinessInformationMutation,
   useStartupControllerCreateFounderMutation,
