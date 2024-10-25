@@ -1,7 +1,7 @@
 import type { ConfigFile } from "@rtk-query/codegen-openapi";
 
 const config: ConfigFile = {
-  schemaFile: "https://web-production-40ac.up.railway.app.com/swagger-json",
+  schemaFile: "http://web-production-40ac.up.railway.app/swagger-json",
   apiFile: "./src/generated/emptyApi.ts",
   apiImport: "emptySplitApi",
   outputFiles: {
@@ -20,6 +20,10 @@ const config: ConfigFile = {
     "./src/generated/service/users.ts": {
       filterEndpoints: (endpointName) =>
         endpointName.toLowerCase().startsWith("users"),
+    },
+    "./src/generated/service/investors.ts": {
+      filterEndpoints: (endpointName) =>
+        endpointName.toLowerCase().startsWith("investor"),
     },
   },
   exportName: "api",

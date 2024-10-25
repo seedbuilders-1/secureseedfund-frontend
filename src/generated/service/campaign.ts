@@ -89,10 +89,13 @@ export type CampaignsControllerUpdateApiArg = {
   id: string;
   updateCampaignDto: UpdateCampaignDto;
 };
-export type CreateMilestoneDto = {
+export type MilestoneDto = {
   milestoneTitle: string;
   milestoneDescription: string;
   targetAmount: number;
+  is_completed: boolean;
+  proof: string;
+  status: string;
   date: string;
 };
 export type CreateCampaignDto = {
@@ -100,7 +103,7 @@ export type CreateCampaignDto = {
   creator_id: string;
   startDate: string;
   endDate?: string;
-  milestones: CreateMilestoneDto[];
+  milestones: MilestoneDto[];
   description: string;
   fundingGoal: number;
   campaignType:
@@ -112,6 +115,12 @@ export type CreateCampaignDto = {
     | "ROI"
     | "SAFE"
     | "OTHERS";
+};
+export type CreateMilestoneDto = {
+  milestoneTitle: string;
+  milestoneDescription: string;
+  targetAmount: number;
+  date: string;
 };
 export type CampaignDto = {
   title: string;

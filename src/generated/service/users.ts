@@ -18,6 +18,8 @@ export type Milestone = {
   milestoneTitle: string;
   milestoneDescription: string;
   targetAmount: number;
+  is_completed: boolean;
+  proof?: string;
   status?: string;
   date: string;
   id: string;
@@ -51,11 +53,14 @@ export type CompanyInformation = {
   company_geography: string;
   company_desc: string;
   company_bullet_point: string;
+  company_incorporated_in: string;
+  company_incorporation_year: string;
   company_business_plan: string;
   company_pitchDeck: string;
   company_video: string;
   company_logo: string;
   company_cac: string;
+  company_cover_photo?: string;
   startup: Startup;
   id: string;
   createdAt: string;
@@ -160,24 +165,6 @@ export type Campaign = {
   createdAt: string;
   updatedAt: string;
 };
-export type User = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  othername?: string;
-  phone: string;
-  is_verified?: boolean;
-  subscription_plan: "free" | "basic" | "premium";
-  hash?: string;
-  photo?: string;
-  email_verified: boolean;
-  role: "USER" | "ADMIN";
-  accountType: "startup" | "investor" | "institution";
-  createdAt: string;
-  updatedAt: string;
-  campaigns?: Campaign[];
-  id: string;
-};
 export type Investor = {
   user: User;
   investor_phonenumber: string;
@@ -227,6 +214,39 @@ export type Institution = {
   createdAt: string;
   updatedAt: string;
 };
+export type User = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  othername?: string;
+  phone: string;
+  is_verified?: boolean;
+  subscription_plan: "free" | "basic" | "premium";
+  hash?: string;
+  photo?: string;
+  email_verified: boolean;
+  role: "USER" | "ADMIN";
+  accountType: "startup" | "investor" | "institution";
+  createdAt: string;
+  updatedAt: string;
+  campaigns?: Campaign[];
+  startup: Startup;
+  investor: Investor;
+  institution: Institution;
+  wallet: Wallet;
+  id: string;
+};
+export type Wallet = {
+  user: User;
+  balance: string;
+  total_withdrawn: string;
+  total_deposited: string;
+  last_transaction_ref: string;
+  last_transaction_type: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export type UserDto = {
   id: string;
   email: string;
@@ -239,9 +259,10 @@ export type UserDto = {
   phone: string;
   accountType: "startup" | "investor" | "institution";
   subscription_plan: "free" | "basic" | "premium";
-  role: "USER" | "ADMIN";
   createdAt: string;
   updatedAt: string;
+  wallet: Wallet;
+  role: "USER" | "ADMIN";
   hash: string;
   investor: Investor;
   startup: Startup;
