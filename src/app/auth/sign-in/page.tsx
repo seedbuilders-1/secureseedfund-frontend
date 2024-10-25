@@ -18,7 +18,8 @@ import linkednin from "../../../../public/assets/icons/icons8-linkedin.svg";
 import google from "../../../../public/assets/icons/icons8-google.svg";
 import Image from "next/image";
 import { Fragment } from "react";
-
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import authLogo from "../../../../public/assets/images/authLogo.png";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SignUpPage from "../sign-up/page";
@@ -28,6 +29,7 @@ const SignInPage = () => {
     resolver: zodResolver(SignInSchema),
   });
   const { loginUser, loading } = useUserAuth();
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (values: SignInValidation) => {
     const { email, password } = values;
@@ -103,11 +105,23 @@ const SignInPage = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="Password"
-                            {...field}
-                          />
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              placeholder="Password"
+                              {...field}
+                            />
+                            <div
+                              className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                              onClick={() => setShowPassword(!showPassword)}
+                            >
+                              {showPassword ? (
+                                <EyeOff className="h-4 w-4 text-gray-400" />
+                              ) : (
+                                <Eye className="h-4 w-4 text-gray-400" />
+                              )}
+                            </div>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>

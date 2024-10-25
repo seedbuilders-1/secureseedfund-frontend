@@ -11,6 +11,7 @@ interface UploadComponentProps {
   accept?: Accept;
   maxSize?: number;
   label?: string;
+  previewUrl?: string;
 }
 
 const UploadComponent: React.FC<UploadComponentProps> = ({
@@ -22,10 +23,31 @@ const UploadComponent: React.FC<UploadComponentProps> = ({
     "application/pdf": [".pdf"],
     "video/*": [".mp4", ".avi", ".mov"],
   },
-  maxSize = 5 * 1024 * 1024, // 5MB default
+  maxSize = 5 * 1024 * 1024,
   label = "Upload File",
+  previewUrl,
 }) => {
   const renderFilePreview = () => {
+    if (previewUrl) {
+      if (previewUrl.endsWith(".pdf")) {
+        return <FaFilePdf size={50} className="text-red-500" />;
+      }
+      if (
+        previewUrl.endsWith(".mp4") ||
+        previewUrl.endsWith(".avi") ||
+        previewUrl.endsWith(".mov")
+      ) {
+        return <MdVideoLibrary size={50} className="text-blue-500" />;
+      }
+      return (
+        <img
+          src={previewUrl}
+          alt="Uploaded"
+          className="max-w-full max-h-[200px] object-contain"
+        />
+      );
+    }
+
     if (file) {
       if (file.type === "application/pdf") {
         return <FaFilePdf size={50} className="text-red-500" />;
@@ -43,6 +65,7 @@ const UploadComponent: React.FC<UploadComponentProps> = ({
         );
       }
     }
+
     return <PiFilesThin className="w-[42px] h-[32px] text-gray-400" />;
   };
 
@@ -75,7 +98,6 @@ const UploadComponent: React.FC<UploadComponentProps> = ({
                 Drag & Drop or{" "}
                 <span className="text-[#6C8C3C]">Click to upload</span>
               </p>
-              <h2 className="text-[#747474] text-[16px]">{label}</h2>
               <p className="text-[12px] text-[#747474] mt-2">
                 Max size: {(maxSize / 1024 / 1024).toFixed(2)}MB
               </p>
@@ -83,9 +105,10 @@ const UploadComponent: React.FC<UploadComponentProps> = ({
           </div>
         )}
       </Dropzone>
-      {file && (
+      {(file || !previewUrl) && (
         <p className="mt-2 text-sm truncate max-w-full">
-          {file.name} ({(file.size / 1024 / 1024).toFixed(2)}MB)
+          {file?.name || "Uploaded File"} (
+          {((file?.size as number) / 1024 / 1024).toFixed(2) || "N/A"}MB)
         </p>
       )}
     </div>

@@ -120,6 +120,7 @@ const FounderInformation = ({
       creatorId,
       createFounderDto,
     };
+    // @ts-ignore
     createFounderInformation(payload);
   };
   useEffect(() => {

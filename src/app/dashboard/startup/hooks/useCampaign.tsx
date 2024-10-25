@@ -1,28 +1,25 @@
-import {
-  api,
-  CampaignsControllerCreateApiArg,
-  CampaignsControllerFindOneApiArg,
-} from "@/generated/service/campaign";
+import { CampaignsControllerCreateApiArg } from "@/generated/service/campaigns/campaign";
+import { api } from "@/generated/service/campaigns/enhancedcampaign";
 import { useToast } from "@/components/ui/use-toast";
 
-const useCampaign = (
-  campaignId?: CampaignsControllerFindOneApiArg,
-  userid?: string
-) => {
+interface Props {
+  campaignIdParam?: string;
+  userId?: string;
+}
+const useCampaign = ({ campaignIdParam, userId }: Props) => {
   const { data: campaigns, isLoading: loadingCampaigns } =
     api.useCampaignsControllerFindAllQuery({
       page: 1,
       limit: 10,
-      userId: userid as string,
+      userId,
       keyword: "",
       campaignId: "",
       campaignType: "",
     });
-
   const { data: singleCampaign, isLoading: loadingSingleCampaign } =
-    api.useCampaignsControllerFindOneQuery(
-      campaignId as CampaignsControllerFindOneApiArg
-    );
+    api.useCampaignsControllerFindOneQuery({
+      campaignId: campaignIdParam as string,
+    });
   const [
     createCampaignStart,
     { isLoading: createCampaignLoading, isSuccess: createdCampaign },

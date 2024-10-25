@@ -8,18 +8,14 @@ import Milestones from "./components/Milestones";
 import useCampaign from "./hooks/useCampaign";
 import { Skeleton } from "@/components/ui/skeleton";
 import useUserAuth from "@/hooks/auth/useAuth";
-
 import WarningComponent from "@/components/cards/WarningComponent";
-
 import useProfile from "@/hooks/profile/useProfile";
 
 export default function StartupDashboard() {
   const { user } = useUserAuth();
   const { userProfile } = useProfile();
-  const { campaigns, loadingCampaigns } = useCampaign({
-    id: user?.userId,
-  });
-
+  const userId = user?.userId;
+  const { campaigns, loadingCampaigns } = useCampaign({ userId });
   const currentCampaign =
     campaigns && campaigns?.items[campaigns?.items.length - 1];
   if (loadingCampaigns) {
@@ -106,7 +102,7 @@ export default function StartupDashboard() {
           </StatCard>
         </div>
       </div>
-      <div className="mt-[3rem] w-full mx-auto gap-8 grid grid-cols-[1fr] gap-x-4 md:grid-cols-2 lg:grid-cols-3 p-4">
+      <div className="mt-[3rem] w-full mx-auto gap-8 p-4 grid grid-cols-[1fr] gap-x-4 md:grid-cols-2 lg:grid-cols-3 lg:p-8">
         <div>
           <h3 className="text-[1rem] md:text-[1.5rem] font-medium">
             {" "}

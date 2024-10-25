@@ -26,7 +26,7 @@ const WalletCards: React.FC<WalletCardsProps> = ({
   };
 
   return (
-    <div className="w-full mt-10 md:max-w-6xl md:m-auto md:mt-9">
+    <div className="w-full mt-10 md:max-w-6xl md:m-auto md:mt-9 p-5">
       <StatCard>
         <div className="flex items-center justify-between p-3 text-white md:h-[150px] md:justify-around">
           <div className="">

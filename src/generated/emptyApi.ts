@@ -10,7 +10,6 @@ import {
 import { cacher } from "../services/api/rtkQueryCacheUtils";
 import { RootState } from "@/redux/store";
 import { logout, setCredentials } from "@/redux/auth/reducer";
-
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
   responseHandler: async (response) => {
@@ -45,7 +44,13 @@ const baseQueryWithReauth: BaseQueryFn<
     const refreshToken = (api.getState() as RootState).auth.refreshToken;
 
     const refreshResult: any = await baseQuery(
-      { url: "/auth/refreshtoken", method: "POST", body: refreshToken },
+      {
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh-token`,
+        method: "POST",
+        body: {
+          refreshToken: refreshToken,
+        },
+      },
       api,
       extraOptions
     );

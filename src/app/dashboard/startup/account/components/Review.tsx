@@ -18,7 +18,6 @@ interface Files {
 }
 
 interface Props {
-  files: Files;
   financialFile: FileWithPath | null;
   setStep: (x: number) => void;
   handleBack: () => void;
@@ -29,7 +28,6 @@ const Review = ({
   fundingDetails,
   setStep,
   financialFile,
-  files,
 }: Props) => {
   const { user } = useUserAuth();
   const creatorId = user?.userId as string;
@@ -101,9 +99,18 @@ const Review = ({
       creatorId,
       createFundingInformationDto,
     };
-
+    // @ts-ignore
     createFundingInformation(payload);
   };
+
+  const pitchDeckUrl = accountInformation?.companyInformation
+    .company_pitchDeck as string;
+  const companyRegistration = accountInformation?.companyInformation
+    .company_cac as string;
+  const businessPlan = accountInformation?.companyInformation
+    .company_business_plan as string;
+  const demoVideo = accountInformation?.companyInformation
+    .company_video as string;
 
   return (
     <>
@@ -113,7 +120,12 @@ const Review = ({
         </h2>
         <h3 className="text-[#747474] text-[16px] mt-3 text-center">
           Make sure to carefully go over the answers provided and make necessary
-          changes before submissionon
+          changes before submission,
+          <br />
+          {""}{" "}
+          <span className="text-[#0F172A] font-[500] text-[1.1rem]">
+            once submitted some information cannot be changed.
+          </span>
         </h3>
         <div className="w-[300px] h-[300px] mx-auto">
           <Image
@@ -305,23 +317,20 @@ const Review = ({
 
             <div className="mt-[1.5rem]">
               <h2> Uploaded Business plan</h2>
-              <UploadPreview file={files.businessPlan} />
+              <UploadPreview previewUrl={businessPlan} />
             </div>
 
             <div>
               <h2> Uploaded Pitch Deck</h2>
-              <UploadPreview file={files.pitchDeck} />
+              <UploadPreview previewUrl={pitchDeckUrl} />
             </div>
             <div>
               <h2> Upload 5-minute demo video:</h2>
-            </div>
-            <div>
-              <h2> Upload 5-minute demo video:</h2>
-              <UploadPreview file={files.demoVideo} />
+              <UploadPreview previewUrl={demoVideo} />
             </div>
             <div>
               <h2> Upload Evidence of Company Registration:</h2>
-              <UploadPreview file={files.companyRegistration} />
+              <UploadPreview previewUrl={companyRegistration} />
             </div>
             <div
               onClick={() => setStep(3)}

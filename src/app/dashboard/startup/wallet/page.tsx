@@ -6,7 +6,7 @@ import { FaRegCopy } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { AiOutlineMinus } from "react-icons/ai";
-import TranscationHistory from "../components/TranscationHistory";
+import TranscationHistory from "../../investor/wallet/components/TranscationHistory";
 import Image from "next/image";
 
 const Wallet = () => {

@@ -5,8 +5,8 @@ import {
   StartupControllerCreateBusinessInformationApiArg,
   StartupControllerUpdateCompanyInformationApiArg,
   StartupControllerCreateFundingInformationApiArg,
-} from "@/generated/service/startups";
-import { api } from "@/generated/service/startups";
+} from "@/generated/service/startups/startups";
+import { api } from "@/generated/service/startups/enhancedstartup";
 import { useToast } from "@/components/ui/use-toast";
 
 const useAccount = (creatorId?: string) => {
@@ -41,10 +41,13 @@ const useAccount = (creatorId?: string) => {
     { isLoading: isCreatingTeamInformation, isSuccess: createdTeamInfo },
   ] = api.useStartupControllerCreateTeamInformationMutation();
 
-  const { data: accountInformation, isLoading: loadingAccountInformation } =
-    api.useStartupControllerGetStartupByUserIdQuery({
-      userId: creatorId as string,
-    });
+  const {
+    data: accountInformation,
+    isLoading: loadingAccountInformation,
+    refetch,
+  } = api.useStartupControllerGetStartupByUserIdQuery({
+    userId: creatorId as string,
+  });
 
   const { toast } = useToast();
   const createFounderInformation = async (
@@ -131,6 +134,7 @@ const useAccount = (creatorId?: string) => {
   ) => {
     try {
       await createFundingInformationStart(values).unwrap();
+      refetch();
     } catch (err: any) {
       console.log(err);
       toast({
@@ -147,9 +151,12 @@ const useAccount = (creatorId?: string) => {
   ) => {
     try {
       await updateAccountSettingsStart(values).unwrap();
+      refetch();
       toast({
-        variant: "default",
+        className:
+          "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
         title: "Account Updated",
+        variant: "default",
       });
     } catch (err: any) {
       console.log(err);

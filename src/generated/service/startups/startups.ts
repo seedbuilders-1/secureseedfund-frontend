@@ -1,4 +1,4 @@
-import { emptySplitApi as api } from "../emptyApi";
+import { emptySplitApi as api } from "../../emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     startupControllerCreateTeamInformation: build.mutation<

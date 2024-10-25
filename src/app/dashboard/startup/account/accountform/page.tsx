@@ -10,6 +10,7 @@ import BusinessInformation from "../components/BusinessInformation";
 import FundingInformation from "../components/FundingInformation";
 import Review from "../components/Review";
 import { FileWithPath } from "react-dropzone";
+import useUserAuth from "@/hooks/auth/useAuth";
 
 interface UploadFiles {
   businessPlan: FileWithPath | null;
@@ -70,6 +71,7 @@ export default function AccountForm() {
     "Funding Information",
     "Review & Submit",
   ];
+  const { user } = useUserAuth();
 
   return (
     <>
@@ -118,7 +120,6 @@ export default function AccountForm() {
               fundingDetails={fundingDetails}
               handleBack={handleBack}
               setStep={setCurrentStep}
-              files={files}
             />
           )}
         </div>
