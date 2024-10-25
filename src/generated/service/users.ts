@@ -18,8 +18,6 @@ export type Milestone = {
   milestoneTitle: string;
   milestoneDescription: string;
   targetAmount: number;
-  is_completed: boolean;
-  proof?: string;
   status?: string;
   date: string;
   id: string;
@@ -165,33 +163,6 @@ export type Campaign = {
   createdAt: string;
   updatedAt: string;
 };
-export type Investor = {
-  user: User;
-  investor_phonenumber: string;
-  investor_nationality: string;
-  investor_country_residence: string;
-  investor_residence_city: string;
-  investor_status: string;
-  investor_image: string;
-  investor_type:
-    | "EQUITY"
-    | "DEBT"
-    | "REWARD"
-    | "REVENUE_SHARE"
-    | "GRANTS"
-    | "ROI"
-    | "SAFE"
-    | "OTHERS";
-  investor_annual_income: string;
-  investor_investment_duration: string;
-  investor_investment_goal: string;
-  investor_experience: string;
-  investor_liquidity_importance: string;
-  is_completed_info: boolean;
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-};
 export type Institution = {
   user: User;
   institution_name: string;
@@ -210,6 +181,15 @@ export type Institution = {
     | "OTHERS";
   institution_funding_size: string;
   is_completed_info: boolean;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+export type Wallet = {
+  user: User;
+  balance: number;
+  last_transaction_ref: string;
+  last_transaction_type: string;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -236,13 +216,29 @@ export type User = {
   wallet: Wallet;
   id: string;
 };
-export type Wallet = {
+export type Investor = {
   user: User;
-  balance: string;
-  total_withdrawn: string;
-  total_deposited: string;
-  last_transaction_ref: string;
-  last_transaction_type: string;
+  investor_phonenumber: string;
+  investor_nationality: string;
+  investor_country_residence: string;
+  investor_residence_city: string;
+  investor_status: string;
+  investor_image: string;
+  investor_type:
+    | "EQUITY"
+    | "DEBT"
+    | "REWARD"
+    | "REVENUE_SHARE"
+    | "GRANTS"
+    | "ROI"
+    | "SAFE"
+    | "OTHERS";
+  investor_annual_income: string;
+  investor_investment_duration: string;
+  investor_investment_goal: string;
+  investor_experience: string;
+  investor_liquidity_importance: string;
+  is_completed_info: boolean;
   id: string;
   createdAt: string;
   updatedAt: string;

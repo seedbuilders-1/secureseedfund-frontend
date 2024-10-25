@@ -200,6 +200,117 @@ export type CreateCompanyInformationDto = {
   company_video?: Blob;
   company_logo?: Blob;
   company_cac?: Blob;
+  company_name: string;
+  company_email: string;
+  company_address: string;
+  company_website: string;
+  company_industry: string;
+  company_phone: string;
+  company_city: string;
+  company_geography: string;
+  company_desc: string;
+  company_bullet_point: string;
+  company_incorporated_in: string;
+  company_incorporation_year: string;
+};
+export type CreateFundingInformationDto = {
+  financial_statement?: Blob;
+  external_funding: boolean;
+  external_funds_Value: number;
+  rationale_valuation: string;
+  previous_fundraise: number;
+  funding_history_desc: string;
+  funds_use: string;
+  collected_loans: boolean;
+  loan_desc: string;
+  incubator_program: boolean;
+  incubator_program_desc: string;
+  campaign_type:
+    | "EQUITY"
+    | "DEBT"
+    | "REWARD"
+    | "REVENUE_SHARE"
+    | "GRANTS"
+    | "ROI"
+    | "SAFE"
+    | "OTHERS";
+  raise_period: string;
+  about_secure_seedFund: string;
+};
+export type UpdateNewCompanyInformationDto = {
+  company_business_plan?: Blob;
+  company_pitchDeck?: Blob;
+  company_video?: Blob;
+  profileImage?: Blob;
+  company_address: string;
+  company_website: string;
+  company_desc: string;
+  company_bullet_point: string;
+};
+export type StartupControllerGetStartupByStartupIdApiResponse =
+  /** status 200  */ Startup;
+export type StartupControllerGetStartupByStartupIdApiArg = {
+  startupId: string;
+};
+export type StartupControllerFindAllApiResponse =
+  /** status 200  */ StartupDto[];
+export type StartupControllerFindAllApiArg = {
+  /** Page number */
+  page?: number;
+  /** Items per page */
+  limit?: number;
+  /** Optional keyword for filtering startups by company name */
+  keyword?: string;
+  /** Filter by subscription plan (e.g., basic, premium) */
+  subscriptionPlan?: string;
+  /** Filter by startup ID */
+  startupId?: string;
+  /** Filter by user ID (creator ID) */
+  userId?: string;
+};
+export type CreateTeamDto = {
+  team_cofounder_title: string;
+  team_cofounder_firstName: string;
+  team_cofounder_linkdln: string;
+  team_members: number;
+  team_cofounder_lastName: string;
+  team_cofounder_email: string;
+  team_cofounder_education: string;
+  team_cofounder_phone: string;
+  team_cofounder_experience: string;
+  team_details: string;
+  team_primary_base: string;
+};
+export type CreateBusinessInformationDto = {
+  business_stage: string;
+  business_model: "B2B" | "B2C" | "B2G" | "B2G" | "C2B" | "C2C";
+  business_revenue_channel: string;
+  business_market_size: number;
+  business_past_revenue_generated: number;
+  business_customer_acqui_cost: number;
+  business_current_users: number;
+  business_monthly_recur_expense: number;
+  business_monthly_recur_revenue: number;
+  business_model_desc: string;
+};
+export type CreateFounderDto = {
+  profileImage?: Blob;
+  founderTitle: string;
+  founderGender: string;
+  founderFirstname: string;
+  founderLastname: string;
+  founderEmail: string;
+  founderEducationHistory: string;
+  founderPhone: string;
+  founderLinkdln?: string;
+  founderExperience: string;
+};
+export type CreateCompanyInformationDto = {
+  company_business_plan?: Blob;
+  company_pitchDeck?: Blob;
+  company_video?: Blob;
+  company_logo?: Blob;
+  company_cac?: Blob;
   company_cover_photo?: Blob;
   company_name: string;
   company_email: string;
@@ -394,6 +505,8 @@ export type CompanyInformation = {
   company_geography: string;
   company_desc: string;
   company_bullet_point: string;
+  company_incorporated_in?: string;
+  company_incorporation_year?: string;
   company_incorporated_in: string;
   company_incorporation_year: string;
   company_business_plan: string;
