@@ -18,6 +18,7 @@ interface UploadFiles {
   demoVideo: FileWithPath | null;
   companyLogo: FileWithPath | null;
   companyRegistration: FileWithPath | null;
+  coverPhoto: FileWithPath | null;
 }
 
 export default function AccountForm() {
@@ -27,6 +28,7 @@ export default function AccountForm() {
     demoVideo: null,
     companyLogo: null,
     companyRegistration: null,
+    coverPhoto: null,
   });
   const [currentStep, setCurrentStep] = useState(1);
 
