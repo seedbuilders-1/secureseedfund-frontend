@@ -14,7 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useUserAuth from "@/hooks/auth/useAuth";
-
+import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import GetStarted from "../components/GetStarted";
 
@@ -27,6 +28,8 @@ const SignUpPage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
   const [selectedCard, setSelectedCard] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const onSubmit = (values: SignUpValidation) => {
@@ -120,11 +123,30 @@ const SignUpPage = () => {
                         )}
                       </div>
                     </div>
+                    <div className="relative">
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password"
+                        {...field}
+                      />
+                      <div
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-400" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-gray-400" />
+                        )}
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            {/* Confirm Password Field */}
 
             {/* Confirm Password Field */}
             <FormField
@@ -133,6 +155,25 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem className="col-span-2">
                   <FormControl>
+                    <div className="relative">
+                      <Input
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Confirm Password"
+                        {...field}
+                      />
+                      <div
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                      >
+                        {showConfirmPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-400" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-gray-400" />
+                        )}
+                      </div>
+                    </div>
                     <div className="relative">
                       <Input
                         type={showConfirmPassword ? "text" : "password"}

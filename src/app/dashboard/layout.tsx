@@ -67,6 +67,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
   const filteredItems = items.filter(
     (item) => !item.allowedRoles || item.allowedRoles.includes(role as string)
   );
+  if (loading) {
+    return <LoadingSpinner className="h-[40vh]" />;
+  }
 
   if (loading) {
     return <LoadingSpinner className="h-[40vh]" />;

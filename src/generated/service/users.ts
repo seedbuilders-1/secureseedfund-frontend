@@ -18,6 +18,8 @@ export type Milestone = {
   milestoneTitle: string;
   milestoneDescription: string;
   targetAmount: number;
+  is_completed: boolean;
+  proof?: string;
   status?: string;
   date: string;
   id: string;
