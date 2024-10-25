@@ -18,6 +18,8 @@ export type Milestone = {
   milestoneTitle: string;
   milestoneDescription: string;
   targetAmount: number;
+  is_completed?: boolean;
+  proof?: string;
   status?: string;
   date: string;
   id: string;
@@ -51,6 +53,8 @@ export type CompanyInformation = {
   company_geography: string;
   company_desc: string;
   company_bullet_point: string;
+  company_incorporated_in?: string;
+  company_incorporation_year?: string;
   company_business_plan: string;
   company_pitchDeck: string;
   company_video: string;
@@ -160,6 +164,37 @@ export type Campaign = {
   createdAt: string;
   updatedAt: string;
 };
+export type Institution = {
+  user: User;
+  institution_name: string;
+  institution_reg_number: string;
+  institution_address: string;
+  institution_website: string;
+  institution_industry_of_interest: string;
+  institution_funding_type:
+    | "EQUITY"
+    | "DEBT"
+    | "REWARD"
+    | "REVENUE_SHARE"
+    | "GRANTS"
+    | "ROI"
+    | "SAFE"
+    | "OTHERS";
+  institution_funding_size: string;
+  is_completed_info: boolean;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+export type Wallet = {
+  user: User;
+  balance: number;
+  last_transaction_ref: string;
+  last_transaction_type: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export type User = {
   email: string;
   firstName: string;
@@ -176,6 +211,10 @@ export type User = {
   createdAt: string;
   updatedAt: string;
   campaigns?: Campaign[];
+  startup: Startup;
+  investor: Investor;
+  institution: Institution;
+  wallet: Wallet;
   id: string;
 };
 export type Investor = {
@@ -200,28 +239,6 @@ export type Investor = {
   investor_investment_goal: string;
   investor_experience: string;
   investor_liquidity_importance: string;
-  is_completed_info: boolean;
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-};
-export type Institution = {
-  user: User;
-  institution_name: string;
-  institution_reg_number: string;
-  institution_address: string;
-  institution_website: string;
-  institution_industry_of_interest: string;
-  institution_funding_type:
-    | "EQUITY"
-    | "DEBT"
-    | "REWARD"
-    | "REVENUE_SHARE"
-    | "GRANTS"
-    | "ROI"
-    | "SAFE"
-    | "OTHERS";
-  institution_funding_size: string;
   is_completed_info: boolean;
   id: string;
   createdAt: string;

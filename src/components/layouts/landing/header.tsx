@@ -86,7 +86,6 @@ const Header = () => {
               <nav className="flex w-full flex-col px-5">
                 <NavigationMenu>
                   <NavigationMenuList className="flex w-full flex-col justify-center items-center ml-[3.7rem] mt-4">
-                 
                     {[
                       { href: "/", label: "Home" },
                       { href: "/investors", label: "Investors" },

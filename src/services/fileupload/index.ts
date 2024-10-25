@@ -10,7 +10,6 @@ const fileupload = api.injectEndpoints({
           body: formData,
           responseHandler: (response) => response.text(),
         };
-
       },
     }),
   }),

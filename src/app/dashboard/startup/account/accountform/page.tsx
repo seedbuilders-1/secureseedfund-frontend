@@ -72,7 +72,6 @@ export default function AccountForm() {
     "Review & Submit",
   ];
   const { user } = useUserAuth();
-  const creatorId = user?.userId as string;
 
   return (
     <>
