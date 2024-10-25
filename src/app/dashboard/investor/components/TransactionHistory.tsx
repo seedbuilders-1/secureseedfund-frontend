@@ -1,6 +1,13 @@
 import React from "react";
-
-const InvesmentTransaction = () => {
+import useUserAuth from "@/hooks/auth/useAuth";
+import useTransaction from "../hooks/useTransaction";
+import moment from "moment";
+const TransactionHistory = () => {
+  const { user } = useUserAuth();
+  const userId = user?.userId as string;
+  const { transactionHistroy, loadingTransactionHistory } = useTransaction({
+    userId,
+  });
   const investors = [
     {
       date: "Tuesday 12th March, 2023",
@@ -32,23 +39,23 @@ const InvesmentTransaction = () => {
             <div className="w-1/4 text-left md:text-center">Amount</div>
             <div className="w-1/4 text-left md:text-center">Status</div>
           </div>
-          {investors.map((investor, index) => (
+          {transactionHistroy?.map((transaction, index) => (
             <div
               key={index}
               className="flex flex-wrap items-center py-3 border-b border-[#F3EFEF] last:border-b-0"
             >
               <div className="w-1/4 text-left md:text-center text-xs md:text-sm">
-                {investor.date}
+                {moment(transaction.createdAt).format("YYYY-MM-DD")}
               </div>
               <div className="w-1/4 text-left md:text-center text-xs md:text-sm">
-                {investor.type}
+                {transaction.trx_type}
               </div>
               <div className="w-1/4 text-left md:text-center text-xs md:text-sm font-medium text-[#16A34A]">
-                {investor.amount}
+                {transaction.trx_status}
               </div>
               <div className="w-1/4 text-left md:text-center text-xs md:text-sm">
                 <span className="bg-[#CEECDB] text-[#16A34A] p-[5px] rounded-full">
-                  {investor.status}
+                  {transaction.trx_status}
                 </span>
               </div>
             </div>
@@ -65,4 +72,4 @@ const InvesmentTransaction = () => {
   );
 };
 
-export default InvesmentTransaction;
+export default TransactionHistory;

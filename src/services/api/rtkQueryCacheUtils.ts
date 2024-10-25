@@ -2,7 +2,14 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 // Default tags used by the cacher helpers
 
-const defaultTags = ["UNAUTHORIZED", "UNKNOWN_ERROR"] as const;
+const defaultTags = [
+  "UNAUTHORIZED",
+  "UNKNOWN_ERROR",
+  "Campaign",
+  "Startup",
+  "Wallet",
+  "Transaction",
+] as const;
 type DefaultTags = (typeof defaultTags)[number];
 
 function concatErrorCache<T, ID>(

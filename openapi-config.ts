@@ -5,13 +5,17 @@ const config: ConfigFile = {
   apiFile: "./src/generated/emptyApi.ts",
   apiImport: "emptySplitApi",
   outputFiles: {
-    "./src/generated/service/startups.ts": {
+    "./src/generated/service/startups/startups.ts": {
       filterEndpoints: (endpointName) =>
         endpointName.toLowerCase().startsWith("startup"),
     },
-    "./src/generated/service/campaign.ts": {
+    "./src/generated/service/campaigns/campaign.ts": {
       filterEndpoints: (endpointName) =>
         endpointName.toLowerCase().startsWith("campaign"),
+    },
+    "./src/generated/service/wallet/wallet.ts": {
+      filterEndpoints: (endpointName) =>
+        endpointName.toLowerCase().startsWith("wallet"),
     },
     "./src/generated/service/subscription.ts": {
       filterEndpoints: (endpointName) =>
@@ -20,6 +24,10 @@ const config: ConfigFile = {
     "./src/generated/service/users.ts": {
       filterEndpoints: (endpointName) =>
         endpointName.toLowerCase().startsWith("users"),
+    },
+    "./src/generated/service/transactions/transactions.ts": {
+      filterEndpoints: (endpointName) =>
+        endpointName.toLowerCase().startsWith("transactions"),
     },
     "./src/generated/service/investor.ts": {
       filterEndpoints: (endpointName) =>

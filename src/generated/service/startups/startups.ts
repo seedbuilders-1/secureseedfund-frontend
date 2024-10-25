@@ -1,4 +1,4 @@
-import { emptySplitApi as api } from "../emptyApi";
+import { emptySplitApi as api } from "../../emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     startupControllerCreateTeamInformation: build.mutation<
@@ -200,6 +200,7 @@ export type CreateCompanyInformationDto = {
   company_video?: Blob;
   company_logo?: Blob;
   company_cac?: Blob;
+  company_cover_photo?: Blob;
   company_name: string;
   company_email: string;
   company_address: string;
@@ -252,7 +253,7 @@ export type Milestone = {
   milestoneTitle: string;
   milestoneDescription: string;
   targetAmount: number;
-  is_completed?: boolean;
+  is_completed: boolean;
   proof?: string;
   status?: string;
   date: string;
@@ -335,7 +336,9 @@ export type Institution = {
 };
 export type Wallet = {
   user: User;
-  balance: number;
+  balance: string;
+  total_withdrawn: string;
+  total_deposited: string;
   last_transaction_ref: string;
   last_transaction_type: string;
   id: string;
@@ -391,13 +394,14 @@ export type CompanyInformation = {
   company_geography: string;
   company_desc: string;
   company_bullet_point: string;
-  company_incorporated_in?: string;
-  company_incorporation_year?: string;
+  company_incorporated_in: string;
+  company_incorporation_year: string;
   company_business_plan: string;
   company_pitchDeck: string;
   company_video: string;
   company_logo: string;
   company_cac: string;
+  company_cover_photo?: string;
   startup: Startup;
   id: string;
   createdAt: string;
@@ -496,6 +500,7 @@ export type UpdateCompanyInformationDto = {
   company_video?: Blob;
   company_logo?: Blob;
   company_cac?: Blob;
+  company_cover_photo?: Blob;
   company_name?: string;
   company_email?: string;
   company_address?: string;
@@ -533,10 +538,13 @@ export type UpdateFundingInformationDto = {
   raise_period?: string;
   about_secure_seedFund?: string;
 };
-export type CreateMilestoneDto = {
+export type MilestoneDto = {
   milestoneTitle: string;
   milestoneDescription: string;
   targetAmount: number;
+  is_completed: boolean;
+  proof: string;
+  status: string;
   date: string;
 };
 export type CreateCampaignDto = {
@@ -544,7 +552,7 @@ export type CreateCampaignDto = {
   creator_id: string;
   startDate: string;
   endDate?: string;
-  milestones: CreateMilestoneDto[];
+  milestones: MilestoneDto[];
   description: string;
   fundingGoal: number;
   campaignType:

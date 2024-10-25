@@ -5,8 +5,8 @@ import {
   StartupControllerCreateBusinessInformationApiArg,
   StartupControllerUpdateCompanyInformationApiArg,
   StartupControllerCreateFundingInformationApiArg,
-} from "@/generated/service/startups";
-import { api } from "@/generated/service/startups";
+} from "@/generated/service/startups/startups";
+import { api } from "@/generated/service/startups/enhancedstartup";
 import { useToast } from "@/components/ui/use-toast";
 
 const useAccount = (creatorId?: string) => {

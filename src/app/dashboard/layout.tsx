@@ -6,10 +6,11 @@ import { RiHome5Line } from "react-icons/ri";
 import { SiWpexplorer } from "react-icons/si";
 import { Wallet, User } from "lucide-react";
 import useUserAuth from "@/hooks/auth/useAuth";
+import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import PrivateRoute from "@/route-helpers/PrivateRoute";
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const { user } = useUserAuth();
+  const { user, loading } = useUserAuth();
   const role = user?.accountType;
 
   const items = [
@@ -66,7 +67,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
   const filteredItems = items.filter(
     (item) => !item.allowedRoles || item.allowedRoles.includes(role as string)
   );
-
+  if (loading) {
+    return <LoadingSpinner className="h-[40vh]" />;
+  }
   return (
     <PrivateRoute>
       <DashboardLayout items={filteredItems}>{children}</DashboardLayout>
