@@ -43,7 +43,7 @@ const useSubscription = () => {
       toast({
         className:
           "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
-        title: "Payment verification successful ",
+        title: "Payment verification successful",
         variant: "default",
       });
     } catch (err: any) {

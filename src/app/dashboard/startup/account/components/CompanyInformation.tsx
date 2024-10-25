@@ -16,6 +16,7 @@ import {
   CompanyInformationSchema,
   CompanyInformationValidation,
 } from "@/lib/validations/account";
+import moment from "moment";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect } from "react";
 import { FileWithPath } from "react-dropzone";
@@ -95,6 +96,7 @@ const CompanyInformation = ({
       });
     }
   };
+
   const [preview, setPreview] = useState<Preview>({
     businessPlan: null,
     pitchDeck: null,
@@ -119,10 +121,18 @@ const CompanyInformation = ({
       });
       return;
     }
-
     const createCompanyInformationDto = new FormData();
     createCompanyInformationDto.append("company_name", values.companyname);
     createCompanyInformationDto.append("company_email", values.contactemail);
+    createCompanyInformationDto.append(
+      "company_incorporated_in",
+      values.companyincorporatedin
+    );
+    createCompanyInformationDto.append(
+      "company_incorporation_year",
+      values.yearofincorporation
+    );
+
     createCompanyInformationDto.append(
       "company_address",
       values.companyaddress
@@ -200,6 +210,8 @@ const CompanyInformation = ({
         company_video,
         company_logo,
         company_cac,
+        company_incorporated_in,
+        company_incorporation_year,
       } = accountInformation.companyInformation;
       form.setValue("companyname", company_name);
       form.setValue("contactemail", company_email);
@@ -214,6 +226,8 @@ const CompanyInformation = ({
         "threeorfivepointswhycompanyisagoodinvestment",
         company_bullet_point
       );
+      form.setValue("companyincorporatedin", company_incorporated_in ?? "");
+      form.setValue("yearofincorporation", company_incorporation_year ?? "");
       setPreview({
         businessPlan: company_business_plan || null,
         pitchDeck: company_pitchDeck || null,
@@ -221,7 +235,6 @@ const CompanyInformation = ({
         companyLogo: company_logo || null,
         companyRegistration: company_cac || null,
       });
-      // form.setValue("companyincorporatedin", country);
     }
   }, [accountInformation, form]);
   return (

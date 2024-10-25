@@ -2,7 +2,7 @@
 import React from "react";
 import { GoPlus } from "react-icons/go";
 import { AiOutlineMinus } from "react-icons/ai";
-import InvesmentTransaction from "./components/InvestmentTransaction";
+import InvesmentTransaction from "./components/TransactionHistory.tsx";
 import Investment from "./components/Investment";
 const page = () => {
   return (
@@ -58,19 +58,19 @@ const page = () => {
         </div>
       </div>
 
-      <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10">
+      <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10 p-5">
         <h2 className="text-[1rem] font-bold mb-[1rem]">Investment</h2>
         <Investment />
       </div>
 
-      <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10">
+      <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10 p-5">
         <h2 className="text-[1rem] font-bold mb-[1rem]">
           Top performing invested start-up of the week
         </h2>
         <Investment />
       </div>
 
-      <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10">
+      <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10 p-5d">
         <h2 className="text-[1rem] font-bold mb-[1rem]">Transaction History</h2>
         <InvesmentTransaction />
       </div>

@@ -32,7 +32,11 @@ const baseQueryWithReauth: BaseQueryFn<
     const refreshToken = (api.getState() as RootState).auth.refreshToken;
 
     const refreshResult: any = await baseQuery(
-      { url: "/auth/refresh-token", method: "POST", body: refreshToken },
+      {
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh-token`,
+        method: "POST",
+        body: refreshToken,
+      },
       api,
       extraOptions
     );

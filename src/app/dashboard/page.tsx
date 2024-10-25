@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useUserAuth from "@/hooks/auth/useAuth";
-import { Loader2 } from "lucide-react";
+
 
 const DashboardRedirect = () => {
   const { user, loading } = useUserAuth();
@@ -24,9 +24,7 @@ const DashboardRedirect = () => {
       router.replace("/");
     }
   }, [user, loading, router]);
-  if (loading) {
-    return <Loader2 className="mr-2 h-6 w-6 animate-spin" />;
-  }
+
 
   return null;
 };

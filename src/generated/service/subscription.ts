@@ -37,7 +37,6 @@ export type SubscriptionsControllerCompleteSubscriptionTransactionApiArg = {
   completeSubscriptionDto: CompleteSubscriptionDto;
 };
 export type CreateSubscriptionDto = {
-  user: string;
   subscriptionType: "free" | "basic" | "premium";
   platform_type: "paystack" | "paydestal";
 };

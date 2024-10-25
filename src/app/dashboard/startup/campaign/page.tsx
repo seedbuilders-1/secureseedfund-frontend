@@ -7,15 +7,13 @@ import useCampaign from "../hooks/useCampaign";
 import Image from "next/image";
 import useUserAuth from "@/hooks/auth/useAuth";
 import CampaignCard from "@/components/cards/CampaignCard";
-import { CampaignsControllerFindOneApiArg } from "@/generated/service/campaign";
+
 
 const Campaign = () => {
   const router = useRouter();
   const { user } = useUserAuth();
-  const userId = user?.userId;
-  const { campaigns, loadingCampaigns } = useCampaign({
-    id: userId,
-  } as CampaignsControllerFindOneApiArg);
+  const userId = user?.userId as string;
+  const { campaigns, loadingCampaigns } = useCampaign({ userId });
 
   return (
     <div className="w-[90%] flex flex-col  mx-auto h-[100vh] bg-white mt-[4rem]">
@@ -48,8 +46,8 @@ const Campaign = () => {
           <Loader2 className="flex items-center justify-center animate-spin mx-auto w-[300px]" />
         ) : (
           <div className="mt-6 mb-8 gap-6 grid grid-cols-1 lg:grid-cols-3">
-            {campaigns?.items.length ? (
-              campaigns?.items.map((campaign) => (
+            {campaigns?.items?.length ? (
+              campaigns?.items?.map((campaign) => (
                 <div key={campaign.id}>
                   <CampaignCard
                     id={campaign.id}

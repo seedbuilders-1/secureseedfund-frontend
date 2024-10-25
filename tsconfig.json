@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/startup/[startupid]/campaign/components/campaign/StartCampaign"
-, "src/services/startup/index.js"  ],
+    "src/app/startup/[startupid]/campaign/components/campaign/StartCampaign",
+    "src/services/startup/index.js",
+    "src/app/dashboard/investor/components/TransactionHistory.tsx"
+  ],
   "exclude": ["node_modules"]
 }

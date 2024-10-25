@@ -192,9 +192,9 @@ const AccountSettings = ({ accountInformation }: Props) => {
         "company_cac",
         files.companyRegistration
       );
-      if (profileImageFile) {
-        updateNewCompanyInformationDto.append("profileImage", profileImageFile);
-      }
+    }
+    if (profileImageFile) {
+      updateNewCompanyInformationDto.append("profileImage", profileImageFile);
     }
     const payload = {
       creatorId,
@@ -204,6 +204,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
     updateAccountSetting(payload);
   };
 
+  console.log(profileImageFile);
   useEffect(() => {
     if (accountInformation?.founder?.id) {
       setSelectedImage(accountInformation.founder.profileImage);

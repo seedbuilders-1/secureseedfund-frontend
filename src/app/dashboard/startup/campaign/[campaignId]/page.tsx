@@ -9,15 +9,20 @@ import {
   OcticonGoal,
 } from "../../components/InvestmentTermsIcon";
 import useCampaign from "../../hooks/useCampaign";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 
 const CampaignDetail = ({ params }: { params: { id: string } }) => {
   const { campaignId } = useParams();
-
+  const campaignIdParam = Array.isArray(campaignId)
+    ? campaignId[0]
+    : campaignId || "";
+  console.log(campaignIdParam);
   const { singleCampaign, loadingSingleCampaign } = useCampaign({
-    id: campaignId as string,
+    campaignIdParam,
   });
 
+  if (loadingSingleCampaign) return <LoadingSpinner />;
   return (
     <>
       <div className="px-4 sm:px-8 lg:px-32 py-4 bg-gray-100 min-h-screen">

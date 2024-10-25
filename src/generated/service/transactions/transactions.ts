@@ -1,18 +1,47 @@
-import { emptySplitApi as api } from "../emptyApi";
+import { emptySplitApi as api } from "../../emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    usersControllerGetMe: build.query<
-      UsersControllerGetMeApiResponse,
-      UsersControllerGetMeApiArg
+    transactionsControllerGetAllTransactionsForUser: build.query<
+      TransactionsControllerGetAllTransactionsForUserApiResponse,
+      TransactionsControllerGetAllTransactionsForUserApiArg
     >({
-      query: () => ({ url: `/users/profile` }),
+      query: (queryArg) => ({ url: `/transactions/user/${queryArg.userId}` }),
+    }),
+    transactionsControllerGetSuccessTransactionsForUser: build.query<
+      TransactionsControllerGetSuccessTransactionsForUserApiResponse,
+      TransactionsControllerGetSuccessTransactionsForUserApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/transactions/user/${queryArg.userId}/success`,
+      }),
+    }),
+    transactionsControllerGetNonSuccessTransactionsForUser: build.query<
+      TransactionsControllerGetNonSuccessTransactionsForUserApiResponse,
+      TransactionsControllerGetNonSuccessTransactionsForUserApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/transactions/user/${queryArg.userId}/non-success`,
+      }),
     }),
   }),
   overrideExisting: false,
 });
 export { injectedRtkApi as api };
-export type UsersControllerGetMeApiResponse = /** status 200  */ UserDto;
-export type UsersControllerGetMeApiArg = void;
+export type TransactionsControllerGetAllTransactionsForUserApiResponse =
+  /** status 200  */ Transactions[];
+export type TransactionsControllerGetAllTransactionsForUserApiArg = {
+  userId: string;
+};
+export type TransactionsControllerGetSuccessTransactionsForUserApiResponse =
+  /** status 200  */ Transactions[];
+export type TransactionsControllerGetSuccessTransactionsForUserApiArg = {
+  userId: string;
+};
+export type TransactionsControllerGetNonSuccessTransactionsForUserApiResponse =
+  /** status 200  */ Transactions[];
+export type TransactionsControllerGetNonSuccessTransactionsForUserApiArg = {
+  userId: string;
+};
 export type Milestone = {
   campaign: Campaign;
   milestoneTitle: string;
@@ -214,6 +243,17 @@ export type Institution = {
   createdAt: string;
   updatedAt: string;
 };
+export type Wallet = {
+  user: User;
+  balance: string;
+  total_withdrawn: string;
+  total_deposited: string;
+  last_transaction_ref: string;
+  last_transaction_type: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export type User = {
   email: string;
   firstName: string;
@@ -236,36 +276,23 @@ export type User = {
   wallet: Wallet;
   id: string;
 };
-export type Wallet = {
+export type Transactions = {
   user: User;
-  balance: string;
-  total_withdrawn: string;
-  total_deposited: string;
-  last_transaction_ref: string;
-  last_transaction_type: string;
+  trx_desc: string;
+  trx_percentage: string;
+  trx_value: string;
+  access_code: string;
+  trx_ref: string;
+  trx_status: string;
+  trx_type: string;
+  resolved_at: string;
+  is_completed: boolean;
   id: string;
   createdAt: string;
   updatedAt: string;
 };
-export type UserDto = {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  othername: string | null;
-  photo: string | null;
-  is_verified: boolean;
-  email_verified: boolean;
-  phone: string;
-  accountType: "startup" | "investor" | "institution";
-  subscription_plan: "free" | "basic" | "premium";
-  createdAt: string;
-  updatedAt: string;
-  wallet: Wallet;
-  role: "USER" | "ADMIN";
-  hash: string;
-  investor: Investor;
-  startup: Startup;
-  institution: Institution;
-};
-export const { useUsersControllerGetMeQuery } = injectedRtkApi;
+export const {
+  useTransactionsControllerGetAllTransactionsForUserQuery,
+  useTransactionsControllerGetSuccessTransactionsForUserQuery,
+  useTransactionsControllerGetNonSuccessTransactionsForUserQuery,
+} = injectedRtkApi;
