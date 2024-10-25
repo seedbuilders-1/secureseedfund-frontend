@@ -30,11 +30,6 @@ const TopSection = ({ items }: TopSectionProps) => {
   const pathname = usePathname();
 
   const { userProfile } = useProfile();
-
-  useEffect(() => {
-    console.log("user profile", userProfile);
-  }, [userProfile?.subscription_plan]);
-
   const isActive = (href: string) => {
     const normalizedPathname = pathname.replace(/\/$/, "");
     const normalizedHref = href.replace(/\/$/, "");
