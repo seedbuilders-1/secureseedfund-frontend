@@ -17,7 +17,6 @@ import {
   CompanyInformationValidation,
 } from "@/lib/validations/account";
 import moment from "moment";
-import moment from "moment";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect } from "react";
 import { FileWithPath } from "react-dropzone";
@@ -101,7 +100,6 @@ const CompanyInformation = ({
     }
   };
 
-
   const [preview, setPreview] = useState<Preview>({
     businessPlan: null,
     pitchDeck: null,
@@ -130,15 +128,6 @@ const CompanyInformation = ({
     const createCompanyInformationDto = new FormData();
     createCompanyInformationDto.append("company_name", values.companyname);
     createCompanyInformationDto.append("company_email", values.contactemail);
-    createCompanyInformationDto.append(
-      "company_incorporated_in",
-      values.companyincorporatedin
-    );
-    createCompanyInformationDto.append(
-      "company_incorporation_year",
-      values.yearofincorporation
-    );
-
     createCompanyInformationDto.append(
       "company_incorporated_in",
       values.companyincorporatedin
@@ -233,8 +222,6 @@ const CompanyInformation = ({
         company_cac,
         company_incorporated_in,
         company_incorporation_year,
-        company_incorporated_in,
-        company_incorporation_year,
         company_cover_photo,
       } = accountInformation.companyInformation;
       form.setValue("companyname", company_name);
@@ -250,8 +237,6 @@ const CompanyInformation = ({
         "threeorfivepointswhycompanyisagoodinvestment",
         company_bullet_point
       );
-      form.setValue("companyincorporatedin", company_incorporated_in ?? "");
-      form.setValue("yearofincorporation", company_incorporation_year ?? "");
       form.setValue("companyincorporatedin", company_incorporated_in ?? "");
       form.setValue("yearofincorporation", company_incorporation_year ?? "");
       setPreview({
