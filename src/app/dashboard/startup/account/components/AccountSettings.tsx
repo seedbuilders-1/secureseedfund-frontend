@@ -27,7 +27,7 @@ import Image from "next/image";
 import useAccount from "../hooks/useAccount";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { BiImageAdd } from "react-icons/bi";
-import { File } from "buffer";
+
 import useProfile from "@/hooks/profile/useProfile";
 
 interface Props {
