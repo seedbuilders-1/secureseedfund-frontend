@@ -34,6 +34,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/wallet/${queryArg.userId}/withdraw`,
         method: "POST",
+        body: queryArg.withdrawalDto,
       }),
     }),
     walletControllerGetUserWithdrawals: build.query<
@@ -65,6 +66,8 @@ export type WalletControllerRequestWithdrawalApiResponse = unknown;
 export type WalletControllerRequestWithdrawalApiArg = {
   /** User ID for the withdrawal request */
   userId: string;
+  /** Amount to withdraw */
+  withdrawalDto: WithdrawalDto;
 };
 export type WalletControllerGetUserWithdrawalsApiResponse = unknown;
 export type WalletControllerGetUserWithdrawalsApiArg = {
@@ -78,6 +81,10 @@ export type CreateDepositDto = {
 export type VerifyDepositDto = {
   /** Payment reference for verification */
   reference: string;
+};
+export type WithdrawalDto = {
+  /** Amount to withdraw */
+  amount: number;
 };
 export const {
   useWalletControllerGetOrCreateWalletQuery,

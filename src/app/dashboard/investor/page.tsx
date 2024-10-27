@@ -2,7 +2,7 @@
 import React from "react";
 import { GoPlus } from "react-icons/go";
 import { AiOutlineMinus } from "react-icons/ai";
-import InvesmentTransaction from "./components/TransactionHistory.tsx";
+import TransactionHistory from "./wallet/components/TranscationHistory";
 import Investment from "./components/Investment";
 const page = () => {
   return (
@@ -72,7 +72,7 @@ const page = () => {
 
       <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10 p-5d">
         <h2 className="text-[1rem] font-bold mb-[1rem]">Transaction History</h2>
-        <InvesmentTransaction />
+        <TransactionHistory />
       </div>
     </div>
   );

@@ -21,11 +21,11 @@ function page() {
     createDeposit,
     isCreditingWallet,
     walletCredited,
-    transactionVerified,
     response,
     loadingWallet,
     createWithdrawal,
     isWithdrawing,
+    withdrawSuccess,
   } = useWallet({ userId });
   const router = useRouter();
 
@@ -39,7 +39,7 @@ function page() {
       } else if (transactionType === "withdraw") {
         createWithdrawal({
           userId,
-          amount,
+          withdrawalDto: { amount },
         });
       }
     },
@@ -51,6 +51,12 @@ function page() {
       router.push(response?.authorization_url);
     }
   }, [response, response]);
+
+  useEffect(() => {
+    if (withdrawSuccess) {
+      handleModalClose();
+    }
+  }, [withdrawSuccess]);
 
   const handleModalOpen = (type: "deposit" | "withdraw") => {
     setTransactionType(type);

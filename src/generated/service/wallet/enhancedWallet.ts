@@ -15,7 +15,13 @@ const enhancedApi = api.enhanceEndpoints({
         { type: "Transaction", id: arg.userId },
       ],
     },
-
+    walletControllerRequestWithdrawal: {
+      invalidatesTags: (result, error, arg) => [
+        { type: "Wallet", id: arg.userId },
+        { type: "Wallet", id: "LIST" },
+        { type: "Transaction", id: arg.userId },
+      ],
+    },
     walletControllerVerifyDeposit: {
       invalidatesTags: (result, error, arg) => [{ type: "Wallet", id: "LIST" }],
     },

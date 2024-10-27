@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   Select,
@@ -10,17 +10,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import useExplore from "./hooks/useExplore";
+import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
+import PaginationControls from "@/components/shared/PaginationControls";
 import { Skeleton } from "@/components/ui/skeleton";
 
 function Page() {
-  const { allStartupsData, loadingAllStartupData } = useExplore();
+  const [searchText, setSearchText] = useState("");
+  const { allStartupsData, loadingAllStartupData, handlePageChange, page } =
+    useExplore({ searchText });
   const router = useRouter();
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 ">
       {/* Filters Section */}
-      <div className="flex gap-4 mb-[4rem] mt-[2rem] max-w-[700px] mx-auto">
+      <div className="flex-wrap flex  gap-4 mb-[4rem] mt-[2rem] mx-auto  max-w-[1200px] md:flex-nowrap">
+        <div className="relative w-full">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+          <Input
+            type="search"
+            placeholder="Search startups..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="pl-10 border border-black"
+          />
+        </div>
         <Select>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Industry" />
@@ -88,7 +103,10 @@ function Page() {
                 />
               </div>
               <div className="p-6 flex flex-col">
-                <div className="mb-4">
+                <div className="flex text-center justify-center items-center border  border-[#064E3B] rounded-3xl text-[#064E3B] my-3  bg-[#D1FAE5] h-[30px]  w-[100px] text-[13px]">
+                  {startup.businessInformation?.business_model || "N/A"}
+                </div>
+                <div className="">
                   <h2 className="text-xl font-medium mb-2 text-[#837e7e]">
                     Doful
                   </h2>
@@ -125,6 +143,15 @@ function Page() {
             </div>
           ))
         )}
+      </div>
+      <div className="mt-4 w-full">
+        <div className="ml-auto w-fit">
+          <PaginationControls
+            currentPage={page}
+            onPageChange={handlePageChange}
+            totalPages={allStartupsData?.meta?.totalPages || 1}
+          />
+        </div>
       </div>
     </div>
   );

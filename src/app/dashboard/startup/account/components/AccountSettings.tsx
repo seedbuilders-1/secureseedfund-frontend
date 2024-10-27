@@ -419,6 +419,8 @@ const AccountSettings = ({ accountInformation }: Props) => {
                 />
                 <br />
                 <br className="lg:hidden" />
+
+                <FormLabel>Upload Cover Photo</FormLabel>
                 <UploadComponent
                   file={files.coverPhoto}
                   handleUpload={handleUpload}
