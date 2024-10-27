@@ -5,6 +5,7 @@ const enhancedApi = api.enhanceEndpoints({
     startupControllerGetStartupByStartupId: {
       providesTags: (result, error, arg) => [
         { type: "Startup", id: arg.startupId },
+        { type: "Startup", id: "LIST" },
       ],
     },
     startupControllerCreateTeamInformation: {

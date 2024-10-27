@@ -91,6 +91,15 @@ const AccountSettings = ({ accountInformation }: Props) => {
   const creatorId = user?.userId as string;
 
   const onSubmit = (values: InvestorAccountSettingsValidation) => {
+    if (!profileImageFile && !selectedImage) {
+      toast({
+        variant: "destructive",
+        title: "Missing information",
+        description:
+          "Please upload all required files or ensure previews are available.",
+      });
+      return;
+    }
     const updateNewInvestorInformationDto = new FormData();
     updateNewInvestorInformationDto.append("id", creatorId);
     updateNewInvestorInformationDto.append(
@@ -134,6 +143,12 @@ const AccountSettings = ({ accountInformation }: Props) => {
       "investor_liquidity_importance",
       values.investor_liquidity_importance
     );
+    if (profileImageFile) {
+      updateNewInvestorInformationDto.append(
+        "investor_image",
+        profileImageFile
+      );
+    }
     const payload = {
       userId: creatorId,
       updateInvestorDto: updateNewInvestorInformationDto,
@@ -152,7 +167,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
         investor_experience,
         investor_investment_duration,
         investor_investment_goal,
-        investorType,
+        investor_type,
         investor_liquidity_importance,
         investor_nationality,
         investor_residence_city,
@@ -161,7 +176,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
       form.setValue("investor_annual_income", investor_annual_income);
       form.setValue("investor_country_residence", investor_country_residence);
       form.setValue("investor_experience", investor_experience);
-      form.setValue("investor_type", investorType);
+      form.setValue("investor_type", investor_type);
       form.setValue(
         "investor_investment_duration",
         investor_investment_duration

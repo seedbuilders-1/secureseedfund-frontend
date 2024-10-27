@@ -1,8 +1,8 @@
 import { useToast } from "@/components/ui/use-toast";
 import {
   api,
+  InvestorControllerCreateInvestorApiArg,
   InvestorControllerUpdateApiArg,
-  InvestorControllerUpdateInvestorApiArg,
 } from "@/generated/service/investors";
 
 const useAccount = (creatorId?: string) => {
@@ -12,7 +12,7 @@ const useAccount = (creatorId?: string) => {
       isLoading: isCreatingInvestorInformation,
       isSuccess: createdInvestorInformation,
     },
-  ] = api.useInvestorControllerUpdateInvestorMutation();
+  ] = api.useInvestorControllerCreateInvestorMutation();
 
   const { data: investorInformation, isLoading: loadingInvestorInformation } =
     api.useInvestorControllerFindOneQuery({
@@ -50,7 +50,7 @@ const useAccount = (creatorId?: string) => {
   const { toast } = useToast();
 
   const createInvestorInformation = async (
-    values: InvestorControllerUpdateInvestorApiArg
+    values: InvestorControllerCreateInvestorApiArg
   ) => {
     try {
       await createInvestorInformationStart(values).unwrap();

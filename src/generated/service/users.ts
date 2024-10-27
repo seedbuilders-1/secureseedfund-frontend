@@ -160,6 +160,7 @@ export type Campaign = {
   isApprove: boolean;
   isLive: boolean;
   milestones?: Milestone[];
+  investment_balance: string;
   startup: Startup[];
   id: string;
   createdAt: string;
@@ -214,6 +215,16 @@ export type Institution = {
   createdAt: string;
   updatedAt: string;
 };
+export type Kyc = {
+  user: User;
+  idProofUrl: string;
+  identity_number: string;
+  addressProofUrl: string;
+  isApproved: boolean;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export type User = {
   email: string;
   firstName: string;
@@ -233,6 +244,7 @@ export type User = {
   startup: Startup;
   investor: Investor;
   institution: Institution;
+  kyc: Kyc;
   wallet: Wallet;
   id: string;
 };
@@ -240,6 +252,9 @@ export type Wallet = {
   user: User;
   balance: string;
   total_withdrawn: string;
+  withdrawable_balance: string;
+  investment_balance: string;
+  previous_balance: string;
   total_deposited: string;
   last_transaction_ref: string;
   last_transaction_type: string;

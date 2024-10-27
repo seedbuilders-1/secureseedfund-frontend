@@ -27,6 +27,22 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.verifyDepositDto,
       }),
     }),
+    walletControllerRequestWithdrawal: build.mutation<
+      WalletControllerRequestWithdrawalApiResponse,
+      WalletControllerRequestWithdrawalApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/wallet/${queryArg.userId}/withdraw`,
+        method: "POST",
+        body: queryArg.withdrawalDto,
+      }),
+    }),
+    walletControllerGetUserWithdrawals: build.query<
+      WalletControllerGetUserWithdrawalsApiResponse,
+      WalletControllerGetUserWithdrawalsApiArg
+    >({
+      query: (queryArg) => ({ url: `/wallet/${queryArg.userId}/withdrawals` }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -46,6 +62,16 @@ export type WalletControllerVerifyDepositApiResponse = /** status 200  */
 export type WalletControllerVerifyDepositApiArg = {
   verifyDepositDto: VerifyDepositDto;
 };
+export type WalletControllerRequestWithdrawalApiResponse = unknown;
+export type WalletControllerRequestWithdrawalApiArg = {
+  userId: string;
+  withdrawalDto: WithdrawalDto;
+};
+export type WalletControllerGetUserWithdrawalsApiResponse = unknown;
+export type WalletControllerGetUserWithdrawalsApiArg = {
+  /** User ID to retrieve withdrawal requests */
+  userId: string;
+};
 export type CreateDepositDto = {
   /** Amount to deposit */
   amount: number;
@@ -54,8 +80,14 @@ export type VerifyDepositDto = {
   /** Payment reference for verification */
   reference: string;
 };
+export type WithdrawalDto = {
+  /** Amount to withdraw */
+  amount: number;
+};
 export const {
   useWalletControllerGetOrCreateWalletQuery,
   useWalletControllerInitializeDepositMutation,
   useWalletControllerVerifyDepositMutation,
+  useWalletControllerRequestWithdrawalMutation,
+  useWalletControllerGetUserWithdrawalsQuery,
 } = injectedRtkApi;
