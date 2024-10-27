@@ -1,6 +1,6 @@
 import React from "react";
 import useUserAuth from "@/hooks/auth/useAuth";
-import useTransaction from "../hooks/useTransaction";
+import useTransaction from "../wallet/hooks/useTransaction";
 import moment from "moment";
 const TransactionHistory = () => {
   const { user } = useUserAuth();

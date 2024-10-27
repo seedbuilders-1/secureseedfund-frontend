@@ -320,15 +320,15 @@ const Review = ({
               <UploadPreview previewUrl={businessPlan} />
             </div>
 
-            <div>
+            <div className="mt-[1rem]">
               <h2> Uploaded Pitch Deck</h2>
               <UploadPreview previewUrl={pitchDeckUrl} />
             </div>
-            <div>
+            <div className="mt-[1rem]">
               <h2> Upload 5-minute demo video:</h2>
               <UploadPreview previewUrl={demoVideo} />
             </div>
-            <div>
+            <div className="mt-[1rem]">
               <h2> Upload Evidence of Company Registration:</h2>
               <UploadPreview previewUrl={companyRegistration} />
             </div>
@@ -348,13 +348,13 @@ const Review = ({
               <li className="flex items-start space-x-2">
                 <span className="font-medium">Business Stage:</span>
                 <span>
-                  {accountInformation?.businessInformation.business_stage}
+                  {accountInformation?.businessInformation?.business_stage}
                 </span>
               </li>
               <li className="flex items-start space-x-2">
                 <span className="font-medium">Business Model:</span>
                 <span>
-                  {accountInformation?.businessInformation.business_model}
+                  {accountInformation?.businessInformation?.business_model}
                 </span>
               </li>
               <li className="flex items-start space-x-2">
@@ -410,17 +410,15 @@ const Review = ({
                   }
                 </span>
               </li>
-              {/* <li className="flex items-start space-x-2">
-                <span className="font-medium">
-                  Monthly Recurring Expense:
-                </span>
+              <li className="flex items-start space-x-2">
+                <span className="font-medium">Monthly Recurring Expense:</span>
                 <span>
                   {
                     accountInformation?.businessInformation
                       .business_monthly_recur_expense
                   }
                 </span>
-              </li> */}
+              </li>
               <li className="flex items-start space-x-2">
                 <span className="font-medium">Business Model Description:</span>
                 <span>

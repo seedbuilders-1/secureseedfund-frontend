@@ -1,6 +1,7 @@
 import Dropzone, { FileWithPath } from "react-dropzone";
 import { FaFilePdf } from "react-icons/fa";
 import { PiFilesThin } from "react-icons/pi";
+import Image from "next/image";
 
 interface Props {
   file: FileWithPath | null;
@@ -32,7 +33,7 @@ const UploadComponent = ({ file, handleUpload, imageUrl }: Props) => {
                     {file && file.type === "application/pdf" ? (
                       <FaFilePdf size={50} />
                     ) : file && file.type.startsWith("image/") ? (
-                      <img
+                      <Image
                         src={URL.createObjectURL(file)}
                         alt="Uploaded"
                         style={{ maxWidth: "100%", maxHeight: "200px" }}
@@ -49,7 +50,7 @@ const UploadComponent = ({ file, handleUpload, imageUrl }: Props) => {
                         <p> {imageUrl}</p>
                       </div>
                     ) : (
-                      <img
+                      <Image
                         src={imageUrl}
                         alt="Uploaded"
                         style={{ maxWidth: "100%", maxHeight: "200px" }}

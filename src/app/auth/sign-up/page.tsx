@@ -25,7 +25,7 @@ const SignUpPage = () => {
     resolver: zodResolver(SignUpSchema),
   });
   const { toast } = useToast();
-  const router = useRouter();
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
   const [selectedCard, setSelectedCard] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);

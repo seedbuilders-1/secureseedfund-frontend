@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../../../components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-// import { Startup } from "@/generated/service/startups";
+import { Startup } from "@/generated/service/startups/startups";
 import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
 import {
   AccountSettingsSchema,
@@ -27,7 +27,7 @@ import Image from "next/image";
 import useAccount from "../hooks/useAccount";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { BiImageAdd } from "react-icons/bi";
-import { File } from "buffer";
+
 import useProfile from "@/hooks/profile/useProfile";
 import { Startup } from "@/generated/service/startups/startups";
 
@@ -40,6 +40,7 @@ interface UploadFiles {
   demoVideo: FileWithPath | null;
   companyLogo: FileWithPath | null;
   companyRegistration: FileWithPath | null;
+  coverPhoto: FileWithPath | null;
 }
 const AccountSettings = ({ accountInformation }: Props) => {
   const { toast } = useToast();
@@ -57,6 +58,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
     demoVideo: null,
     companyLogo: null,
     companyRegistration: null,
+    coverPhoto: null,
   });
 
   const { userProfile } = useProfile();
@@ -72,6 +74,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
       pitchDeck: ["application/pdf"],
       demoVideo: ["video/"],
       companyLogo: ["image/"],
+      coverPhoto: ["image/"],
       companyRegistration: ["application/pdf"],
     };
 
@@ -135,6 +138,8 @@ const AccountSettings = ({ accountInformation }: Props) => {
     .company_video as string;
   const companyLogo = accountInformation?.companyInformation
     .company_logo as string;
+  const coverPhoto = accountInformation?.companyInformation
+    .company_cover_photo as string;
 
   const creatorId = user?.userId as string;
 
@@ -145,6 +150,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
       (!files.pitchDeck && !pitchDeckUrl) ||
       (!files.demoVideo && !demoVideoUrl) ||
       (!files.companyLogo && !companyLogo) ||
+      (!files.coverPhoto && !coverPhoto) ||
       (!files.companyRegistration && !companyRegistrationUrl)
     ) {
       toast({
@@ -194,6 +200,12 @@ const AccountSettings = ({ accountInformation }: Props) => {
         files.companyRegistration
       );
     }
+    if (files.coverPhoto) {
+      updateNewCompanyInformationDto.append(
+        "company_cover_photo",
+        files.coverPhoto
+      );
+    }
     if (profileImageFile) {
       updateNewCompanyInformationDto.append("profileImage", profileImageFile);
     }
@@ -216,8 +228,10 @@ const AccountSettings = ({ accountInformation }: Props) => {
         company_website,
         company_desc,
         company_bullet_point,
+        company_incorporated_in,
       } = accountInformation.companyInformation;
       form.setValue("companyaddress", company_address);
+      form.setValue("companyincorporatedin", company_incorporated_in);
       form.setValue("companywebsite", company_website);
       form.setValue("companydescription", company_desc);
       form.setValue(
@@ -403,6 +417,16 @@ const AccountSettings = ({ accountInformation }: Props) => {
                   fileType="companyRegistration"
                   maxSize={5 * 1024 * 1024}
                   label="Upload Company Registration  (PDF only)"
+                />
+                <br />
+                <br className="lg:hidden" />
+                <UploadComponent
+                  file={files.coverPhoto}
+                  handleUpload={handleUpload}
+                  previewUrl={coverPhoto}
+                  fileType="coverPhoto"
+                  maxSize={5 * 1024 * 1024}
+                  label="Upload Cover Photo  (Image only)"
                 />
                 <br />
                 <br className="lg:hidden" />

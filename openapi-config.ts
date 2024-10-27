@@ -25,6 +25,10 @@ const config: ConfigFile = {
       filterEndpoints: (endpointName) =>
         endpointName.toLowerCase().startsWith("users"),
     },
+    "./src/generated/service/investor.ts": {
+      filterEndpoints: (endpointName) =>
+        endpointName.toLowerCase().startsWith("investor"),
+    },
     "./src/generated/service/transactions/transactions.ts": {
       filterEndpoints: (endpointName) =>
         endpointName.toLowerCase().startsWith("transactions"),

@@ -31,6 +31,7 @@ interface Files {
   demoVideo: FileWithPath | null;
   companyLogo: FileWithPath | null;
   companyRegistration: FileWithPath | null;
+  coverPhoto: FileWithPath | null;
 }
 
 interface Props {
@@ -45,6 +46,7 @@ interface Preview {
   demoVideo: string | null;
   companyLogo: string | null;
   companyRegistration: string | null;
+  coverPhoto: string | null;
 }
 
 const CompanyInformation = ({
@@ -77,6 +79,7 @@ const CompanyInformation = ({
       pitchDeck: ["application/pdf"],
       demoVideo: ["video/"],
       companyLogo: ["image/"],
+      coverPhoto: ["image/"],
       companyRegistration: ["application/pdf"],
     };
 
@@ -103,6 +106,7 @@ const CompanyInformation = ({
     demoVideo: null,
     companyLogo: null,
     companyRegistration: null,
+    coverPhoto: null,
   });
 
   const onSubmit = (values: CompanyInformationValidation) => {
@@ -178,6 +182,12 @@ const CompanyInformation = ({
         files.companyRegistration
       );
     }
+    if (files.coverPhoto) {
+      createCompanyInformationDto.append(
+        "company_cover_photo",
+        files.coverPhoto
+      );
+    }
     const payload = {
       creatorId,
       createCompanyInformationDto,
@@ -212,6 +222,7 @@ const CompanyInformation = ({
         company_cac,
         company_incorporated_in,
         company_incorporation_year,
+        company_cover_photo,
       } = accountInformation.companyInformation;
       form.setValue("companyname", company_name);
       form.setValue("contactemail", company_email);
@@ -234,6 +245,7 @@ const CompanyInformation = ({
         demoVideo: company_video || null,
         companyLogo: company_logo || null,
         companyRegistration: company_cac || null,
+        coverPhoto: company_cover_photo || null,
       });
     }
   }, [accountInformation, form]);
@@ -545,6 +557,16 @@ const CompanyInformation = ({
               <br />
               <br className="lg:hidden" />
 
+              <UploadComponent
+                file={files.coverPhoto}
+                handleUpload={handleUpload}
+                previewUrl={preview.coverPhoto ?? undefined}
+                fileType="coverPhoto"
+                maxSize={5 * 1024 * 1024}
+                label="Upload Cover Photo  (Image only)"
+              />
+              <br />
+              <br className="lg:hidden" />
               <div className="flex">
                 <Button
                   className="w-full md:w-[30%] rounded-3xl mt-8
