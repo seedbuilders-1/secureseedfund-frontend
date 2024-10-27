@@ -1,10 +1,9 @@
-// useExplore.ts
-import { api } from "@/generated/service/startups";
+import { api } from "@/generated/service/startups/enhancedstartup";
 
 const useExplore = (userId?: string) => {
   const { data: allStartupsData, isLoading: loadingAllStartupData } =
     api.useStartupControllerFindAllQuery({
-      userId: userId as string,
+      // subscriptionPlan: "basic,premium",
     });
 
   return {

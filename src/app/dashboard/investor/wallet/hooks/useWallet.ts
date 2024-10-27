@@ -1,6 +1,7 @@
 import { api } from "@/generated/service/wallet/enhancedWallet";
 import {
   WalletControllerInitializeDepositApiArg,
+  WalletControllerRequestWithdrawalApiArg,
   WalletControllerVerifyDepositApiArg,
 } from "@/generated/service/wallet/wallet";
 import { useToast } from "@/components/ui/use-toast";
@@ -21,19 +22,38 @@ const useWallet = ({ userId }: Props) => {
     { isLoading: isCreditingWallet, isSuccess: walletCredited, data: response },
   ] = api.useWalletControllerInitializeDepositMutation();
 
+  const [createWalletWithdrawStart, { isLoading: isWithdrawing }] =
+    api.useWalletControllerRequestWithdrawalMutation();
+
   const createDeposit = async (
     values: WalletControllerInitializeDepositApiArg
   ) => {
     try {
       await createDepositStart(values).unwrap();
     } catch (err: any) {
-      console.log(err);
       toast({
+        className:
+          "top-0 right-0 flex fixed text-white  md:max-w-[420px] md:top-4 md:right-4",
         variant: "destructive",
         title: err?.data?.message || "Uh oh! Something went wrong.",
       });
     }
   };
+  const createWithdrawal = async (
+    values: WalletControllerRequestWithdrawalApiArg
+  ) => {
+    try {
+      await createWalletWithdrawStart(values).unwrap();
+    } catch (err: any) {
+      toast({
+        className:
+          "top-0 right-0 flex fixed text-white md:max-w-[420px] md:top-4 md:right-4",
+        variant: "destructive",
+        title: err?.data?.message || "Uh oh! Something went wrong.",
+      });
+    }
+  };
+
   const [
     createDepositVerifyStart,
     { isLoading: isVerifiyingTransaction, isSuccess: transactionVerified },
@@ -63,6 +83,9 @@ const useWallet = ({ userId }: Props) => {
     isVerifiyingTransaction,
     transactionVerified,
     response,
+    createWalletWithdrawStart,
+    isWithdrawing,
+    createWithdrawal,
   };
 };
 export default useWallet;

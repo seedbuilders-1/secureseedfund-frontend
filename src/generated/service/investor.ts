@@ -1,14 +1,24 @@
 import { emptySplitApi as api } from "../emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    investorControllerUpdateInvestor: build.mutation<
-      InvestorControllerUpdateInvestorApiResponse,
-      InvestorControllerUpdateInvestorApiArg
+    investorControllerCreateInvestor: build.mutation<
+      InvestorControllerCreateInvestorApiResponse,
+      InvestorControllerCreateInvestorApiArg
     >({
       query: (queryArg) => ({
         url: `/investor/${queryArg.userId}`,
         method: "POST",
         body: queryArg.createInvestorDto,
+      }),
+    }),
+    investorControllerUpdate: build.mutation<
+      InvestorControllerUpdateApiResponse,
+      InvestorControllerUpdateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/investor/${queryArg.userId}/update`,
+        method: "PUT",
+        body: queryArg.updateInvestorDto,
       }),
     }),
     investorControllerFindAll: build.query<
@@ -31,25 +41,37 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({ url: `/investor/${queryArg.id}` }),
     }),
-    investorControllerUpdate: build.mutation<
-      InvestorControllerUpdateApiResponse,
-      InvestorControllerUpdateApiArg
+    investorControllerInvestInCampaign: build.mutation<
+      InvestorControllerInvestInCampaignApiResponse,
+      InvestorControllerInvestInCampaignApiArg
     >({
       query: (queryArg) => ({
-        url: `/investor/${queryArg.userId}/update`,
-        method: "PATCH",
-        body: queryArg.updateInvestorDto,
+        url: `/investor/${queryArg.investorId}/${queryArg.campaignId}`,
+        method: "POST",
       }),
+    }),
+    investorControllerGetInvestorInvestments: build.query<
+      InvestorControllerGetInvestorInvestmentsApiResponse,
+      InvestorControllerGetInvestorInvestmentsApiArg
+    >({
+      query: (queryArg) => ({ url: `/investor/${queryArg.investorId}` }),
     }),
   }),
   overrideExisting: false,
 });
 export { injectedRtkApi as api };
-export type InvestorControllerUpdateInvestorApiResponse =
-  /** status 201  */ CreateInvestorDto;
-export type InvestorControllerUpdateInvestorApiArg = {
+export type InvestorControllerCreateInvestorApiResponse =
+  /** status 201  */ string;
+export type InvestorControllerCreateInvestorApiArg = {
   userId: string;
   createInvestorDto: CreateInvestorDto;
+};
+export type InvestorControllerUpdateApiResponse = /** status 200  */
+  | string
+  | /** status 201  */ string;
+export type InvestorControllerUpdateApiArg = {
+  userId: string;
+  updateInvestorDto: UpdateInvestorDto;
 };
 export type InvestorControllerFindAllApiResponse =
   /** status 200  */ void | /** status 201  */ InvestorDto;
@@ -63,22 +85,59 @@ export type InvestorControllerFindAllApiArg = {
   /** User ID */
   userId?: string;
 };
-export type InvestorControllerFindOneApiResponse =
-  /** status 200  */
-  InvestorDto | /** status 201  */ InvestorDto;
+export type InvestorControllerFindOneApiResponse = /** status 200  */
+  | InvestorDto
+  | /** status 201  */ InvestorDto;
 export type InvestorControllerFindOneApiArg = {
   id: string;
 };
-export type InvestorControllerUpdateApiResponse =
-  /** status 200  */
-  InvestorDto | /** status 201  */ InvestorDto;
-export type InvestorControllerUpdateApiArg = {
-  userId: string;
-  updateInvestorDto: UpdateInvestorDto;
+export type InvestorControllerInvestInCampaignApiResponse = unknown;
+export type InvestorControllerInvestInCampaignApiArg = {
+  /** Investor ID */
+  investorId: string;
+  /** Campaign ID */
+  campaignId: string;
+};
+export type InvestorControllerGetInvestorInvestmentsApiResponse = unknown;
+export type InvestorControllerGetInvestorInvestmentsApiArg = {
+  /** Investor ID */
+  investorId: string;
 };
 export type CreateInvestorDto = {
   /** Phone number of the investor */
   investor_phonenumber: string;
+  /** Nationality of the investor */
+  investor_nationality: string;
+  /** Country of residence of the investor */
+  investor_country_residence: string;
+  /** City of residence of the investor */
+  investor_residence_city: string;
+  /** Status of the investor */
+  investor_status: string;
+  /** Investor image file */
+  investor_image?: Blob;
+  /** Type of investor */
+  investor_type:
+    | "EQUITY"
+    | "DEBT"
+    | "REWARD"
+    | "REVENUE_SHARE"
+    | "GRANTS"
+    | "ROI"
+    | "SAFE"
+    | "OTHERS";
+  /** Annual income of the investor */
+  investor_annual_income: string;
+  /** Investment duration of the investor */
+  investor_investment_duration: string;
+  /** Investment goal of the investor */
+  investor_investment_goal: string;
+  /** Investment experience of the investor */
+  investor_experience: string;
+  /** Liquidity importance for the investor */
+  investor_liquidity_importance: string;
+};
+export type UpdateInvestorDto = {
   /** Nationality of the investor */
   investor_nationality: string;
   /** Country of residence of the investor */
@@ -132,44 +191,11 @@ export type InvestorDto = {
   investor_experience: string;
   investor_liquidity_importance: string;
 };
-export type UpdateInvestorDto = {
-  /** Phone number of the investor */
-  investor_phonenumber?: string;
-  /** Nationality of the investor */
-  investor_nationality?: string;
-  /** Country of residence of the investor */
-  investor_country_residence?: string;
-  /** City of residence of the investor */
-  investor_residence_city?: string;
-  /** Status of the investor */
-  investor_status?: string;
-  /** Investor image file */
-  investor_image?: Blob;
-  /** Type of investor */
-  investor_type?:
-    | "EQUITY"
-    | "DEBT"
-    | "REWARD"
-    | "REVENUE_SHARE"
-    | "GRANTS"
-    | "ROI"
-    | "SAFE"
-    | "OTHERS";
-  /** Annual income of the investor */
-  investor_annual_income?: string;
-  /** Investment duration of the investor */
-  investor_investment_duration?: string;
-  /** Investment goal of the investor */
-  investor_investment_goal?: string;
-  /** Investment experience of the investor */
-  investor_experience?: string;
-  /** Liquidity importance for the investor */
-  investor_liquidity_importance?: string;
-  id: string;
-};
 export const {
-  useInvestorControllerUpdateInvestorMutation,
+  useInvestorControllerCreateInvestorMutation,
+  useInvestorControllerUpdateMutation,
   useInvestorControllerFindAllQuery,
   useInvestorControllerFindOneQuery,
-  useInvestorControllerUpdateMutation,
+  useInvestorControllerInvestInCampaignMutation,
+  useInvestorControllerGetInvestorInvestmentsQuery,
 } = injectedRtkApi;

@@ -70,10 +70,6 @@ const Layout = ({ children }: { children: ReactNode }) => {
   if (loading) {
     return <LoadingSpinner className="h-[40vh]" />;
   }
-
-  if (loading) {
-    return <LoadingSpinner className="h-[40vh]" />;
-  }
   return (
     <PrivateRoute>
       <DashboardLayout items={filteredItems}>{children}</DashboardLayout>

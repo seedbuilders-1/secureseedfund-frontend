@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { HiCheckBadge } from "react-icons/hi2";
-import useWallet from "../hooks/useWallet";
+import useWallet from "../wallet/hooks/useWallet";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const SuccessComponent = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import useUserAuth from "@/hooks/auth/useAuth";
-import useTransaction from "../../hooks/useTransaction";
+import useTransaction from "../hooks/useTransaction";
 import moment from "moment";
 import { Skeleton } from "@/components/ui/skeleton";
 import { thousandFormatter } from "@/lib/helpers";
@@ -50,7 +50,7 @@ const TransactionHistory = () => {
               <div className="w-1/4 text-left mx-auto  max-w-[100px] md:text-center text-xs md:text-sm">
                 <StatusTag
                   status={
-                    transaction.trx_status === "created" ? "PAID" : "FAILED"
+                    transaction.trx_status === "success" ? "PAID" : "FAILED"
                   }
                 />
               </div>
@@ -58,7 +58,7 @@ const TransactionHistory = () => {
           ))}
         </div>
       ) : (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center p-8">
           <h2 className="font-bold text-black text-[1rem] md:text-sm">
             You have no transactions
           </h2>
