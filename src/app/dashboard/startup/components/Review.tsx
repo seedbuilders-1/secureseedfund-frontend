@@ -12,7 +12,7 @@ import {
   CampaignDto,
   CampaignsControllerCreateApiArg,
   CreateCampaignDto,
-} from "@/generated/service/campaign";
+} from "@/generated/service/campaigns/campaign";
 import { FundingCampaignTypes } from "./StartCampaign";
 interface Props {
   handleBack: () => void;
@@ -31,7 +31,7 @@ const Review = ({
   const { user } = useUserAuth();
 
   const { createCampaign, createCampaignLoading, createdCampaign } =
-    useCampaign();
+    useCampaign({});
 
   const createCampaignDto: CreateCampaignDto = {
     title: campaignDetail.title,

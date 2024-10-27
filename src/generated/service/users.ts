@@ -160,6 +160,7 @@ export type Campaign = {
   isApprove: boolean;
   isLive: boolean;
   milestones?: Milestone[];
+  investment_balance: string;
   startup: Startup[];
   id: string;
   createdAt: string;

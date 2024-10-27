@@ -5,7 +5,11 @@ import {
   SubscriptionsControllerGenerateSubscriptionTransactionApiArg,
 } from "@/generated/service/subscription";
 
-const useSubscription = () => {
+interface Props {
+  userId: string;
+}
+
+const useSubscription = ({ userId }: Props) => {
   const [
     createSubsciptionStart,
     {

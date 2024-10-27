@@ -4,12 +4,13 @@ import { useState } from "react";
 import AccountStepper from "@/app/dashboard/startup/account/components/AccountStepper";
 import { InvestorInfoValidation } from "@/lib/validations/account";
 import InvestorInformation from "../components/InvestorInfo";
+import { FileWithPath } from "react-dropzone";
+import Review from "../components/Review";
 
 export default function AccountForm() {
   const [currentStep, setCurrentStep] = useState(1);
 
   const [investorInfo, setInvestorInfo] = useState<InvestorInfoValidation>({
-    image: "",
     firstName: "",
     lastName: "",
     phone: "",
@@ -26,12 +27,22 @@ export default function AccountForm() {
     annualIncome: "",
   });
 
+  const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(
+    null
+  );
+
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const handleInvestorInfo = (details: InvestorInfoValidation) => {
     setInvestorInfo(details);
   };
 
   const handleNext = () => {
     setCurrentStep(currentStep + 1);
+  };
+
+  const handleBack = () => {
+    setCurrentStep(currentStep - 1);
   };
 
   const steps = ["Investor Information", "Review and Submit"];
@@ -47,6 +58,19 @@ export default function AccountForm() {
               investorDetails={investorInfo}
               handleNext={handleNext}
               handleInvestor={handleInvestorInfo}
+              profileImageFile={profileImageFile}
+              setProfileImageFile={setProfileImageFile}
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+            />
+          )}
+          {currentStep === 2 && (
+            <Review
+              investorDetails={investorInfo}
+              handleBack={handleBack}
+              setStep={setCurrentStep}
+              profileImageFile={profileImageFile}
+              selectedImage={selectedImage}
             />
           )}
         </div>

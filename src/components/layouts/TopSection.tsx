@@ -30,6 +30,7 @@ const TopSection = ({ items }: TopSectionProps) => {
   const pathname = usePathname();
 
   const { userProfile } = useProfile();
+
   const isActive = (href: string) => {
     const normalizedPathname = pathname.replace(/\/$/, "");
     const normalizedHref = href.replace(/\/$/, "");
@@ -72,7 +73,11 @@ const TopSection = ({ items }: TopSectionProps) => {
           </nav>
           <div className="flex items-center space-x-4">
             <Link
-              href={"/dashboard/startup/pricing"}
+              href={`${
+                userProfile?.accountType == "startup"
+                  ? "/dashboard/startup/pricing"
+                  : "/dashboard/investor/pricing"
+              }`}
               className="hidden md:block"
             >
               <div className="rounded-[30px] border-solid border-2 px-8 py-2 text-[.875rem] cursor-pointer bg-[#CDEED3] text-[#0F8B3A]">

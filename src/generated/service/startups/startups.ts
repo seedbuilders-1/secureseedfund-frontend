@@ -142,7 +142,7 @@ export type StartupControllerGetStartupByStartupIdApiArg = {
   startupId: string;
 };
 export type StartupControllerFindAllApiResponse =
-  /** status 200  */ StartupDto[];
+  /** status 200  */ PaginatedStartupDto;
 export type StartupControllerFindAllApiArg = {
   /** Page number */
   page?: number;
@@ -281,6 +281,7 @@ export type Campaign = {
   isApprove: boolean;
   isLive: boolean;
   milestones?: Milestone[];
+  investment_balance: string;
   startup: Startup[];
   id: string;
   createdAt: string;
@@ -581,12 +582,29 @@ export type CreateCampaignDto = {
     | "OTHERS";
 };
 export type StartupDto = {
-  businessInformation: UpdateBusinessInformationDto;
-  companyInformation: UpdateCompanyInformationDto;
-  fundingInformation: UpdateFundingInformationDto;
-  teamInformation: CreateTeamDto;
-  founder: CreateFounderDto;
-  campaignInformation: CreateCampaignDto;
+  /** Business Information */
+  businessInformation?: UpdateBusinessInformationDto;
+  /** Company Information */
+  companyInformation?: UpdateCompanyInformationDto;
+  /** Funding Information */
+  fundingInformation?: UpdateFundingInformationDto;
+  /** Team Information */
+  teamInformation?: CreateTeamDto;
+  /** Founder Information */
+  founder?: CreateFounderDto;
+  /** Campaign Information */
+  campaignInformation?: CreateCampaignDto;
+};
+export type PaginationMetaDto = {
+  totalItems: number;
+  itemCount: number;
+  itemsPerPage: number;
+  totalPages: number;
+  currentPage: number;
+};
+export type PaginatedStartupDto = {
+  items: StartupDto[];
+  meta: PaginationMetaDto;
 };
 export const {
   useStartupControllerCreateTeamInformationMutation,

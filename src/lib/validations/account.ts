@@ -156,7 +156,6 @@ export const FundingInformationSchema = z.object({
 // investor account
 
 export const InvestorInfoSchema = z.object({
-  image: z.string().min(1, "Image is required"),
   firstName: z.string().min(1, "First Name is required"),
   lastName: z.string().min(1, "Last Name is required"),
   phone: z.string().min(1, "Phone Number is required"),
@@ -179,6 +178,29 @@ export const InvestorInfoSchema = z.object({
   //
 });
 
+export const InvestorAccountSettingsSchema = z.object({
+  // investor_phonenumber: z.string().min(1, "Phone number is required"),
+  investor_nationality: z.string().optional(),
+  investor_country_residence: z.string().optional(),
+  investor_residence_city: z.string().optional(),
+  investor_status: z.string().optional(),
+  investor_type: z.enum([
+    "EQUITY",
+    "DEBT",
+    "REWARD",
+    "REVENUE_SHARE",
+    "GRANTS",
+    "ROI",
+    "SAFE",
+    "OTHERS",
+  ]),
+  investor_annual_income: z.string().optional(),
+  investor_investment_duration: z.string().optional(),
+  investor_investment_goal: z.string().optional(),
+  investor_experience: z.string().optional(),
+  investor_liquidity_importance: z.string().optional(),
+});
+
 export type FounderValidation = z.infer<typeof FounderSchema>;
 export type TeamInformationValidation = z.infer<typeof TeamInformationSchema>;
 export type CompanyInformationValidation = z.infer<
@@ -195,3 +217,6 @@ export type FundingInformationValidation = z.infer<
 export type InvestorInfoValidation = z.infer<typeof InvestorInfoSchema>;
 
 export type AccountSettingsValidation = z.infer<typeof AccountSettingsSchema>;
+export type InvestorAccountSettingsValidation = z.infer<
+  typeof InvestorAccountSettingsSchema
+>;

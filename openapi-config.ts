@@ -33,6 +33,10 @@ const config: ConfigFile = {
       filterEndpoints: (endpointName) =>
         endpointName.toLowerCase().startsWith("transactions"),
     },
+    "./src/generated/service/investors.ts": {
+      filterEndpoints: (endpointName) =>
+        endpointName.toLowerCase().startsWith("investor"),
+    },
   },
   exportName: "api",
   hooks: true,

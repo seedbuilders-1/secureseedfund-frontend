@@ -6,7 +6,7 @@ import WhitCheckIcon from "@/assets/icons/WhitCheckIcon";
 import useSubscription from "@/app/dashboard/startup/pricing/hooks/useSubscriptions";
 import useUserAuth from "@/hooks/auth/useAuth";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface PlanCardProps {
   planName: string;
@@ -36,26 +36,10 @@ const AppPricingCard = ({
 
   const router = useRouter();
 
-  const searchParams = useSearchParams();
-
-  const ref_id = searchParams.get("trxref") ?? "";
-  const { completeSubscription } = useSubscription();
-
-  const verifySubscription = () => {
-    const completedSubscriptionDto = {
-      ref_id: ref_id as string,
-    };
-
-    const completedSubscriptionPayload = {
-      completeSubscriptionDto: completedSubscriptionDto,
-    };
-
-    completeSubscription(completedSubscriptionPayload);
-    router.push("/dashboard/startup");
-  };
+  const userId = user?.userId as string;
 
   const { createSubscription, response, creatingSubscription } =
-    useSubscription();
+    useSubscription({ userId });
 
   const handleSubscribe = () => {
     if (isCurrentPlan) return;
@@ -78,14 +62,6 @@ const AppPricingCard = ({
       router.push(response?.authorization_url);
     }
   }, [response]);
-
-  useEffect(() => {
-    if (ref_id) {
-      console.log("soks");
-
-      verifySubscription();
-    }
-  }, []);
 
   return (
     <div
