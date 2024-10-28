@@ -22,13 +22,18 @@ export const MilestonSchema = z.object({
   ),
 });
 
-export const CampaignSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  description: z.string().min(1, "Descriptiom is required"),
-  startdate: z.string().min(1, "Start Date is required"),
-  enddate: z.string().min(1, "End Date is required"),
-  fundinggoal: z.string().min(1, "Funding Goal is required"),
-});
+export const CampaignSchema = z
+  .object({
+    title: z.string().min(1, "Title is required"),
+    description: z.string().min(1, "Description is required"),
+    startdate: z.string().min(1, "Start Date is required"),
+    enddate: z.string().min(1, "End Date is required"),
+    fundinggoal: z.string().min(1, "Funding Goal is required"),
+  })
+  .refine((data) => new Date(data.enddate) > new Date(data.startdate), {
+    message: "End date must be greater than start date",
+    path: ["enddate"],
+  });
 export type MilestoneValidation = z.infer<typeof MilestonSchema>;
 
 export const StartupInfoSchema = z.object({

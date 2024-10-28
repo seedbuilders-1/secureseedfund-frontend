@@ -34,6 +34,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/wallet/${queryArg.userId}/withdraw`,
         method: "POST",
+        body: queryArg.withdrawalDto,
       }),
     }),
     walletControllerGetUserWithdrawals: build.query<
@@ -55,16 +56,16 @@ export type WalletControllerInitializeDepositApiArg = {
   userId: string;
   createDepositDto: CreateDepositDto;
 };
-export type WalletControllerVerifyDepositApiResponse = /** status 200  */
-  | object
-  | /** status 201 Verifu wallet Deposit */ void;
+export type WalletControllerVerifyDepositApiResponse =
+  /** status 200  */
+  object | /** status 201 Verifu wallet Deposit */ void;
 export type WalletControllerVerifyDepositApiArg = {
   verifyDepositDto: VerifyDepositDto;
 };
 export type WalletControllerRequestWithdrawalApiResponse = unknown;
 export type WalletControllerRequestWithdrawalApiArg = {
-  /** User ID for the withdrawal request */
   userId: string;
+  withdrawalDto: WithdrawalDto;
 };
 export type WalletControllerGetUserWithdrawalsApiResponse = unknown;
 export type WalletControllerGetUserWithdrawalsApiArg = {
@@ -78,6 +79,10 @@ export type CreateDepositDto = {
 export type VerifyDepositDto = {
   /** Payment reference for verification */
   reference: string;
+};
+export type WithdrawalDto = {
+  /** Amount to withdraw */
+  amount: number;
 };
 export const {
   useWalletControllerGetOrCreateWalletQuery,
