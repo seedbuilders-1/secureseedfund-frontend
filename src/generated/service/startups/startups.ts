@@ -137,12 +137,12 @@ export type StartupControllerGetStartupByUserIdApiArg = {
   userId: string;
 };
 export type StartupControllerGetStartupByStartupIdApiResponse =
-  /** status 200  */ Startup;
+  /** status 200  */ Startup | /** status 201  */ Startup;
 export type StartupControllerGetStartupByStartupIdApiArg = {
   startupId: string;
 };
 export type StartupControllerFindAllApiResponse =
-  /** status 200  */ StartupDto[];
+  /** status 200  */ PaginatedStartupDto;
 export type StartupControllerFindAllApiArg = {
   /** Page number */
   page?: number;
@@ -244,6 +244,7 @@ export type UpdateNewCompanyInformationDto = {
   company_video?: Blob;
   profileImage?: Blob;
   company_cover_photo?: Blob;
+  company_cac?: Blob;
   company_address: string;
   company_website: string;
   company_desc: string;
@@ -281,7 +282,8 @@ export type Campaign = {
   isApprove: boolean;
   isLive: boolean;
   milestones?: Milestone[];
-  startup: Startup[];
+  investment_balance: string;
+  startup: Startup;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -341,6 +343,11 @@ export type Kyc = {
   identity_number: string;
   addressProofUrl: string;
   isApproved: boolean;
+  utility_proof: string;
+  biometric_proof: string;
+  company_tin_number: string;
+  company_status_report: string;
+  company_reg_number: string;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -492,7 +499,7 @@ export type Startup = {
   fundingInformation: FundingInformation;
   teamInformation: Team;
   founder: Founder;
-  campaignInformation: Campaign;
+  campaignInformation: Campaign[];
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -581,12 +588,29 @@ export type CreateCampaignDto = {
     | "OTHERS";
 };
 export type StartupDto = {
-  businessInformation: UpdateBusinessInformationDto;
-  companyInformation: UpdateCompanyInformationDto;
-  fundingInformation: UpdateFundingInformationDto;
-  teamInformation: CreateTeamDto;
-  founder: CreateFounderDto;
-  campaignInformation: CreateCampaignDto;
+  /** Business Information */
+  businessInformation?: UpdateBusinessInformationDto;
+  /** Company Information */
+  companyInformation?: UpdateCompanyInformationDto;
+  /** Funding Information */
+  fundingInformation?: UpdateFundingInformationDto;
+  /** Team Information */
+  teamInformation?: CreateTeamDto;
+  /** Founder Information */
+  founder?: CreateFounderDto;
+  /** Campaign Information */
+  campaignInformation?: CreateCampaignDto;
+};
+export type PaginationMetaDto = {
+  totalItems: number;
+  itemCount: number;
+  itemsPerPage: number;
+  totalPages: number;
+  currentPage: number;
+};
+export type PaginatedStartupDto = {
+  items: StartupDto[];
+  meta: PaginationMetaDto;
 };
 export const {
   useStartupControllerCreateTeamInformationMutation,

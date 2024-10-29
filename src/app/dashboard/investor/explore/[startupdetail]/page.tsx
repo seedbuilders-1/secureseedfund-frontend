@@ -1,182 +1,245 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Play, Pause } from "lucide-react";
-import PlayButton from "../../../../../../public/assets/images/Play.png";
-import Image from "next/image";
+import { api as startupsApi } from "@/generated/service/startups/startups";
+import Milestones from "../components/Milestone";
 import { Button } from "@/components/ui/button";
-import ImageAngle from "../../../../../../public/assets/images/imageAngel.png";
-
-const StartupDetail: React.FC = () => {
+import AboutusSection from "../components/Aboutus";
+import TeamMembers from "../components/TeamMembers";
+import { useParams } from "next/navigation";
+import InvestModal from "../components/InvestModal";
+import useUserAuth from "@/hooks/auth/useAuth";
+import LoadingSkeleton from "../components/LoadingSkeleton";
+import useExplore from "../hooks/useExplore";
+import PDFViewerModal from "../components/PdfViewer";
+const StartupDetail = () => {
+  const { startupdetail } = useParams();
+  const { createInvestment, isInvesting } = useExplore({});
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState("Overview");
-
-  const tabs = ["Overview", "About", "Terms"];
-
+  const [progress, setProgress] = useState(0);
   const togglePlayPause = () => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
       } else {
-        videoRef.current.play().catch((error) => {
-          console.error("Error attempting to play video: ", error);
-        });
+        videoRef.current.play();
       }
       setIsPlaying(!isPlaying);
     }
   };
 
-  return (
-    <section className="px-5 mt-[2rem] mb-[100px]">
-      <div className="flex flex-col lg:flex-row w-full gap-8">
-        <div className="relative w-full lg:w-1/2 aspect-video">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover rounded-lg"
-            loop
-            muted
-            playsInline
-          >
-            <source
-              src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const percent =
+        (videoRef.current.currentTime / videoRef.current.duration) * 100;
+      setProgress(percent);
+    }
+  };
 
-          <div className="absolute inset-0 flex items-center justify-center">
-            <button
-              onClick={togglePlayPause}
-              className="transform transition-transform hover:scale-110"
-              aria-label={isPlaying ? "Pause video" : "Play video"}
+  const handleProgressClick = (e) => {
+    // if (videoRef.current) {
+    //   const progressBar = e.currentTarget;
+    //   const clickPosition =
+    //     e.clientX - progressBar.getBoundingClientRect().left;
+    //   const percentageClicked = (clickPosition / progressBar.offsetWidth) * 100;
+    //   const newTime = (videoRef.current.duration / 100) * percentageClicked;
+    //   videoRef.current.currentTime = newTime;
+    //   setProgress(percentageClicked);
+    // }
+  };
+
+  const tabs = ["Overview", "About", "Teams"];
+  const startupId = Array.isArray(startupdetail)
+    ? startupdetail[0]
+    : startupdetail || "";
+  const { data: startup, isLoading } =
+    startupsApi.useStartupControllerGetStartupByStartupIdQuery({
+      startupId: startupId,
+    });
+  const { user } = useUserAuth();
+  const campaignId = startup?.campaignInformation[0].id;
+  const handleInvest = (amount: number) => {
+    const investDto = {
+      investmentAmount: amount,
+    };
+    createInvestment({
+      investorId: user?.userId as string,
+      campaignId: campaignId as string,
+      investDto,
+    });
+  };
+
+  const hasCampaign =
+    startup?.campaignInformation && startup.campaignInformation.length > 0;
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
+  return (
+    <section className=" px-[1rem] lg:px-[3rem] mt-[2rem] mb-[100px] flex items-center  mx-auto ">
+      <div
+        className={`flex flex-col md:flex-row gap-8 ${
+          hasCampaign ? "w-full" : "w-full max-w-[1200px]"
+        }`}
+      >
+        <div
+          className={`${
+            hasCampaign ? "w-[100%] max-w-[900px]" : "w-full"
+          } h-full`}
+        >
+          <div className="relative w-full">
+            <video
+              ref={videoRef}
+              className="object-cover rounded-sm w-full"
+              loop
+              muted
+              playsInline
+              onTimeUpdate={handleTimeUpdate}
             >
-              {isPlaying ? (
-                <Pause size={48} fill="black" color="black" />
-              ) : (
-                <Image
-                  src={PlayButton}
-                  alt="Play button"
-                  width={48}
-                  height={48}
-                  className="w-12 h-12"
+              <source
+                src={startup?.companyInformation.company_video}
+                type="video/mp4"
+              />
+            </video>
+
+            <div className="absolute inset-0 bg-black/40 rounded-sm" />
+
+            <div className="absolute inset-0 flex items-center justify-center">
+              <button
+                onClick={togglePlayPause}
+                className="transform transition-transform hover:scale-110 z-10"
+                aria-label={isPlaying ? "Pause video" : "Play video"}
+              >
+                {isPlaying ? (
+                  <Pause size={48} fill="white" color="white" />
+                ) : (
+                  <Play size={48} fill="white" color="white" />
+                )}
+              </button>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+              <div
+                className="w-full bg-white/30 h-1 rounded-full cursor-pointer"
+                onClick={handleProgressClick}
+              >
+                <div
+                  className="bg-white h-full rounded-full transition-all duration-100"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 ">
+            <h3 className="text-[1rem] font-normal text-[#000000] mb-4">
+              {startup?.companyInformation.company_name}
+            </h3>
+            <strong className="text-[1.2rem] font-bold leading-[1rem]   ">
+              {startup?.companyInformation.company_desc}
+            </strong>
+            <p className="text-sm font-500 mt-4">
+              {startup?.companyInformation.company_bullet_point}
+            </p>
+            <p className="text-sm font-500 mt-8">
+              <strong>Industry</strong>:{" "}
+              {startup?.companyInformation.company_industry}
+            </p>
+            <Button className="w-[80%] md:w-[30%] rounded-3xl bg-[#241A3F] mt-10">
+              Invest
+            </Button>
+
+            <div>
+              <div className="mt-8">
+                <div className="flex gap-5 font-medium">
+                  {tabs.map((tab) => (
+                    <div key={tab} className="relative">
+                      <button
+                        onClick={() => setActiveTab(tab)}
+                        className={`pb-2 transition-colors duration-300 text-[1.1rem] font-bold ${
+                          activeTab === tab
+                            ? "text-[#0F8B3A]"
+                            : "text-gray-700 hover:text-gray-900 font-bold"
+                        }`}
+                      >
+                        {tab}
+                      </button>
+                      <div
+                        className={`absolute bottom-[8px] left-0 w-full h-0.5 transition-all duration-300 mb-[-0.3rem] ${
+                          activeTab === tab
+                            ? "bg-[#0F8B3A] opacity-100 font-bold"
+                            : "bg-transparent opacity-0 font-bold"
+                        }`}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <hr className="mt-6 bg-[#2f2c2c] mb-6" />
+                <div className="mt-4 ">
+                  {activeTab === "Overview" && (
+                    <div>
+                      <div>
+                        <h2 className="font-bold text-[1.5rem]">
+                          Reasons to Invest
+                        </h2>
+                        <p className="mt-6 text-sm">
+                          {startup?.companyInformation.company_bullet_point}
+                        </p>
+                      </div>
+                      <div className="flex  w-full justify-between gap-4 flex-wrap">
+                        <div className="mt-4 w-full">
+                          <h2 className="text-[1.2rem] font-medium mt-6">
+                            The Pitch Deck
+                          </h2>
+                          <PDFViewerModal
+                            pdfUrl={
+                              startup?.companyInformation
+                                .company_pitchDeck as string
+                            }
+                          />
+                        </div>
+                        <div className="mt-4 w-full">
+                          <h2 className="text-[1.2rem] font-medium mt-6">
+                            The Company Registration
+                          </h2>
+                          <PDFViewerModal
+                            pdfUrl={
+                              startup?.companyInformation.company_cac as string
+                            }
+                          />
+                        </div>
+                        <div className="mt-4 w-full">
+                          <h2 className="text-[1.2rem] font-medium mt-6">
+                            The Business Plan
+                          </h2>
+                          <PDFViewerModal
+                            pdfUrl={
+                              startup?.companyInformation
+                                .company_business_plan as string
+                            }
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {activeTab === "About" && <AboutusSection about={startup} />}
+                  {activeTab === "Teams" && (
+                    <div>
+                      <TeamMembers team={startup} />
+                    </div>
+                  )}
+                </div>
+              </div>
+              {startup?.campaignInformation.length > 0 && (
+                <Milestones
+                  currentCampaign={startup?.campaignInformation.milestones}
                 />
               )}
-            </button>
-          </div>
-        </div>
-
-        <div className="w-full lg:w-1/2  flex-col justify-center bg-[#CDEED3] hidden lg:block">
-          <div className="space-y-6">
-            <h2 className="text-4xl font-bold">Your Title Here</h2>
-            <p className="text-lg text-gray-600">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-            </p>
-            <div className="flex gap-4">
-              <button className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">
-                Primary Action
-              </button>
-              <button className="px-6 py-3 border border-black rounded-lg hover:bg-gray-100 transition-colors">
-                Secondary Action
-              </button>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="mt-8">
-        <h3 className="text-[1.2rem] font-normal text-[#000000]">
-          Get a fraction of kene & sons
-        </h3>
-        <strong className="text-[1.5rem] font-bold leading-[2rem] ">
-          Kene & Sons LTD AI Machine Communication and Virtual learning.
-        </strong>
-        <p className="text-sm font-500">
-          Kene & sons software technologies are force multipliers for machine
-          data communications, enabling up to 2-4x more data to be sent over
-          existing networks with the potential for added security.
-        </p>
-        <Button className="w-[80%] md:w-[30%] rounded-3xl bg-[#241A3F] mt-10">
-          Get Equity
-        </Button>
-        <p className="text-sm font-500 mt-10">
-          This Reg A+ offering is made available through StartEngine Primary,
-          LLC. This investment is speculative, illiquid, and involves a high
-          degree of risk, including the possible loss of your entire investment.
-        </p>
-      </div>
-
-      <div className="mt-8">
-        <div className="flex gap-5 font-medium">
-          {tabs.map((tab) => (
-            <div key={tab} className="relative">
-              <button
-                onClick={() => setActiveTab(tab)}
-                className={`pb-2 transition-colors duration-300 text-[1.1rem] ${
-                  activeTab === tab
-                    ? "text-[#0F8B3A]"
-                    : "text-gray-700 hover:text-gray-900"
-                }`}
-              >
-                {tab}
-              </button>
-              {/* Underline */}
-              <div
-                className={`absolute bottom-[8px] left-0 w-full h-0.5 transition-all duration-300 ${
-                  activeTab === tab
-                    ? "bg-[#0F8B3A] opacity-100"
-                    : "bg-transparent opacity-0"
-                }`}
-              />
-            </div>
-          ))}
-        </div>
-        <hr className="mt-2 bg-[#2f2c2c]" />
-        {/* Content area - you can add your tab content here */}
-        <div className="mt-4 ">
-          {activeTab === "Overview" && (
-            <div>
-              <div>
-                <h2 className="font-bold text-[1.2rem]">Reasons to Invest</h2>
-                <p className="mt-3">
-                  . Lorem ipsum dolor sit amet consectetur. Condimentum nullam
-                  dui sapien pulvinar tincidunt pharetra consectetur eros. Lorem
-                  ipsum dolor sit amet consectetur. Condimentum nullam dui
-                  sapien pulvinar tincidunt pharetra consectetur eros. Lorem
-                  ipsum dolor sit amet consectetur. Condimentum nullam dui
-                  sapien pulvinar tincidunt pharetra consectetur eros. Lorem
-                  ipsum dolor sit amet consectetur. Condimentum nullam dui
-                  sapien pulvinar tincidunt pharetra consectetu. Lorem ipsum
-                  dolor sit amet consectetur .
-                </p>
-              </div>
-
-              <div className="mt-4">
-                <h2 className="text-[1.2rem] font-bold">The pitch</h2>
-                <h3 className="text-[1rem] font-medium">
-                  Streamlined, Secure & Smart Data Compression and Security
-                </h3>
-                <Image
-                  src={ImageAngle}
-                  alt="Play button"
-                  className="w-full mt-3"
-                />
-                <p className="mt-4">
-                  Lorem ipsum dolor sit amet consectetur. Condimentum nullam dui
-                  sapien pulvinar tincidunt pharetra consectetur eros. Lorem
-                  ipsum dolor sit amet consectetur. Condimentum nullam dui
-                  sapien pulvinar tincidunt pharetra consectetur eros. Lorem
-                  ipsum dolor sit amet consectetur. Condimentum nullam dui
-                  sapien pulvinar tincidunt pharetra consectetur eros. Lorem
-                  ipsumss
-                </p>
-              </div>
-            </div>
-          )}
-          {activeTab === "About" && <div>About Content</div>}
-          {activeTab === "Terms" && <div>Terms Content</div>}
-        </div>
+        <InvestModal isLoading={isInvesting} handleInvest={handleInvest} />
       </div>
     </section>
   );

@@ -64,9 +64,7 @@ export type WalletControllerVerifyDepositApiArg = {
 };
 export type WalletControllerRequestWithdrawalApiResponse = unknown;
 export type WalletControllerRequestWithdrawalApiArg = {
-  /** User ID for the withdrawal request */
   userId: string;
-  /** Amount to withdraw */
   withdrawalDto: WithdrawalDto;
 };
 export type WalletControllerGetUserWithdrawalsApiResponse = unknown;

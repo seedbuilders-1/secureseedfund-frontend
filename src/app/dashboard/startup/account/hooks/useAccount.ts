@@ -122,9 +122,7 @@ const useAccount = (creatorId?: string) => {
     } catch (err: any) {
       toast({
         variant: "destructive",
-        title:
-          err?.message?.forEach((message: string) => message) ??
-          "Uh oh! Something went wrong.",
+        title: err?.message ?? "Uh oh! Something went wrong.",
       });
     }
   };

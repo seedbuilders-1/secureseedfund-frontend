@@ -165,7 +165,7 @@ export type Startup = {
   fundingInformation: FundingInformation;
   teamInformation: Team;
   founder: Founder;
-  campaignInformation: Campaign;
+  campaignInformation: Campaign[];
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -189,7 +189,8 @@ export type Campaign = {
   isApprove: boolean;
   isLive: boolean;
   milestones?: Milestone[];
-  startup: Startup[];
+  investment_balance: string;
+  startup: Startup;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -249,6 +250,11 @@ export type Kyc = {
   identity_number: string;
   addressProofUrl: string;
   isApproved: boolean;
+  utility_proof: string;
+  biometric_proof: string;
+  company_tin_number: string;
+  company_status_report: string;
+  company_reg_number: string;
   id: string;
   createdAt: string;
   updatedAt: string;

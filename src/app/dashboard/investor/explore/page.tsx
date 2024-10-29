@@ -91,7 +91,7 @@ function Page() {
             >
               <div className="relative aspect-[16/9] w-full overflow-hidden">
                 <Image
-                  src={startup.founder?.profileImage}
+                  src={startup?.founder?.profileImage}
                   alt="startup image"
                   fill
                   className="object-cover"
@@ -108,33 +108,30 @@ function Page() {
                 </div>
                 <div className="">
                   <h2 className="text-xl font-medium mb-2 text-[#837e7e]">
-                    Doful
+                    {startup.companyInformation?.company_name}
                   </h2>
                   <p className="font-medium">
-                    at startup dofu we specialize in retaurant ofring
+                    {startup?.companyInformation?.company_industry}
                   </p>
                 </div>
 
                 <div className="flex-grow">
                   <p className="text-sm text-gray-500 mb-6 line-clamp-3">
-                    at startup dofu we specialize in retaurant ofring at startup
-                    dofu we specialize in retaurant ofring at startup dofu we
-                    specialize in retaurant ofring at startup dofu we specialize
-                    in retaurant ofring
+                    {startup.companyInformation?.company_desc}
                   </p>
 
                   <div className="space-y-4 mt-auto">
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600 font-medium">Funding</span>
                       <span className="font-normal text-[#837e7e]">
-                        $300 from 150 investors
+                        {startup.fundingInformation?.previous_fundraise}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between">
                       <span className="font-medium">Valuation</span>
                       <span className="font-normal text-[#837e7e]">
-                        $40.26M valuations
+                        {/* {startup.campaignInformat} */}
                       </span>
                     </div>
                   </div>

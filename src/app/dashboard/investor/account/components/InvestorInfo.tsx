@@ -6,11 +6,7 @@ import {
   InvestorInfoSchema,
   InvestorInfoValidation,
 } from "@/lib/validations/account";
-import { useEffect, useState } from "react";
-import UploadProfileImage from "./UploadProfileImage";
 import { useToast } from "@/components/ui/use-toast";
-import { useUploadfileMutation } from "@/services/fileupload";
-import { FileWithPath } from "react-dropzone";
 import MobileStepper from "@/app/dashboard/startup/components/MobileStepper";
 import {
   Form,
@@ -22,71 +18,88 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
+import { FileWithPath } from "react-dropzone";
+import { useState } from "react";
+import { BiImageAdd } from "react-icons/bi";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Props {
   investorDetails: InvestorInfoValidation;
   handleInvestor: (v: InvestorInfoValidation) => void;
   handleNext: () => void;
+  setProfileImageFile: (x: FileWithPath | null) => void;
+  profileImageFile: FileWithPath | null;
+  selectedImage: string | null;
+  setSelectedImage: (x: string | null) => void;
 }
 
 const InvestorInformation = ({
   investorDetails,
   handleNext,
   handleInvestor,
+  setProfileImageFile,
+  profileImageFile,
+  selectedImage,
+  setSelectedImage,
 }: Props) => {
   const form = useForm<InvestorInfoValidation>({
     resolver: zodResolver(InvestorInfoSchema),
     defaultValues: investorDetails,
   });
 
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const validImageTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (!validImageTypes.includes(file.type)) {
+      toast({
+        variant: "destructive",
+        title: "Invalid file type. Please upload an image (jpg, jpeg, png).",
+      });
+      return;
+    }
+
+    const uploadLimit = file.size / 1024 / 1024 < 2.5;
+    if (!uploadLimit) {
+      toast({
+        variant: "destructive",
+        title: "File must not exceed 2.5MB",
+      });
+      return;
+    }
+    setProfileImageFile(file);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setSelectedImage(event.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
   const { toast } = useToast();
-  const [fileUpload, { error: uploadError }] = useUploadfileMutation();
-
-  const [profileImageUrl, setProfileImageUrl] = useState<string>("");
-  const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(
-    null
-  );
-
-  console.log(profileImageFile);
 
   const onSubmit = (values: InvestorInfoValidation) => {
-    if (!profileImageUrl) {
-      return toast({
+    console.log("submitting");
+
+    if (!profileImageFile && !selectedImage) {
+      toast({
         variant: "destructive",
-        title: "Double check.",
-        description: "Some file uploads are missing",
+        title: "Please upload a profile image.",
       });
+      return;
     }
     handleInvestor(values);
     handleNext();
-  };
-
-  useEffect(() => {
-    if (uploadError) {
-      toast({
-        variant: "destructive",
-        title: `${"unable to upload file please try again"}`,
-      });
-      setProfileImageFile(null);
-    }
-  }, [uploadError]);
-  const handleUpload = async (
-    acceptedFiles: FileWithPath[],
-    fileType: string
-  ) => {
-    const uploadedFile = acceptedFiles[0];
-    if (fileType === "profileImage") {
-      setProfileImageFile(uploadedFile);
-    }
-
-    const formData = new FormData();
-    formData.append("file", uploadedFile);
-    const res = await fileUpload(formData).unwrap();
-
-    if (fileType === "profileImage") {
-      setProfileImageUrl(res);
-      form.setValue("image", res); // Set form value to include the image URL
-    }
   };
 
   return (
@@ -103,30 +116,28 @@ const InvestorInformation = ({
               onSubmit={form.handleSubmit(onSubmit)}
               className="md:w-[700px] sm:w-[500px]"
             >
-              <FormField
-                control={form.control}
-                name="image"
-                render={({ field }) => (
-                  <FormItem className="col-span-2 flex flex-col items-center justify-center">
-                    <FormControl>
-                      <Input
-                        {...field}
-                        value={profileImageUrl}
-                        onChange={(e) => field.onChange(e.target.value)}
-                        className="hidden"
-                      />
-                    </FormControl>
-
-                    <UploadProfileImage
-                      handleUpload={(files) =>
-                        handleUpload(files, "profileImage")
-                      }
-                    />
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="flex justify-center relative w-fit items-center flex-col mx-auto ">
+                <label htmlFor="profileImage" style={{ cursor: "pointer" }}>
+                  <Image
+                    src={selectedImage || UserEmptyState}
+                    alt="logo"
+                    width={110}
+                    height={100}
+                    objectFit="contain"
+                    className="object-cover w-full h-[150px]  mx-auto rounded-md"
+                  />
+                  <input
+                    type="file"
+                    id="profileImage"
+                    accept="image/*"
+                    onChange={(e) => handleFile(e)}
+                    className="hidden"
+                  />
+                  <div className="absolute bottom-0 right-[-10px] bg-white p-[0.5rem] rounded-full cursor-pointer">
+                    <BiImageAdd className="text-xl text-gray-700" />
+                  </div>
+                </label>
+              </div>
 
               <div className="border border-solid border-[#D8D8E2] rounded-2xl p-5 lg:p-12">
                 <FormField
@@ -173,6 +184,7 @@ const InvestorInformation = ({
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
                         <Input
+                          type="number"
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="Provide your Phone Number"
                           {...field}
@@ -246,11 +258,36 @@ const InvestorInformation = ({
                         What type of investment do you prefer? Select one
                       </FormLabel>
                       <FormControl>
-                        <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
-                          {...field}
-                          placeholder="What type of investment do you prefer?"
-                        />
+                        <Select
+                          onValueChange={(value) => field.onChange(value)}
+                          value={field.value}
+                        >
+                          <SelectTrigger className="w-full capitalize">
+                            <SelectValue placeholder="Select Equity Type" />
+                          </SelectTrigger>
+                          <SelectContent className="w-full bg-white">
+                            <SelectGroup>
+                              {[
+                                "EQUITY",
+                                "DEBT",
+                                "REWARD",
+                                "REVENUE_SHARE",
+                                "GRANTS",
+                                "ROI",
+                                "SAFE",
+                                "OTHERS",
+                              ].map((opt: string, idx: number) => (
+                                <SelectItem
+                                  key={idx}
+                                  className="capitalize"
+                                  value={opt}
+                                >
+                                  {opt}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
