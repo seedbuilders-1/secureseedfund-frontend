@@ -31,6 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { countries } from "@/app/dashboard/startup/components/countries";
 
 interface Props {
   investorDetails: InvestorInfoValidation;
@@ -220,11 +221,27 @@ const InvestorInformation = ({
                     <FormItem className="col-span-2 py-2">
                       <FormLabel>Nationality</FormLabel>
                       <FormControl>
-                        <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] h-[50px] md:h-[150px]"
-                          placeholder="Enter your Nationality"
-                          {...field}
-                        />
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger className="w-full capitalize">
+                            <SelectValue placeholder="Select....." />
+                          </SelectTrigger>
+                          <SelectContent className="w-full bg-white">
+                            <SelectGroup>
+                              {countries.map((opt: string, idx: number) => (
+                                <SelectItem
+                                  key={idx}
+                                  className="capitalize"
+                                  value={opt}
+                                >
+                                  {opt}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
                       </FormControl>
                       <FormMessage />
                     </FormItem>

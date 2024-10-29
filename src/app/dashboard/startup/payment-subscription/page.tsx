@@ -14,17 +14,18 @@ const SubsciptionSuccessComponent = () => {
 
   const searchParams = useSearchParams();
 
-  const ref_id = searchParams.get("trxref") ?? "";
+  const refId = searchParams.get("trxref") ?? "";
+  const verifySubsciptionDto = {
+    ref_id: refId,
+  };
   const payload = {
-    verifyDepositDto: {
-      reference: ref_id,
-    },
+    completeSubscriptionDto: verifySubsciptionDto,
   };
   useEffect(() => {
-    if (ref_id) {
+    if (refId) {
       completeSubscription(payload);
     }
-  }, [ref_id]);
+  }, [refId]);
   return (
     <div className="fixed top-0 right-0  w-full h-full bg-white flex justify-center items-center overflow-hidden">
       <div className="flex justify-center items-center flex-col">
