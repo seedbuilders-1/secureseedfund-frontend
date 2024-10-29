@@ -3,28 +3,29 @@ import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { HiCheckBadge } from "react-icons/hi2";
-import useWallet from "../wallet/hooks/useWallet";
 import { useRouter, useSearchParams } from "next/navigation";
+import useSubscription from "../../startup/pricing/hooks/useSubscriptions";
 
 const SuccessComponent = () => {
   const router = useRouter();
   const { user } = useUserAuth();
   const userId = user?.userId as string;
-  const { verifyTransaction } = useWallet({ userId });
+  const { completeSubscription } = useSubscription({ userId });
 
   const searchParams = useSearchParams();
 
-  const ref_id = searchParams.get("trxref") ?? "";
+  const refId = searchParams.get("trxref") ?? "";
+  const verifySubsciptionDto = {
+    ref_id: refId,
+  };
   const payload = {
-    verifyDepositDto: {
-      reference: ref_id,
-    },
+    completeSubscriptionDto: verifySubsciptionDto,
   };
   useEffect(() => {
-    if (ref_id) {
-      verifyTransaction(payload);
+    if (refId) {
+      completeSubscription(payload);
     }
-  }, [ref_id]);
+  }, [refId]);
   return (
     <div className="fixed top-0 right-0  w-full h-full bg-white flex justify-center items-center overflow-hidden">
       <div className="flex justify-center items-center flex-col">
