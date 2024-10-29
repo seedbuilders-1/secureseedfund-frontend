@@ -33,8 +33,10 @@ const useAccount = (creatorId?: string) => {
     try {
       await updateInvestorAccountSettingsStart(values).unwrap();
       toast({
+        className:
+          "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
+        title: "Account is updated ",
         variant: "default",
-        title: "Account Updated",
       });
     } catch (err: any) {
       console.log(err);

@@ -6,15 +6,17 @@ import { FiPlus } from "react-icons/fi";
 import useAccount from "./hooks/useAccount";
 import useUserAuth from "@/hooks/auth/useAuth";
 import AccountSettings from "./components/AccountSettings";
+import useProfile from "@/hooks/profile/useProfile";
 
 const AccountPage = () => {
   const router = useRouter();
   const { user } = useUserAuth();
   const creatorId = user?.userId as string;
   const { investorInformation } = useAccount(creatorId);
+  const { userProfile } = useProfile();
   return (
     <>
-      {true ? (
+      {userProfile?.investor.is_completed_info ? (
         <AccountSettings accountInformation={investorInformation} />
       ) : (
         <div className="w-[100%] md:w-[90%] flex flex-col h-[100vh] bg-white mt-[4rem] mx-auto">

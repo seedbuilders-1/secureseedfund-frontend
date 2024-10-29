@@ -348,11 +348,36 @@ const FundingInformation = ({
                   <FormItem className="col-span-2 py-2">
                     <FormLabel>What investment are you seeking?</FormLabel>
                     <FormControl>
-                      <Input
-                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
-                        placeholder="Eg: (Grants, SAFE, Equity, Debt servicing/ROI, Partnership, Mentorship, Others)"
-                        {...field}
-                      />
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full capitalize">
+                          <SelectValue placeholder="Select Equity Type" />
+                        </SelectTrigger>
+                        <SelectContent className="w-full bg-white">
+                          <SelectGroup>
+                            {[
+                              "EQUITY",
+                              "DEBT",
+                              "REWARD",
+                              "REVENUE_SHARE",
+                              "GRANTS",
+                              "ROI",
+                              "SAFE",
+                              "OTHERS",
+                            ].map((opt: string, idx: number) => (
+                              <SelectItem
+                                key={idx}
+                                className="capitalize"
+                                value={opt}
+                              >
+                                {opt}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

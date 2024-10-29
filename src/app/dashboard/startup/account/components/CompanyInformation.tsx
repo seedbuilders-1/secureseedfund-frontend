@@ -16,7 +16,6 @@ import {
   CompanyInformationSchema,
   CompanyInformationValidation,
 } from "@/lib/validations/account";
-import moment from "moment";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect } from "react";
 import { FileWithPath } from "react-dropzone";
@@ -24,6 +23,16 @@ import UploadComponent from "./UploadComponent";
 import MobileStepper from "../../components/MobileStepper";
 import useUserAuth from "@/hooks/auth/useAuth";
 import useAccount from "../hooks/useAccount";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+import { countries } from "../../components/countries";
 
 interface Files {
   businessPlan: FileWithPath | null;
@@ -115,7 +124,8 @@ const CompanyInformation = ({
       (!files.pitchDeck && !preview.pitchDeck) ||
       (!files.demoVideo && !preview.demoVideo) ||
       (!files.companyLogo && !preview.companyLogo) ||
-      (!files.companyRegistration && !preview.companyRegistration)
+      (!files.companyRegistration && !preview.companyRegistration) ||
+      (!files.coverPhoto && !preview.coverPhoto)
     ) {
       toast({
         variant: "destructive",
@@ -366,11 +376,58 @@ const CompanyInformation = ({
                     <FormItem className="py-2 w-full lg:w-[50%]">
                       <FormLabel>Industry/Sector</FormLabel>
                       <FormControl>
-                        <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
-                          placeholder="eg . farmer"
-                          {...field}
-                        />
+                        <Select
+                          onValueChange={(value) => field.onChange(value)}
+                          value={field.value}
+                        >
+                          <SelectTrigger className="w-full capitalize">
+                            <SelectValue placeholder="Select industry" />
+                          </SelectTrigger>
+                          <SelectContent className="w-full bg-white">
+                            <SelectGroup>
+                              {[
+                                "Aerospace",
+                                "Agriculture",
+                                "Business Management",
+                                "Chemistry, Pharma and Biotech",
+                                "Construction and real estate",
+                                "Consulting",
+                                "E-government",
+                                "Education",
+                                "Energy",
+                                "Environment and Resources",
+                                "Fairs and Events",
+                                "Finance",
+                                "Food and consumer goods",
+                                "Gaming",
+                                "Health and Machine",
+                                "Industry",
+                                "Information and communication technology ",
+                                "Insurance",
+                                "Legal",
+                                "Logistics",
+                                "Media and creative industries",
+                                "Mobility",
+                                "New Works",
+                                "Retail and e commerce",
+                                "Security and defense",
+                                "Smart city",
+                                "Social and culture",
+                                "Sports",
+                                "Textile industry and fashion",
+                                "Travel",
+                              ].map((opt: string, idx: number) => (
+                                <SelectItem
+                                  key={idx}
+                                  className="capitalize"
+                                  value={opt}
+                                >
+                                  {opt}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -463,11 +520,27 @@ const CompanyInformation = ({
                       What country was the company incorporated:
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
-                        placeholder="eg . Nigeria"
-                        {...field}
-                      />
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full capitalize">
+                          <SelectValue placeholder="Select country" />
+                        </SelectTrigger>
+                        <SelectContent className="w-full bg-white">
+                          <SelectGroup>
+                            {countries.map((opt: string, idx: number) => (
+                              <SelectItem
+                                key={idx}
+                                className="capitalize"
+                                value={opt}
+                              >
+                                {opt}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -556,6 +629,8 @@ const CompanyInformation = ({
               />
               <br />
               <br className="lg:hidden" />
+
+              <FormLabel>Upload Cover Photo</FormLabel>
 
               <UploadComponent
                 file={files.coverPhoto}
