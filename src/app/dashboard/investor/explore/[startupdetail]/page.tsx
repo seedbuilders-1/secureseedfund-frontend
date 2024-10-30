@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Play, Pause } from "lucide-react";
 import { api as startupsApi } from "@/generated/service/startups/startups";
 import Milestones from "../components/Milestone";
@@ -13,8 +14,9 @@ import LoadingSkeleton from "../components/LoadingSkeleton";
 import useExplore from "../hooks/useExplore";
 import PDFViewerModal from "../components/PdfViewer";
 const StartupDetail = () => {
+  const [isOpenInvest, setIsOpenInvest] = useState(false);
   const { startupdetail } = useParams();
-  const { createInvestment, isInvesting } = useExplore({});
+  const { createInvestment, isInvesting, investedSuccesss } = useExplore({});
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState("Overview");
@@ -39,15 +41,15 @@ const StartupDetail = () => {
   };
 
   const handleProgressClick = (e) => {
-    // if (videoRef.current) {
-    //   const progressBar = e.currentTarget;
-    //   const clickPosition =
-    //     e.clientX - progressBar.getBoundingClientRect().left;
-    //   const percentageClicked = (clickPosition / progressBar.offsetWidth) * 100;
-    //   const newTime = (videoRef.current.duration / 100) * percentageClicked;
-    //   videoRef.current.currentTime = newTime;
-    //   setProgress(percentageClicked);
-    // }
+    if (videoRef.current) {
+      const progressBar = e.currentTarget;
+      const clickPosition =
+        e.clientX - progressBar.getBoundingClientRect().left;
+      const percentageClicked = (clickPosition / progressBar.offsetWidth) * 100;
+      const newTime = (videoRef.current.duration / 100) * percentageClicked;
+      videoRef.current.currentTime = newTime;
+      setProgress(percentageClicked);
+    }
   };
 
   const tabs = ["Overview", "About", "Teams"];
@@ -65,12 +67,16 @@ const StartupDetail = () => {
       investmentAmount: amount,
     };
     createInvestment({
-      investorId: user?.userId as string,
+      investorUserId: user?.userId as string,
       campaignId: campaignId as string,
       investDto,
     });
   };
-
+  useEffect(() => {
+    if (investedSuccesss) {
+      setIsOpenInvest(false);
+    }
+  }, [investedSuccesss]);
   const hasCampaign =
     startup?.campaignInformation && startup.campaignInformation.length > 0;
   if (isLoading) {
@@ -145,7 +151,10 @@ const StartupDetail = () => {
               <strong>Industry</strong>:{" "}
               {startup?.companyInformation.company_industry}
             </p>
-            <Button className="w-[80%] md:w-[30%] rounded-3xl bg-[#241A3F] mt-10">
+            <Button
+              onClick={() => setIsOpenInvest(true)}
+              className="w-[80%] md:w-[30%] rounded-3xl bg-[#241A3F] mt-10 md:hidden"
+            >
               Invest
             </Button>
 
@@ -220,8 +229,18 @@ const StartupDetail = () => {
                           />
                         </div>
                       </div>
+                      <div className="mt-4">
+                        {hasCampaign && (
+                          <Milestones
+                            currentCampaign={
+                              startup?.campaignInformation[0].milestones
+                            }
+                          />
+                        )}
+                      </div>
                     </div>
                   )}
+
                   {activeTab === "About" && <AboutusSection about={startup} />}
                   {activeTab === "Teams" && (
                     <div>
@@ -230,16 +249,26 @@ const StartupDetail = () => {
                   )}
                 </div>
               </div>
-              {startup?.campaignInformation.length > 0 && (
-                <Milestones
-                  currentCampaign={startup?.campaignInformation.milestones}
-                />
-              )}
             </div>
           </div>
         </div>
-
-        <InvestModal isLoading={isInvesting} handleInvest={handleInvest} />
+        <div className="hidden md:block">
+          {hasCampaign && (
+            <InvestModal isLoading={isInvesting} handleInvest={handleInvest} />
+          )}
+        </div>
+        <Dialog open={isOpenInvest} onOpenChange={setIsOpenInvest}>
+          <DialogContent className="mx-auto  bg-transparent border-none">
+            <div className="mt-4">
+              {hasCampaign && (
+                <InvestModal
+                  isLoading={isInvesting}
+                  handleInvest={handleInvest}
+                />
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );

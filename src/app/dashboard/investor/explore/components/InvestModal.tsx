@@ -29,7 +29,7 @@ const InvestModal = ({ handleInvest, isLoading }: InvestModalProps) => {
 
   return (
     <>
-      <div className="w-[450px] h-[350px] flex flex-col justify-center rounded-md bg-[#CDEED3]  lg:block">
+      <div className="w-full h-[350px] flex flex-col justify-center rounded-md bg-[#CDEED3]  lg:block lg:w-[450px] ">
         <div className="px-6 py-4">
           <h2 className="text-4xl font-bold">$425,900</h2>
           <p className="text-lg mt-3">Raised from 845 investors</p>

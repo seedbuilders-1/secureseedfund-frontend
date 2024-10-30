@@ -1,8 +1,8 @@
 "use client";
 import { api } from "@/generated/service/startups/enhancedstartup";
 import { useState } from "react";
-import { api as investorApi } from "@/generated/service/investor";
-import { InvestorControllerInvestInCampaignApiArg } from "@/generated/service/investor";
+import { api as investorApi } from "@/services/investor/index";
+import { InvestorControllerInvestInCampaignApiArg } from "@/services/investor/index";
 import { useToast } from "@/components/ui/use-toast";
 import { useDebounce } from "use-debounce";
 interface Props {
@@ -23,8 +23,10 @@ const useExplore = ({ searchText }: Props) => {
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
-  const [createInvestStart, { isLoading: isInvesting }] =
-    investorApi.useInvestorControllerInvestInCampaignMutation();
+  const [
+    createInvestStart,
+    { isLoading: isInvesting, isSuccess: investedSuccess },
+  ] = investorApi.useInvestorControllerInvestInCampaignMutation();
 
   const createInvestment = async (
     values: InvestorControllerInvestInCampaignApiArg
@@ -55,6 +57,7 @@ const useExplore = ({ searchText }: Props) => {
     loadingAllStartupData,
     createInvestment,
     isInvesting,
+    investedSuccess,
   };
 };
 
