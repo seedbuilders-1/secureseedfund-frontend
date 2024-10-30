@@ -13,10 +13,12 @@ const AccountPage = () => {
   const { user } = useUserAuth();
   const creatorId = user?.userId as string;
   const { investorInformation } = useAccount(creatorId);
+  console.log(investorInformation);
   const { userProfile } = useProfile();
+
   return (
     <>
-      {userProfile?.investor.is_completed_info ? (
+      {investorInformation?.is_completed_info ? (
         <AccountSettings accountInformation={investorInformation} />
       ) : (
         <div className="w-[100%] md:w-[90%] flex flex-col h-[100vh] bg-white mt-[4rem] mx-auto">
