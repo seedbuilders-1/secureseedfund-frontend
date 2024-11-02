@@ -59,7 +59,7 @@ const AppPricingCard = ({
 
   useEffect(() => {
     if (response) {
-      router.push(response?.authorization_url);
+      router.push((response as any)?.authorization_url);
     }
   }, [response]);
 

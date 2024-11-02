@@ -48,7 +48,7 @@ function WalletPage() {
 
   useEffect(() => {
     if (walletCredited) {
-      router.push(response?.authorization_url);
+      router.push((response as any)?.authorization_url);
     }
   }, [response, response]);
 
@@ -87,7 +87,7 @@ function WalletPage() {
             </h2>
             <p className="text-center text-[#0F8B3A] text-[1.2rem] font-semibold">
               {" "}
-              {walletData?.investment_balance || 0.0}
+              {(walletData as any)?.investment_balance || 0.0}
             </p>
 
             <div className="flex justify-between gap-3 mt-5">
@@ -120,7 +120,7 @@ function WalletPage() {
               <div className="flex flex-col">
                 <p className="text-[11px] md:text-[15px]">Widthdrawn:</p>
                 <h3 className="text-[#0F8B3A] text-[14px] md:text-[18px]">
-                  {walletData.total_withdrawn}
+                  {(walletData as any).total_withdrawn}
                 </h3>
               </div>
             </div>
@@ -130,7 +130,7 @@ function WalletPage() {
               <div className="flex flex-col">
                 <p className="text-[11px] md:text-[15px]">Total Received:</p>
                 <h3 className="text-[#0F8B3A] text-[14px] md:text-[18px]">
-                  {walletData.total_deposited}
+                  {(walletData as any).total_deposited}
                 </h3>
               </div>
             </div>
@@ -144,13 +144,15 @@ function WalletPage() {
       </div>
       <TransactionModal
         isOpen={isDepositModalOpen}
+        type={transactionType ?? "deposit"}
         onClose={handleModalClose}
-        type={transactionType}
-        balance={walletData?.balance}
+        balance={(walletData as any)?.balance}
         onSubmit={handleTransaction}
         isLoading={
           transactionType === "deposit" ? isCreditingWallet : isWithdrawing
         }
+        as
+        any
       />
     </div>
   );
