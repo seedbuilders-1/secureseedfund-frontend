@@ -16,7 +16,7 @@ import { FundingCampaignTypes } from "./StartCampaign";
 interface Props {
   handleBack: () => void;
   milestoneDetail: MilestoneValidation;
-  selectFundingCampaign: FundingCampaignTypes;
+  selectFundingCampaign: FundingCampaignTypes | string;
   id: string;
   campaignDetail: CampaignValidation;
 }
