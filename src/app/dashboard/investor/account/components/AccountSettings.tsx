@@ -108,39 +108,39 @@ const AccountSettings = ({ accountInformation }: Props) => {
 
     updateNewInvestorInformationDto.append(
       "investor_nationality",
-      values.investor_nationality
+      values.investor_nationality ?? ""
     );
     updateNewInvestorInformationDto.append(
       "investor_country_residence",
-      values.investor_country_residence
+      values.investor_country_residence ?? ""
     );
     updateNewInvestorInformationDto.append(
       "investor_residence_city",
-      values.investor_residence_city
+      values.investor_residence_city ?? ""
     );
     updateNewInvestorInformationDto.append(
       "investor_status",
-      values.investor_status
+      values.investor_status ?? ""
     );
     updateNewInvestorInformationDto.append(
       "investor_annual_income",
-      values.investor_annual_income
+      values.investor_annual_income ?? ""
     );
     updateNewInvestorInformationDto.append(
       "investor_investment_duration",
-      values.investor_investment_duration
+      values.investor_investment_duration ?? ""
     );
     updateNewInvestorInformationDto.append(
       "investor_investment_goal",
-      values.investor_investment_goal
+      values.investor_investment_goal ?? ""
     );
     updateNewInvestorInformationDto.append(
       "investor_experience",
-      values.investor_experience
+      values.investor_experience ?? ""
     );
     updateNewInvestorInformationDto.append(
       "investor_liquidity_importance",
-      values.investor_liquidity_importance
+      values.investor_liquidity_importance ?? ""
     );
     if (profileImageFile) {
       updateNewInvestorInformationDto.append(
