@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import SuccessComponent from "@/components/cards/SuccessComponent";
+import { CreateInvestorDto } from "@/generated/service/investors";
 
 interface Props {
   setStep: (x: number) => void;
@@ -87,7 +88,8 @@ const Review = ({
 
     const payload = {
       userId: creatorId,
-      createInvestorDto: createInvestorInformationDto,
+      createInvestorDto:
+        createInvestorInformationDto as unknown as CreateInvestorDto,
     };
 
     createInvestorInformation(payload);
