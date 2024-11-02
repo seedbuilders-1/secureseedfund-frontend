@@ -51,7 +51,7 @@ const Createcampaign = () => {
   };
   const searchParams = useSearchParams();
   const id = searchParams.get("id") ?? "";
-  const { singleCampaign } = useCampaign({ id });
+  const { singleCampaign } = useCampaign({ userId: id });
 
   useEffect(() => {
     if (singleCampaign && id) {
@@ -71,6 +71,7 @@ const Createcampaign = () => {
         startdate: moment(singleCampaign?.startDate).format("YYYY-MM-DD"),
         enddate: moment(singleCampaign?.endDate).format("YYYY-MM-DD"),
         fundinggoal: singleCampaign?.fundingGoal.toString(),
+        minimum: singleCampaign?.minimum_value,
       });
     }
   }, [id, singleCampaign]);
