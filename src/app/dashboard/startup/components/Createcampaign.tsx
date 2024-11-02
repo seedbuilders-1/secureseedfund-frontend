@@ -33,6 +33,7 @@ const Createcampaign = () => {
     startdate: "",
     enddate: "",
     fundinggoal: "",
+    minimum: 1,
   });
 
   const handleSelectFundingCampaign = (value: string) => {
