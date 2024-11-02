@@ -23,6 +23,7 @@ module.exports = {
     "react/no-unescaped-entities": "off",
     "@next/next/no-page-custom-font": "off",
     "require-jsdoc": "off",
+    camelcase: "off",
     "new-cap": ["error", { capIsNew: false }],
   },
 };
