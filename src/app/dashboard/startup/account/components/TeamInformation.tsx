@@ -90,7 +90,7 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
     }
     const payload = {
       creatorId,
-      createTeamDto,
+      createTeamDto: createTeamDto as any,
     };
     createTeamInformation(payload);
   };
