@@ -15,7 +15,7 @@ const useExplore = ({ searchText }: Props) => {
   const [debouncedSearchText] = useDebounce(searchText, 400);
   const { data: allStartupsData, isFetching: loadingAllStartupData } =
     api.useStartupControllerFindAllQuery({
-      // subscriptionPlan: "basic,premium",
+      subscriptionPlan: "basic,premium",
       page: page,
       limit: limit,
       keyword: debouncedSearchText,

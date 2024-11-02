@@ -4,26 +4,23 @@ import { Button } from "@/components/ui/button";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { HiCheckBadge } from "react-icons/hi2";
 import { useRouter, useSearchParams } from "next/navigation";
-import useSubscription from "../../startup/pricing/hooks/useSubscriptions";
+import useWallet from "@/hooks/wallet/useWallet";
 
 const SuccessComponent = () => {
   const router = useRouter();
   const { user } = useUserAuth();
   const userId = user?.userId as string;
-  const { completeSubscription } = useSubscription({ userId });
+  const { verifyTransaction } = useWallet({ userId });
 
   const searchParams = useSearchParams();
 
   const refId = searchParams.get("trxref") ?? "";
-  const verifySubsciptionDto = {
-    ref_id: refId,
-  };
   const payload = {
-    completeSubscriptionDto: verifySubsciptionDto,
+    verifyDepositDto: { reference: refId },
   };
   useEffect(() => {
     if (refId) {
-      completeSubscription(payload);
+      verifyTransaction(payload);
     }
   }, [refId]);
   return (

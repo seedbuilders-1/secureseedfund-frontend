@@ -46,7 +46,7 @@ const injectedRtkApi = api.injectEndpoints({
       InvestorControllerInvestInCampaignApiArg
     >({
       query: (queryArg) => ({
-        url: `/investor/${queryArg.investorUserId}/invest/${queryArg.campaignId}`,
+        url: `/investor/invest/${queryArg.campaignId}`,
         method: "POST",
         body: queryArg.investDto,
       }),
@@ -96,7 +96,6 @@ export type InvestorControllerInvestInCampaignApiResponse =
   /** status 201 Investment made successfully. */ string;
 export type InvestorControllerInvestInCampaignApiArg = {
   /** Investor ID */
-  investorUserId: string;
   /** Campaign ID */
   campaignId: string;
   /** Amount to invest */
@@ -197,6 +196,7 @@ export type InvestorDto = {
 };
 export type InvestDto = {
   investmentAmount: number;
+  investorUserId: string;
 };
 export const {
   useInvestorControllerCreateInvestorMutation,

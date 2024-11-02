@@ -1,6 +1,6 @@
 import React from "react";
 import useUserAuth from "@/hooks/auth/useAuth";
-import useTransaction from "../hooks/useTransaction";
+import useTransaction from "../../hooks/wallet/useTransaction";
 import moment from "moment";
 import { Skeleton } from "@/components/ui/skeleton";
 import { thousandFormatter } from "@/lib/helpers";

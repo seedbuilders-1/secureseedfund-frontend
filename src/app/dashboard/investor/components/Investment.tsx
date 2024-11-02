@@ -1,5 +1,7 @@
 import React from "react";
 import DangoteLogo from "@/assets/iconspng/dangote.png";
+import useUserAuth from "@/hooks/auth/useAuth";
+import { api as investorApi } from "@/services/investor/index";
 
 interface Investor {
   CompanyLogo: string;
@@ -11,6 +13,12 @@ interface Investor {
 }
 
 const Investment = () => {
+  const { user } = useUserAuth();
+  const { data: individualInvestor, isFetching: loadingInvestment } =
+    investorApi.useInvestorControllerGetInvestorInvestmentsQuery({
+      investorId: user?.userId as string,
+    });
+  console.log(individualInvestor);
   const investors: Investor[] = [
     {
       CompanyLogo: DangoteLogo.src,

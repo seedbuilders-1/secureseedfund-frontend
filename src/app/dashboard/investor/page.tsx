@@ -2,12 +2,12 @@
 import React from "react";
 import { GoPlus } from "react-icons/go";
 import { AiOutlineMinus } from "react-icons/ai";
-import TransactionHistory from "./wallet/components/TranscationHistory";
+import TransactionHistory from "../../../components/wallet/TranscationHistory";
 import Investment from "./components/Investment";
 const page = () => {
   return (
     <div>
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         <div className=" w-full h-full border border-[#0F8B3A] rounded-[0.6rem] px-4 py-4 mt-[2rem] md:w-[600px] md:m-auto md:mt-10 ">
           <h2 className="font-normal text-[0.8rem] text-center">
             Cash Availabler
@@ -56,7 +56,7 @@ const page = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10 p-5">
         <h2 className="text-[1rem] font-bold mb-[1rem]">Investment</h2>
@@ -70,7 +70,7 @@ const page = () => {
         <Investment />
       </div>
 
-      <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10 p-5d">
+      <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10 p-5">
         <h2 className="text-[1rem] font-bold mb-[1rem]">Transaction History</h2>
         <TransactionHistory />
       </div>

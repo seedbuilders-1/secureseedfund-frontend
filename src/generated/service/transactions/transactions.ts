@@ -136,6 +136,7 @@ export type Team = {
   team_cofounder_linkdln: string;
   team_members: number;
   team_primary_base: string;
+  team_cofounder_profileImage: string;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -170,6 +171,14 @@ export type Startup = {
   createdAt: string;
   updatedAt: string;
 };
+export type Investments = {
+  user: User;
+  total_invested: number;
+  campaign: Campaign;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export type Campaign = {
   creator_id: User;
   title: string;
@@ -190,7 +199,9 @@ export type Campaign = {
   isLive: boolean;
   milestones?: Milestone[];
   investment_balance: string;
+  minimum_value: string;
   startup: Startup;
+  investments: Investments;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -294,6 +305,7 @@ export type User = {
   institution: Institution;
   kyc: Kyc;
   wallet: Wallet;
+  investments: Investments[];
   id: string;
 };
 export type Transactions = {

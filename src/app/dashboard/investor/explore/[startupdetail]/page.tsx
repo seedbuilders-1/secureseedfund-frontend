@@ -16,41 +16,73 @@ import PDFViewerModal from "../components/PdfViewer";
 const StartupDetail = () => {
   const [isOpenInvest, setIsOpenInvest] = useState(false);
   const { startupdetail } = useParams();
-  const { createInvestment, isInvesting, investedSuccesss } = useExplore({});
+  const { createInvestment, isInvesting, investedSuccess } = useExplore({});
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState("Overview");
   const [progress, setProgress] = useState(0);
   const togglePlayPause = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
+    if (!videoRef.current) return;
 
+    if (isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play().catch((error) => {
+        console.error("Error playing video:", error);
+        setIsPlaying(false);
+      });
+    }
+    setIsPlaying(!isPlaying);
+  };
   const handleTimeUpdate = () => {
-    if (videoRef.current) {
-      const percent =
-        (videoRef.current.currentTime / videoRef.current.duration) * 100;
+    if (!videoRef.current) return;
+
+    const currentTime = videoRef.current.currentTime;
+    const duration = videoRef.current.duration;
+
+    if (duration > 0) {
+      const percent = (currentTime / duration) * 100;
       setProgress(percent);
     }
   };
 
-  const handleProgressClick = (e) => {
-    if (videoRef.current) {
-      const progressBar = e.currentTarget;
-      const clickPosition =
-        e.clientX - progressBar.getBoundingClientRect().left;
-      const percentageClicked = (clickPosition / progressBar.offsetWidth) * 100;
-      const newTime = (videoRef.current.duration / 100) * percentageClicked;
+  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!videoRef.current) return;
+
+    const progressBar = e.currentTarget;
+    const rect = progressBar.getBoundingClientRect();
+    const clickPosition = e.clientX - rect.left;
+    const progressBarWidth = progressBar.offsetWidth;
+    if (progressBarWidth === 0) return;
+
+    const percentageClicked = (clickPosition / progressBarWidth) * 100;
+    const newTime = (videoRef.current.duration / 100) * percentageClicked;
+
+    if (
+      isFinite(newTime) &&
+      newTime >= 0 &&
+      newTime <= videoRef.current.duration
+    ) {
       videoRef.current.currentTime = newTime;
       setProgress(percentageClicked);
     }
   };
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setProgress(0);
+      video.currentTime = 0;
+    };
+
+    video.addEventListener("ended", handleEnded);
+
+    return () => {
+      video.removeEventListener("ended", handleEnded);
+    };
+  }, []);
 
   const tabs = ["Overview", "About", "Teams"];
   const startupId = Array.isArray(startupdetail)
@@ -61,22 +93,23 @@ const StartupDetail = () => {
       startupId: startupId,
     });
   const { user } = useUserAuth();
-  const campaignId = startup?.campaignInformation[0].id;
+  const campaignId =
+    startup?.campaignInformation.length && startup?.campaignInformation[0].id;
   const handleInvest = (amount: number) => {
     const investDto = {
       investmentAmount: amount,
+      investorUserId: user?.userId as string,
     };
     createInvestment({
-      investorUserId: user?.userId as string,
       campaignId: campaignId as string,
       investDto,
     });
   };
   useEffect(() => {
-    if (investedSuccesss) {
+    if (investedSuccess) {
       setIsOpenInvest(false);
     }
-  }, [investedSuccesss]);
+  }, [investedSuccess]);
   const hasCampaign =
     startup?.campaignInformation && startup.campaignInformation.length > 0;
   if (isLoading) {
@@ -97,7 +130,7 @@ const StartupDetail = () => {
           <div className="relative w-full">
             <video
               ref={videoRef}
-              className="object-cover rounded-sm w-full"
+              className="object-cover rounded-sm w-full h-[500px]"
               loop
               muted
               playsInline
@@ -128,6 +161,10 @@ const StartupDetail = () => {
               <div
                 className="w-full bg-white/30 h-1 rounded-full cursor-pointer"
                 onClick={handleProgressClick}
+                role="slider"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={progress}
               >
                 <div
                   className="bg-white h-full rounded-full transition-all duration-100"

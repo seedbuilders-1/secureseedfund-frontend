@@ -16,7 +16,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "../../../../../components/ui/form";
+} from "../ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 const transactionSchema = z.object({

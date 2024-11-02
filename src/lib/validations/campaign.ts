@@ -29,6 +29,7 @@ export const CampaignSchema = z
     startdate: z.string().min(1, "Start Date is required"),
     enddate: z.string().min(1, "End Date is required"),
     fundinggoal: z.string().min(1, "Funding Goal is required"),
+    minimum: z.string().min(1, "Minimum Value an investor can invest"),
   })
   .refine((data) => new Date(data.enddate) > new Date(data.startdate), {
     message: "End date must be greater than start date",

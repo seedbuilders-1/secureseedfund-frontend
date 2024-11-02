@@ -12,15 +12,30 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import useExplore from "./hooks/useExplore";
+import { useToast } from "@/components/ui/use-toast";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PaginationControls from "@/components/shared/PaginationControls";
 import { Skeleton } from "@/components/ui/skeleton";
+import { StartupDto } from "@/generated/service/startups/startups";
 
 function Page() {
   const [searchText, setSearchText] = useState("");
+  const { toast } = useToast();
   const { allStartupsData, loadingAllStartupData, handlePageChange, page } =
     useExplore({ searchText });
+  const handleNavigation = (startup: StartupDto) => {
+    if (startup.creator_id.subscription_plan === "basic") {
+      toast({
+        className:
+          "top-0 right-0 flex fixed   md:max-w-[420px] md:top-4 md:right-4",
+        variant: "destructive",
+        title: "You cant veiw this startup Profile",
+      });
+    } else {
+      router.push(`/dashboard/investor/explore/${startup.id}`);
+    }
+  };
   const router = useRouter();
   return (
     <div className="container mx-auto px-4 py-8 ">
@@ -84,10 +99,8 @@ function Page() {
           allStartupsData?.items.map((startup) => (
             <div
               key={startup.id}
-              onClick={() =>
-                router.push(`/dashboard/investor/explore/${startup.id}`)
-              }
-              className="bg-white rounded-xl border cursor-pointer border-[#0000001A] overflow-hidden w-[390px] h-[550px] transition-transform duration-300 hover:-translate-y-1"
+              onClick={() => handleNavigation(startup)}
+              className="bg-white rounded-xl border cursor-pointer border-[#0000001A] overflow-hidden w-[390px] h-[550px] transition-transform duration-300 hover:-translate-y-1 hover:border-[##0F8B3A] "
             >
               <div className="relative aspect-[16/9] w-full overflow-hidden">
                 <Image

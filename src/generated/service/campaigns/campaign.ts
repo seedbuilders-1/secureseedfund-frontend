@@ -103,6 +103,7 @@ export type CreateCampaignDto = {
   creator_id: string;
   startDate: string;
   endDate?: string;
+  minimum_value: number;
   milestones: MilestoneDto[];
   description: string;
   fundingGoal: number;
@@ -128,6 +129,7 @@ export type CampaignDto = {
   endDate?: string;
   milestones: CreateMilestoneDto[];
   description: string;
+  minimum_value: number;
   fundingGoal: number;
   campaignType:
     | "EQUITY"

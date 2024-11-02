@@ -144,36 +144,58 @@ const StartCampaign = ({
                   </FormItem>
                 )}
               />
-
-              <FormField
-                control={form.control}
-                name="fundinggoal"
-                render={({ field }) => (
-                  <FormItem className="col-span-2 py-2">
-                    <FormLabel>Funding Goal</FormLabel>
-                    <FormControl>
-                      <Input
-                        className="py-[1.9rem] rounded-[48px]"
-                        type="number"
-                        placeholder="15,000"
-                        {...field}
-                        min="0"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex flex-col md:flex-row md:space-x-12">
+              <div className="flex flex-col w-full md:flex-row md:space-x-12">
+                <FormField
+                  control={form.control}
+                  name="fundinggoal"
+                  render={({ field }) => (
+                    <FormItem className="flex-1 py-2 w-full">
+                      <FormLabel>Funding Goal</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="py-[1.9rem] rounded-[48px]"
+                          type="number"
+                          placeholder="15,000"
+                          {...field}
+                          min="1"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="minimum"
+                  render={({ field }) => (
+                    <FormItem className="flex-1 py-2 w-full">
+                      <FormLabel>
+                        Minimum Amount Expected from an investor
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          className="py-[1.9rem] rounded-[48px]"
+                          type="number"
+                          placeholder="15,000"
+                          {...field}
+                          min="1"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="flex flex-col w-full md:flex-row md:space-x-12">
                 <FormField
                   control={form.control}
                   name="startdate"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex-1 py-2 w-full">
                       <FormLabel>Start Date</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[200px]"
+                          className="py-[1.9rem] rounded-[48px]"
                           type="date"
                           placeholder="DD-MM-YY"
                           {...field}
@@ -188,11 +210,11 @@ const StartCampaign = ({
                   control={form.control}
                   name="enddate"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex-1 py-2 w-full">
                       <FormLabel>Enddate</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.9rem] rounded-[48px] w-[200px]"
+                          className="py-[1.9rem] rounded-[48px]"
                           type="date"
                           placeholder="DD-MM-YY"
                           {...field}

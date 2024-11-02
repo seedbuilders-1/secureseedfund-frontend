@@ -15,7 +15,6 @@ const SubsciptionSuccessComponent = () => {
   const searchParams = useSearchParams();
 
   const ref_id = searchParams.get("trxref") ?? "";
-  console.log(ref_id);
   const verifySubsciptionDto = {
     ref_id: ref_id,
   };

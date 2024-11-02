@@ -38,7 +38,6 @@ const InvestModal = ({ handleInvest, isLoading }: InvestModalProps) => {
             <div className="flex gap-4 mt-3">
               <Input
                 type="number"
-                min="100"
                 {...register("amount", { valueAsNumber: true })}
                 className="px-6 py-3 border bg-transparent outline-offset-0 border-[#0F8B3A] rounded-lg text-[#0F8B3A] font-medium text-2xl w-full"
               />
