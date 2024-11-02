@@ -25,7 +25,7 @@ import {
   InvestorAccountSettingsValidation,
 } from "@/lib/validations/account";
 import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
-import { InvestorDto } from "@/generated/service/investors";
+import { InvestorDto, UpdateInvestorDto } from "@/generated/service/investors";
 import {
   Select,
   SelectContent,
@@ -150,7 +150,8 @@ const AccountSettings = ({ accountInformation }: Props) => {
     }
     const payload = {
       userId: creatorId,
-      updateInvestorDto: updateNewInvestorInformationDto,
+      updateInvestorDto:
+        updateNewInvestorInformationDto as unknown as UpdateInvestorDto,
     };
     updateInvestorAccountSetting(payload);
   };
