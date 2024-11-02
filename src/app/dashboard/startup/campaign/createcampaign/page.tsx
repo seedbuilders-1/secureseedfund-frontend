@@ -38,7 +38,7 @@ export default function CampaignDashboard() {
     startdate: "",
     enddate: "",
     fundinggoal: "",
-    minimum: "1",
+    minimum: 1,
   });
 
   const handleSelectFundingCampaign = (value: FundingCampaignTypes) => {
