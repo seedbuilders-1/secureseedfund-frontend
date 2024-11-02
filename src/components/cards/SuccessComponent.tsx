@@ -2,7 +2,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { HiCheckBadge } from "react-icons/hi2";
-import { useStartupIdUrl } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
 interface Props {

@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import { GoPlus } from "react-icons/go";
-import { AiOutlineMinus } from "react-icons/ai";
 import TransactionHistory from "../../../components/wallet/TranscationHistory";
 import Investment from "./components/Investment";
 const page = () => {

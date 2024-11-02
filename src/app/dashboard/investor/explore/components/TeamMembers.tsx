@@ -2,7 +2,6 @@ import { IoEllipseSharp } from "react-icons/io5";
 import { Startup } from "@/generated/service/startups/startups";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useState } from "react";
 
 interface TeamMemberCardProps {
   image: string;

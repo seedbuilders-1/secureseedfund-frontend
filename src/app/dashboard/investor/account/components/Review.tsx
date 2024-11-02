@@ -1,6 +1,6 @@
 import useUserAuth from "@/hooks/auth/useAuth";
 import { InvestorInfoValidation } from "@/lib/validations/account";
-import React, { useState } from "react";
+import React from "react";
 import { FileWithPath } from "react-dropzone";
 import useAccount from "../hooks/useAccount";
 import Image from "next/image";

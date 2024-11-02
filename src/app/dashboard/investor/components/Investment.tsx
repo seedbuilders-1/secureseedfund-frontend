@@ -14,7 +14,7 @@ interface Investor {
 
 const Investment = () => {
   const { user } = useUserAuth();
-  const { data: individualInvestor, isFetching: loadingInvestment } =
+  const { data: individualInvestor } =
     investorApi.useInvestorControllerGetInvestorInvestmentsQuery({
       investorId: user?.userId as string,
     });

@@ -6,7 +6,6 @@ import { FiPlus } from "react-icons/fi";
 import useAccount from "./hooks/useAccount";
 import useUserAuth from "@/hooks/auth/useAuth";
 import AccountSettings from "./components/AccountSettings";
-import useProfile from "@/hooks/profile/useProfile";
 
 const AccountPage = () => {
   const router = useRouter();
@@ -14,7 +13,6 @@ const AccountPage = () => {
   const creatorId = user?.userId as string;
   const { investorInformation } = useAccount(creatorId);
   console.log(investorInformation);
-  const { userProfile } = useProfile();
 
   return (
     <>

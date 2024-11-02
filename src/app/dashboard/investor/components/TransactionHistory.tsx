@@ -5,7 +5,7 @@ import moment from "moment";
 const TransactionHistory = () => {
   const { user } = useUserAuth();
   const userId = user?.userId as string;
-  const { transactionHistroy, loadingTransactionHistory } = useTransaction({
+  const { transactionHistroy } = useTransaction({
     userId,
   });
   const investors = [

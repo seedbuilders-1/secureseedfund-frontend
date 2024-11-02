@@ -73,7 +73,6 @@ export default function AccountForm() {
     "Funding Information",
     "Review & Submit",
   ];
-  const { user } = useUserAuth();
 
   return (
     <>

@@ -6,8 +6,8 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
-const url =
-  "https://cors-anywhere.herokuapp.com/http://www.pdf995.com/samples/pdf.pdf";
+// const url =
+//   "https://cors-anywhere.herokuapp.com/http://www.pdf995.com/samples/pdf.pdf";
 
 const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;

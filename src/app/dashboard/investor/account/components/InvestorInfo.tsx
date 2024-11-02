@@ -21,7 +21,6 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
 import { FileWithPath } from "react-dropzone";
-import { useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 import {
   Select,
