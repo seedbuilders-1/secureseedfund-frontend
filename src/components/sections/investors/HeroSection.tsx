@@ -1,5 +1,5 @@
+"use client";
 import InvestorImage from "@/assets/iconspng/investorlanding.png";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Image from "next/image";
 
 const HeroSection = () => {
   return (
