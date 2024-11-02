@@ -151,8 +151,6 @@ function WalletPage() {
         isLoading={
           transactionType === "deposit" ? isCreditingWallet : isWithdrawing
         }
-        as
-        any
       />
     </div>
   );

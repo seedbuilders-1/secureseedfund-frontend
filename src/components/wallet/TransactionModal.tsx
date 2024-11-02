@@ -33,6 +33,7 @@ interface TransactionModalProps {
   type: "deposit" | "withdraw";
   onSubmit: (amount: number) => void;
   isLoading: boolean;
+  balance: number;
 }
 
 const TransactionModal: React.FC<TransactionModalProps> = ({
@@ -41,10 +42,13 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   type,
   onSubmit,
   isLoading,
+  balance,
 }) => {
   const form = useForm<TransactionFormData>({
     resolver: zodResolver(transactionSchema),
   });
+
+  console.log(balance);
 
   const handleFormSubmit = (data: TransactionFormData) => {
     onSubmit(data.amount);
