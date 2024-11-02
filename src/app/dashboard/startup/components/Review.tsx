@@ -32,7 +32,7 @@ const Review = ({
   const { createCampaign, createCampaignLoading, createdCampaign } =
     useCampaign({});
 
-  const createCampaignDto: CreateCampaignDto = {
+  const createCampaignDto: any = {
     title: campaignDetail.title,
     description: campaignDetail.description,
     fundingGoal: parseInt(campaignDetail.fundinggoal),
