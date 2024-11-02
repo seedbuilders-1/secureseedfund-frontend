@@ -11,7 +11,7 @@ const ProfileRoute = ({ children }: { children: ReactNode }) => {
     if (!loadingProfile) {
       const profileExists =
         userProfile &&
-        userProfile.investor?.investmentQuestionnaire?.id &&
+        (userProfile.investor as any)?.investmentQuestionnaire?.id &&
         userProfile.investor?.id;
 
       if (!profileExists) {
