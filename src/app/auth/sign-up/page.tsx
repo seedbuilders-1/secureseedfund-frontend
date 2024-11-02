@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { Eye, EyeOff } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import GetStarted from "../components/GetStarted";
 
