@@ -8,7 +8,6 @@ import Image from "next/image";
 import useUserAuth from "@/hooks/auth/useAuth";
 import CampaignCard from "@/components/cards/CampaignCard";
 
-
 const Campaign = () => {
   const router = useRouter();
   const { user } = useUserAuth();
@@ -46,8 +45,8 @@ const Campaign = () => {
           <Loader2 className="flex items-center justify-center animate-spin mx-auto w-[300px]" />
         ) : (
           <div className="mt-6 mb-8 gap-6 grid grid-cols-1 lg:grid-cols-3">
-            {campaigns?.items?.length ? (
-              campaigns?.items?.map((campaign) => (
+            {(campaigns as any)?.items?.length ? (
+              (campaigns as any)?.items?.map((campaign: any) => (
                 <div key={campaign.id}>
                   <CampaignCard
                     id={campaign.id}
