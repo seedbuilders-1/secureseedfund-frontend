@@ -38,12 +38,13 @@ const Home = () => {
           {userProfile?.investor && (
             <OrganizationCard
               name={
-                userProfile?.investor?.companyName || userProfile?.firstName
+                (userProfile?.investor as any)?.companyName ||
+                userProfile?.firstName
               }
               type={"Investor"}
             />
           )}
-          {userProfile?.startup?.map((startup) => (
+          {(userProfile?.startup as any)?.map((startup: any) => (
             <OrganizationCard
               key={startup.id}
               id={startup.id}
