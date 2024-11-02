@@ -7,12 +7,13 @@ import useCampaign from "@/app/dashboard/startup/hooks/useCampaign";
 import RecentFunding from "@/app/dashboard/startup/components/RecentFunding";
 
 const DashboardOverview = ({ params }: { params: { startupid: string } }) => {
-  const { campaigns, loadingCampaign } = useCampaign({
+  const { campaigns, loadingCampaigns } = useCampaign({
     startupId: params.startupid,
   });
   const currentCampaign =
-    campaigns && campaigns?.items[campaigns?.items.length - 1];
-  if (loadingCampaign) {
+    campaigns &&
+    (campaigns as any)?.items[(campaigns as any)?.items.length - 1];
+  if (loadingCampaigns) {
     return (
       <Loader2 className="flex items-center justify-center animate-spin mx-auto w-[300px]" />
     );
@@ -64,7 +65,7 @@ const DashboardOverview = ({ params }: { params: { startupid: string } }) => {
               <h2>Current campaigns</h2>
               <StateCardMetric>
                 <span className="text-[#050505]">
-                  {campaigns?.items.length || "0"}
+                  {(campaigns as any)?.items.length || "0"}
                 </span>
               </StateCardMetric>
             </div>
