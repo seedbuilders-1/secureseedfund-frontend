@@ -17,7 +17,8 @@ export default function StartupDashboard() {
   const userId = user?.userId;
   const { campaigns, loadingCampaigns } = useCampaign({ userId });
   const currentCampaign =
-    campaigns && campaigns?.items[campaigns?.items.length - 1];
+    campaigns &&
+    (campaigns as any)?.items[(campaigns as any)?.items.length - 1];
   if (loadingCampaigns) {
     return (
       <div className="w-full mt-[2rem]">
