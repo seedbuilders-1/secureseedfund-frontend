@@ -24,7 +24,7 @@ function Page() {
   const { toast } = useToast();
   const { allStartupsData, loadingAllStartupData, handlePageChange, page } =
     useExplore({ searchText });
-  const handleNavigation = (startup: StartupDto) => {
+  const handleNavigation = (startup: any) => {
     if (startup.creator_id.subscription_plan === "basic") {
       toast({
         className:
@@ -96,7 +96,7 @@ function Page() {
             <p className="text-lg text-gray-500">No startups found.</p>
           </div>
         ) : (
-          allStartupsData?.items.map((startup) => (
+          allStartupsData?.items.map((startup: any) => (
             <div
               key={startup.id}
               onClick={() => handleNavigation(startup)}
