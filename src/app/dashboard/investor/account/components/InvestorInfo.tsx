@@ -339,11 +339,27 @@ const InvestorInformation = ({
                       <FormItem className="py-2 w-full lg:w-[50%]">
                         <FormLabel>Country of Residence</FormLabel>
                         <FormControl>
-                          <Input
-                            className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] w-[100%]"
-                            {...field}
-                            placeholder="Enter your country of Residence"
-                          />
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger className="w-full capitalize">
+                              <SelectValue placeholder="Select....." />
+                            </SelectTrigger>
+                            <SelectContent className="w-full bg-white">
+                              <SelectGroup>
+                                {countries.map((opt: string, idx: number) => (
+                                  <SelectItem
+                                    key={idx}
+                                    className="capitalize"
+                                    value={opt}
+                                  >
+                                    {opt}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
