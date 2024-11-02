@@ -49,6 +49,10 @@ const Createcampaign = () => {
   const handleNext = () => {
     setCurrentStep(currentStep + 1);
   };
+
+  const handleBack = () => {
+    setCurrentStep(currentStep - 1);
+  };
   const searchParams = useSearchParams();
   const id = searchParams.get("id") ?? "";
   const { singleCampaign } = useCampaign({ userId: id });
@@ -91,6 +95,7 @@ const Createcampaign = () => {
         )}
         {currentStep === 2 && (
           <Milestone
+            handleBack={handleBack}
             handleNext={handleNext}
             handleMilestone={handleMilestone}
             milestoneDetail={milestoneDetail}

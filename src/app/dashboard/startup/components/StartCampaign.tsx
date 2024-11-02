@@ -29,7 +29,7 @@ interface Props {
   handleNext: () => void;
   handleChange: (x: FundingCampaignTypes) => void;
   handleCampaign: (v: CampaignValidation) => void;
-  selectFundingCampaign: FundingCampaignTypes;
+  selectFundingCampaign: FundingCampaignTypes | string;
   campaignDetails: CampaignValidation;
 }
 const StartCampaign = ({
