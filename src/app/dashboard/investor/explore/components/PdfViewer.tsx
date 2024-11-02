@@ -20,14 +20,14 @@ const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
     setNumPages(numPages);
   };
 
-  const changePage = (offset) => {
+  const changePage = (offset: any) => {
     setPageNumber((prevPageNumber) => {
       const newPage = prevPageNumber + offset;
       return Math.min(Math.max(1, newPage), numPages || 1);
     });
   };
 
-  const adjustScale = (delta) => {
+  const adjustScale = (delta: any) => {
     setScale((prevScale) => Math.max(0.5, Math.min(2, prevScale + delta)));
   };
 
