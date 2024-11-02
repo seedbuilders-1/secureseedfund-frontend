@@ -10,12 +10,12 @@ import moment from "moment";
 import useCampaign from "../hooks/useCampaign";
 import CampaignStepper from "./CampaignStepper";
 import Review from "./Review";
-import StartCampaign from "./StartCampaign";
+import StartCampaign, { FundingCampaignTypes } from "./StartCampaign";
 
 const Createcampaign = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectFundingCampaign, setSelectFundingCampaign] =
-    useState<string>("");
+    useState<FundingCampaignTypes>("EQUITY");
   const [milestoneDetail, setMilestoneDetail] = useState<MilestoneValidation>({
     milestones: [
       {
@@ -36,7 +36,7 @@ const Createcampaign = () => {
     minimum: 1,
   });
 
-  const handleSelectFundingCampaign = (value: string) => {
+  const handleSelectFundingCampaign = (value: FundingCampaignTypes) => {
     setSelectFundingCampaign(value);
   };
   const handleMilestone = (details: MilestoneValidation) => {
@@ -124,6 +124,7 @@ const Createcampaign = () => {
             milestoneDetail={milestoneDetail}
             // coverPhoto={coverPhoto}
             // businessPlanUrl={businessPlanUrl}
+            handleBack={handleBack}
             id={id}
             selectFundingCampaign={selectFundingCampaign}
           />
