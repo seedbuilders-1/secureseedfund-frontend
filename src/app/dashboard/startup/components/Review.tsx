@@ -9,7 +9,6 @@ import SuccessComponent from "@/components/cards/SuccessComponent";
 import useUserAuth from "@/hooks/auth/useAuth";
 import useCampaign from "../hooks/useCampaign";
 import {
-  CampaignDto,
   CampaignsControllerCreateApiArg,
   CreateCampaignDto,
 } from "@/generated/service/campaigns/campaign";

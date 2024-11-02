@@ -12,7 +12,6 @@ interface Props {
 }
 const SuccessComponent = ({ title, description, link }: Props) => {
   const router = useRouter();
-  const startupId = useStartupIdUrl();
 
   return (
     <div className="fixed top-0 right-0  w-full h-full bg-white flex justify-center items-center overflow-hidden">

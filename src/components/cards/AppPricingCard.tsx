@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button } from "../ui/button";
 import WhitCheckIcon from "@/assets/icons/WhitCheckIcon";
 import useSubscription from "@/app/dashboard/startup/pricing/hooks/useSubscriptions";

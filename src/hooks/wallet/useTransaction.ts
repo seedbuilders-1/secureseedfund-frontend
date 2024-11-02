@@ -1,7 +1,5 @@
 import { api } from "@/generated/service/transactions/enhancedTransactions";
 
-import { useToast } from "@/components/ui/use-toast";
-
 interface Props {
   userId: string;
 }

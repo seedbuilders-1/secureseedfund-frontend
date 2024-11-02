@@ -64,6 +64,7 @@ const useUserAuth = () => {
   const registerUser = async (values: RegisterUserRequestType) => {
     try {
       const res = await register(values).unwrap();
+      console.log(res);
     } catch (err: any) {
       toast({
         variant: "destructive",

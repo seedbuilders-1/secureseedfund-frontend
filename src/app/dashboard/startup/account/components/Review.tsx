@@ -9,14 +9,6 @@ import UploadPreview from "./UploadedPreview";
 import Image from "next/image";
 import { Pencil } from "lucide-react";
 
-interface Files {
-  businessPlan: FileWithPath | null;
-  pitchDeck: FileWithPath | null;
-  demoVideo: FileWithPath | null;
-  companyLogo: FileWithPath | null;
-  companyRegistration: FileWithPath | null;
-}
-
 interface Props {
   financialFile: FileWithPath | null;
   setStep: (x: number) => void;

@@ -9,7 +9,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import TransactionModal from "@/components/wallet/TransactionModal";
 import { Skeleton } from "@/components/ui/skeleton";
-function page() {
+function WalletPage() {
   const { user } = useUserAuth();
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [transactionType, setTransactionType] = useState<
@@ -156,4 +156,4 @@ function page() {
   );
 }
 
-export default page;
+export default WalletPage;
