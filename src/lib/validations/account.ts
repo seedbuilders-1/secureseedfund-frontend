@@ -6,16 +6,10 @@ export const FounderSchema = z.object({
   lastname: z.string().min(1, "Last Name required"),
   gender: z.string().min(1, "gender required"),
   email: z.string().email("Enter a valid email"),
-  education: z
-    .string()
-    .min(1, "Education is required")
-    .max(40, "maximum can only be 70 characters"),
+  education: z.string().min(1, "Education is required"),
   linkedinprofile: z.string().min(1, "LinkedIn Profile is required"),
   phonenumber: z.string().min(1, "Phone Number is required"),
-  experience: z
-    .string()
-    .min(1, "Experience is required")
-    .max(40, "maximum can only be 70 characters"),
+  experience: z.string().min(1, "Experience is required"),
 });
 
 export const TeamInformationSchema = z.object({

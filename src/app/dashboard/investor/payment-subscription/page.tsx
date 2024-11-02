@@ -15,10 +15,11 @@ const SubsciptionSuccessComponent = () => {
   const searchParams = useSearchParams();
 
   const ref_id = searchParams.get("trxref") ?? "";
+  const verifySubsciptionDto = {
+    ref_id: ref_id,
+  };
   const payload = {
-    verifyDepositDto: {
-      reference: ref_id,
-    },
+    completeSubscriptionDto: verifySubsciptionDto,
   };
   useEffect(() => {
     if (ref_id) {

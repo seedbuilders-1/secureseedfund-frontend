@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../../../components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Startup } from "@/generated/service/startups/startups";
+import { MdOutlineLink } from "react-icons/md";
 import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
 import {
   AccountSettingsSchema,
@@ -282,7 +282,10 @@ const AccountSettings = ({ accountInformation }: Props) => {
             </div>
           </label>
         </div>
-
+        <div className="flex gap-3 text-center items-center justify-center mx-auto mt-4 cursor-pointer">
+          <MdOutlineLink />
+          <span className="underline">View Public Profile</span>
+        </div>
         <div className="mt-4 max-w-[1000px] mx-auto">
           <div className=" border border-solid border-[#D8D8E2] rounded-2xl grid place-content-center p-5">
             <Form {...form}>
@@ -420,6 +423,8 @@ const AccountSettings = ({ accountInformation }: Props) => {
                 />
                 <br />
                 <br className="lg:hidden" />
+
+                <FormLabel>Upload Cover Photo</FormLabel>
                 <UploadComponent
                   file={files.coverPhoto}
                   handleUpload={handleUpload}

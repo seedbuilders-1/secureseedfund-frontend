@@ -22,8 +22,10 @@ const useWallet = ({ userId }: Props) => {
     { isLoading: isCreditingWallet, isSuccess: walletCredited, data: response },
   ] = api.useWalletControllerInitializeDepositMutation();
 
-  const [createWalletWithdrawStart, { isLoading: isWithdrawing }] =
-    api.useWalletControllerRequestWithdrawalMutation();
+  const [
+    createWalletWithdrawStart,
+    { isLoading: isWithdrawing, isSuccess: withdrawSuccess },
+  ] = api.useWalletControllerRequestWithdrawalMutation();
 
   const createDeposit = async (
     values: WalletControllerInitializeDepositApiArg
@@ -44,6 +46,12 @@ const useWallet = ({ userId }: Props) => {
   ) => {
     try {
       await createWalletWithdrawStart(values).unwrap();
+      toast({
+        className:
+          "top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4",
+        variant: "destructive",
+        title: "Withdraw Successful",
+      });
     } catch (err: any) {
       toast({
         className:
@@ -86,6 +94,7 @@ const useWallet = ({ userId }: Props) => {
     createWalletWithdrawStart,
     isWithdrawing,
     createWithdrawal,
+    withdrawSuccess,
   };
 };
 export default useWallet;

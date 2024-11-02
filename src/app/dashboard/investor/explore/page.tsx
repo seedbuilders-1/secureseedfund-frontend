@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   Select,
@@ -10,17 +10,47 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import useExplore from "./hooks/useExplore";
+import { useToast } from "@/components/ui/use-toast";
+import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
+import PaginationControls from "@/components/shared/PaginationControls";
 import { Skeleton } from "@/components/ui/skeleton";
+import { StartupDto } from "@/generated/service/startups/startups";
 
 function Page() {
-  const { allStartupsData, loadingAllStartupData } = useExplore();
+  const [searchText, setSearchText] = useState("");
+  const { toast } = useToast();
+  const { allStartupsData, loadingAllStartupData, handlePageChange, page } =
+    useExplore({ searchText });
+  const handleNavigation = (startup: StartupDto) => {
+    if (startup.creator_id.subscription_plan === "basic") {
+      toast({
+        className:
+          "top-0 right-0 flex fixed   md:max-w-[420px] md:top-4 md:right-4",
+        variant: "destructive",
+        title: "You cant veiw this startup Profile",
+      });
+    } else {
+      router.push(`/dashboard/investor/explore/${startup.id}`);
+    }
+  };
   const router = useRouter();
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 ">
       {/* Filters Section */}
-      <div className="flex gap-4 mb-[4rem] mt-[2rem] max-w-[700px] mx-auto">
+      <div className="flex-wrap flex  gap-4 mb-[4rem] mt-[2rem] mx-auto  max-w-[1200px] md:flex-nowrap">
+        <div className="relative w-full">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+          <Input
+            type="search"
+            placeholder="Search startups..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="pl-10 border border-black"
+          />
+        </div>
         <Select>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Industry" />
@@ -69,14 +99,12 @@ function Page() {
           allStartupsData?.items.map((startup) => (
             <div
               key={startup.id}
-              onClick={() =>
-                router.push(`/dashboard/investor/explore/${startup.id}`)
-              }
-              className="bg-white rounded-xl border cursor-pointer border-[#0000001A] overflow-hidden w-[390px] h-[550px] transition-transform duration-300 hover:-translate-y-1"
+              onClick={() => handleNavigation(startup)}
+              className="bg-white rounded-xl border cursor-pointer border-[#0000001A] overflow-hidden w-[390px] h-[550px] transition-transform duration-300 hover:-translate-y-1 hover:border-[##0F8B3A] "
             >
               <div className="relative aspect-[16/9] w-full overflow-hidden">
                 <Image
-                  src={startup.founder?.profileImage}
+                  src={startup?.founder?.profileImage}
                   alt="startup image"
                   fill
                   className="object-cover"
@@ -88,35 +116,35 @@ function Page() {
                 />
               </div>
               <div className="p-6 flex flex-col">
-                <div className="mb-4">
+                <div className="flex text-center justify-center items-center border  border-[#064E3B] rounded-3xl text-[#064E3B] my-3  bg-[#D1FAE5] h-[30px]  w-[100px] text-[13px]">
+                  {startup.businessInformation?.business_model || "N/A"}
+                </div>
+                <div className="">
                   <h2 className="text-xl font-medium mb-2 text-[#837e7e]">
-                    Doful
+                    {startup.companyInformation?.company_name}
                   </h2>
                   <p className="font-medium">
-                    at startup dofu we specialize in retaurant ofring
+                    {startup?.companyInformation?.company_industry}
                   </p>
                 </div>
 
                 <div className="flex-grow">
                   <p className="text-sm text-gray-500 mb-6 line-clamp-3">
-                    at startup dofu we specialize in retaurant ofring at startup
-                    dofu we specialize in retaurant ofring at startup dofu we
-                    specialize in retaurant ofring at startup dofu we specialize
-                    in retaurant ofring
+                    {startup.companyInformation?.company_desc}
                   </p>
 
                   <div className="space-y-4 mt-auto">
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600 font-medium">Funding</span>
                       <span className="font-normal text-[#837e7e]">
-                        $300 from 150 investors
+                        {startup.fundingInformation?.previous_fundraise}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between">
                       <span className="font-medium">Valuation</span>
                       <span className="font-normal text-[#837e7e]">
-                        $40.26M valuations
+                        {/* {startup.campaignInformat} */}
                       </span>
                     </div>
                   </div>
@@ -125,6 +153,15 @@ function Page() {
             </div>
           ))
         )}
+      </div>
+      <div className="mt-4 w-full">
+        <div className="ml-auto w-fit">
+          <PaginationControls
+            currentPage={page}
+            onPageChange={handlePageChange}
+            totalPages={allStartupsData?.meta?.totalPages || 1}
+          />
+        </div>
       </div>
     </div>
   );

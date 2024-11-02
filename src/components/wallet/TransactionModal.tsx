@@ -16,7 +16,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "../../../../../components/ui/form";
+} from "../ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 const transactionSchema = z.object({
@@ -30,10 +30,9 @@ interface TransactionFormData {
 interface TransactionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  type: "deposit" | "withdraw" | null;
+  type: "deposit" | "withdraw";
   onSubmit: (amount: number) => void;
   isLoading: boolean;
-  balance?: number;
 }
 
 const TransactionModal: React.FC<TransactionModalProps> = ({
@@ -42,36 +41,9 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   type,
   onSubmit,
   isLoading,
-  balance,
 }) => {
-  const getTransactionSchema = () => {
-    const baseSchema = z.object({
-      amount: z
-        .number({
-          required_error: "Amount is required",
-          invalid_type_error: "Amount must be a number",
-        })
-        .positive({ message: "Amount must be greater than 0" }),
-    });
-
-    if (type === "withdraw") {
-      return baseSchema.refine((data) => data.amount <= (balance as number), {
-        message: `Insufficient balance. Available balance: ${balance}`,
-        path: ["amount"],
-      });
-    }
-
-    return baseSchema;
-  };
-
-  const form = useForm<{ amount: number }>({
-    resolver: zodResolver(getTransactionSchema()),
-    defaultValues: {
-      amount: undefined,
-    },
-    resetOptions: {
-      keepDirtyValues: false,
-    },
+  const form = useForm<TransactionFormData>({
+    resolver: zodResolver(transactionSchema),
   });
 
   const handleFormSubmit = (data: TransactionFormData) => {

@@ -56,9 +56,9 @@ export type WalletControllerInitializeDepositApiArg = {
   userId: string;
   createDepositDto: CreateDepositDto;
 };
-export type WalletControllerVerifyDepositApiResponse =
-  /** status 200  */
-  object | /** status 201 Verifu wallet Deposit */ void;
+export type WalletControllerVerifyDepositApiResponse = /** status 200  */
+  | object
+  | /** status 201 Verifu wallet Deposit */ void;
 export type WalletControllerVerifyDepositApiArg = {
   verifyDepositDto: VerifyDepositDto;
 };

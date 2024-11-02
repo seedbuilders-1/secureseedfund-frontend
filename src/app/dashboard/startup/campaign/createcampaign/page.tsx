@@ -38,6 +38,7 @@ export default function CampaignDashboard() {
     startdate: "",
     enddate: "",
     fundinggoal: "",
+    minimum: 1,
   });
 
   const handleSelectFundingCampaign = (value: FundingCampaignTypes) => {
@@ -79,6 +80,7 @@ export default function CampaignDashboard() {
         startdate: moment(singleCampaign?.startDate).format("YYYY-MM-DD"),
         enddate: moment(singleCampaign?.endDate).format("YYYY-MM-DD"),
         fundinggoal: singleCampaign?.fundingGoal.toString(),
+        minimum: singleCampaign.minimum_value,
       });
     }
   }, [id, singleCampaign]);

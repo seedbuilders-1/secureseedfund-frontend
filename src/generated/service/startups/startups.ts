@@ -41,6 +41,16 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.createCompanyInformationDto,
       }),
     }),
+    startupControllerUpdateCompanyInformationNew: build.mutation<
+      StartupControllerUpdateCompanyInformationNewApiResponse,
+      StartupControllerUpdateCompanyInformationNewApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/startups/${queryArg.creatorId}/company`,
+        method: "PUT",
+        body: queryArg.updateCompanyInformationDto,
+      }),
+    }),
     startupControllerCreateFundingInformation: build.mutation<
       StartupControllerCreateFundingInformationApiResponse,
       StartupControllerCreateFundingInformationApiArg
@@ -59,6 +69,46 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/startups/update/${queryArg.creatorId}/company`,
         method: "PUT",
         body: queryArg.updateNewCompanyInformationDto,
+      }),
+    }),
+    startupControllerUpdateTeamInformation: build.mutation<
+      StartupControllerUpdateTeamInformationApiResponse,
+      StartupControllerUpdateTeamInformationApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/startups/update/${queryArg.creatorId}/team`,
+        method: "PUT",
+        body: queryArg.updateTeamDto,
+      }),
+    }),
+    startupControllerUpdateFounderInformation: build.mutation<
+      StartupControllerUpdateFounderInformationApiResponse,
+      StartupControllerUpdateFounderInformationApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/startups/update/${queryArg.creatorId}/founder`,
+        method: "PUT",
+        body: queryArg.updateFounderDto,
+      }),
+    }),
+    startupControllerUpdateFundingInformation: build.mutation<
+      StartupControllerUpdateFundingInformationApiResponse,
+      StartupControllerUpdateFundingInformationApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/startups/update/${queryArg.creatorId}/funding`,
+        method: "PUT",
+        body: queryArg.updateFundingInformationDto,
+      }),
+    }),
+    startupControllerUpdateBusinessInformation: build.mutation<
+      StartupControllerUpdateBusinessInformationApiResponse,
+      StartupControllerUpdateBusinessInformationApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/startups/update/${queryArg.creatorId}/business`,
+        method: "PUT",
+        body: queryArg.updateBusinessInformationDto,
       }),
     }),
     startupControllerGetStartupByUserId: build.query<
@@ -119,6 +169,12 @@ export type StartupControllerCreateCompanyInformationApiArg = {
   creatorId: string;
   createCompanyInformationDto: CreateCompanyInformationDto;
 };
+export type StartupControllerUpdateCompanyInformationNewApiResponse =
+  /** status 200  */ string;
+export type StartupControllerUpdateCompanyInformationNewApiArg = {
+  creatorId: string;
+  updateCompanyInformationDto: UpdateCompanyInformationDto;
+};
 export type StartupControllerCreateFundingInformationApiResponse =
   /** status 201  */ string;
 export type StartupControllerCreateFundingInformationApiArg = {
@@ -131,13 +187,37 @@ export type StartupControllerUpdateCompanyInformationApiArg = {
   creatorId: string;
   updateNewCompanyInformationDto: UpdateNewCompanyInformationDto;
 };
+export type StartupControllerUpdateTeamInformationApiResponse =
+  /** status 200  */ string;
+export type StartupControllerUpdateTeamInformationApiArg = {
+  creatorId: string;
+  updateTeamDto: UpdateTeamDto;
+};
+export type StartupControllerUpdateFounderInformationApiResponse =
+  /** status 200  */ string;
+export type StartupControllerUpdateFounderInformationApiArg = {
+  creatorId: string;
+  updateFounderDto: UpdateFounderDto;
+};
+export type StartupControllerUpdateFundingInformationApiResponse =
+  /** status 200  */ string;
+export type StartupControllerUpdateFundingInformationApiArg = {
+  creatorId: string;
+  updateFundingInformationDto: UpdateFundingInformationDto;
+};
+export type StartupControllerUpdateBusinessInformationApiResponse =
+  /** status 200  */ string;
+export type StartupControllerUpdateBusinessInformationApiArg = {
+  creatorId: string;
+  updateBusinessInformationDto: UpdateBusinessInformationDto;
+};
 export type StartupControllerGetStartupByUserIdApiResponse =
   /** status 200  */ Startup;
 export type StartupControllerGetStartupByUserIdApiArg = {
   userId: string;
 };
 export type StartupControllerGetStartupByStartupIdApiResponse =
-  /** status 200  */ Startup;
+  /** status 200  */ Startup | /** status 201  */ Startup;
 export type StartupControllerGetStartupByStartupIdApiArg = {
   startupId: string;
 };
@@ -158,6 +238,7 @@ export type StartupControllerFindAllApiArg = {
   userId?: string;
 };
 export type CreateTeamDto = {
+  team_cofounder_profileImage?: Blob;
   team_cofounder_title: string;
   team_cofounder_firstName: string;
   team_cofounder_linkdln: string;
@@ -214,6 +295,26 @@ export type CreateCompanyInformationDto = {
   company_incorporated_in: string;
   company_incorporation_year: string;
 };
+export type UpdateCompanyInformationDto = {
+  company_business_plan?: Blob;
+  company_pitchDeck?: Blob;
+  company_video?: Blob;
+  company_logo?: Blob;
+  company_cac?: Blob;
+  company_cover_photo?: Blob;
+  company_name?: string;
+  company_email?: string;
+  company_address?: string;
+  company_website?: string;
+  company_industry?: string;
+  company_phone?: string;
+  company_city?: string;
+  company_geography?: string;
+  company_desc?: string;
+  company_bullet_point?: string;
+  company_incorporated_in?: string;
+  company_incorporation_year?: string;
+};
 export type CreateFundingInformationDto = {
   financial_statement?: Blob;
   external_funding: boolean;
@@ -244,10 +345,73 @@ export type UpdateNewCompanyInformationDto = {
   company_video?: Blob;
   profileImage?: Blob;
   company_cover_photo?: Blob;
+  company_cac?: Blob;
   company_address: string;
   company_website: string;
   company_desc: string;
   company_bullet_point: string;
+};
+export type UpdateTeamDto = {
+  team_cofounder_profileImage?: Blob;
+  team_cofounder_title?: string;
+  team_cofounder_firstName?: string;
+  team_cofounder_linkdln?: string;
+  team_members?: number;
+  team_cofounder_lastName?: string;
+  team_cofounder_email?: string;
+  team_cofounder_education?: string;
+  team_cofounder_phone?: string;
+  team_cofounder_experience?: string;
+  team_details?: string;
+  team_primary_base?: string;
+};
+export type UpdateFounderDto = {
+  profileImage?: Blob;
+  founderTitle?: string;
+  founderGender?: string;
+  founderFirstname?: string;
+  founderLastname?: string;
+  founderEmail?: string;
+  founderEducationHistory?: string;
+  founderPhone?: string;
+  founderLinkdln?: string;
+  founderExperience?: string;
+};
+export type UpdateFundingInformationDto = {
+  financial_statement?: Blob;
+  external_funding?: boolean;
+  external_funds_Value?: number;
+  rationale_valuation?: string;
+  previous_fundraise?: number;
+  funding_history_desc?: string;
+  funds_use?: string;
+  collected_loans?: boolean;
+  loan_desc?: string;
+  incubator_program?: boolean;
+  incubator_program_desc?: string;
+  campaign_type?:
+    | "EQUITY"
+    | "DEBT"
+    | "REWARD"
+    | "REVENUE_SHARE"
+    | "GRANTS"
+    | "ROI"
+    | "SAFE"
+    | "OTHERS";
+  raise_period?: string;
+  about_secure_seedFund?: string;
+};
+export type UpdateBusinessInformationDto = {
+  business_stage?: string;
+  business_model?: "B2B" | "B2C" | "B2G" | "B2G" | "C2B" | "C2C";
+  business_revenue_channel?: string;
+  business_market_size?: number;
+  business_past_revenue_generated?: number;
+  business_customer_acqui_cost?: number;
+  business_current_users?: number;
+  business_monthly_recur_expense?: number;
+  business_monthly_recur_revenue?: number;
+  business_model_desc?: string;
 };
 export type Milestone = {
   campaign: Campaign;
@@ -258,6 +422,14 @@ export type Milestone = {
   proof?: string;
   status?: string;
   date: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+export type Investments = {
+  user: User;
+  total_invested: number;
+  campaign: Campaign;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -282,7 +454,9 @@ export type Campaign = {
   isLive: boolean;
   milestones?: Milestone[];
   investment_balance: string;
-  startup: Startup[];
+  minimum_value: string;
+  startup: Startup;
+  investments: Investments;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -342,6 +516,11 @@ export type Kyc = {
   identity_number: string;
   addressProofUrl: string;
   isApproved: boolean;
+  utility_proof: string;
+  biometric_proof: string;
+  company_tin_number: string;
+  company_status_report: string;
+  company_reg_number: string;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -381,6 +560,7 @@ export type User = {
   institution: Institution;
   kyc: Kyc;
   wallet: Wallet;
+  investments: Investments[];
   id: string;
 };
 export type BusinessInformation = {
@@ -464,6 +644,7 @@ export type Team = {
   team_cofounder_linkdln: string;
   team_members: number;
   team_primary_base: string;
+  team_cofounder_profileImage: string;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -493,66 +674,10 @@ export type Startup = {
   fundingInformation: FundingInformation;
   teamInformation: Team;
   founder: Founder;
-  campaignInformation: Campaign;
+  campaignInformation: Campaign[];
   id: string;
   createdAt: string;
   updatedAt: string;
-};
-export type UpdateBusinessInformationDto = {
-  business_stage?: string;
-  business_model?: "B2B" | "B2C" | "B2G" | "B2G" | "C2B" | "C2C";
-  business_revenue_channel?: string;
-  business_market_size?: number;
-  business_past_revenue_generated?: number;
-  business_customer_acqui_cost?: number;
-  business_current_users?: number;
-  business_monthly_recur_expense?: number;
-  business_monthly_recur_revenue?: number;
-  business_model_desc?: string;
-};
-export type UpdateCompanyInformationDto = {
-  company_business_plan?: Blob;
-  company_pitchDeck?: Blob;
-  company_video?: Blob;
-  company_logo?: Blob;
-  company_cac?: Blob;
-  company_cover_photo?: Blob;
-  company_name?: string;
-  company_email?: string;
-  company_address?: string;
-  company_website?: string;
-  company_industry?: string;
-  company_phone?: string;
-  company_city?: string;
-  company_geography?: string;
-  company_desc?: string;
-  company_bullet_point?: string;
-  company_incorporated_in?: string;
-  company_incorporation_year?: string;
-};
-export type UpdateFundingInformationDto = {
-  financial_statement?: Blob;
-  external_funding?: boolean;
-  external_funds_Value?: number;
-  rationale_valuation?: string;
-  previous_fundraise?: number;
-  funding_history_desc?: string;
-  funds_use?: string;
-  collected_loans?: boolean;
-  loan_desc?: string;
-  incubator_program?: boolean;
-  incubator_program_desc?: string;
-  campaign_type?:
-    | "EQUITY"
-    | "DEBT"
-    | "REWARD"
-    | "REVENUE_SHARE"
-    | "GRANTS"
-    | "ROI"
-    | "SAFE"
-    | "OTHERS";
-  raise_period?: string;
-  about_secure_seedFund?: string;
 };
 export type MilestoneDto = {
   milestoneTitle: string;
@@ -568,6 +693,7 @@ export type CreateCampaignDto = {
   creator_id: string;
   startDate: string;
   endDate?: string;
+  minimum_value: number;
   milestones: MilestoneDto[];
   description: string;
   fundingGoal: number;
@@ -611,8 +737,13 @@ export const {
   useStartupControllerCreateBusinessInformationMutation,
   useStartupControllerCreateFounderMutation,
   useStartupControllerCreateCompanyInformationMutation,
+  useStartupControllerUpdateCompanyInformationNewMutation,
   useStartupControllerCreateFundingInformationMutation,
   useStartupControllerUpdateCompanyInformationMutation,
+  useStartupControllerUpdateTeamInformationMutation,
+  useStartupControllerUpdateFounderInformationMutation,
+  useStartupControllerUpdateFundingInformationMutation,
+  useStartupControllerUpdateBusinessInformationMutation,
   useStartupControllerGetStartupByUserIdQuery,
   useStartupControllerGetStartupByStartupIdQuery,
   useStartupControllerFindAllQuery,

@@ -10,14 +10,17 @@ import {
 import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../../../../components/ui/button";
 import {
   TeamInformationSchema,
   TeamInformationValidation,
 } from "@/lib/validations/account";
+import UploadComponent from "./UploadComponent";
 import MobileStepper from "../../components/MobileStepper";
+import { useToast } from "@/components/ui/use-toast";
 import useAccount from "../hooks/useAccount";
+import { FileWithPath } from "react-dropzone";
 import useUserAuth from "@/hooks/auth/useAuth";
 
 interface Props {
@@ -31,6 +34,10 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
   });
   const { user } = useUserAuth();
   const creatorId = user?.userId as string;
+  const { toast } = useToast();
+  const [cofounderImage, setCofounderImage] = useState<FileWithPath | null>(
+    null
+  );
   const {
     createTeamInformation,
     createdTeamInfo,
@@ -38,19 +45,49 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
     accountInformation,
   } = useAccount(creatorId);
   const onSubmit = (values: TeamInformationValidation) => {
-    const createTeamDto = {
-      team_cofounder_title: values.titleofcofounder,
-      team_cofounder_firstName: values.firstnameofcofounder,
-      team_cofounder_lastName: values.lastnameofcofounder,
-      team_cofounder_email: values.emailofcofounder,
-      team_cofounder_education: values.educationofcofounder,
-      team_cofounder_phone: values.phonenumberofcofounder,
-      team_cofounder_experience: values.experienceofcofounder,
-      team_details: values.teammembers,
-      team_primary_base: values.executiveprimarilybased,
-      team_cofounder_linkdln: values.linkedinprofileofcofounder,
-      team_members: parseInt(values.numberofteammembers),
-    };
+    // const createTeamDto = {
+    //   team_cofounder_title: values.titleofcofounder,
+    //   team_cofounder_firstName: values.firstnameofcofounder,
+    //   team_cofounder_lastName: values.lastnameofcofounder,
+    //   team_cofounder_email: values.emailofcofounder,
+    //   team_cofounder_education: values.educationofcofounder,
+    //   team_cofounder_phone: values.phonenumberofcofounder,
+    //   team_cofounder_experience: values.experienceofcofounder,
+    //   team_details: values.teammembers,
+    //   team_primary_base: values.executiveprimarilybased,
+    //   team_cofounder_linkdln: values.linkedinprofileofcofounder,
+    //   team_members: parseInt(values.numberofteammembers),
+    // };
+    const createTeamDto = new FormData();
+    createTeamDto.append("team_cofounder_title", values.titleofcofounder);
+    createTeamDto.append(
+      "team_cofounder_firstName",
+      values.firstnameofcofounder
+    );
+    createTeamDto.append("team_cofounder_lastName", values.lastnameofcofounder);
+    createTeamDto.append("team_cofounder_email", values.emailofcofounder);
+    createTeamDto.append(
+      "team_cofounder_education",
+      values.educationofcofounder
+    );
+    createTeamDto.append("team_cofounder_phone", values.phonenumberofcofounder);
+    createTeamDto.append(
+      "team_cofounder_experience",
+      values.experienceofcofounder
+    );
+    createTeamDto.append("team_details", values.teammembers);
+    createTeamDto.append("team_primary_base", values.executiveprimarilybased);
+    createTeamDto.append(
+      "team_cofounder_linkdln",
+      values.linkedinprofileofcofounder
+    );
+    createTeamDto.append("team_members", values.numberofteammembers);
+    if (cofounderImage) {
+      createTeamDto.append(
+        "team_cofounder_profileImage",
+        cofounderImage as File
+      );
+    }
     const payload = {
       creatorId,
       createTeamDto,
@@ -111,6 +148,29 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
       );
     }
   }, [accountInformation]);
+  const handleUpload = async (acceptedFiles: FileWithPath[]) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+
+    const validImageTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (!validImageTypes.includes(file.type)) {
+      toast({
+        variant: "destructive",
+        title: "Invalid file type. Please upload an image (jpg, jpeg, png).",
+      });
+      return;
+    }
+
+    const uploadLimit = file.size / 1024 / 1024 < 2.5;
+    if (!uploadLimit) {
+      toast({
+        variant: "destructive",
+        title: "File must not exceed 2.5MB",
+      });
+      return;
+    }
+    setCofounderImage(file);
+  };
 
   return (
     <div className="w-full px-6">
@@ -335,6 +395,17 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
                   </FormItem>
                 )}
               />
+              <FormLabel>Upload Cofounder Profile Image</FormLabel>
+
+              <UploadComponent
+                file={cofounderImage}
+                handleUpload={handleUpload}
+                fileType="financialStatment"
+                maxSize={5 * 1024 * 1024}
+                label="Upload Co Founder Image (image only)"
+              />
+              <br />
+              <br className="lg:hidden" />
               <div className="flex">
                 <Button
                   className="w-full md:w-[30%] rounded-3xl mt-8

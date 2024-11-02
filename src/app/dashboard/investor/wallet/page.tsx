@@ -2,12 +2,12 @@
 import React from "react";
 import { GoPlus } from "react-icons/go";
 import { AiOutlineMinus } from "react-icons/ai";
-import TranscationHistory from "./components/TranscationHistory";
-import useWallet from "./hooks/useWallet";
+import TranscationHistory from "@/components/wallet/TranscationHistory";
+import useWallet from "../../../../hooks/wallet/useWallet";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import TransactionModal from "./components/TransactionModal";
+import TransactionModal from "@/components/wallet/TransactionModal";
 import { Skeleton } from "@/components/ui/skeleton";
 function page() {
   const { user } = useUserAuth();
@@ -21,11 +21,11 @@ function page() {
     createDeposit,
     isCreditingWallet,
     walletCredited,
-    transactionVerified,
     response,
     loadingWallet,
     createWithdrawal,
     isWithdrawing,
+    withdrawSuccess,
   } = useWallet({ userId });
   const router = useRouter();
 
@@ -39,7 +39,7 @@ function page() {
       } else if (transactionType === "withdraw") {
         createWithdrawal({
           userId,
-          amount,
+          withdrawalDto: { amount },
         });
       }
     },
@@ -51,6 +51,12 @@ function page() {
       router.push(response?.authorization_url);
     }
   }, [response, response]);
+
+  useEffect(() => {
+    if (withdrawSuccess) {
+      handleModalClose();
+    }
+  }, [withdrawSuccess]);
 
   const handleModalOpen = (type: "deposit" | "withdraw") => {
     setTransactionType(type);

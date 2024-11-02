@@ -1,4 +1,4 @@
-import { emptySplitApi as api } from "../emptyApi";
+import api from "../api/apiSlice";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     investorControllerCreateInvestor: build.mutation<
@@ -67,9 +67,9 @@ export type InvestorControllerCreateInvestorApiArg = {
   userId: string;
   createInvestorDto: CreateInvestorDto;
 };
-export type InvestorControllerUpdateApiResponse = /** status 200  */
-  | string
-  | /** status 201  */ string;
+export type InvestorControllerUpdateApiResponse =
+  /** status 200  */
+  string | /** status 201  */ string;
 export type InvestorControllerUpdateApiArg = {
   userId: string;
   updateInvestorDto: UpdateInvestorDto;
@@ -86,18 +86,19 @@ export type InvestorControllerFindAllApiArg = {
   /** User ID */
   userId?: string;
 };
-export type InvestorControllerFindOneApiResponse = /** status 200  */
-  | InvestorDto
-  | /** status 201  */ InvestorDto;
+export type InvestorControllerFindOneApiResponse =
+  /** status 200  */
+  InvestorDto | /** status 201  */ InvestorDto;
 export type InvestorControllerFindOneApiArg = {
   id: string;
 };
 export type InvestorControllerInvestInCampaignApiResponse =
   /** status 201 Investment made successfully. */ string;
 export type InvestorControllerInvestInCampaignApiArg = {
+  /** Investor ID */
   /** Campaign ID */
   campaignId: string;
-  /** Investor user ID and Amount to invest */
+  /** Amount to invest */
   investDto: InvestDto;
 };
 export type InvestorControllerGetInvestorInvestmentsApiResponse = unknown;
@@ -194,8 +195,8 @@ export type InvestorDto = {
   investor_liquidity_importance: string;
 };
 export type InvestDto = {
-  investorUserId: string;
   investmentAmount: number;
+  investorUserId: string;
 };
 export const {
   useInvestorControllerCreateInvestorMutation,

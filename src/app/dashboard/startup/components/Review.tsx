@@ -41,6 +41,7 @@ const Review = ({
     startDate: campaignDetail.startdate,
     creator_id: user?.userId as string,
     endDate: campaignDetail.enddate,
+    minimum_value: parseInt(campaignDetail.minimum),
     milestones: milestoneDetail.milestones.map(
       ({ targetAmount, ...milestone }) => ({
         targetAmount: parseInt(targetAmount),
