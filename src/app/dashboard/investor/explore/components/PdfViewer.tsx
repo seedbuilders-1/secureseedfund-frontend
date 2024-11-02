@@ -16,7 +16,7 @@ const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
 
-  const onDocumentLoadSuccess = ({ numPages }) => {
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: any }) => {
     setNumPages(numPages);
   };
 
