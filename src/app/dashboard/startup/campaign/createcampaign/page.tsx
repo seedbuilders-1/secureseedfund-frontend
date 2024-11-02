@@ -87,7 +87,7 @@ export default function CampaignDashboard() {
 
   return (
     <>
-      <div className="w-full h-full flex flex-col lg:flex-row bg-white lg:gap-[3rem] gap-1">
+      <div className="w-full h-full  flex flex-col lg:flex-row bg-white lg:gap-[3rem] gap-1">
         <CampaignStepper currentStep={currentStep} />
         <div className="w-full lg:w-[80%] max-w-[1000px] py-[3rem] flex justify-center items-center">
           {currentStep === 1 && (
