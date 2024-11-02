@@ -90,28 +90,30 @@ const DashboardOverview = ({ params }: { params: { startupid: string } }) => {
           <h3 className="text-[28px] mb-4"> Transactions</h3>
           <div className="bg-[#0F8B3A] w-full py-[3rem] px-4 rounded-md h-[668px] gap-4 flex flex-col items-center">
             {currentCampaign?.milestones.length ? (
-              currentCampaign?.milestones.map((milestone, index) => (
-                <div
-                  className="bg-[#0A742F] py-5 px-4 rounded-[60px] w-full flex justify-between items-center"
-                  key={index}
-                >
-                  <div className="flex gap-2">
-                    <div className="bg-white rounded-full w-[42px] h-[42px]"></div>
-                    <div>
-                      <h2 className="text-white font-medium text-[18px]">
-                        {" "}
-                        {milestone.milestoneTitle}
-                      </h2>
-                      <p className="text-white  text-[14px]">
-                        {milestone.milestoneDescription}
-                      </p>
+              currentCampaign?.milestones.map(
+                (milestone: any, index: number) => (
+                  <div
+                    className="bg-[#0A742F] py-5 px-4 rounded-[60px] w-full flex justify-between items-center"
+                    key={index}
+                  >
+                    <div className="flex gap-2">
+                      <div className="bg-white rounded-full w-[42px] h-[42px]"></div>
+                      <div>
+                        <h2 className="text-white font-medium text-[18px]">
+                          {" "}
+                          {milestone.milestoneTitle}
+                        </h2>
+                        <p className="text-white  text-[14px]">
+                          {milestone.milestoneDescription}
+                        </p>
+                      </div>
                     </div>
+                    <span className="text-[#FFFFFF] text-[18px]">
+                      {`N${thousandFormatter(milestone.targetAmount)}`}
+                    </span>
                   </div>
-                  <span className="text-[#FFFFFF] text-[18px]">
-                    {`N${thousandFormatter(milestone.targetAmount)}`}
-                  </span>
-                </div>
-              ))
+                )
+              )
             ) : (
               <div className="flex  justify-center items-center">
                 <h2 className="font-bold text-white text-[18px]">
