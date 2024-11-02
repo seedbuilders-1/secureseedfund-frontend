@@ -167,7 +167,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
         investor_experience,
         investor_investment_duration,
         investor_investment_goal,
-        investor_type,
+        investorType,
         investor_liquidity_importance,
         investor_nationality,
         investor_residence_city,
@@ -176,7 +176,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
       form.setValue("investor_annual_income", investor_annual_income);
       form.setValue("investor_country_residence", investor_country_residence);
       form.setValue("investor_experience", investor_experience);
-      form.setValue("investor_type", investor_type);
+      form.setValue("investor_type", investorType);
       form.setValue(
         "investor_investment_duration",
         investor_investment_duration
