@@ -17,7 +17,7 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PaginationControls from "@/components/shared/PaginationControls";
 import { Skeleton } from "@/components/ui/skeleton";
-import { StartupDto } from "@/generated/service/startups/startups";
+// import { StartupDto } from "@/generated/service/startups/startups";
 
 function Page() {
   const [searchText, setSearchText] = useState("");
