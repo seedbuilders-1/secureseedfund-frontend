@@ -9,7 +9,7 @@ import RecentFunding from "@/app/dashboard/startup/components/RecentFunding";
 const DashboardOverview = ({ params }: { params: { startupid: string } }) => {
   const { campaigns, loadingCampaigns } = useCampaign({
     startupId: params.startupid,
-  });
+  } as any);
   const currentCampaign =
     campaigns &&
     (campaigns as any)?.items[(campaigns as any)?.items.length - 1];
