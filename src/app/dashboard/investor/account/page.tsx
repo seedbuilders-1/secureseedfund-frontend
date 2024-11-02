@@ -16,7 +16,7 @@ const AccountPage = () => {
 
   return (
     <>
-      {investorInformation?.is_completed_info ? (
+      {(investorInformation as any)?.is_completed_info ? (
         <AccountSettings accountInformation={investorInformation} />
       ) : (
         <div className="w-[100%] md:w-[90%] flex flex-col h-[100vh] bg-white mt-[4rem] mx-auto">
