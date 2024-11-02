@@ -60,7 +60,7 @@ export default function CampaignDashboard() {
   };
   const searchParams = useSearchParams();
   const id = searchParams.get("id") ?? "";
-  const { singleCampaign } = useCampaign({ id });
+  const { singleCampaign } = useCampaign({ userId: id });
 
   useEffect(() => {
     if (singleCampaign && id) {
