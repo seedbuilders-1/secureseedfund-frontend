@@ -35,10 +35,10 @@ export default function CampaignDashboard() {
   const [campaignDetail, setCampaignDetail] = useState<CampaignValidation>({
     title: "",
     description: "",
+    minimum: 1,
     startdate: "",
     enddate: "",
     fundinggoal: "",
-    minimum: 1,
   });
 
   const handleSelectFundingCampaign = (value: FundingCampaignTypes) => {
