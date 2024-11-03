@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import {
   FormControl,
@@ -37,7 +37,6 @@ const InvestmentInfo = () => {
 
   const onSubmit = (data: InvestmentFormData) => {
     console.log(data);
-    // Handle form submission logic here
   };
 
   return (
