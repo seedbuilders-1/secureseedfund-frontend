@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import investsecureimage from "@/assets/iconspng/investsecureimage.png";
 import InvestArticle from "@/app/(landing)/components/InvestArticle";
+import Link from "next/link";
 
 const InvestSecurely = () => {
   return (
@@ -17,7 +18,9 @@ const InvestSecurely = () => {
             <p className="font-[400] text-[14px] text-center  md:text-[20px] mt-3  mb-4 ">
               Join hundreds of investors funding the biggest startups globally.
             </p>
-            <Button className="bg-dark text-[#ffff] ">Explore startup</Button>
+            <Link href="/investors">
+              <Button className="bg-dark text-[#ffff] ">Explore startup</Button>
+            </Link>
           </div>
           <div className="hidden md:block">
             <Image src={investsecureimage} alt="" className="md:block" />
@@ -28,7 +31,9 @@ const InvestSecurely = () => {
       <div className="mt-5">
         <InvestArticle title="Most Raised This Week" />
         <div className="flex items-center justify-center mb-5">
-          <Button className="bg-dark text-[#ffff]  "> Explore Startup</Button>
+          <Link href="/investors">
+            <Button className="bg-dark text-[#ffff]  "> Explore Startup</Button>
+          </Link>
         </div>
       </div>
     </section>

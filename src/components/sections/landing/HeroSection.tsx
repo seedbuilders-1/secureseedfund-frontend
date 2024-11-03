@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Home from "@/assets/icons/home.svg";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -29,15 +30,20 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 mt-6">
-            <Button className="bg-dark text-white md:bg-[#241A3F] text-xs md:text-sm w-full sm:w-auto">
-              Join Secure Seedfund
-            </Button>
-            <Button
-              variant="outline"
-              className="text-xs md:text-sm w-full sm:w-auto"
-            >
-              Explore Startups
-            </Button>
+            <Link href="/auth/sign-in">
+              <Button className="bg-dark text-white md:bg-[#241A3F] text-xs md:text-sm w-full sm:w-auto">
+                {" "}
+                Join Secure Seedfund
+              </Button>
+            </Link>
+            <Link href="/investors">
+              <Button
+                variant="outline"
+                className="text-xs md:text-sm w-full sm:w-auto"
+              >
+                Explore Startups
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
