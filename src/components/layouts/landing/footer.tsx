@@ -116,7 +116,7 @@ const Footer = () => {
             <div className="mt-8 flex flex-col space-y-6">
               <span className="text-[0.9rem] opacity-[0.703] text-center">
                 {" "}
-                © 2022 ABC All Rights Reserved.
+                © 2024 ABC All Rights Reserved.
               </span>
               <span className="text-[0.9rem] opacity-[0.703] text-center">
                 {" "}
