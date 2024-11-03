@@ -67,7 +67,7 @@ const Header = () => {
               <Link href="/auth/sign-in">
                 <Button variant="outline">Login</Button>
               </Link>
-              <Link href="/auth/sign-up">
+              <Link href="/auth/sign-in">
                 <Button className="bg-[#241A3F]">Get started</Button>
               </Link>
             </div>
@@ -117,7 +117,7 @@ const Header = () => {
                   <Link href="/auth/sign-in">
                     <Button variant="outline">Login</Button>
                   </Link>
-                  <Link href="/auth/sign-up">
+                  <Link href="/auth/sign-in">
                     <Button className="mt-2">Create Account</Button>
                   </Link>
                 </div>

@@ -82,7 +82,7 @@ const Footer = () => {
                 </span>
                 <div className="flex flex-col space-y-4 mt-6">
                   <span className="text-[#0A142F] opacity-[.5] cursor-pointer">
-                    ABC Company, 123 East, 17th Street, St. louis 10001
+                    SeedBuilders Innovation Hub. 6A Embu Street. Wuse 2. Abuja
                   </span>
                 </div>
               </div>
