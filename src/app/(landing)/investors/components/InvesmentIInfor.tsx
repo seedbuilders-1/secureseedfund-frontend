@@ -5,6 +5,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -13,6 +14,14 @@ import Image from "next/image";
 
 import Linkdein from "@/assets/icons/LinkedInIcon";
 import google from "@/assets/iconspng/Googleicon.png";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface InvestmentFormData {
   firstName: string;
@@ -20,6 +29,7 @@ interface InvestmentFormData {
   email: string;
   password: string;
   confirmPassword: string;
+  userType: string;
 }
 
 const InvestmentInfo = () => {
@@ -125,6 +135,41 @@ const InvestmentInfo = () => {
                       }}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="userType"
+              render={({ field }) => (
+                <FormItem className="py-2 w-full lg:w-[50%]">
+                  <FormLabel>User Type</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={(value) => field.onChange(value)}
+                      value={field.value}
+                    >
+                      <SelectTrigger className="w-full capitalize">
+                        <SelectValue placeholder="Select user type" />
+                      </SelectTrigger>
+                      <SelectContent className="w-full bg-white">
+                        <SelectGroup>
+                          {["startup", "investor", "institution"].map(
+                            (opt: string, idx: number) => (
+                              <SelectItem
+                                key={idx}
+                                className="capitalize"
+                                value={opt}
+                              >
+                                {opt}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+
                   <FormMessage />
                 </FormItem>
               )}

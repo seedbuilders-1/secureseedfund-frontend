@@ -5,6 +5,7 @@ import Image from "next/image";
 import WhyInvestCards from "./WhyInvestCards";
 import AngelInvesting from "./AngelInvesting";
 import FrequentlyAskedQuestions from "./FrequentlyAsk";
+import Link from "next/link";
 
 const WhyInvest = () => {
   return (
@@ -18,9 +19,11 @@ const WhyInvest = () => {
           <p className="text-sm md:text-[22px] font-500 mt-3 mb-2 md:text-left">
             The best time to invest in Startups is early.
           </p>
-          <Button className="bg-dark text-white md:bg-dark mt-3 mb-2 md:w-[300px]">
-            Explore
-          </Button>
+          <Link href="/investors">
+            <Button className="bg-dark text-white md:bg-dark mt-3 mb-2 md:w-[300px]">
+              Explore
+            </Button>
+          </Link>
         </div>
         <Image src={invest} alt="Investment graphic" className="md:w-[400px]" />
       </div>

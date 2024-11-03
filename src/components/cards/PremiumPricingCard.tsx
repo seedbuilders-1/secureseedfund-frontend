@@ -2,6 +2,7 @@
 
 import PremiumIcon from "@/assets/icons/PremiumIcon";
 import WhitCheckIcon from "@/assets/icons/WhitCheckIcon";
+import Link from "next/link";
 import React, { useState } from "react";
 
 interface PricingCardProps {
@@ -71,9 +72,11 @@ const PricingCard: React.FC<PricingCardProps> = ({
       </div>
 
       <div className="mt-6">
-        <button className="w-full bg-white text-green-600 py-2 rounded-md font-semibold">
-          {buttonText}
-        </button>
+        <Link href="/auth/sign-in">
+          <button className="w-full bg-white text-green-600 py-2 rounded-md font-semibold">
+            {buttonText}
+          </button>
+        </Link>
       </div>
     </div>
   );

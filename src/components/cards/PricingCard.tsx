@@ -1,5 +1,6 @@
 import DocIcon from "@/assets/icons/DocIcon";
 import GreenCheckIcon from "@/assets/icons/GreenCheckIcon";
+import Link from "next/link";
 import React from "react";
 
 interface PricingCardProps {
@@ -47,9 +48,11 @@ const PricingCard: React.FC<PricingCardProps> = ({
       </div>
 
       <div className="mt-6">
-        <button className="w-full bg-[#241A3F] text-white py-2 rounded-md">
-          Get Started
-        </button>
+        <Link href="/auth/sign-in">
+          <button className="w-full bg-[#241A3F] text-white py-2 rounded-md">
+            Get Started
+          </button>
+        </Link>
       </div>
     </div>
   );
