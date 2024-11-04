@@ -1,89 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-
-// const url =
-//   "https://cors-anywhere.herokuapp.com/http://www.pdf995.com/samples/pdf.pdf";
 
 const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-  const [isOpen, setIsOpen] = useState(false);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(1.0);
 
-  const onDocumentLoadSuccess = ({ numPages }: { numPages: any }) => {
+  const [numPages, setNumPages] = useState<number | null>(null);
+  const [scale, setScale] = useState(1.5);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useEffect(() => {
+    const updateScale = () => {
+      const container = document.getElementById("pdf-container");
+      if (container) {
+        const width = container.clientWidth;
+        setContainerWidth(width);
+
+        if (width < 640) {
+          setScale(1);
+        } else if (width < 768) {
+          setScale(1.1);
+        } else if (width < 1024) {
+          setScale(1.2);
+        } else {
+          setScale(1.5);
+        }
+      }
+    };
+
+    // Initial update
+    updateScale();
+
+    // Update on resize
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
+
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
-  };
-
-  const changePage = (offset: any) => {
-    setPageNumber((prevPageNumber) => {
-      const newPage = prevPageNumber + offset;
-      return Math.min(Math.max(1, newPage), numPages || 1);
-    });
-  };
-
-  const adjustScale = (delta: any) => {
-    setScale((prevScale) => Math.max(0.5, Math.min(2, prevScale + delta)));
   };
 
   return (
     <div className="w-full">
-      <div className="border rounded-md border-gray-200 p-4 max-w-lg">
-        <Button onClick={() => setIsOpen(true)} className="">
-          View PDF
-        </Button>
-      </div>
-
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh]">
-          <DialogTitle>PDF Viewer</DialogTitle>
-
-          <div className="w-full overflow-auto">
-            <div className="flex justify-center gap-2 mb-4">
-              <Button
-                onClick={() => adjustScale(-0.1)}
-                variant="outline"
-                size="sm"
-              >
-                Zoom Out
-              </Button>
-              <Button onClick={() => setScale(1.0)} variant="outline" size="sm">
-                Reset Zoom
-              </Button>
-              <Button
-                onClick={() => adjustScale(0.1)}
-                variant="outline"
-                size="sm"
-              >
-                Zoom In
-              </Button>
+      <div id="pdf-container" className="w-full overflow-x-hidden">
+        <Document
+          file={pdfUrl}
+          onLoadSuccess={onDocumentLoadSuccess}
+          loading={
+            <div className="flex items-center justify-center p-8">
+              <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
             </div>
-
-            <Document
-              file={pdfUrl}
-              onLoadSuccess={onDocumentLoadSuccess}
-              loading={
-                <div className="flex items-center justify-center p-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
-                  <span className="ml-2">Loading PDF...</span>
-                </div>
-              }
-              error={
-                <div className="text-red-500 p-4 text-center">
-                  Failed to load PDF. Please check if the URL is correct.
-                </div>
-              }
-              className="flex justify-center"
+          }
+          error={
+            <div className="text-red-500 p-4 text-center">
+              Failed to load PDF. Please check if the URL is correct.
+            </div>
+          }
+          className="flex flex-col items-center"
+        >
+          {Array.from(new Array(numPages), (el, index) => (
+            <div
+              key={`page_${index + 1}`}
+              className="w-full flex justify-center px-2 sm:px-4 md:px-6"
             >
               <Page
-                pageNumber={pageNumber}
+                pageNumber={index + 1}
                 scale={scale}
-                className="max-w-full"
+                className="max-w-full shadow-lg mb-4 bg-white"
                 renderTextLayer={true}
                 renderAnnotationLayer={true}
                 loading={
@@ -91,35 +76,16 @@ const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
                     <Loader2 className="h-6 w-6 animate-spin text-gray-500" />
                   </div>
                 }
+                width={
+                  containerWidth
+                    ? Math.min(containerWidth - 32, 1000)
+                    : undefined
+                }
               />
-            </Document>
-
-            {numPages && (
-              <div className="flex items-center justify-between mt-4 p-2">
-                <Button
-                  onClick={() => changePage(-1)}
-                  disabled={pageNumber <= 1}
-                  variant="secondary"
-                >
-                  Previous
-                </Button>
-
-                <span className="text-sm">
-                  Page {pageNumber} of {numPages}
-                </span>
-
-                <Button
-                  onClick={() => changePage(1)}
-                  disabled={pageNumber >= numPages}
-                  variant="secondary"
-                >
-                  Next
-                </Button>
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+            </div>
+          ))}
+        </Document>
+      </div>
     </div>
   );
 };

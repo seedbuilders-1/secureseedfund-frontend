@@ -77,7 +77,7 @@ const TeamMember = ({ team }: { team: Startup | undefined }) => {
       <div className="flex items-center justify-center">
         <div className="flex items-center gap-8">
           <h2 className="text-2xl font-bold whitespace-nowrap">Team Members</h2>
-          <div className="bg-[#000] h-[1px] w-[200px]" />
+          <div className="bg-[#000] h-[1px] w-[200px] hidden md:block" />
         </div>
       </div>
 
@@ -91,7 +91,7 @@ const TeamMember = ({ team }: { team: Startup | undefined }) => {
 
         {team.teamInformation && (
           <TeamMemberCard
-            image={team.founder.profileImage} //
+            image={team.teamInformation.team_cofounder_profileImage}
             name={`${team.teamInformation.team_cofounder_firstName} ${team.teamInformation.team_cofounder_lastName}`}
             role="Co-Founder"
             experience={team.teamInformation.team_cofounder_experience}

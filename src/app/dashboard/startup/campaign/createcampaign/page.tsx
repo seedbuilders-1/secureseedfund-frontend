@@ -35,7 +35,7 @@ export default function CampaignDashboard() {
   const [campaignDetail, setCampaignDetail] = useState<CampaignValidation>({
     title: "",
     description: "",
-    minimum: 1,
+    minimum: "1",
     startdate: "",
     enddate: "",
     fundinggoal: "",
@@ -80,7 +80,7 @@ export default function CampaignDashboard() {
         startdate: moment(singleCampaign?.startDate).format("YYYY-MM-DD"),
         enddate: moment(singleCampaign?.endDate).format("YYYY-MM-DD"),
         fundinggoal: singleCampaign?.fundingGoal.toString(),
-        minimum: singleCampaign?.minimum_value,
+        minimum: singleCampaign?.minimum_value.toString(),
       });
     }
   }, [id, singleCampaign]);

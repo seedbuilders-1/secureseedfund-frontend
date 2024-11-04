@@ -190,7 +190,7 @@ const StartupDetail = () => {
             </p>
             <Button
               onClick={() => setIsOpenInvest(true)}
-              className="w-[80%] md:w-[30%] rounded-3xl bg-[#241A3F] mt-10 md:hidden"
+              className="w-[80%] md:w-[30%] rounded-3xl bg-[#241A3F] mt-10 lg:hidden"
             >
               Invest
             </Button>
@@ -234,34 +234,13 @@ const StartupDetail = () => {
                       </div>
                       <div className="flex  w-full justify-between gap-4 flex-wrap">
                         <div className="mt-4 w-full">
-                          <h2 className="text-[1.2rem] font-medium mt-6">
+                          <h2 className="text-[1.2rem]  font-medium mt-6">
                             The Pitch Deck
                           </h2>
                           <PDFViewerModal
                             pdfUrl={
                               startup?.companyInformation
                                 .company_pitchDeck as string
-                            }
-                          />
-                        </div>
-                        <div className="mt-4 w-full">
-                          <h2 className="text-[1.2rem] font-medium mt-6">
-                            The Company Registration
-                          </h2>
-                          <PDFViewerModal
-                            pdfUrl={
-                              startup?.companyInformation.company_cac as string
-                            }
-                          />
-                        </div>
-                        <div className="mt-4 w-full">
-                          <h2 className="text-[1.2rem] font-medium mt-6">
-                            The Business Plan
-                          </h2>
-                          <PDFViewerModal
-                            pdfUrl={
-                              startup?.companyInformation
-                                .company_business_plan as string
                             }
                           />
                         </div>
@@ -291,7 +270,11 @@ const StartupDetail = () => {
         </div>
         <div className="hidden md:block">
           {hasCampaign && (
-            <InvestModal isLoading={isInvesting} handleInvest={handleInvest} />
+            <InvestModal
+              isLoading={isInvesting}
+              handleInvest={handleInvest}
+              campaign={startup.campaignInformation}
+            />
           )}
         </div>
         <Dialog open={isOpenInvest} onOpenChange={setIsOpenInvest}>
@@ -301,6 +284,7 @@ const StartupDetail = () => {
                 <InvestModal
                   isLoading={isInvesting}
                   handleInvest={handleInvest}
+                  campaign={startup.campaignInformation}
                 />
               )}
             </div>

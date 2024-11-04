@@ -4,17 +4,26 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-const investmentSchema = z.object({
-  amount: z.number().positive({ message: "Amount must be greater than 0" }),
-});
-
-type InvestmentFormData = z.infer<typeof investmentSchema>;
 interface InvestModalProps {
   handleInvest: (amount: number) => void;
   isLoading: boolean;
+  campaign: any;
 }
+const InvestModal = ({
+  handleInvest,
+  isLoading,
+  campaign,
+}: InvestModalProps) => {
+  const investmentSchema = z.object({
+    amount: z
+      .number()
+      .positive({ message: "Amount must be greater than 0" })
+      .min(campaign[0].minimum_value, {
+        message: `Amount must be at least ₦${campaign[0].minimum_value}`,
+      }),
+  });
+  type InvestmentFormData = z.infer<typeof investmentSchema>;
 
-const InvestModal = ({ handleInvest, isLoading }: InvestModalProps) => {
   const {
     register,
     handleSubmit,
@@ -26,15 +35,20 @@ const InvestModal = ({ handleInvest, isLoading }: InvestModalProps) => {
   const onSubmit = async (data: InvestmentFormData) => {
     handleInvest(data.amount);
   };
-
+  console.log(campaign);
   return (
     <>
       <div className="w-full h-[350px] flex flex-col justify-center rounded-md bg-[#CDEED3]  lg:block lg:w-[450px] ">
         <div className="px-6 py-4">
-          <h2 className="text-4xl font-bold">$425,900</h2>
+          <h2 className="text-4xl font-bold">
+            {`₦ ${campaign[0].investment_balance}`}
+          </h2>
           <p className="text-lg mt-3">Raised from 845 investors</p>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <label className="font-bold mt-4">Enter Amount</label>
+            <label className=" mt-4">
+              Minimum Amount an investor can invest in is{" "}
+              <strong>₦ {campaign[0].minimum_value.toLocaleString()}</strong>
+            </label>
             <div className="flex gap-4 mt-3">
               <Input
                 type="number"
