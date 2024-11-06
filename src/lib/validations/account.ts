@@ -2,10 +2,10 @@ import * as z from "zod";
 
 export const FounderSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  firstname: z.string().min(1, "First Name is required"),
-  lastname: z.string().min(1, "Last Name required"),
+  firstname: z.string().optional(),
+  lastname: z.string().optional(),
   gender: z.string().min(1, "gender required"),
-  email: z.string().email("Enter a valid email"),
+  email: z.string().optional(),
   education: z.string().min(1, "Education is required"),
   linkedinprofile: z.string().min(1, "LinkedIn Profile is required"),
   phonenumber: z.string().min(1, "Phone Number is required"),

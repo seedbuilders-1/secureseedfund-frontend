@@ -66,12 +66,14 @@ const useUserAuth = () => {
       const res = await register(values).unwrap();
       console.log(res);
     } catch (err: any) {
-      const errorData = JSON.parse(err?.data);
-      const errorMessage = errorData?.message[0];
-      toast({
-        variant: "destructive",
-        title: `${errorMessage || "unable to register"}`,
-      });
+      if (err) {
+        const errorData = JSON.parse(err?.data);
+        const errorMessage = errorData?.message[0];
+        toast({
+          variant: "destructive",
+          title: `${errorMessage || "unable to register"}`,
+        });
+      }
     }
   };
 
