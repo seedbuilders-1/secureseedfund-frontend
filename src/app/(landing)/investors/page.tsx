@@ -4,7 +4,7 @@ import InvestArticleCarousel from "../components/InvestArticle";
 import StepstoInvest from "./components/StepstoInvest";
 import InvesmentIInfor from "./components/InvesmentIInfor";
 export const metadata: Metadata = {
-  title: "Investors | SecureSeedFund",
+  title: "Investor | SecureSeedFund",
 };
 
 export default function InvestorsPage() {
