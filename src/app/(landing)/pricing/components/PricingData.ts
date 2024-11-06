@@ -1,0 +1,70 @@
+import { Feature, Plan } from "@/components/cards/PricingTable";
+
+export const features: Feature[] = [
+  { name: "Register and submit all documentation" },
+  { name: "Navigate the web/mobile application" },
+  { name: "Access global investors" },
+  { name: "See investors that have funded startups on the platform" },
+  { name: "Insert your company description and logo" },
+  { name: "Pitch deck upload, financial projections" },
+  { name: "Verification services for documentation" },
+  { name: "Verified badge for investor readiness" },
+  { name: "Unlimited funding campaigns" },
+  { name: "Upload milestones and funding targets" },
+  { name: "Home page visibility and promotion" },
+  { name: "Virtual meeting with potential investors" },
+];
+
+export const plans: Plan[] = [
+  {
+    name: "Free",
+    features: [
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ],
+  },
+  {
+    name: "Basic",
+    features: [
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ],
+  },
+  {
+    name: "Premium",
+    features: [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+    ],
+  },
+];
