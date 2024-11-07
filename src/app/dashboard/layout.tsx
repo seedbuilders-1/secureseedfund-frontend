@@ -73,7 +73,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   );
 
   if (loadingProfile) {
-    return <LoadingSpinner className="h-[40vh]" />;
+    return <LoadingSpinner className="h-[100vh]" />;
   }
 
   return (

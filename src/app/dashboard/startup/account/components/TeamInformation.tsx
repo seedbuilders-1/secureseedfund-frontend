@@ -38,6 +38,7 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
   const [cofounderImage, setCofounderImage] = useState<FileWithPath | null>(
     null
   );
+  const [previewProfile, setPreview] = useState("");
   const {
     createTeamInformation,
     createdTeamInfo,
@@ -45,19 +46,6 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
     accountInformation,
   } = useAccount(creatorId);
   const onSubmit = (values: TeamInformationValidation) => {
-    // const createTeamDto = {
-    //   team_cofounder_title: values.titleofcofounder,
-    //   team_cofounder_firstName: values.firstnameofcofounder,
-    //   team_cofounder_lastName: values.lastnameofcofounder,
-    //   team_cofounder_email: values.emailofcofounder,
-    //   team_cofounder_education: values.educationofcofounder,
-    //   team_cofounder_phone: values.phonenumberofcofounder,
-    //   team_cofounder_experience: values.experienceofcofounder,
-    //   team_details: values.teammembers,
-    //   team_primary_base: values.executiveprimarilybased,
-    //   team_cofounder_linkdln: values.linkedinprofileofcofounder,
-    //   team_members: parseInt(values.numberofteammembers),
-    // };
     const createTeamDto = new FormData();
     createTeamDto.append("team_cofounder_title", values.titleofcofounder);
     createTeamDto.append(
@@ -145,6 +133,9 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
       form.setValue(
         "linkedinprofileofcofounder",
         accountInformation.teamInformation.team_cofounder_linkdln || ""
+      );
+      setPreview(
+        accountInformation.teamInformation.team_cofounder_profileImage
       );
     }
   }, [accountInformation]);
@@ -401,6 +392,7 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
                 file={cofounderImage}
                 handleUpload={handleUpload}
                 fileType="financialStatment"
+                previewUrl={previewProfile}
                 maxSize={5 * 1024 * 1024}
                 label="Upload Co Founder Image (image only)"
               />

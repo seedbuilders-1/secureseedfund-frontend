@@ -18,6 +18,7 @@ import MobileStepper from "../../components/MobileStepper";
 import { useToast } from "@/components/ui/use-toast";
 import { FileWithPath } from "react-dropzone";
 import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
+import useProfile from "@/hooks/profile/useProfile";
 import Image from "next/image";
 import {
   Select,
@@ -46,6 +47,7 @@ const FounderInformation = ({
   });
 
   const { toast } = useToast();
+  const { userProfile } = useProfile();
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { user } = useUserAuth();
@@ -106,9 +108,12 @@ const FounderInformation = ({
     const createFounderDto = new FormData();
     createFounderDto.append("founderTitle", values.title);
     createFounderDto.append("founderGender", values.gender);
-    createFounderDto.append("founderFirstname", values.firstname);
-    createFounderDto.append("founderLastname", values.lastname);
-    createFounderDto.append("founderEmail", values.email);
+    createFounderDto.append(
+      "founderFirstname",
+      userProfile?.firstName as string
+    );
+    createFounderDto.append("founderLastname", userProfile?.lastName as string);
+    createFounderDto.append("founderEmail", userProfile?.email as string);
     createFounderDto.append("founderEducationHistory", values.education);
     createFounderDto.append("founderPhone", values.phonenumber);
     createFounderDto.append("founderLinkdln", values.linkedinprofile);
@@ -124,19 +129,13 @@ const FounderInformation = ({
     createFounderInformation(payload);
   };
   useEffect(() => {
+    form.setValue("firstname", userProfile?.firstName || "");
+    form.setValue("lastname", userProfile?.lastName || "");
+    form.setValue("email", userProfile?.email || "");
     if (accountInformation?.founder?.id) {
       setSelectedImage(accountInformation.founder.profileImage || "");
       form.setValue("title", accountInformation.founder.founderTitle || "");
       form.setValue("gender", accountInformation.founder.founderGender || "");
-      form.setValue(
-        "firstname",
-        accountInformation.founder.founderFirstname || ""
-      );
-      form.setValue(
-        "lastname",
-        accountInformation.founder.founderLastname || ""
-      );
-      form.setValue("email", accountInformation.founder.founderEmail || "");
       form.setValue(
         "education",
         accountInformation.founder.founderEducationHistory || ""
@@ -154,7 +153,7 @@ const FounderInformation = ({
         accountInformation.founder.founderExperience || ""
       );
     }
-  }, [accountInformation]);
+  }, [accountInformation, userProfile]);
 
   return (
     <div className="w-full px-6">
@@ -222,6 +221,7 @@ const FounderInformation = ({
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="Provide your First Name"
                           {...field}
+                          disabled
                         />
                       </FormControl>
                       <FormMessage />
@@ -240,6 +240,7 @@ const FounderInformation = ({
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="Provide your Last Name"
                           {...field}
+                          disabled
                         />
                       </FormControl>
                       <FormMessage />
@@ -259,6 +260,7 @@ const FounderInformation = ({
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="Eg; keneeneh@gmail.com"
                           {...field}
+                          disabled
                         />
                       </FormControl>
                       <FormMessage />
