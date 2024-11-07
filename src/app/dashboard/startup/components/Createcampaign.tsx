@@ -33,7 +33,7 @@ const Createcampaign = () => {
     startdate: "",
     enddate: "",
     fundinggoal: "",
-    minimum: 1,
+    minimum: "1",
   });
 
   const handleSelectFundingCampaign = (value: FundingCampaignTypes) => {
@@ -75,7 +75,7 @@ const Createcampaign = () => {
         startdate: moment(singleCampaign?.startDate).format("YYYY-MM-DD"),
         enddate: moment(singleCampaign?.endDate).format("YYYY-MM-DD"),
         fundinggoal: singleCampaign?.fundingGoal.toString(),
-        minimum: singleCampaign?.minimum_value,
+        minimum: singleCampaign?.minimum_value.toString(),
       });
     }
   }, [id, singleCampaign]);
