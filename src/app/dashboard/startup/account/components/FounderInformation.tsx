@@ -198,13 +198,29 @@ const FounderInformation = ({
                   render={({ field }) => (
                     <FormItem className="col-span-2">
                       <FormLabel>Title</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
-                          placeholder="Provide a title"
-                          {...field}
-                        />
-                      </FormControl>
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full capitalize">
+                          <SelectValue placeholder="Select a title" />
+                        </SelectTrigger>
+                        <SelectContent className="w-full bg-white">
+                          <SelectGroup>
+                            {["Mr", "Miss", "Mrs", "Others"].map(
+                              (opt: string, idx: number) => (
+                                <SelectItem
+                                  key={idx}
+                                  className="capitalize"
+                                  value={opt}
+                                >
+                                  {opt}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -218,7 +234,7 @@ const FounderInformation = ({
                       <FormLabel>First Name</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] disabled:opacity-100"
                           placeholder="Provide your First Name"
                           {...field}
                           disabled
@@ -237,7 +253,7 @@ const FounderInformation = ({
                       <FormLabel>Last Name</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] disabled:opacity-100"
                           placeholder="Provide your Last Name"
                           {...field}
                           disabled
@@ -257,7 +273,7 @@ const FounderInformation = ({
                       <FormControl>
                         <Input
                           type="email"
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] disabled:opacity-100"
                           placeholder="Eg; keneeneh@gmail.com"
                           {...field}
                           disabled
@@ -312,7 +328,7 @@ const FounderInformation = ({
                       <FormControl>
                         <Input
                           className="py-[1.1rem] md:py-[1.2rem] rounded-[10px] md:rounded-[48px] h-[80px]"
-                          placeholder="Talk about your education history"
+                          placeholder="What is your qualification?"
                           {...field}
                         />
                       </FormControl>
