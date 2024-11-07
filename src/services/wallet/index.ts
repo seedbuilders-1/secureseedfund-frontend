@@ -1,4 +1,4 @@
-import { emptySplitApi as api } from "../../emptyApi";
+import api from "../api/apiSlice";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     walletControllerGetOrCreateWallet: build.query<
@@ -6,6 +6,10 @@ const injectedRtkApi = api.injectEndpoints({
       WalletControllerGetOrCreateWalletApiArg
     >({
       query: (queryArg) => ({ url: `/wallet/${queryArg.userId}` }),
+      providesTags: (result, error, arg) => [
+        { type: "Wallet", id: arg.userId },
+        { type: "Wallet", id: "LIST" },
+      ],
     }),
     walletControllerInitializeDeposit: build.mutation<
       WalletControllerInitializeDepositApiResponse,
@@ -16,6 +20,11 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: queryArg.createDepositDto,
       }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Wallet", id: arg.userId },
+        { type: "Wallet", id: "LIST" },
+        { type: "Transaction", id: arg.userId },
+      ],
     }),
     walletControllerVerifyDeposit: build.mutation<
       WalletControllerVerifyDepositApiResponse,
@@ -26,6 +35,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "PUT",
         body: queryArg.verifyDepositDto,
       }),
+      invalidatesTags: (result, error, arg) => [{ type: "Wallet", id: "LIST" }],
     }),
     walletControllerRequestWithdrawal: build.mutation<
       WalletControllerRequestWithdrawalApiResponse,
@@ -36,6 +46,11 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: queryArg.withdrawalDto,
       }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Wallet", id: arg.userId },
+        { type: "Wallet", id: "LIST" },
+        { type: "Transaction", id: arg.userId },
+      ],
     }),
     walletControllerGetUserWithdrawals: build.query<
       WalletControllerGetUserWithdrawalsApiResponse,
@@ -56,9 +71,9 @@ export type WalletControllerInitializeDepositApiArg = {
   userId: string;
   createDepositDto: CreateDepositDto;
 };
-export type WalletControllerVerifyDepositApiResponse = /** status 200  */
-  | object
-  | /** status 201 Verifu wallet Deposit */ void;
+export type WalletControllerVerifyDepositApiResponse =
+  /** status 200  */
+  object | /** status 201 Verifu wallet Deposit */ void;
 export type WalletControllerVerifyDepositApiArg = {
   verifyDepositDto: VerifyDepositDto;
 };

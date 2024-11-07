@@ -1,4 +1,4 @@
-import { emptySplitApi as api } from "../emptyApi";
+import api from "../api/apiSlice";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     subscriptionsControllerGenerateSubscriptionTransaction: build.mutation<

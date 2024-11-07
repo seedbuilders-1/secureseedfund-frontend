@@ -6,7 +6,7 @@ import { CiCalendar } from "react-icons/ci";
 import { thousandFormatter } from "@/lib/helpers";
 import moment from "moment";
 import CircularProgress from "./CircularProgression";
-import { CampaignDto } from "@/generated/service/campaigns/campaign";
+import { CampaignDto } from "@/services/campaign";
 
 interface Props {
   currentCampaign?: CampaignDto;

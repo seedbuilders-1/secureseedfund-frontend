@@ -3,7 +3,7 @@ import {
   api,
   SubscriptionsControllerCompleteSubscriptionTransactionApiArg,
   SubscriptionsControllerGenerateSubscriptionTransactionApiArg,
-} from "@/generated/service/subscription";
+} from "@/services/subscriptions";
 
 interface Props {
   userId: string;

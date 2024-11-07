@@ -2,6 +2,7 @@ import {
   AuthResponseType,
   LoginUserRequestType,
   RegisterUserRequestType,
+  // GoogleAuthCallbackRequestType,
 } from "./typings";
 import api from "../api/apiSlice";
 
@@ -26,8 +27,27 @@ const auth = api.injectEndpoints({
         };
       },
     }),
+    googleAuth: build.query<any, any>({
+      query: (queryArg) => ({
+        url: `/startups`,
+      }),
+    }),
+    googleAuthCallback: build.query<AuthResponseType, any>({
+      query: (payload) => {
+        return {
+          url: "/auth/google/callback",
+          // method: "POST",
+          // body: payload,
+        };
+      },
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useLoginMutation, useRegisterMutation } = auth;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useGoogleAuthQuery,
+  useGoogleAuthCallbackQuery,
+} = auth;

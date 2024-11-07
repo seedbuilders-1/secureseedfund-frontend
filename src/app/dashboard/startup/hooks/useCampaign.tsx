@@ -1,5 +1,5 @@
-import { CampaignsControllerCreateApiArg } from "@/generated/service/campaigns/campaign";
-import { api } from "@/generated/service/campaigns/enhancedcampaign";
+import { CampaignsControllerCreateApiArg } from "@/services/campaign";
+import { api } from "@/services/campaign";
 import { useToast } from "@/components/ui/use-toast";
 
 interface Props {

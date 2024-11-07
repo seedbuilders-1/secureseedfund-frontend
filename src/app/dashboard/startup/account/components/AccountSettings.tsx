@@ -29,7 +29,7 @@ import useUserAuth from "@/hooks/auth/useAuth";
 import { BiImageAdd } from "react-icons/bi";
 
 import useProfile from "@/hooks/profile/useProfile";
-import { Startup } from "@/generated/service/startups/startups";
+import { Startup } from "@/services/startup";
 
 interface Props {
   accountInformation?: Startup;

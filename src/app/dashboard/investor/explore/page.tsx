@@ -17,7 +17,7 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PaginationControls from "@/components/shared/PaginationControls";
 import { Skeleton } from "@/components/ui/skeleton";
-// import { StartupDto } from "@/generated/service/startups/startups";
+
 
 function Page() {
   const [searchText, setSearchText] = useState("");
@@ -39,7 +39,6 @@ function Page() {
   const router = useRouter();
   return (
     <div className="container mx-auto px-4 py-8 ">
-      {/* Filters Section */}
       <div className="flex-wrap flex  gap-4 mb-[4rem] mt-[2rem] mx-auto  max-w-[1200px] md:flex-nowrap">
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
@@ -81,7 +80,6 @@ function Page() {
         </Select>
       </div>
 
-      {/* Startups Grid */}
       <div className="flex flex-wrap gap-6 items-center justify-center">
         {loadingAllStartupData ? (
           <div className="w-full max-w-7xl mx-auto px-[2rem] py-[2rem]">
@@ -104,7 +102,7 @@ function Page() {
             >
               <div className="relative aspect-[16/9] w-full overflow-hidden">
                 <Image
-                  src={startup?.founder?.profileImage}
+                  src={startup?.companyInformation?.company_cover_photo}
                   alt="startup image"
                   fill
                   className="object-cover"

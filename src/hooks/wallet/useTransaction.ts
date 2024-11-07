@@ -1,4 +1,4 @@
-import { api } from "@/generated/service/transactions/enhancedTransactions";
+import { api } from "@/services/transactions";
 
 interface Props {
   userId: string;

@@ -1,4 +1,4 @@
-import { useUsersControllerGetMeQuery } from "@/generated/service/users";
+import { useUsersControllerGetMeQuery } from "@/services/profile";
 
 const useProfile = () => {
   const {
