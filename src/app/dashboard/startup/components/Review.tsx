@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import SuccessComponent from "@/components/cards/SuccessComponent";
 import useUserAuth from "@/hooks/auth/useAuth";
 import useCampaign from "../hooks/useCampaign";
-import { CampaignsControllerCreateApiArg } from "@/generated/service/campaigns/campaign";
+import { CampaignsControllerCreateApiArg } from "@/services/campaign";
 import { FundingCampaignTypes } from "./StartCampaign";
 interface Props {
   handleBack: () => void;

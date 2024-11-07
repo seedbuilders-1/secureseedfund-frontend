@@ -1,6 +1,6 @@
 import React from "react";
 import { thousandFormatter } from "@/lib/helpers";
-import { CampaignDto } from "@/generated/service/campaigns/campaign";
+import { CampaignDto } from "@/services/campaign";
 
 interface Props {
   currentCampaign?: CampaignDto;

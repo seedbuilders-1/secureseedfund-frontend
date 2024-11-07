@@ -1,4 +1,4 @@
-import { Startup } from "@/generated/service/startups/startups";
+import { Startup } from "@/services/startup";
 
 const AboutSection = ({ about }: { about: Startup | undefined }) => (
   <div className="mt-8 max-w-4xl mx-auto bg-white rounded-lg shadow-sm p-8">

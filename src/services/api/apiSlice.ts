@@ -1,4 +1,5 @@
 "use client";
+
 import {
   BaseQueryFn,
   FetchArgs,
@@ -6,12 +7,19 @@ import {
   createApi,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
-import { cacher } from "./rtkQueryCacheUtils";
+import { cacher } from "../api/rtkQueryCacheUtils";
 import { RootState } from "@/redux/store";
 import { logout, setCredentials } from "@/redux/auth/reducer";
-
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+  responseHandler: async (response) => {
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      return response.json();
+    } else {
+      return response.text();
+    }
+  },
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.accessToken;
     if (token) {
@@ -28,6 +36,10 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
+  if (typeof result.data === "string") {
+    result.data = { message: result.data };
+  }
+
   if (result.error && result.error.status === 401) {
     const refreshToken = (api.getState() as RootState).auth.refreshToken;
 
@@ -35,7 +47,9 @@ const baseQueryWithReauth: BaseQueryFn<
       {
         url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh-token`,
         method: "POST",
-        body: refreshToken,
+        body: {
+          refreshToken: refreshToken,
+        },
       },
       api,
       extraOptions
@@ -43,9 +57,6 @@ const baseQueryWithReauth: BaseQueryFn<
 
     if (refreshResult.data) {
       const user = (api.getState() as RootState).auth.user;
-      // const token = (api.getState() as RootState).auth.token;
-      // store the access token
-      console.log(refreshResult);
       api.dispatch(
         setCredentials({
           accessToken: refreshResult.data.accessToken as string,
@@ -53,7 +64,6 @@ const baseQueryWithReauth: BaseQueryFn<
           refreshToken: refreshToken,
         })
       );
-      // retry the initial query
       result = await baseQuery(args, api, extraOptions);
     } else {
       api.dispatch(logout());

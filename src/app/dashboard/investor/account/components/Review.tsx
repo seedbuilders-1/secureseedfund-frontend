@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import SuccessComponent from "@/components/cards/SuccessComponent";
-import { CreateInvestorDto } from "@/generated/service/investors";
+import { CreateInvestorDto } from "@/services/investor";
 
 interface Props {
   setStep: (x: number) => void;

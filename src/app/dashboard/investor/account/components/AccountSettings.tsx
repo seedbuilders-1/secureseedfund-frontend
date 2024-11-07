@@ -25,7 +25,7 @@ import {
   InvestorAccountSettingsValidation,
 } from "@/lib/validations/account";
 import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
-import { InvestorDto, UpdateInvestorDto } from "@/generated/service/investors";
+import { InvestorDto, UpdateInvestorDto } from "@/services/investor";
 import {
   Select,
   SelectContent,

@@ -1,5 +1,5 @@
 "use client";
-import { api } from "@/generated/service/startups/enhancedstartup";
+import { api } from "@/services/startup";
 import { useState } from "react";
 import { api as investorApi } from "@/services/investor/index";
 import { InvestorControllerInvestInCampaignApiArg } from "@/services/investor/index";

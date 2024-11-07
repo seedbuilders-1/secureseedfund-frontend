@@ -1,9 +1,9 @@
-import { api } from "@/generated/service/wallet/enhancedWallet";
+import { api } from "@/services/wallet";
 import {
   WalletControllerInitializeDepositApiArg,
   WalletControllerRequestWithdrawalApiArg,
   WalletControllerVerifyDepositApiArg,
-} from "@/generated/service/wallet/wallet";
+} from "@/services/wallet";
 import { useToast } from "@/components/ui/use-toast";
 
 interface Props {

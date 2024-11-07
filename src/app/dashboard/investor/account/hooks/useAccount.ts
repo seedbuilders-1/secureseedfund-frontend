@@ -3,7 +3,7 @@ import {
   api,
   InvestorControllerCreateInvestorApiArg,
   InvestorControllerUpdateApiArg,
-} from "@/generated/service/investors";
+} from "@/services/investor";
 
 const useAccount = (creatorId?: string) => {
   const [

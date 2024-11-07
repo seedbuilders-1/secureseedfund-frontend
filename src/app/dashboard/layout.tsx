@@ -7,10 +7,12 @@ import { SiWpexplorer } from "react-icons/si";
 import { Compass } from "lucide-react";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+import useProfile from "@/hooks/profile/useProfile";
 import PrivateRoute from "@/route-helpers/PrivateRoute";
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const { user, loading } = useUserAuth();
+  const { user } = useUserAuth();
+  const { loadingProfile } = useProfile();
   const role = user?.accountType;
 
   const items = [
@@ -70,8 +72,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
     (item) => !item.allowedRoles || item.allowedRoles.includes(role as string)
   );
 
-  if (loading) {
-    return <LoadingSpinner className="h-[40vh]" />;
+  if (loadingProfile) {
+    return <LoadingSpinner className="h-[100vh]" />;
   }
 
   return (

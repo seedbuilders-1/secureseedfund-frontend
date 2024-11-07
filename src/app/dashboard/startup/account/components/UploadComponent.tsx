@@ -108,7 +108,7 @@ const UploadComponent: React.FC<UploadComponentProps> = ({
       {(file || !previewUrl) && (
         <p className="mt-2 text-sm truncate max-w-full">
           {file?.name || "Uploaded File"} (
-          {((file?.size as number) / 1024 / 1024).toFixed(2) || "N/A"}MB)
+          {((file?.size ?? 0) / 1024 / 1024).toFixed(2) || "N/A"}MB)
         </p>
       )}
     </div>

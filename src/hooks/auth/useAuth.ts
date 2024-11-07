@@ -63,17 +63,14 @@ const useUserAuth = () => {
 
   const registerUser = async (values: RegisterUserRequestType) => {
     try {
-      const res = await register(values).unwrap();
-      console.log(res);
+      await register(values).unwrap();
     } catch (err: any) {
-      if (err) {
-        const errorData = JSON.parse(err?.data);
-        const errorMessage = errorData?.message[0];
-        toast({
-          variant: "destructive",
-          title: `${errorMessage || "unable to register"}`,
-        });
-      }
+      const errorData = JSON.parse(err?.data);
+      const errorMessage = errorData?.message;
+      toast({
+        variant: "destructive",
+        title: `${errorMessage || "unable to register"}`,
+      });
     }
   };
 

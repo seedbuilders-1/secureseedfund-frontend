@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "generate-api": "npx @rtk-query/codegen-openapi openapi-config.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

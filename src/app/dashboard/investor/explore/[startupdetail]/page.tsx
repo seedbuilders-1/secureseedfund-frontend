@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Play, Pause } from "lucide-react";
-import { api as startupsApi } from "@/generated/service/startups/startups";
+import { api as startupsApi } from "@/services/startup";
 import Milestones from "../components/Milestone";
 import { Button } from "@/components/ui/button";
 import AboutusSection from "../components/Aboutus";

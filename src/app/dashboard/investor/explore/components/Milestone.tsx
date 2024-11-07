@@ -1,6 +1,6 @@
 import React from "react";
 import { thousandFormatter } from "@/lib/helpers";
-import { Milestone } from "@/generated/service/startups/startups";
+import { Milestone } from "@/services/startup";
 interface Props {
   currentCampaign?: Milestone[];
 }
