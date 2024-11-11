@@ -9,6 +9,8 @@ const defaultTags = [
   "Startup",
   "Wallet",
   "Transaction",
+  "Profile",
+  "InvestInCampaign",
 ] as const;
 type DefaultTags = (typeof defaultTags)[number];
 

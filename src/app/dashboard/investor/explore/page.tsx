@@ -12,30 +12,18 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import useExplore from "./hooks/useExplore";
+import { thousandFormatter } from "@/lib/helpers";
 import { useToast } from "@/components/ui/use-toast";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PaginationControls from "@/components/shared/PaginationControls";
 import { Skeleton } from "@/components/ui/skeleton";
 
-
 function Page() {
   const [searchText, setSearchText] = useState("");
   const { toast } = useToast();
   const { allStartupsData, loadingAllStartupData, handlePageChange, page } =
     useExplore({ searchText });
-  const handleNavigation = (startup: any) => {
-    if (startup.creator_id.subscription_plan === "basic") {
-      toast({
-        className:
-          "top-0 right-0 flex fixed   md:max-w-[420px] md:top-4 md:right-4",
-        variant: "destructive",
-        title: "You cant veiw this startup Profile",
-      });
-    } else {
-      router.push(`/dashboard/investor/explore/${startup.id}`);
-    }
-  };
   const router = useRouter();
   return (
     <div className="container mx-auto px-4 py-8 ">
@@ -97,7 +85,9 @@ function Page() {
           allStartupsData?.items.map((startup: any) => (
             <div
               key={startup.id}
-              onClick={() => handleNavigation(startup)}
+              onClick={() =>
+                router.push(`/dashboard/investor/explore/${startup.id}`)
+              }
               className="bg-white rounded-xl border cursor-pointer border-[#0000001A] overflow-hidden w-[390px] h-[550px] transition-transform duration-300 hover:-translate-y-1 hover:border-[##0F8B3A] "
             >
               <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -114,14 +104,11 @@ function Page() {
                 />
               </div>
               <div className="p-6 flex flex-col">
-                <div className="flex text-center justify-center items-center border  border-[#064E3B] rounded-3xl text-[#064E3B] my-3  bg-[#D1FAE5] h-[30px]  w-[100px] text-[13px]">
-                  {startup.businessInformation?.business_model || "N/A"}
-                </div>
                 <div className="">
-                  <h2 className="text-xl font-medium mb-2 text-[#837e7e]">
+                  <h2 className="text-2xl font-medium mb-2 text-[#837e7e]">
                     {startup.companyInformation?.company_name}
                   </h2>
-                  <p className="font-medium">
+                  <p className="font-bold">
                     {startup?.companyInformation?.company_industry}
                   </p>
                 </div>
@@ -130,19 +117,18 @@ function Page() {
                   <p className="text-sm text-gray-500 mb-6 line-clamp-3">
                     {startup.companyInformation?.company_desc}
                   </p>
-
+                  <div className="flex text-center justify-center items-center border  border-[#064E3B] rounded-sm text-[#064E3B] my-3  bg-[#D1FAE5] h-[30px]  w-[100px] text-[13px]">
+                    {startup.businessInformation?.business_model || "N/A"}
+                  </div>
                   <div className="space-y-4 mt-auto">
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-600 font-medium">Funding</span>
-                      <span className="font-normal text-[#837e7e]">
-                        {startup.fundingInformation?.previous_fundraise}
+                      <span className="text-gray-600 font-medium">
+                        Previous Funds Raised:
                       </span>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium">Valuation</span>
                       <span className="font-normal text-[#837e7e]">
-                        {/* {startup.campaignInformat} */}
+                        {`₦ ${thousandFormatter(
+                          startup.fundingInformation?.previous_fundraise ?? 0
+                        )}`}
                       </span>
                     </div>
                   </div>

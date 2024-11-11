@@ -6,6 +6,7 @@ const injectedRtkApi = api.injectEndpoints({
       UsersControllerGetMeApiArg
     >({
       query: () => ({ url: `/users/profile` }),
+      providesTags: ["Profile"],
     }),
   }),
   overrideExisting: false,

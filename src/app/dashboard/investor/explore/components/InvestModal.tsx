@@ -45,9 +45,9 @@ const InvestModal = ({
         <h2 className="text-4xl font-bold">
           {`₦ ${campaignInformation.investment_balance}`}
         </h2>
-        <p className="text-lg mt-3">
+        {/* <p className="text-lg mt-3">
           Raised from {campaignInformation.investments ?? 0} investors
-        </p>
+        </p> */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <label className="mt-4">
             Minimum Amount an investor can invest in is{" "}

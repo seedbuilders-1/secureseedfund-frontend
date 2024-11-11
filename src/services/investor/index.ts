@@ -1,4 +1,5 @@
 import api from "../api/apiSlice";
+import { InvestmentType } from "./typings";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     investorControllerCreateInvestor: build.mutation<
@@ -50,12 +51,16 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: queryArg.investDto,
       }),
+      invalidatesTags: ["InvestInCampaign"],
     }),
     investorControllerGetInvestorInvestments: build.query<
       InvestorControllerGetInvestorInvestmentsApiResponse,
       InvestorControllerGetInvestorInvestmentsApiArg
     >({
-      query: (queryArg) => ({ url: `/investor/${queryArg.investorId}` }),
+      query: (queryArg) => ({
+        url: `/investor/investments/${queryArg.investorId}`,
+      }),
+      providesTags: ["InvestInCampaign"],
     }),
   }),
   overrideExisting: false,
@@ -101,7 +106,8 @@ export type InvestorControllerInvestInCampaignApiArg = {
   /** Amount to invest */
   investDto: InvestDto;
 };
-export type InvestorControllerGetInvestorInvestmentsApiResponse = unknown;
+export type InvestorControllerGetInvestorInvestmentsApiResponse =
+  InvestmentType[];
 export type InvestorControllerGetInvestorInvestmentsApiArg = {
   /** Investor ID */
   investorId: string;

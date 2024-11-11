@@ -8,30 +8,11 @@ const TransactionHistory = () => {
   const { transactionHistroy } = useTransaction({
     userId,
   });
-  const investors = [
-    {
-      date: "Tuesday 12th March, 2023",
-      type: "Deposit",
-      amount: "$30,000",
-      status: "Completed",
-    },
-    {
-      date: "Tuesday 12th March, 2023",
-      type: "Deposit",
-      amount: "$30,000",
-      status: "Completed",
-    },
-    {
-      date: "Tuesday 12th March, 2023",
-      type: "Deposit",
-      amount: "$30,000",
-      status: "Completed",
-    },
-  ];
+
 
   return (
     <div className="border border-[#1F9347] w-full py-4 px-4 rounded-md h-full">
-      {investors.length ? (
+      {transactionHistroy?.length ? (
         <div className="w-full">
           <div className="flex flex-wrap mb-3 text-gray-500 text-xs md:text-sm font-medium">
             <div className="w-1/4 text-left md:text-center">Date</div>

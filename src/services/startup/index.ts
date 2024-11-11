@@ -1,4 +1,5 @@
 import api from "../api/apiSlice";
+import { StartupInvestmentsResponse } from "./typings";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -173,6 +174,14 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/startups/${queryArg.startupId}/data-feed`,
       }),
     }),
+    startupControllerGetStartupInvestments: build.query<
+      StartupInvestmentsResponse,
+      StartupControllerGetStartupByStartupIdApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/startups/investments/${queryArg.startupId}`,
+      }),
+    }),
     startupControllerFindAll: build.query<
       StartupControllerFindAllApiResponse,
       StartupControllerFindAllApiArg
@@ -241,6 +250,8 @@ export type StartupControllerUpdateTeamInformationApiArg = {
   creatorId: string;
   updateTeamDto: UpdateTeamDto;
 };
+export type StartupControllerGetStartupByStartupIdApiResponse =
+  /** status 200  */ Startup | /** status 201  */ Startup;
 export type StartupControllerUpdateFounderInformationApiResponse =
   /** status 200  */ string;
 export type StartupControllerUpdateFounderInformationApiArg = {
@@ -264,8 +275,6 @@ export type StartupControllerGetStartupByUserIdApiResponse =
 export type StartupControllerGetStartupByUserIdApiArg = {
   userId: string;
 };
-export type StartupControllerGetStartupByStartupIdApiResponse =
-  /** status 200  */ Startup | /** status 201  */ Startup;
 export type StartupControllerGetStartupByStartupIdApiArg = {
   startupId: string;
 };
@@ -795,4 +804,5 @@ export const {
   useStartupControllerGetStartupByUserIdQuery,
   useStartupControllerGetStartupByStartupIdQuery,
   useStartupControllerFindAllQuery,
+  useStartupControllerGetStartupInvestmentsQuery,
 } = injectedRtkApi;

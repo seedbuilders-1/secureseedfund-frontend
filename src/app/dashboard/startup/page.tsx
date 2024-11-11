@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import useUserAuth from "@/hooks/auth/useAuth";
 import WarningComponent from "@/components/cards/WarningComponent";
 import useProfile from "@/hooks/profile/useProfile";
+import { useStartupControllerGetStartupInvestmentsQuery } from "@/services/startup";
 
 export default function StartupDashboard() {
   const { user } = useUserAuth();
@@ -19,7 +20,16 @@ export default function StartupDashboard() {
   const currentCampaign =
     campaigns &&
     (campaigns as any)?.items[(campaigns as any)?.items.length - 1];
-  if (loadingCampaigns) {
+  const { data: startupInvestments, isLoading: loadingInvestors } =
+    useStartupControllerGetStartupInvestmentsQuery({
+      startupId: user?.userId as string,
+    });
+  const investments = startupInvestments?.length
+    ? startupInvestments[0].campaignInformation[
+        startupInvestments[0].campaignInformation.length - 1
+      ]
+    : null;
+  if (loadingCampaigns || loadingInvestors) {
     return (
       <div className="w-full mt-[2rem]">
         <div className="grid grid-cols-2 gap-x-4 md:max-w-[900px] mx-auto">
@@ -68,7 +78,7 @@ export default function StartupDashboard() {
                 </h2>
                 <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
                   {" "}
-                  {`₦ ${thousandFormatter(20000)}`}
+                  {`₦ ${thousandFormatter(investments?.fundingGoal ?? 0)}`}
                 </span>
               </div>
               <div className="bg-[#F3FFDE] p-2 rounded-full  ">
@@ -87,8 +97,12 @@ export default function StartupDashboard() {
                 <h2 className="font-medium text-[0.9rem] md:text-[1.4rem]">
                   Total Funds Raised
                 </h2>
-                <span className=" text-[0.9rem] font-medium md:text-[1.3rem]">
-                  {`₦${thousandFormatter(20000)}`}
+                <span className="text-[0.9rem] font-medium md:text-[1.3rem]">
+                  {`₦${thousandFormatter(
+                    investments?.investment_balance
+                      ? parseFloat(investments.investment_balance)
+                      : 0
+                  )}`}
                 </span>
               </div>
               <div className="bg-[#F3FFDE] p-2 rounded-full  ">
@@ -123,7 +137,7 @@ export default function StartupDashboard() {
             {" "}
             Investors
           </h3>
-          <InvestorComponent />
+          <InvestorComponent startupInvestments={startupInvestments} />
         </div>
       </div>
     </div>

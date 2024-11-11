@@ -20,6 +20,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "PUT",
         body: queryArg.completeSubscriptionDto,
       }),
+      invalidatesTags: ["Profile"],
     }),
   }),
   overrideExisting: false,

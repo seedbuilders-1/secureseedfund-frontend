@@ -1,94 +1,81 @@
 import React from "react";
-import DangoteLogo from "@/assets/iconspng/dangote.png";
+import Image from "next/image";
 import useUserAuth from "@/hooks/auth/useAuth";
+import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
 import { api as investorApi } from "@/services/investor/index";
 
-interface Investor {
-  CompanyLogo: string;
-  CompanyName: string;
-  Type: string;
-  amount: string;
-  FoundingGoal: string;
-  Progress: string;
-}
-
 const Investment = () => {
+  const router = useRouter();
   const { user } = useUserAuth();
-  const { data: individualInvestor } =
+  const { data: investments, isLoading: loadingInvestments } =
     investorApi.useInvestorControllerGetInvestorInvestmentsQuery({
       investorId: user?.userId as string,
     });
-  console.log(individualInvestor);
-  const investors: Investor[] = [
-    {
-      CompanyLogo: DangoteLogo.src,
-      CompanyName: "Cutting Grass",
-      Type: "Completed",
-      amount: "$30,000",
-      FoundingGoal: "$20,000",
-      Progress: "60%",
-    },
-    {
-      CompanyLogo: DangoteLogo.src,
-      CompanyName: "Cutting Grass",
-      Type: "Completed",
-      amount: "$30,000",
-      FoundingGoal: "$20,000",
-      Progress: "60%",
-    },
-    {
-      CompanyLogo: DangoteLogo.src,
-      CompanyName: "Cutting Grass",
-      Type: "Completed",
-      amount: "$30,000",
-      FoundingGoal: "$20,000",
-      Progress: "60%",
-    },
-  ];
 
+  if (loadingInvestments) {
+    return (
+      <div className="border border-[#1F9347] w-full py-4 px-4 rounded-md h-full">
+        <div className="space-y-3">
+          <Skeleton className="h-[50px] w-full" />
+          <Skeleton className="h-[50px] w-full" />
+          <Skeleton className="h-[50px] w-full" />
+          <Skeleton className="h-[50px] w-full" />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="border border-[#1F9347] w-full py-4 px-4 rounded-md h-full">
-      {investors.length ? (
+      {investments?.length ? (
         <div className="w-full overflow-x-auto">
           {" "}
-          {/* Make the table horizontally scrollable */}
           <div className="min-w-full">
             <div className="flex flex-wrap mb-3 text-gray-500 text-xs md:text-sm font-medium">
-              <div className="w-1/6 text-center md:text-left">Company Logo</div>
-              <div className="w-1/6 text-center md:text-left">Company Name</div>
-              <div className="w-1/6 text-center md:text-left">Type</div>
-              <div className="w-1/6 text-center md:text-left">Amount</div>
-              <div className="w-1/6 text-center md:text-left">Funding Goal</div>
-              <div className="w-1/6 text-center md:text-left">Progress</div>
+              <div className="w-1/5 text-center md:text-left">Company Logo</div>
+              <div className="w-1/5 text-center md:text-left">Company Name</div>
+              <div className="w-1/5 text-center md:text-left">Type</div>
+              <div className="w-1/5 text-center md:text-left">Amount</div>
+              <div className="w-1/5 text-center md:text-left">Funding Goal</div>
             </div>
-            {investors.map((investor, index) => (
+            {investments?.map((investor) => (
               <div
-                key={index}
-                className="flex flex-wrap items-center py-3 border-b border-[#F3EFEF] last:border-b-0"
+                key={investor.id}
+                onClick={() =>
+                  router.push(
+                    `/dashboard/investor/explore/${investor?.campaign.startup.id}`
+                  )
+                }
+                className="flex flex-wrap items-center py-3 cursor-pointer 
+                    transition-all duration-200 hover:bg-slate-100
+                    relative overflow-hidden"
               >
-                <div className="w-1/6 flex items-center justify-center md:justify-start">
-                  <img
-                    src={investor.CompanyLogo}
-                    alt={investor.CompanyName}
-                    className="w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16 object-cover rounded-full" // Adjust sizes for different screen sizes
+                <div className="w-1/5 flex items-center justify-center md:justify-start">
+                  <Image
+                    src={
+                      investor.campaign.startup?.companyInformation
+                        ?.company_logo
+                    }
+                    alt={
+                      investor.campaign.startup?.companyInformation
+                        ?.company_name
+                    }
+                    width={64}
+                    height={64}
+                    className="w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16 object-cover rounded-full"
                   />
                 </div>
-                <div className="w-1/6 text-center md:text-left text-xs md:text-sm">
-                  {investor.CompanyName}
+                <div className="w-1/5 text-center md:text-left text-xs md:text-sm">
+                  {investor.campaign.startup?.companyInformation?.company_name}
                 </div>
-                <div className="w-1/6 text-center md:text-left text-xs md:text-sm">
-                  {investor.Type}
+                <div className="w-1/5 text-center md:text-left text-xs md:text-sm">
+                  {investor.campaign.campaignType}
                 </div>
-                <div className="w-1/6 text-center md:text-left text-xs md:text-sm font-medium text-[#16A34A]">
-                  {investor.amount}
+                <div className="w-1/5 text-center md:text-left text-xs md:text-sm font-medium text-[#16A34A]">
+                  ₦ {investor?.total_invested}
                 </div>
-                <div className="w-1/6 text-center md:text-left text-xs md:text-sm">
-                  {investor.FoundingGoal}
-                </div>
-                <div className="w-1/6 text-center md:text-left text-xs md:text-sm">
-                  <span className="bg-[#CEECDB] text-[#16A34A] p-[5px] rounded-full">
-                    {investor.Progress}
-                  </span>
+                <div className="w-1/5 text-center md:text-left text-xs md:text-sm">
+                  ₦ {investor.campaign.fundingGoal}
                 </div>
               </div>
             ))}
@@ -97,7 +84,7 @@ const Investment = () => {
       ) : (
         <div className="flex justify-center items-center">
           <h2 className="font-bold text-black text-[1rem] md:text-sm">
-            You have no investors
+            You have no investments
           </h2>
         </div>
       )}

@@ -26,6 +26,7 @@ import UploadComponent from "./UploadComponent";
 import Image from "next/image";
 import useAccount from "../hooks/useAccount";
 import useUserAuth from "@/hooks/auth/useAuth";
+import { useRouter } from "next/navigation";
 import { BiImageAdd } from "react-icons/bi";
 
 import useProfile from "@/hooks/profile/useProfile";
@@ -44,6 +45,7 @@ interface UploadFiles {
 }
 const AccountSettings = ({ accountInformation }: Props) => {
   const { toast } = useToast();
+  const router = useRouter();
   const [profileImageFile, setProfileImageFile] = useState<
     string | FileWithPath | null
   >(null);
@@ -282,7 +284,12 @@ const AccountSettings = ({ accountInformation }: Props) => {
             </div>
           </label>
         </div>
-        <div className="flex gap-3 text-center items-center justify-center mx-auto mt-4 cursor-pointer">
+        <div
+          onClick={() =>
+            router.push("/dashboard/startup/account/public-profile")
+          }
+          className="flex gap-3 text-center items-center justify-center mx-auto mt-4 cursor-pointer"
+        >
           <MdOutlineLink />
           <span className="underline">View Public Profile</span>
         </div>
