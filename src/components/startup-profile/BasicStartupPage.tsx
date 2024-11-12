@@ -3,10 +3,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { Play, Pause } from "lucide-react";
 import AboutusSection from "../../app/dashboard/investor/explore/components/Aboutus";
 import TeamMembers from "../../app/dashboard/investor/explore/components/TeamMembers";
-import useUserAuth from "@/hooks/auth/useAuth";
 import LoadingSkeleton from "../../app/dashboard/investor/explore/components/LoadingSkeleton";
-import useExplore from "../../app/dashboard/investor/explore/hooks/useExplore";
-import { useRouter } from "next/navigation";
+
 import { Startup } from "@/services/startup";
 
 interface Props {
