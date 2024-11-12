@@ -13,7 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import useExplore from "./hooks/useExplore";
 import { thousandFormatter } from "@/lib/helpers";
-import { useToast } from "@/components/ui/use-toast";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PaginationControls from "@/components/shared/PaginationControls";
