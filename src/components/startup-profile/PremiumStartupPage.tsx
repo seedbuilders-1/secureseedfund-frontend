@@ -13,7 +13,8 @@ import useExplore from "../../app/dashboard/investor/explore/hooks/useExplore";
 import PDFViewerModal from "../../app/dashboard/investor/explore/components/PdfViewer";
 import { useRouter } from "next/navigation";
 import { Startup } from "@/services/startup";
-
+import { Bell } from "lucide-react";
+import moment from "moment";
 interface Props {
   hasCampaign: boolean | undefined;
   isLoading: boolean;
@@ -94,7 +95,8 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
   const tabs = ["Overview", "About", "Teams"];
   const { user } = useUserAuth();
   const campaignId =
-    startup?.campaignInformation.length && startup?.campaignInformation[0].id;
+    startup?.campaignInformation.length &&
+    startup?.campaignInformation[startup?.campaignInformation?.length - 1].id;
   const handleInvest = (amount: number) => {
     const investDto = {
       investmentAmount: amount,
@@ -111,6 +113,13 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
       router.push(`/dashboard/investor`);
     }
   }, [investedSuccess]);
+  const daysLeft = Math.max(
+    0,
+    moment(
+      startup?.campaignInformation[startup?.campaignInformation?.length - 1]
+        .endDate
+    ).diff(moment(), "days")
+  );
 
   if (isLoading) {
     return <LoadingSkeleton />;
@@ -141,9 +150,11 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
                 type="video/mp4"
               />
             </video>
-
+            <div className="absolute top-4 left-4 flex items-center gap-2 bg-[#0F8B3A] px-4 py-2 rounded-sm text-white z-10">
+              <span className="text-md font-medium">Days Left: {daysLeft}</span>
+              <Bell className="h-4 w-4" />
+            </div>
             <div className="absolute inset-0 bg-black/40 rounded-sm" />
-
             <div className="absolute inset-0 flex items-center justify-center">
               <button
                 onClick={togglePlayPause}

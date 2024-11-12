@@ -4,6 +4,7 @@ import { api as startupsApi } from "@/services/startup";
 import { useParams } from "next/navigation";
 import LoadingSkeleton from "../components/LoadingSkeleton";
 import BasicStartupPage from "@/components/startup-profile/BasicStartupPage";
+import moment from "moment";
 import PremiumStartupPage from "@/components/startup-profile/PremiumStartupPage";
 const StartupDetail = () => {
   const { startupdetail } = useParams();
@@ -16,7 +17,14 @@ const StartupDetail = () => {
       startupId: startupId,
     });
   const hasCampaign =
-    startup?.campaignInformation && startup.campaignInformation.length > 0;
+    startup?.campaignInformation &&
+    startup.campaignInformation.length > 0 &&
+    moment().isBefore(
+      moment(
+        startup.campaignInformation[startup?.campaignInformation?.length - 1]
+          .endDate
+      )
+    );
   if (isLoading) {
     return <LoadingSkeleton />;
   }

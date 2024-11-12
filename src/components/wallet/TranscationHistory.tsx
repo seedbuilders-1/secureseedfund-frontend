@@ -39,7 +39,7 @@ const TransactionHistory = () => {
               className="flex flex-wrap items-center py-3 border-b border-[#F3EFEF] last:border-b-0"
             >
               <div className="w-1/4 text-left md:text-center text-xs md:text-sm">
-                {moment(transaction.createdAt).format("YYYY-MM-DD")}
+                {moment(transaction.createdAt).format("dddd Do MMMM, YYYY")}
               </div>
               <div className="w-1/4 text-left md:text-center text-xs md:text-sm">
                 {transaction.trx_type}
