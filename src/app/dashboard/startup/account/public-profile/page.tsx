@@ -6,7 +6,7 @@ import BasicStartupPage from "@/components/startup-profile/BasicStartupPage";
 import PremiumStartupPage from "@/components/startup-profile/PremiumStartupPage";
 import WarningComponent from "@/components/cards/WarningComponent";
 
-const page = () => {
+const Page = () => {
   const { userProfile, loadingProfile } = useProfile();
   const creatorId = userProfile?.id as string;
   const { accountInformation, loadingAccountInformation } =
@@ -47,4 +47,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
