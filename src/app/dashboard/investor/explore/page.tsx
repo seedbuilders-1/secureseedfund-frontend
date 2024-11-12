@@ -21,7 +21,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function Page() {
   const [searchText, setSearchText] = useState("");
-  const { toast } = useToast();
   const { allStartupsData, loadingAllStartupData, handlePageChange, page } =
     useExplore({ searchText });
   const router = useRouter();
