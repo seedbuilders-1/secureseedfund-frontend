@@ -3,6 +3,8 @@ export type Milestones = {
   milestoneDescription: string;
   targetAmount: number;
   date: string;
+  proof?: string;
+  id: string;
 };
 
 export type CreateCampaignRequestType = {

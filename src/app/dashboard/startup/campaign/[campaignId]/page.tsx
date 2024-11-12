@@ -11,6 +11,7 @@ import {
 import useCampaign from "../../hooks/useCampaign";
 import { useParams } from "next/navigation";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+import UploadMilestoneProof from "../../components/UploadMilestoneProof";
 
 const CampaignDetail = ({ params }: { params: { id: string } }) => {
   const { campaignId } = useParams();
@@ -103,9 +104,20 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
                       Completed
                     </td>
                     <td className="border-t py-2 px-4">
-                      <a href="#" className="text-blue-500 hover:underline">
-                        455.99kb
-                      </a>
+                      {milestone.proof ? (
+                        <a
+                          href={milestone.proof}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 underline"
+                        >
+                          View File
+                        </a>
+                      ) : (
+                        <UploadMilestoneProof
+                          milestoneId={(milestone as any).id}
+                        />
+                      )}
                     </td>
                   </tr>
                 ))}

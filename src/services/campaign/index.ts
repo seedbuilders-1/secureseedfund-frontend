@@ -63,6 +63,19 @@ const injectedRtkApi = api.injectEndpoints({
         { type: "Campaign", id: "LIST" },
       ],
     }),
+    campaignsControllerUploadMilestoneProof: build.mutation<
+      CampaignControllerUploadMilestonesProofResponse,
+      CampaignsControllerUpdateMileStonesProofArg
+    >({
+      query: (queryArg) => ({
+        url: `/milestones/${queryArg.milestoneId}/update`,
+        method: "PUT",
+        body: queryArg.proof,
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "MilestoneProof", id: arg.milestoneId },
+      ],
+    }),
   }),
   overrideExisting: false,
 });
@@ -136,7 +149,18 @@ export type CreateMilestoneDto = {
   milestoneDescription: string;
   targetAmount: number;
   date: string;
+  proof?: string;
 };
+
+export type CampaignControllerUploadMilestonesProofResponse = {
+  message: string;
+};
+
+export type CampaignsControllerUpdateMileStonesProofArg = {
+  milestoneId: string;
+  proof: Blob;
+};
+
 export type CampaignDto = {
   title: string;
   startDate: string;
@@ -187,4 +211,5 @@ export const {
   useCampaignsControllerFindOneAllUserQuery,
   useCampaignsControllerFindOneQuery,
   useCampaignsControllerUpdateMutation,
+  useCampaignsControllerUploadMilestoneProofMutation,
 } = injectedRtkApi;

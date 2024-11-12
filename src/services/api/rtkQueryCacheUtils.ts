@@ -11,6 +11,7 @@ const defaultTags = [
   "Transaction",
   "Profile",
   "InvestInCampaign",
+  "MilestoneProof",
 ] as const;
 type DefaultTags = (typeof defaultTags)[number];
 
