@@ -8,7 +8,7 @@ const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
   const [numPages, setNumPages] = useState<number | null>(null);
-  const [scale, setScale] = useState(1.3);
+  const [scale, setScale] = useState(1.2);
   const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
 
   return (
     <div className="w-full">
-      <div id="pdf-container" className="w-full overflow-x-hidden">
+      <div id="pdf-container" className="w-full ">
         <Document
           file={pdfUrl}
           onLoadSuccess={onDocumentLoadSuccess}

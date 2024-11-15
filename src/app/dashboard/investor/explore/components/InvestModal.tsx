@@ -45,6 +45,10 @@ const InvestModal = ({
         <h2 className="text-4xl font-bold">
           {`₦ ${campaignInformation.investment_balance}`}
         </h2>
+        <span className="text-xl font-normal">
+          {" "}
+          Raise from {campaignInformation?.investments.length} investors
+        </span>
         {/* <p className="text-lg mt-3">
           Raised from {campaignInformation.investments ?? 0} investors
         </p> */}
