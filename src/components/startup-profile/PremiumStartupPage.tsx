@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { Startup } from "@/services/startup";
 import { Bell } from "lucide-react";
 import moment from "moment";
+import { useInstitutionInvestInCampaignMutation } from "@/services/institution";
 interface Props {
   hasCampaign: boolean | undefined;
   isLoading: boolean;
@@ -25,6 +26,10 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
   const router = useRouter();
   const [isOpenInvest, setIsOpenInvest] = useState(false);
   const { createInvestment, isInvesting, investedSuccess } = useExplore({});
+  const [
+    createInstitutionInvestment,
+    { isLoading: isloadingInstitutionInvest, isSuccess: institutionSuccess },
+  ] = useInstitutionInvestInCampaignMutation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState("Overview");
@@ -98,21 +103,32 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
     startup?.campaignInformation.length &&
     startup?.campaignInformation[startup?.campaignInformation?.length - 1].id;
   const handleInvest = (amount: number) => {
-    const investDto = {
-      investmentAmount: amount,
-      investorUserId: user?.userId as string,
-    };
-    createInvestment({
-      campaignId: campaignId as string,
-      investDto,
-    });
+    if (user?.accountType === "institution") {
+      const institutionInvestmentDto = {
+        investmentAmount: amount,
+        investorUserId: user?.userId as string,
+      };
+      createInstitutionInvestment({
+        campaignId: campaignId as string,
+        institutionDto: institutionInvestmentDto,
+      });
+    } else {
+      const investDto = {
+        investmentAmount: amount,
+        investorUserId: user?.userId as string,
+      };
+      createInvestment({
+        campaignId: campaignId as string,
+        investDto,
+      });
+    }
   };
   useEffect(() => {
-    if (investedSuccess) {
+    if (investedSuccess || institutionSuccess) {
       setIsOpenInvest(false);
       router.push(`/dashboard/investor`);
     }
-  }, [investedSuccess]);
+  }, [investedSuccess || institutionSuccess]);
   const daysLeft = Math.max(
     0,
     moment(
@@ -282,7 +298,7 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
         <div className="hidden md:block">
           {hasCampaign && (
             <InvestModal
-              isLoading={isInvesting}
+              isLoading={isInvesting || isloadingInstitutionInvest}
               handleInvest={handleInvest}
               campaign={startup?.campaignInformation}
             />
@@ -293,7 +309,7 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
             <div className="mt-4">
               {hasCampaign && (
                 <InvestModal
-                  isLoading={isInvesting}
+                  isLoading={isInvesting || isloadingInstitutionInvest}
                   handleInvest={handleInvest}
                   campaign={startup?.campaignInformation}
                 />

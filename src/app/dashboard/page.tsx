@@ -6,7 +6,7 @@ import useUserAuth from "@/hooks/auth/useAuth";
 
 
 const DashboardRedirect = () => {
-  const { user, loading } = useUserAuth();
+  const { user } = useUserAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -20,10 +20,12 @@ const DashboardRedirect = () => {
       router.replace("/dashboard/startup");
     } else if (role === "investor") {
       router.replace("/dashboard/investor");
+    } else if (role === "institution") {
+      router.replace("/dashboard/institution");
     } else {
       router.replace("/");
     }
-  }, [user, loading, router]);
+  }, [user, router]);
 
 
   return null;

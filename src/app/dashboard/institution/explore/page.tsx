@@ -53,20 +53,6 @@ function Page() {
             </SelectGroup>
           </SelectContent>
         </Select>
-
-        {/* <Select>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Sort by status" />
-          </SelectTrigger>
-          <SelectContent className="bg-white">
-            <SelectGroup>
-              <SelectLabel>Sort by</SelectLabel>
-              <SelectItem value="newest">Newest</SelectItem>
-              <SelectItem value="funding">Highest Funding</SelectItem>
-              <SelectItem value="valuation">Highest Valuation</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select> */}
       </div>
 
       <div className="flex flex-wrap gap-6 items-center justify-center">
@@ -87,7 +73,7 @@ function Page() {
             <div
               key={startup.id}
               onClick={() =>
-                router.push(`/dashboard/investor/explore/${startup.id}`)
+                router.push(`/dashboard/institution/explore/${startup.id}`)
               }
               className="bg-white rounded-xl border cursor-pointer border-[#0000001A] overflow-hidden w-[390px] h-[550px] transition-transform duration-300 hover:-translate-y-1 hover:border-[##0F8B3A] "
             >

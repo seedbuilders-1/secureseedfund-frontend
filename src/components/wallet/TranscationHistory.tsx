@@ -50,7 +50,9 @@ const TransactionHistory = () => {
               <div className="w-1/4 text-left mx-auto  max-w-[100px] md:text-center text-xs md:text-sm">
                 <StatusTag
                   status={
-                    transaction.trx_status === "success" ? "PAID" : "FAILED"
+                    transaction.trx_status === "paid" || "success"
+                      ? "PAID"
+                      : "FAILED"
                   }
                 />
               </div>

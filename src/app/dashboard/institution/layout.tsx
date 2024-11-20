@@ -3,7 +3,7 @@ import RestrictedRoute from "@/route-helpers/RestrictedRoute";
 
 const InvestorDashboard = ({ children }: { children: ReactNode }) => {
   return (
-    <RestrictedRoute allowedUserTypes={["investor"]}>
+    <RestrictedRoute allowedUserTypes={["institution"]}>
       {children}
     </RestrictedRoute>
   );

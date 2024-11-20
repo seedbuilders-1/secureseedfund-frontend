@@ -8,7 +8,7 @@ const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
   const [numPages, setNumPages] = useState<number | null>(null);
-  const [scale, setScale] = useState(1.1);
+  const [scale, setScale] = useState(1.2);
   const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
@@ -23,7 +23,9 @@ const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
         } else if (width < 768) {
           setScale(1.1);
         } else if (width < 1024) {
-          setScale(1.1);
+          setScale(1.3);
+        } else {
+          setScale(1.3);
         }
       }
     };
@@ -42,7 +44,7 @@ const PDFViewerModal = ({ pdfUrl }: { pdfUrl: string }) => {
 
   return (
     <div className="w-full">
-      <div id="pdf-container" className="w-full  p-4">
+      <div id="pdf-container" className="w-full ">
         <Document
           file={pdfUrl}
           onLoadSuccess={onDocumentLoadSuccess}

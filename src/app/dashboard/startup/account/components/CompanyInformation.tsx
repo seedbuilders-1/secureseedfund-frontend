@@ -11,6 +11,7 @@ import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../../../components/ui/button";
+import { listOFIndustries } from "@/lib/utils";
 import { useState } from "react";
 import {
   CompanyInformationSchema,
@@ -385,46 +386,17 @@ const CompanyInformation = ({
                           </SelectTrigger>
                           <SelectContent className="w-full bg-white">
                             <SelectGroup>
-                              {[
-                                "Aerospace",
-                                "Agriculture",
-                                "Business Management",
-                                "Chemistry, Pharma and Biotech",
-                                "Construction and real estate",
-                                "Consulting",
-                                "E-government",
-                                "Education",
-                                "Energy",
-                                "Environment and Resources",
-                                "Fairs and Events",
-                                "Finance",
-                                "Food and consumer goods",
-                                "Gaming",
-                                "Health and Machine",
-                                "Industry",
-                                "Information and communication technology ",
-                                "Insurance",
-                                "Legal",
-                                "Logistics",
-                                "Media and creative industries",
-                                "Mobility",
-                                "New Works",
-                                "Retail and e commerce",
-                                "Security and defense",
-                                "Smart city",
-                                "Social and culture",
-                                "Sports",
-                                "Textile industry and fashion",
-                                "Travel",
-                              ].map((opt: string, idx: number) => (
-                                <SelectItem
-                                  key={idx}
-                                  className="capitalize"
-                                  value={opt}
-                                >
-                                  {opt}
-                                </SelectItem>
-                              ))}
+                              {listOFIndustries.map(
+                                (opt: string, idx: number) => (
+                                  <SelectItem
+                                    key={idx}
+                                    className="capitalize"
+                                    value={opt}
+                                  >
+                                    {opt}
+                                  </SelectItem>
+                                )
+                              )}
                             </SelectGroup>
                           </SelectContent>
                         </Select>

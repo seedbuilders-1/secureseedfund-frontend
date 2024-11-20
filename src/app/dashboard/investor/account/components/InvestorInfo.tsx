@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/select";
 import { countries } from "@/app/dashboard/startup/components/countries";
 
+
 interface Props {
   investorDetails: InvestorInfoValidation;
   handleInvestor: (v: InvestorInfoValidation) => void;
@@ -89,8 +90,6 @@ const InvestorInformation = ({
   const { toast } = useToast();
 
   const onSubmit = (values: InvestorInfoValidation) => {
-    console.log("submitting");
-
     if (!profileImageFile && !selectedImage) {
       toast({
         variant: "destructive",
