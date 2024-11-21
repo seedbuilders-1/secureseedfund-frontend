@@ -10,6 +10,7 @@ import BusinessInformation from "../components/BusinessInformation";
 import FundingInformation from "../components/FundingInformation";
 import Review from "../components/Review";
 import { FileWithPath } from "react-dropzone";
+import Kyc from "../components/Kyc";
 
 interface UploadFiles {
   businessPlan: FileWithPath | null;
@@ -20,6 +21,17 @@ interface UploadFiles {
   coverPhoto: FileWithPath | null;
 }
 
+interface UploadKycFiles {
+  govt_photo_id: FileWithPath | null;
+  proof_of_address: FileWithPath | null;
+  memo_assoc: FileWithPath | null;
+  article_assoc: FileWithPath | null;
+  business_address: FileWithPath | null;
+  dir_company_address: FileWithPath | null;
+  company_status_report: FileWithPath | null;
+  shareholders_address: FileWithPath | null;
+}
+
 export default function AccountForm() {
   const [files, setFiles] = useState<UploadFiles>({
     businessPlan: null,
@@ -28,6 +40,17 @@ export default function AccountForm() {
     companyLogo: null,
     companyRegistration: null,
     coverPhoto: null,
+  });
+
+  const [kycFiles, setKycFiles] = useState<UploadKycFiles>({
+    govt_photo_id: null,
+    proof_of_address: null,
+    memo_assoc: null,
+    article_assoc: null,
+    business_address: null,
+    dir_company_address: null,
+    company_status_report: null,
+    shareholders_address: null,
   });
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -66,6 +89,7 @@ export default function AccountForm() {
 
   const steps = [
     "Founder Information",
+    "KYC Information",
     "Team Information",
     "Company Information",
     "Business Information",
@@ -87,9 +111,17 @@ export default function AccountForm() {
             />
           )}
           {currentStep === 2 && (
-            <TeamInformation handleNext={handleNext} handleBack={handleBack} />
+            <Kyc
+              handleNext={handleNext}
+              handleBack={handleBack}
+              kycFiles={kycFiles}
+              setKycFiles={setKycFiles}
+            />
           )}
           {currentStep === 3 && (
+            <TeamInformation handleNext={handleNext} handleBack={handleBack} />
+          )}
+          {currentStep === 4 && (
             <CompanyInformation
               handleNext={handleNext}
               handleBack={handleBack}
@@ -97,13 +129,13 @@ export default function AccountForm() {
               setFiles={setFiles}
             />
           )}
-          {currentStep === 4 && (
+          {currentStep === 5 && (
             <BusinessInformation
               handleNext={handleNext}
               handleBack={handleBack}
             />
           )}
-          {currentStep === 5 && (
+          {currentStep === 6 && (
             <FundingInformation
               handleNext={handleNext}
               handleFundingInformation={handleFundingInformation}
@@ -114,7 +146,7 @@ export default function AccountForm() {
             />
           )}
 
-          {currentStep === 6 && (
+          {currentStep === 7 && (
             <Review
               financialFile={financialFile}
               fundingDetails={fundingDetails}

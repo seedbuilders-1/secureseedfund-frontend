@@ -12,6 +12,7 @@ import useCampaign from "../../hooks/useCampaign";
 import { useParams } from "next/navigation";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import UploadMilestoneProof from "../../components/UploadMilestoneProof";
+import moment from "moment";
 
 const CampaignDetail = ({ params }: { params: { id: string } }) => {
   const { campaignId } = useParams();
@@ -23,6 +24,10 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
     campaignIdParam,
   });
 
+  const daysLeft = Math.max(
+    0,
+    moment(singleCampaign?.endDate).diff(moment(), "days")
+  );
   if (loadingSingleCampaign) return <LoadingSpinner />;
   return (
     <>
@@ -58,15 +63,7 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
             <div className="text-center">
               <FundingCard
                 text="Days Left"
-                value={
-                  singleCampaign?.endDate && singleCampaign?.startDate
-                    ? Math.floor(
-                        (new Date(singleCampaign.endDate).getTime() -
-                          new Date(singleCampaign.startDate).getTime()) /
-                          (1000 * 60 * 60 * 24)
-                      )
-                    : 0
-                }
+                value={daysLeft}
                 icon={<MdiCalendar />}
               />
             </div>

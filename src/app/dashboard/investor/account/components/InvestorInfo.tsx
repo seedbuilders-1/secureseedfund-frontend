@@ -31,6 +31,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { countries } from "@/app/dashboard/startup/components/countries";
+import useProfile from "@/hooks/profile/useProfile";
+import { useEffect } from "react";
 
 interface Props {
   investorDetails: InvestorInfoValidation;
@@ -88,6 +90,13 @@ const InvestorInformation = ({
   };
   const { toast } = useToast();
 
+  const { userProfile } = useProfile();
+
+  useEffect(() => {
+    form.setValue("firstName", userProfile?.firstName || "");
+    form.setValue("lastName", userProfile?.lastName || "");
+  }, [userProfile]);
+
   const onSubmit = (values: InvestorInfoValidation) => {
     console.log("submitting");
 
@@ -107,7 +116,7 @@ const InvestorInformation = ({
       <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
         Investor Information
       </h2>
-      <MobileStepper numberOfSteps={2} currentStep={1} />
+      <MobileStepper numberOfSteps={3} currentStep={2} />
 
       <div className="mt-8">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
@@ -148,9 +157,10 @@ const InvestorInformation = ({
                       <FormLabel>First Name</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] disabled:opacity-100"
                           placeholder="Provide your First Name"
                           {...field}
+                          disabled
                         />
                       </FormControl>
                       <FormMessage />
@@ -166,9 +176,10 @@ const InvestorInformation = ({
                       <FormLabel>Last Name</FormLabel>
                       <FormControl>
                         <Input
-                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                          className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px] disabled:opacity-100"
                           placeholder="Provide your Last Name"
                           {...field}
+                          disabled
                         />
                       </FormControl>
                       <FormMessage />

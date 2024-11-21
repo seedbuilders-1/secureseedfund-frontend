@@ -260,15 +260,18 @@ export type Institution = {
 };
 export type Kyc = {
   user: User;
-  idProofUrl: string;
-  identity_number: string;
-  addressProofUrl: string;
-  isApproved: boolean;
-  utility_proof: string;
-  biometric_proof: string;
-  company_tin_number: string;
+  govt_photo_id: string;
+  proof_of_address: string;
+  article_assoc: string;
+  memo_assoc: string;
+  business_address: string;
+  dir_company_address: string;
   company_status_report: string;
-  company_reg_number: string;
+  shareholders_address: string;
+  source_of_income: string;
+  politically_exposed_person: string;
+  tin: string;
+  isApproved: boolean;
   id: string;
   createdAt: string;
   updatedAt: string;

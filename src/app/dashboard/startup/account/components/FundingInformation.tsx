@@ -90,7 +90,7 @@ const FundingInformation = ({
         Funding Information
       </h2>
 
-      <MobileStepper numberOfSteps={6} currentStep={5} />
+      <MobileStepper numberOfSteps={7} currentStep={6} />
 
       <div className="mt-8 border border-solid border-[#D8D8E2] rounded-2xl grid place-content-center p-5 lg:p-12">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">

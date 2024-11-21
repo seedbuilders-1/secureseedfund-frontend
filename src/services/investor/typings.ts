@@ -34,3 +34,16 @@ type CreateMilestoneDto = {
   targetAmount: number;
   date: string;
 };
+
+export type InvestorControllerCreateInvestorKycApiResponse = string;
+export type InvestorpControllerCreateInvestorKycApiArg = {
+  creatorId: string;
+  createInvestorKycDto: CreateInvestorKycDto;
+};
+
+export type CreateInvestorKycDto = {
+  govt_photo_id: Blob;
+  proof_of_address: Blob;
+  source_of_income: string;
+  politically_exposed_person: string;
+};

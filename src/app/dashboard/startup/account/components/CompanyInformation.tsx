@@ -265,7 +265,7 @@ const CompanyInformation = ({
         Company Information
       </h2>
 
-      <MobileStepper numberOfSteps={6} currentStep={3} />
+      <MobileStepper numberOfSteps={7} currentStep={4} />
 
       <div className="mt-8 border border-solid border-[#D8D8E2] rounded-2xl grid place-content-center p-5 lg:p-12">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
@@ -588,7 +588,7 @@ const CompanyInformation = ({
                 file={files.pitchDeck}
                 handleUpload={handleUpload}
                 fileType="pitchDeck"
-                maxSize={5 * 1024 * 1024}
+                maxSize={50 * 1024 * 1024}
                 label="Upload Pitch Deck Plan (PDF only)"
               />
               <br />
@@ -599,7 +599,7 @@ const CompanyInformation = ({
                 handleUpload={handleUpload}
                 previewUrl={preview.demoVideo ?? undefined}
                 fileType="demoVideo"
-                maxSize={5 * 1024 * 1024}
+                maxSize={70 * 1024 * 1024}
                 label="Upload Demo Video Deck Plan (Video only)"
               />
               <br />

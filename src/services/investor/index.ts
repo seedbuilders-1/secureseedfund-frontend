@@ -1,5 +1,11 @@
 import api from "../api/apiSlice";
-import { InvestmentType } from "./typings";
+import { Investor, User } from "../startup";
+import {
+  CreateInvestorKycDto,
+  InvestmentType,
+  InvestorControllerCreateInvestorKycApiResponse,
+  InvestorpControllerCreateInvestorKycApiArg,
+} from "./typings";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     investorControllerCreateInvestor: build.mutation<
@@ -22,6 +28,17 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.updateInvestorDto,
       }),
     }),
+    investorControllerCreateInvestorKyc: build.mutation<
+      InvestorControllerCreateInvestorKycApiResponse,
+      InvestorpControllerCreateInvestorKycApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/investor/${queryArg.creatorId}/upload-kyc`,
+        method: "POST",
+        body: queryArg.createInvestorKycDto,
+      }),
+    }),
+
     investorControllerFindAll: build.query<
       InvestorControllerFindAllApiResponse,
       InvestorControllerFindAllApiArg
@@ -72,6 +89,7 @@ export type InvestorControllerCreateInvestorApiArg = {
   userId: string;
   createInvestorDto: CreateInvestorDto;
 };
+// export type Investor = InvestorDto & InvestorKyc;
 export type InvestorControllerUpdateApiResponse =
   /** status 200  */
   string | /** status 201  */ string;
@@ -91,9 +109,7 @@ export type InvestorControllerFindAllApiArg = {
   /** User ID */
   userId?: string;
 };
-export type InvestorControllerFindOneApiResponse =
-  /** status 200  */
-  InvestorDto | /** status 201  */ InvestorDto;
+export type InvestorControllerFindOneApiResponse = Investor;
 export type InvestorControllerFindOneApiArg = {
   id: string;
 };
@@ -145,6 +161,9 @@ export type CreateInvestorDto = {
   investor_experience: string;
   /** Liquidity importance for the investor */
   investor_liquidity_importance: string;
+  bank_account: string;
+  account_number: string;
+  account_name: string;
 };
 export type UpdateInvestorDto = {
   /** Nationality of the investor */
@@ -177,6 +196,9 @@ export type UpdateInvestorDto = {
   investor_experience: string;
   /** Liquidity importance for the investor */
   investor_liquidity_importance: string;
+  bank_account: string;
+  account_number: string;
+  account_name: string;
 };
 export type InvestorDto = {
   investorType:
@@ -200,6 +222,17 @@ export type InvestorDto = {
   investor_experience: string;
   investor_liquidity_importance: string;
 };
+
+export type Kyc = {
+  user: User;
+  govt_photo_id: string;
+  proof_of_address: string;
+  politically_exposed_person: string;
+  isApproved: boolean;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export type InvestDto = {
   investmentAmount: number;
   investorUserId: string;
@@ -207,6 +240,7 @@ export type InvestDto = {
 export const {
   useInvestorControllerCreateInvestorMutation,
   useInvestorControllerUpdateMutation,
+  useInvestorControllerCreateInvestorKycMutation,
   useInvestorControllerFindAllQuery,
   useInvestorControllerFindOneQuery,
   useInvestorControllerInvestInCampaignMutation,

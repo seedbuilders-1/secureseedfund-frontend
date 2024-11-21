@@ -117,7 +117,7 @@ const BusinessInformation = ({ handleNext, handleBack }: Props) => {
       <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
         Business Information
       </h2>
-      <MobileStepper numberOfSteps={6} currentStep={4} />
+      <MobileStepper numberOfSteps={7} currentStep={5} />
 
       <div className="mt-8 border border-solid border-[#D8D8E2] rounded-2xl grid place-content-center lg:p-12 p-5">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">

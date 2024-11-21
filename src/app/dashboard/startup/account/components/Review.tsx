@@ -230,7 +230,7 @@ const Review = ({
               </li>
             </ul>
             <div
-              onClick={() => setStep(2)}
+              onClick={() => setStep(3)}
               className="border-[#D8D8E2] cursor-pointer  rounded-full p-3  border absolute top-[12px] right-[13px]"
             >
               <Pencil className="text-[#1AA657]" />
@@ -325,7 +325,7 @@ const Review = ({
               <UploadPreview previewUrl={companyRegistration} />
             </div>
             <div
-              onClick={() => setStep(3)}
+              onClick={() => setStep(4)}
               className="border-[#D8D8E2] rounded-full cursor-pointer  p-3  border absolute top-[12px] right-[13px]"
             >
               <Pencil className="text-[#1AA657]" />
@@ -419,7 +419,7 @@ const Review = ({
               </li>
             </ul>
             <div
-              onClick={() => setStep(4)}
+              onClick={() => setStep(5)}
               className="border-[#D8D8E2] rounded-full p-3cursor-pointer  border absolute top-[12px] right-[13px]"
             >
               <Pencil className="text-[#1AA657]" />
@@ -512,7 +512,7 @@ const Review = ({
             </ul>
             <UploadPreview file={financialFile} />
             <div
-              onClick={() => setStep(5)}
+              onClick={() => setStep(6)}
               className="border-[#D8D8E2] rounded-full p-3  cursor-pointer border absolute top-[12px] right-[13px]"
             >
               <Pencil className="text-[#1AA657]" />
