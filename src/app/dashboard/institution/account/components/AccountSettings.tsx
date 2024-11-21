@@ -2,9 +2,7 @@
 import { useToast } from "@/components/ui/use-toast";
 import useUserAuth from "@/hooks/auth/useAuth";
 import useProfile from "@/hooks/profile/useProfile";
-import React, { useEffect, useState } from "react";
-import { FileWithPath } from "react-dropzone";
-import useAccount from "../hooks/useAccount";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import WarningComponent from "@/components/cards/WarningComponent";
@@ -22,8 +20,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
-import { InvestorDto, UpdateInvestorDto } from "@/services/investor";
 import {
   Select,
   SelectContent,
@@ -44,7 +40,6 @@ interface Props {
 }
 
 const AccountSettings = ({ accountInformation }: Props) => {
-  const { toast } = useToast();
   const { user } = useUserAuth();
 
   const { userProfile } = useProfile();
