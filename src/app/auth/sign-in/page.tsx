@@ -23,6 +23,7 @@ import { Eye, EyeOff } from "lucide-react";
 import authLogo from "../../../../public/assets/images/authLogo.png";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SignUpPage from "../sign-up/page";
+import Link from "next/link";
 
 const SignInPage = () => {
   const form = useForm<SignInValidation>({
@@ -42,7 +43,15 @@ const SignInPage = () => {
   return (
     <Fragment>
       <div className=" flex flex-col items-center px-6">
-        <Image src={authLogo} alt="logo" width={150} height={150} />
+        <Link href="/">
+          <Image
+            src={authLogo}
+            alt="logo"
+            className="cursor-pointer"
+            width={150}
+            height={150}
+          />
+        </Link>
         <Tabs
           defaultValue="login"
           className="w-full flex items-center justify-center flex-col"
