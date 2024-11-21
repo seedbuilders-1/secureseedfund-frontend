@@ -1,7 +1,6 @@
 import api from "../api/apiSlice";
 import { Investor, User } from "../startup";
 import {
-  CreateInvestorKycDto,
   InvestmentType,
   InvestorControllerCreateInvestorKycApiResponse,
   InvestorpControllerCreateInvestorKycApiArg,
