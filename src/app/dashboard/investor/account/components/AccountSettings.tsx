@@ -25,7 +25,7 @@ import {
   InvestorAccountSettingsValidation,
 } from "@/lib/validations/account";
 import UserEmptyState from "@/assets/iconspng/ImageEmptyState.svg";
-import { InvestorDto, UpdateInvestorDto } from "@/services/investor";
+import { UpdateInvestorDto } from "@/services/investor";
 import {
   Select,
   SelectContent,
@@ -34,9 +34,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Investor } from "@/services/startup";
 
 interface Props {
-  accountInformation: InvestorDto | undefined;
+  accountInformation: Investor | undefined;
 }
 
 const AccountSettings = ({ accountInformation }: Props) => {
@@ -167,7 +168,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
         investor_experience,
         investor_investment_duration,
         investor_investment_goal,
-        investorType,
+        investor_type,
         investor_liquidity_importance,
         investor_nationality,
         investor_residence_city,
@@ -176,7 +177,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
       form.setValue("investor_annual_income", investor_annual_income);
       form.setValue("investor_country_residence", investor_country_residence);
       form.setValue("investor_experience", investor_experience);
-      form.setValue("investor_type", investorType);
+      form.setValue("investor_type", investor_type);
       form.setValue(
         "investor_investment_duration",
         investor_investment_duration

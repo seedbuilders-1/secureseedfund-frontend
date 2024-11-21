@@ -12,7 +12,6 @@ const AccountPage = () => {
   const { user } = useUserAuth();
   const creatorId = user?.userId as string;
   const { investorInformation } = useAccount(creatorId);
-  console.log(investorInformation);
 
   return (
     <>
