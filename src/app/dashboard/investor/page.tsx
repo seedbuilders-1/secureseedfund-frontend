@@ -4,7 +4,7 @@ import TransactionHistory from "@/components/wallet/TranscationHistory";
 import Investment from "@/components/cards/Investment";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { api as investorApi } from "@/services/investor/index";
-const page = () => {
+const Page = () => {
   const { user } = useUserAuth();
   const { data: investments, isLoading: loadingInvestments } =
     investorApi.useInvestorControllerGetInvestorInvestmentsQuery({
@@ -36,4 +36,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
