@@ -1,5 +1,9 @@
 import api from "../api/apiSlice";
-import { StartupInvestmentsResponse } from "./typings";
+import {
+  StartupControllerCreateKycApiArg,
+  StartupControllerCreateKycApiResponse,
+  StartupInvestmentsResponse,
+} from "./typings";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -157,6 +161,22 @@ const injectedRtkApi = api.injectEndpoints({
         { type: "Startup", id: "LIST" },
       ],
     }),
+
+    startupControllerCreateKyc: build.mutation<
+      StartupControllerCreateKycApiResponse,
+      StartupControllerCreateKycApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/startups/${queryArg.creatorId}/upload-kyc`,
+        method: "POST",
+        body: queryArg.createKycDto,
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Startup", id: arg.creatorId },
+        { type: "Startup", id: "LIST" },
+      ],
+    }),
+
     startupControllerGetStartupByUserId: build.query<
       StartupControllerGetStartupByUserIdApiResponse,
       StartupControllerGetStartupByUserIdApiArg
@@ -279,6 +299,7 @@ export type StartupControllerGetStartupByUserIdApiArg = {
 export type StartupControllerGetStartupByStartupIdApiArg = {
   startupId: string;
 };
+
 export type StartupControllerFindAllApiResponse =
   /** status 200  */ PaginatedStartupDto;
 export type StartupControllerFindAllApiArg = {
@@ -546,6 +567,7 @@ export type Investor = {
   id: string;
   createdAt: string;
   updatedAt: string;
+  kycInformation: InvestorKyc;
 };
 export type Institution = {
   user: User;
@@ -571,15 +593,30 @@ export type Institution = {
 };
 export type Kyc = {
   user: User;
-  idProofUrl: string;
-  identity_number: string;
-  addressProofUrl: string;
-  isApproved: boolean;
-  utility_proof: string;
-  biometric_proof: string;
-  company_tin_number: string;
+  govt_photo_id: string;
+  proof_of_address: string;
+  article_assoc: string;
+  memo_assoc: string;
+  business_address: string;
+  dir_company_address: string;
   company_status_report: string;
-  company_reg_number: string;
+  shareholders_address: string;
+  source_of_income: string;
+  politically_exposed_person: string;
+  tin: string;
+  isApproved: boolean;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type InvestorKyc = {
+  user: User;
+  govt_photo_id: string;
+  proof_of_address: string;
+  source_of_income: string;
+  politically_exposed_person: string;
+  isApproved: boolean;
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -737,6 +774,7 @@ export type Startup = {
   id: string;
   createdAt: string;
   updatedAt: string;
+  kycInformation: Kyc;
 };
 export type MilestoneDto = {
   milestoneTitle: string;
@@ -803,6 +841,7 @@ export const {
   useStartupControllerUpdateFounderInformationMutation,
   useStartupControllerUpdateFundingInformationMutation,
   useStartupControllerUpdateBusinessInformationMutation,
+  useStartupControllerCreateKycMutation,
   useStartupControllerGetStartupByUserIdQuery,
   useStartupControllerGetStartupByStartupIdQuery,
   useStartupControllerFindAllQuery,

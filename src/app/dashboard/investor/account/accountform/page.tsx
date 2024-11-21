@@ -6,6 +6,12 @@ import { InvestorInfoValidation } from "@/lib/validations/account";
 import InvestorInformation from "../components/InvestorInfo";
 import { FileWithPath } from "react-dropzone";
 import Review from "../components/Review";
+import InvestorKyc from "../components/InvestorKyc";
+
+interface UploadKycFiles {
+  govt_photo_id: FileWithPath | null;
+  proof_of_address: FileWithPath | null;
+}
 
 export default function AccountForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -45,7 +51,12 @@ export default function AccountForm() {
     setCurrentStep(currentStep - 1);
   };
 
-  const steps = ["Investor Information", "Review and Submit"];
+  const [kycFiles, setKycFiles] = useState<UploadKycFiles>({
+    govt_photo_id: null,
+    proof_of_address: null,
+  });
+
+  const steps = ["KYC", "Investor Information", "Review and Submit"];
 
   return (
     <>
@@ -53,7 +64,7 @@ export default function AccountForm() {
         <AccountStepper steps={steps} currentStep={currentStep} />
 
         <div className="w-full lg:w-[80%] max-w-[1000px] py-[3rem] flex justify-center items-center">
-          {currentStep === 1 && (
+          {currentStep === 2 && (
             <InvestorInformation
               investorDetails={investorInfo}
               handleNext={handleNext}
@@ -64,7 +75,15 @@ export default function AccountForm() {
               setSelectedImage={setSelectedImage}
             />
           )}
-          {currentStep === 2 && (
+          {currentStep === 1 && (
+            <InvestorKyc
+              handleNext={handleNext}
+              handleBack={handleBack}
+              kycFiles={kycFiles}
+              setKycFiles={setKycFiles}
+            />
+          )}
+          {currentStep === 3 && (
             <Review
               investorDetails={investorInfo}
               handleBack={handleBack}

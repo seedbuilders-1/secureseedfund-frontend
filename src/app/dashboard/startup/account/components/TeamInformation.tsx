@@ -169,7 +169,7 @@ const TeamInformation = ({ handleNext, handleBack }: Props) => {
         Team Information
       </h2>
 
-      <MobileStepper numberOfSteps={6} currentStep={2} />
+      <MobileStepper numberOfSteps={7} currentStep={3} />
 
       <div className="mt-8 border border-solid border-[#D8D8E2] rounded-2xl p-5 lg:p-12">
         <div className="mb-3">

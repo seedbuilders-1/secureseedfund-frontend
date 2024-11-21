@@ -160,7 +160,7 @@ const FounderInformation = ({
       <h2 className="text-[#0F172A] text-[24px] font-medium text-center ">
         Founder Information
       </h2>
-      <MobileStepper numberOfSteps={6} currentStep={1} />
+      <MobileStepper numberOfSteps={7} currentStep={1} />
 
       <div className="mt-8">
         <div className=" block lg:flex justify-center  items-center">
