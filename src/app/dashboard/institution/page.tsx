@@ -4,7 +4,7 @@ import TransactionHistory from "@/components/wallet/TranscationHistory";
 import Investment from "@/components/cards/Investment";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { useGetInstitutionsInvestmentsQuery } from "@/services/institution";
-const page = () => {
+const Page = () => {
   const { user } = useUserAuth();
   const { data: investments, isLoading: loadingInvestments } =
     useGetInstitutionsInvestmentsQuery({
@@ -36,4 +36,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

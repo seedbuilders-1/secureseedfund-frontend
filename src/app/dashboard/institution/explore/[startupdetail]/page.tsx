@@ -6,7 +6,6 @@ import LoadingSkeleton from "../components/LoadingSkeleton";
 import BasicStartupPage from "@/components/startup-profile/BasicStartupPage";
 import moment from "moment";
 import PremiumStartupPage from "@/components/startup-profile/PremiumStartupPage";
-import { start } from "repl";
 const StartupDetail = () => {
   const { startupdetail } = useParams();
 
