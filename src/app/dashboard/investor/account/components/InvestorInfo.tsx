@@ -34,6 +34,7 @@ import { countries } from "@/app/dashboard/startup/components/countries";
 import useProfile from "@/hooks/profile/useProfile";
 import { useEffect } from "react";
 
+
 interface Props {
   investorDetails: InvestorInfoValidation;
   handleInvestor: (v: InvestorInfoValidation) => void;
@@ -98,8 +99,6 @@ const InvestorInformation = ({
   }, [userProfile]);
 
   const onSubmit = (values: InvestorInfoValidation) => {
-    console.log("submitting");
-
     if (!profileImageFile && !selectedImage) {
       toast({
         variant: "destructive",

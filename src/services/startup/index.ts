@@ -215,6 +215,7 @@ const injectedRtkApi = api.injectEndpoints({
           subscriptionPlan: queryArg.subscriptionPlan,
           startupId: queryArg.startupId,
           userId: queryArg.userId,
+          industry: queryArg.industry,
         },
       }),
     }),
@@ -312,6 +313,7 @@ export type StartupControllerFindAllApiArg = {
   subscriptionPlan?: string;
   /** Filter by startup ID */
   startupId?: string;
+  industry?: string;
   /** Filter by user ID (creator ID) */
   userId?: string;
 };

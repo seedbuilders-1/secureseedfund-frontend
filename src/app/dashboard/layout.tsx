@@ -66,6 +66,31 @@ const Layout = ({ children }: { children: ReactNode }) => {
       path: `/dashboard/investor/account`,
       allowedRoles: ["investor"],
     },
+    // Institution routes
+    {
+      name: "Dashboard",
+      icon: RiHome5Line,
+      path: `/dashboard/institution`,
+      allowedRoles: ["institution"],
+    },
+    {
+      name: "Explore",
+      icon: Compass,
+      path: `/dashboard/institution/explore`,
+      allowedRoles: ["institution"],
+    },
+    {
+      name: "Wallet",
+      icon: RiWalletLine,
+      path: `/dashboard/institution/wallet`,
+      allowedRoles: ["institution"],
+    },
+    {
+      name: "Account",
+      icon: RiUserLine,
+      path: `/dashboard/institution/account`,
+      allowedRoles: ["institution"],
+    },
   ];
 
   const filteredItems = items.filter(

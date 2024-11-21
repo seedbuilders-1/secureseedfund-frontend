@@ -231,3 +231,18 @@ export type AccountSettingsValidation = z.infer<typeof AccountSettingsSchema>;
 export type InvestorAccountSettingsValidation = z.infer<
   typeof InvestorAccountSettingsSchema
 >;
+
+
+// Institution account
+
+export const institutionInformationSchema = z.object({
+  Name: z.string().min(1, "First Name is required"),
+  registrationNumber: z.string().min(1, "Reg Number is required"),
+  address: z.string().min(1, "address is required"),
+  website: z.string().min(1, "website is required"),
+  industryOfInterest: z.string().min(1, "industry is required"),
+  fundingSize: z.string().min(1, "funding size is required"),
+  fundingType: z.string().min(1, "Funding type is required"),
+});
+
+export type InstitutionValidation = z.infer<typeof institutionInformationSchema>;

@@ -1,17 +1,19 @@
 import React from "react";
 import Image from "next/image";
-import useUserAuth from "@/hooks/auth/useAuth";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
-import { api as investorApi } from "@/services/investor/index";
-
-const Investment = () => {
+import { InvestorControllerGetInvestorInvestmentsApiResponse } from "@/services/investor/index";
+interface Props {
+  investments: InvestorControllerGetInvestorInvestmentsApiResponse | undefined;
+  loadingInvestments: boolean;
+  accountType: string;
+}
+const Investment = ({
+  investments,
+  loadingInvestments,
+  accountType,
+}: Props) => {
   const router = useRouter();
-  const { user } = useUserAuth();
-  const { data: investments, isLoading: loadingInvestments } =
-    investorApi.useInvestorControllerGetInvestorInvestmentsQuery({
-      investorId: user?.userId as string,
-    });
 
   if (loadingInvestments) {
     return (
@@ -43,7 +45,7 @@ const Investment = () => {
                 key={investor.id}
                 onClick={() =>
                   router.push(
-                    `/dashboard/investor/explore/${investor?.campaign.startup.id}`
+                    `/dashboard/${accountType}/explore/${investor?.campaign.startup.id}`
                   )
                 }
                 className="flex flex-wrap items-center py-3 cursor-pointer 

@@ -3,11 +3,11 @@ import React from "react";
 import TransactionHistory from "@/components/wallet/TranscationHistory";
 import Investment from "@/components/cards/Investment";
 import useUserAuth from "@/hooks/auth/useAuth";
-import { api as investorApi } from "@/services/investor/index";
+import { useGetInstitutionsInvestmentsQuery } from "@/services/institution";
 const page = () => {
   const { user } = useUserAuth();
   const { data: investments, isLoading: loadingInvestments } =
-    investorApi.useInvestorControllerGetInvestorInvestmentsQuery({
+    useGetInstitutionsInvestmentsQuery({
       investorId: user?.userId as string,
     });
   return (
@@ -15,7 +15,7 @@ const page = () => {
       <div className="mt-[2rem] md:max-w-6xl md:m-auto md:mt-10 p-5">
         <h2 className="text-[1rem] font-bold mb-[1rem]">Investments</h2>
         <Investment
-          accountType="investor"
+          accountType="institution"
           investments={investments}
           loadingInvestments={loadingInvestments}
         />
