@@ -49,7 +49,12 @@ interface Preview {
   proof_of_address: string | null;
 }
 
-const InvestorKyc = ({ handleNext, kycFiles, setKycFiles }: Props) => {
+const InvestorKyc = ({
+  handleNext,
+  kycFiles,
+  setKycFiles,
+  handleBack,
+}: Props) => {
   const form = useForm<InvestorKycValidation>({
     resolver: zodResolver(InvestorKycSchema),
   });
@@ -165,7 +170,7 @@ const InvestorKyc = ({ handleNext, kycFiles, setKycFiles }: Props) => {
         KYC Information
       </h2>
 
-      <MobileStepper numberOfSteps={3} currentStep={1} />
+      <MobileStepper numberOfSteps={3} currentStep={2} />
 
       <div className="mt-8 border border-solid border-[#D8D8E2] rounded-2xl grid place-content-center p-5 lg:p-12">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
@@ -251,6 +256,13 @@ const InvestorKyc = ({ handleNext, kycFiles, setKycFiles }: Props) => {
                 )}
               />
               <div className="flex">
+                <Button
+                  onClick={handleBack}
+                  type="button"
+                  className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
+                >
+                  Back
+                </Button>
                 <Button
                   type="submit"
                   loading={isCreatingKycInfo}

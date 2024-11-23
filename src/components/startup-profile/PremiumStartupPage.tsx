@@ -97,7 +97,7 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
     };
   }, []);
 
-  const tabs = ["Overview", "About", "Teams"];
+  const tabs = ["Overview", "About", "Teams", "Milestones"];
   const { user } = useUserAuth();
   const campaignId =
     startup?.campaignInformation.length &&
@@ -272,15 +272,6 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
                           />
                         </div>
                       </div>
-                      <div className="mt-4">
-                        {hasCampaign && (
-                          <Milestones
-                            currentCampaign={
-                              startup?.campaignInformation[0].milestones
-                            }
-                          />
-                        )}
-                      </div>
                     </div>
                   )}
 
@@ -288,6 +279,17 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
                   {activeTab === "Teams" && (
                     <div>
                       <TeamMembers team={startup} />
+                    </div>
+                  )}
+                  {activeTab === "Milestones" && (
+                    <div className="mt-4">
+                      {hasCampaign && (
+                        <Milestones
+                          currentCampaign={
+                            startup?.campaignInformation[0].milestones
+                          }
+                        />
+                      )}
                     </div>
                   )}
                 </div>
