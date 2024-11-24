@@ -29,7 +29,7 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
 
   const { user } = useUserAuth();
 
-  const { data: startupInvestments, isLoading: loadingInvestors } =
+  const { data: startupInvestments } =
     useStartupControllerGetStartupInvestmentsQuery({
       startupId: user?.userId as string,
     });
