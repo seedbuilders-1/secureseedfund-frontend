@@ -150,6 +150,7 @@ export type CreateMilestoneDto = {
   targetAmount: number;
   date: string;
   proof?: string;
+  is_completed?: boolean;
 };
 
 export type CampaignControllerUploadMilestonesProofResponse = {
@@ -185,6 +186,7 @@ export type UpdateMilestoneDto = {
   milestoneDescription: string;
   targetAmount: number;
   date: string;
+  is_completed: true;
 };
 export type UpdateCampaignDto = {
   title: string;

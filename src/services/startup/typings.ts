@@ -66,12 +66,10 @@ export type StartupControllerCreateKycApiArg = {
 };
 export type CreateKycDto = {
   govt_photo_id: Blob;
-  proof_of_address: Blob;
   selfie_video: Blob;
   cert_of_incorporation: Blob;
   memo_art_assoc: Blob;
   business_address: Blob;
-  dir_company_address: Blob;
   company_status_report: Blob;
   shareholders_address: Blob;
   source_of_income: string;

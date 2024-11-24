@@ -125,6 +125,9 @@ export const BusinessInformationSchema = z.object({
   businessmodeldescription: z
     .string()
     .min(1, "Business Model Description is required"),
+  business_bank_account: z.string().min(1, "Bank Information is needed"),
+  business_account_number: z.string().min(1, "Bank Information is needed"),
+  business_account_name: z.string().min(1, "Bank Information is needed"),
 });
 
 export const FundingInformationSchema = z.object({
@@ -232,7 +235,6 @@ export type InvestorAccountSettingsValidation = z.infer<
   typeof InvestorAccountSettingsSchema
 >;
 
-
 // Institution account
 
 export const institutionInformationSchema = z.object({
@@ -245,4 +247,6 @@ export const institutionInformationSchema = z.object({
   fundingType: z.string().min(1, "Funding type is required"),
 });
 
-export type InstitutionValidation = z.infer<typeof institutionInformationSchema>;
+export type InstitutionValidation = z.infer<
+  typeof institutionInformationSchema
+>;

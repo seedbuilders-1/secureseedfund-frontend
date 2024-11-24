@@ -50,11 +50,9 @@ interface Props {
 }
 interface Preview {
   govt_photo_id: string | null;
-  proof_of_address: string | null;
   memo_assoc: string | null;
   article_assoc: string | null;
   business_address: string | null;
-  dir_company_address: string | null;
   company_status_report: string | null;
   shareholders_address: string | null;
 }
@@ -79,27 +77,13 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
     const uploadedFile = acceptedFiles[0];
     const { type } = uploadedFile;
 
-    // govt_photo_id: string;
-    // proof_of_address: string;
-    // article_assoc: string;
-    // memo_assoc: string;
-    // business_address: string;
-    // dir_company_address: string;
-    // company_status_report: string;
-    // shareholders_address: string;
-    // source_of_income: string;
-    // politically_exposed_person: string;
-    // tin: string;
-
     const fileTypeValidation: Record<string, string[]> = {
       govt_photo_id: ["image/"],
-      proof_of_address: ["image/"],
       memo_assoc: ["application/pdf"],
       article_assoc: ["application/pdf"],
-      business_address: ["application/pdf"],
-      dir_company_address: ["application/pdf"],
+      business_address: ["image/"],
       company_status_report: ["application/pdf"],
-      shareholders_address: ["application/pdf"],
+      shareholders_address: ["image/"],
     };
 
     if (
@@ -121,11 +105,9 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
 
   const [preview, setPreview] = useState<Preview>({
     govt_photo_id: null,
-    proof_of_address: null,
     article_assoc: null,
     memo_assoc: null,
     business_address: null,
-    dir_company_address: null,
     company_status_report: null,
     shareholders_address: null,
   });
@@ -133,10 +115,8 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
   const onSubmit = (values: KycValidation) => {
     if (
       (!kycFiles.govt_photo_id && !preview.govt_photo_id) ||
-      (!kycFiles.proof_of_address && !preview.proof_of_address) ||
       (!kycFiles.memo_assoc && !preview.memo_assoc) ||
       (!kycFiles.article_assoc && !preview.article_assoc) ||
-      (!kycFiles.dir_company_address && !preview.dir_company_address) ||
       (!kycFiles.company_status_report && !preview.company_status_report) ||
       (!kycFiles.shareholders_address && !preview.shareholders_address) ||
       (!kycFiles.business_address && !preview.business_address)
@@ -163,12 +143,6 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
     if (kycFiles.govt_photo_id) {
       createKycInformationDto.append("govt_photo_id", kycFiles.govt_photo_id);
     }
-    if (kycFiles.proof_of_address) {
-      createKycInformationDto.append(
-        "proof_of_address",
-        kycFiles.proof_of_address
-      );
-    }
 
     if (kycFiles.memo_assoc) {
       createKycInformationDto.append("memo_assoc", kycFiles.memo_assoc);
@@ -182,12 +156,7 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
         kycFiles.business_address
       );
     }
-    if (kycFiles.dir_company_address) {
-      createKycInformationDto.append(
-        "dir_company_address",
-        kycFiles.dir_company_address
-      );
-    }
+
     if (kycFiles.company_status_report) {
       createKycInformationDto.append(
         "company_status_report",
@@ -218,11 +187,9 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
     if (accountInformation?.kycInformation?.id) {
       const {
         govt_photo_id,
-        proof_of_address,
         memo_assoc,
         article_assoc,
         business_address,
-        dir_company_address,
         company_status_report,
         shareholders_address,
         source_of_income,
@@ -235,11 +202,9 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
       form.setValue("tin", tin);
       setPreview({
         govt_photo_id: govt_photo_id || null,
-        proof_of_address: proof_of_address || null,
         memo_assoc: memo_assoc || null,
         article_assoc: article_assoc || null,
         business_address: business_address || null,
-        dir_company_address: dir_company_address || null,
         company_status_report: company_status_report || null,
         shareholders_address: shareholders_address || null,
       });
@@ -273,18 +238,6 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
               <br />
               <br className="lg:hidden" />
 
-              <FormLabel>Upload Proof of Address</FormLabel>
-              <UploadComponent
-                previewUrl={preview.proof_of_address ?? undefined}
-                file={kycFiles.proof_of_address}
-                handleUpload={handleUpload}
-                fileType="proof_of_address"
-                maxSize={5 * 1024 * 1024}
-                label="Upload Proof of Address (PDF only)"
-              />
-              <br />
-              <br className="lg:hidden" />
-
               <FormLabel>Upload Memorandum of Association</FormLabel>
               <UploadComponent
                 file={kycFiles.memo_assoc}
@@ -309,6 +262,18 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
               <br />
               <br className="lg:hidden" />
 
+              <FormLabel>Upload Company Status Report</FormLabel>
+              <UploadComponent
+                file={kycFiles.company_status_report}
+                handleUpload={handleUpload}
+                previewUrl={preview.company_status_report ?? undefined}
+                fileType="company_status_report"
+                maxSize={30 * 1024 * 1024}
+                label="Upload Proof of Comapny Director's Address (PDF only)"
+              />
+              <br />
+              <br className="lg:hidden" />
+
               <FormLabel>Upload Proof of Business Address</FormLabel>
 
               <UploadComponent
@@ -322,32 +287,10 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
               <br />
               <br className="lg:hidden" />
 
-              <FormLabel>Upload Proof of Company Director's Address</FormLabel>
-
-              <UploadComponent
-                file={kycFiles.dir_company_address}
-                handleUpload={handleUpload}
-                previewUrl={preview.dir_company_address ?? undefined}
-                fileType="dir_company_address"
-                maxSize={5 * 1024 * 1024}
-                label="Upload Proof of Comapny Director's Address (PDF only)"
-              />
-              <br />
-              <br className="lg:hidden" />
-
-              <FormLabel>Upload Company Status Report</FormLabel>
-              <UploadComponent
-                file={kycFiles.company_status_report}
-                handleUpload={handleUpload}
-                previewUrl={preview.company_status_report ?? undefined}
-                fileType="company_status_report"
-                maxSize={30 * 1024 * 1024}
-                label="Upload Proof of Comapny Director's Address (PDF only)"
-              />
-              <br />
-              <br className="lg:hidden" />
-
-              <FormLabel>Upload Proof of Shareholders Address</FormLabel>
+              <FormLabel>
+                Upload Proof of Shareholders Address of that own 51% shares and
+                above
+              </FormLabel>
               <UploadComponent
                 file={kycFiles.shareholders_address}
                 handleUpload={handleUpload}
