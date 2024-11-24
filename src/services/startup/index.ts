@@ -4,6 +4,7 @@ import {
   StartupControllerCreateKycApiResponse,
   StartupInvestmentsResponse,
 } from "./typings";
+import { toast } from "@/components/ui/use-toast";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -171,6 +172,21 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: queryArg.createKycDto,
       }),
+      async onQueryStarted(_args, { queryFulfilled: qf }) {
+        qf.then(() => {
+          toast({
+            className:
+              "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
+            title: "Kyc created successfully",
+            variant: "default",
+          });
+        }).catch((err) => {
+          toast({
+            variant: "destructive",
+            title: err?.message ?? "Failed to create Kyc.",
+          });
+        });
+      },
       invalidatesTags: (result, error, arg) => [
         { type: "Startup", id: arg.creatorId },
         { type: "Startup", id: "LIST" },
@@ -594,11 +610,9 @@ export type Institution = {
 export type Kyc = {
   user: User;
   govt_photo_id: string;
-  proof_of_address: string;
   article_assoc: string;
   memo_assoc: string;
   business_address: string;
-  dir_company_address: string;
   company_status_report: string;
   shareholders_address: string;
   source_of_income: string;

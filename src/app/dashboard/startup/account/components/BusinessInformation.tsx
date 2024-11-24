@@ -60,6 +60,9 @@ const BusinessInformation = ({ handleNext, handleBack }: Props) => {
       business_monthly_recur_expense: parseInt(values.monthlyrecurringexpense),
       business_monthly_recur_revenue: 100,
       business_model_desc: values.businessmodeldescription,
+      business_bank_account: values.business_bank_account,
+      business_account_number: values.business_account_number,
+      business_account_name: values.business_account_name,
     };
     const payload = {
       creatorId,
@@ -326,6 +329,60 @@ const BusinessInformation = ({ handleNext, handleBack }: Props) => {
                       <Input
                         className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                         placeholder=""
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="business_bank_account"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Business Bank Name:</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                        placeholder=""
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="business_account_number"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Business Account Number:</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                        placeholder=""
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="business_account_name"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Business Account Name:</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                        placeholder="Name registered with"
                         {...field}
                       />
                     </FormControl>
