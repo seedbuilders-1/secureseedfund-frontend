@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import WhyInvest from "./components/WhyInvest";
 
 export const metadata: Metadata = {
-  title: "Landing | SecureSeedFund",
+  title: "SecureSeedFund",
 };
 
 export default function LandingPage() {

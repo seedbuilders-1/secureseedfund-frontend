@@ -590,7 +590,9 @@ const CompanyInformation = ({
               <br />
               <br className="lg:hidden" />
 
-              <FormLabel>Upload Evidence of Company Registration</FormLabel>
+              <FormLabel>
+                Upload Evidence of Company Certificate of Incorporation
+              </FormLabel>
               <UploadComponent
                 file={files.companyRegistration}
                 handleUpload={handleUpload}

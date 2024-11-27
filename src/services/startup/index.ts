@@ -1,4 +1,5 @@
 import api from "../api/apiSlice";
+import { InstitutionKyc } from "../institution/typings";
 import {
   StartupControllerCreateKycApiArg,
   StartupControllerCreateKycApiResponse,
@@ -607,7 +608,7 @@ export type Institution = {
   createdAt: string;
   updatedAt: string;
 };
-export type Kyc = {
+export type StartupKyc = {
   user: User;
   govt_photo_id: string;
   article_assoc: string;
@@ -668,7 +669,7 @@ export type User = {
   startup: Startup;
   investor: Investor;
   institution: Institution;
-  kyc: Kyc;
+  kyc: StartupKyc | InvestorKyc | InstitutionKyc;
   wallet: Wallet;
   investments: Investments[];
   id: string;
@@ -788,7 +789,7 @@ export type Startup = {
   id: string;
   createdAt: string;
   updatedAt: string;
-  kycInformation: Kyc;
+  kycInformation: StartupKyc;
 };
 export type MilestoneDto = {
   milestoneTitle: string;

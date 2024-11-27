@@ -86,6 +86,20 @@ export const InvestorKycSchema = z.object({
     .min(1, "Are you a politically exposed person?"),
 });
 
+export const InstitutionKycSchema = z.object({
+  source_of_income: z.string().min(1, "Source of income is required"),
+  politically_exposed_person: z
+    .string()
+    .min(1, "Are you a politically exposed person?"),
+  tin: z.string().min(1, "Tax identification Number is required"),
+  email: z.string().min(1, "Email is required"),
+  full_legal_name: z.string().min(1, "Full legal name is required"),
+  phone_number: z.string().min(1, "Phone number is required"),
+  company_reg_number: z
+    .string()
+    .min(1, "Company registration number is required"),
+});
+
 export const AccountSettingsSchema = z.object({
   companyaddress: z.string().min(1, "Company Address is required"),
   companywebsite: z.string().min(1, "Company Website is required"),
@@ -229,6 +243,7 @@ export type FundingInformationValidation = z.infer<
 // investor account
 export type InvestorInfoValidation = z.infer<typeof InvestorInfoSchema>;
 export type InvestorKycValidation = z.infer<typeof InvestorKycSchema>;
+export type InstitutionKycValidation = z.infer<typeof InstitutionKycSchema>;
 
 export type AccountSettingsValidation = z.infer<typeof AccountSettingsSchema>;
 export type InvestorAccountSettingsValidation = z.infer<

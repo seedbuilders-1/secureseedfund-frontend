@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   InstitutionValidation,
   institutionInformationSchema,
@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { listOFIndustries, fundingTypes } from "@/lib/utils";
+import { useCreateInstitutionMutation } from "@/services/institution";
 
 interface Props {
   institutionDetail: InstitutionValidation;
@@ -46,10 +47,62 @@ const InstitutionInformation = ({
     resolver: zodResolver(institutionInformationSchema),
     defaultValues: institutionDetail,
   });
+
+  const creatorId = user?.userId as string;
+
+  const [
+    createInstitutionAccount,
+    { isLoading: isCreatingInstitution, isSuccess: createdInstitution },
+  ] = useCreateInstitutionMutation();
+
+  const handleSubmit = () => {
+    const createInstitutionDto = new FormData();
+
+    createInstitutionDto.append("institution_name", institutionDetail.Name);
+    createInstitutionDto.append(
+      "institution_website",
+      institutionDetail.website
+    );
+    createInstitutionDto.append(
+      "institution_reg_number",
+      institutionDetail.registrationNumber
+    );
+    createInstitutionDto.append(
+      "institution_address",
+      institutionDetail.address
+    );
+    createInstitutionDto.append("institution_website", institutionDetail.Name);
+    createInstitutionDto.append(
+      "institution_funding_size",
+      institutionDetail.fundingSize
+    );
+    createInstitutionDto.append(
+      "institution_industry_of_interest",
+      institutionDetail.industryOfInterest
+    );
+    createInstitutionDto.append(
+      "institution_funding_type",
+      institutionDetail.fundingType
+    );
+    const payload = {
+      userId: creatorId,
+      createInstitutionDto: createInstitutionDto,
+    };
+
+    // @ts-ignore
+    createInstitutionAccount(payload);
+  };
+
   const onSubmit = (values: InstitutionValidation) => {
     handleInstitutionInfo(values);
-    handleNext();
+    handleSubmit();
   };
+
+  useEffect(() => {
+    if (createdInstitution) {
+      handleNext();
+    }
+  });
   return (
     <div className="p-4 w-full">
       {" "}
@@ -60,7 +113,7 @@ const InstitutionInformation = ({
       <p className="text-[#747474] text-[1rem] text-center">
         Kindly fill in the required details as accurately as possible
       </p>
-      <MobileStepper numberOfSteps={2} currentStep={1} />
+      <MobileStepper numberOfSteps={3} currentStep={1} />
       <div className="mt-8">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
           <Form {...form}>
@@ -257,6 +310,7 @@ const InstitutionInformation = ({
               />
               <Button
                 type="submit"
+                loading={isCreatingInstitution}
                 className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
               >
                 Proceed
