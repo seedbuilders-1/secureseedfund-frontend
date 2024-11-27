@@ -24,6 +24,7 @@ import authLogo from "../../../../public/assets/images/authLogo.png";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SignUpPage from "../sign-up/page";
 import Link from "next/link";
+import { useGoogleAuthQuery } from "@/services/auth";
 
 const SignInPage = () => {
   const form = useForm<SignInValidation>({
@@ -38,6 +39,11 @@ const SignInPage = () => {
       email,
       password,
     });
+  };
+  const { data, isLoading, error, refetch } = useGoogleAuthQuery({});
+  console.log(data);
+  const handleGoogleLogin = () => {
+    refetch();
   };
 
   return (
@@ -74,7 +80,10 @@ const SignInPage = () => {
             <div className="bg-[#D9D9D93B] rounded-lg p-3 shadow cursor-pointer">
               <Image src={facebook} alt="logo" layout="intrinsic" />
             </div>
-            <div className="bg-[#D9D9D93B] p-3 rounded-lg shadow cursor-pointer">
+            <div
+              onClick={handleGoogleLogin}
+              className="bg-[#D9D9D93B] p-3 rounded-lg shadow cursor-pointer"
+            >
               <Image src={google} alt="logo" layout="intrinsic" />
             </div>
             <div className="bg-[#D9D9D93B] p-3 rounded-lg shadow cursor-pointer">

@@ -45,6 +45,3 @@ export type institutionDto = {
 
 export type InstitutionInvestmentsApiResponse = InvestmentType[];
 
-export type InstitutionInvestmentsGetApiArg = {
-  investorId: string;
-};
