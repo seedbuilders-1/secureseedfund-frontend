@@ -56,7 +56,7 @@ export default function AccountForm() {
     proof_of_address: null,
   });
 
-  const steps = ["KYC", "Investor Information", "Review and Submit"];
+  const steps = ["Investor Information", "KYC", "Review and Submit"];
 
   return (
     <>
@@ -64,7 +64,7 @@ export default function AccountForm() {
         <AccountStepper steps={steps} currentStep={currentStep} />
 
         <div className="w-full lg:w-[80%] max-w-[1000px] py-[3rem] flex justify-center items-center">
-          {currentStep === 2 && (
+          {currentStep === 1 && (
             <InvestorInformation
               investorDetails={investorInfo}
               handleNext={handleNext}
@@ -75,7 +75,7 @@ export default function AccountForm() {
               setSelectedImage={setSelectedImage}
             />
           )}
-          {currentStep === 1 && (
+          {currentStep === 2 && (
             <InvestorKyc
               handleNext={handleNext}
               handleBack={handleBack}

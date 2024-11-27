@@ -33,7 +33,9 @@ import {
 import { countries } from "@/app/dashboard/startup/components/countries";
 import useProfile from "@/hooks/profile/useProfile";
 import { useEffect } from "react";
-
+import { CreateInvestorDto } from "@/services/investor";
+import useAccount from "../hooks/useAccount";
+import useUserAuth from "@/hooks/auth/useAuth";
 
 interface Props {
   investorDetails: InvestorInfoValidation;
@@ -58,6 +60,9 @@ const InvestorInformation = ({
     resolver: zodResolver(InvestorInfoSchema),
     defaultValues: investorDetails,
   });
+
+  const { user } = useUserAuth();
+  const creatorId = user?.userId as string;
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
@@ -98,6 +103,75 @@ const InvestorInformation = ({
     form.setValue("lastName", userProfile?.lastName || "");
   }, [userProfile]);
 
+  const {
+    createInvestorInformation,
+    createdInvestorInformation,
+    isCreatingInvestorInformation,
+  } = useAccount(creatorId);
+
+  const handleSubmit = () => {
+    const createInvestorInformationDto = new FormData();
+    createInvestorInformationDto.append(
+      "investor_type",
+      investorDetails.typeOfInvestmentPreferred
+    );
+
+    createInvestorInformationDto.append(
+      "investor_phonenumber",
+      investorDetails.phone as string
+    );
+    createInvestorInformationDto.append(
+      "investor_nationality",
+      investorDetails.nationality
+    );
+    createInvestorInformationDto.append(
+      "investor_country_residence",
+      investorDetails.countryOfResidence
+    );
+    createInvestorInformationDto.append(
+      "investor_residence_city",
+      investorDetails.city
+    );
+    createInvestorInformationDto.append(
+      "investor_status",
+      investorDetails.investorStatus
+    );
+    if (profileImageFile) {
+      createInvestorInformationDto.append(
+        "investor_image",
+        profileImageFile as File
+      );
+    }
+    createInvestorInformationDto.append(
+      "investor_annual_income",
+      investorDetails.annualIncome
+    );
+    createInvestorInformationDto.append(
+      "investor_investment_duration",
+      investorDetails.howLongDoYouPlanToInvest
+    );
+    createInvestorInformationDto.append(
+      "investor_investment_goal",
+      investorDetails.goal
+    );
+    createInvestorInformationDto.append(
+      "investor_liquidity_importance",
+      investorDetails.liquidityImportance
+    );
+    createInvestorInformationDto.append(
+      "investor_experience",
+      investorDetails.investmentExperience
+    );
+
+    const payload = {
+      userId: creatorId,
+      createInvestorDto:
+        createInvestorInformationDto as unknown as CreateInvestorDto,
+    };
+
+    createInvestorInformation(payload);
+  };
+
   const onSubmit = (values: InvestorInfoValidation) => {
     if (!profileImageFile && !selectedImage) {
       toast({
@@ -107,15 +181,21 @@ const InvestorInformation = ({
       return;
     }
     handleInvestor(values);
-    handleNext();
+    handleSubmit();
   };
+
+  useEffect(() => {
+    if (createdInvestorInformation) {
+      handleNext();
+    }
+  });
 
   return (
     <div className="w-full px-6">
       <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
         Investor Information
       </h2>
-      <MobileStepper numberOfSteps={3} currentStep={2} />
+      <MobileStepper numberOfSteps={3} currentStep={1} />
 
       <div className="mt-8">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
@@ -468,6 +548,7 @@ const InvestorInformation = ({
                 />
 
                 <Button
+                  loading={isCreatingInvestorInformation}
                   type="submit"
                   className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
                 >

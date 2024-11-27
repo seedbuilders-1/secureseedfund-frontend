@@ -13,6 +13,9 @@ import { useParams } from "next/navigation";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import UploadMilestoneProof from "../../components/UploadMilestoneProof";
 import moment from "moment";
+import { useStartupControllerGetStartupInvestmentsQuery } from "@/services/startup";
+import useUserAuth from "@/hooks/auth/useAuth";
+import { thousandFormatter } from "@/lib/helpers";
 
 const CampaignDetail = ({ params }: { params: { id: string } }) => {
   const { campaignId } = useParams();
@@ -23,6 +26,18 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
   const { singleCampaign, loadingSingleCampaign } = useCampaign({
     campaignIdParam,
   });
+
+  const { user } = useUserAuth();
+
+  const { data: startupInvestments } =
+    useStartupControllerGetStartupInvestmentsQuery({
+      startupId: user?.userId as string,
+    });
+  const investments = startupInvestments?.length
+    ? startupInvestments[0].campaignInformation[
+        startupInvestments[0].campaignInformation.length - 1
+      ]
+    : null;
 
   const daysLeft = Math.max(
     0,
@@ -56,7 +71,11 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
             <div className="text-center">
               <FundingCard
                 text="Funding Raised"
-                value={50000}
+                value={`₦${thousandFormatter(
+                  investments?.investment_balance
+                    ? parseFloat(investments.investment_balance)
+                    : 0
+                )}`}
                 icon={<IconParkOutline />}
               />
             </div>
@@ -97,8 +116,8 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
                     <td className="border-t py-2 px-4">
                       ${milestone.targetAmount}
                     </td>
-                    <td className="border-t py-2 px-4 text-green-600">
-                      Completed
+                    <td className="border-t py-2 px-4 ">
+                      <span className="text-yellow-400">In Progress</span>
                     </td>
                     <td className="border-t py-2 px-4">
                       {milestone.proof ? (

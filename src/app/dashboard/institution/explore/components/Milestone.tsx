@@ -27,9 +27,9 @@ const Milestones = ({ currentCampaign }: Props) => {
                 <p className="text-black text-[0.9rem]">
                   {milestone.milestoneDescription}
                 </p>
-                <div className="bg-[#CEECDB] rounded-3xl text-[#0F8B3A] mt-2 text-center px-1 py-1 text-[12px]">
+                <div className="mt-2 px-1 py-1 text-[12px] border border-[#EAB80A] rounded-2xl text-[#EAB80A] text-center bg-[#FFFAE8]">
                   <div className="flex justify-center items-center">
-                    Achieved
+                    {milestone?.is_completed ? "Achieved" : "In Progress"}
                   </div>
                 </div>
               </div>

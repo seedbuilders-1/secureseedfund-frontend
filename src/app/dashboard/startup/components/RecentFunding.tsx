@@ -23,11 +23,14 @@ const RecentFunding = ({ currentCampaign }: Props) => {
     );
   }
 
-  const endDate = moment(currentCampaign.endDate);
-  const startDate = moment(currentCampaign.startDate);
-  const daysLeft = Math.max(endDate.diff(startDate, "days"), 0);
+  const daysLeft = Math.max(
+    0,
+    moment(currentCampaign?.endDate).diff(moment(), "days")
+  );
   const lastMilestone =
     currentCampaign.milestones[currentCampaign.milestones.length - 1];
+
+  console.log("sadiq", lastMilestone.is_completed);
 
   const FundingInfo = ({
     title,
@@ -84,7 +87,7 @@ const RecentFunding = ({ currentCampaign }: Props) => {
               {lastMilestone?.milestoneTitle}
             </p>
             <div className="border border-[#EAB80A] rounded-2xl text-[#EAB80A] text-center bg-[#FFFAE8] px-3 py-1 text-[12px] inline-block mt-2">
-              In Progress
+              {lastMilestone.is_completed ? "Achieved" : "In Progress"}
             </div>
           </div>
         </div>

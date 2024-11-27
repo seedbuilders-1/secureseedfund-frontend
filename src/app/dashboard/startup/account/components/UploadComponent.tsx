@@ -95,8 +95,10 @@ const UploadComponent: React.FC<UploadComponentProps> = ({
             </div>
             <div>
               <p className="text-[14px] font-bold">
-                Drag & Drop or{" "}
-                <span className="text-[#6C8C3C]">Click to upload</span>
+                {label}{" "}
+                <span className="text-[#6C8C3C]">
+                  - Drag & Drop or Click to Upload
+                </span>
               </p>
               <p className="text-[12px] text-[#747474] mt-2">
                 Max size: {(maxSize / 1024 / 1024).toFixed(2)}MB
@@ -106,10 +108,12 @@ const UploadComponent: React.FC<UploadComponentProps> = ({
         )}
       </Dropzone>
       {(file || !previewUrl) && (
-        <p className="mt-2 text-sm truncate max-w-full">
-          {file?.name || "Uploaded File"} (
-          {((file?.size ?? 0) / 1024 / 1024).toFixed(2) || "N/A"}MB)
-        </p>
+        <>
+          <p className="mt-2 text-sm truncate max-w-full">
+            {file?.name || "Uploaded File"} (
+            {((file?.size ?? 0) / 1024 / 1024).toFixed(2) || "N/A"}MB)
+          </p>
+        </>
       )}
     </div>
   );

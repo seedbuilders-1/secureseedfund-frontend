@@ -1,9 +1,11 @@
 import api from "../api/apiSlice";
+import { InstitutionKyc } from "../institution/typings";
 import {
   StartupControllerCreateKycApiArg,
   StartupControllerCreateKycApiResponse,
   StartupInvestmentsResponse,
 } from "./typings";
+import { toast } from "@/components/ui/use-toast";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -171,6 +173,21 @@ const injectedRtkApi = api.injectEndpoints({
         method: "POST",
         body: queryArg.createKycDto,
       }),
+      async onQueryStarted(_args, { queryFulfilled: qf }) {
+        qf.then(() => {
+          toast({
+            className:
+              "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
+            title: "Kyc created successfully",
+            variant: "default",
+          });
+        }).catch((err) => {
+          toast({
+            variant: "destructive",
+            title: err?.message ?? "Failed to create Kyc.",
+          });
+        });
+      },
       invalidatesTags: (result, error, arg) => [
         { type: "Startup", id: arg.creatorId },
         { type: "Startup", id: "LIST" },
@@ -591,14 +608,12 @@ export type Institution = {
   createdAt: string;
   updatedAt: string;
 };
-export type Kyc = {
+export type StartupKyc = {
   user: User;
   govt_photo_id: string;
-  proof_of_address: string;
   article_assoc: string;
   memo_assoc: string;
   business_address: string;
-  dir_company_address: string;
   company_status_report: string;
   shareholders_address: string;
   source_of_income: string;
@@ -654,7 +669,7 @@ export type User = {
   startup: Startup;
   investor: Investor;
   institution: Institution;
-  kyc: Kyc;
+  kyc: StartupKyc | InvestorKyc | InstitutionKyc;
   wallet: Wallet;
   investments: Investments[];
   id: string;
@@ -774,7 +789,7 @@ export type Startup = {
   id: string;
   createdAt: string;
   updatedAt: string;
-  kycInformation: Kyc;
+  kycInformation: StartupKyc;
 };
 export type MilestoneDto = {
   milestoneTitle: string;

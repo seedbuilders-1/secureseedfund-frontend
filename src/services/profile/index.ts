@@ -1,4 +1,6 @@
 import api from "../api/apiSlice";
+import { InstitutionKyc } from "../institution/typings";
+import { InvestorKyc, StartupKyc } from "../startup";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     usersControllerGetMe: build.query<
@@ -227,21 +229,7 @@ export type Institution = {
   createdAt: string;
   updatedAt: string;
 };
-export type Kyc = {
-  user: User;
-  idProofUrl: string;
-  identity_number: string;
-  addressProofUrl: string;
-  isApproved: boolean;
-  utility_proof: string;
-  biometric_proof: string;
-  company_tin_number: string;
-  company_status_report: string;
-  company_reg_number: string;
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-};
+
 export type User = {
   email: string;
   firstName: string;
@@ -261,7 +249,7 @@ export type User = {
   startup: Startup;
   investor: Investor;
   institution: Institution;
-  kyc: Kyc;
+  kyc: StartupKyc | InvestorKyc | InstitutionKyc;
   wallet: Wallet;
   investments: Investments[];
   id: string;

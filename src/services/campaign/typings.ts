@@ -5,6 +5,7 @@ export type Milestones = {
   date: string;
   proof?: string;
   id: string;
+  is_completed: boolean;
 };
 
 export type CreateCampaignRequestType = {
