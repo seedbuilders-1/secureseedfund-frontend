@@ -48,42 +48,12 @@ const InstitutionInformation = ({
     defaultValues: institutionDetail,
   });
 
-  const creatorId = user?.userId as string;
-
-  const [
-    createInstitutionAccount,
-    { isLoading: isCreatingInstitution, isSuccess: createdInstitution },
-  ] = useCreateInstitutionMutation();
-
-  const handleSubmit = () => {
-    const createInstitutionDto = {
-      institution_name: institutionDetail.Name,
-      institution_website: institutionDetail.website,
-      institution_reg_number: institutionDetail.registrationNumber,
-      institution_address: institutionDetail.address,
-      institution_funding_size: institutionDetail.fundingSize,
-      institution_industry_of_interest: institutionDetail.industryOfInterest,
-      institution_funding_type: institutionDetail.fundingType,
-    };
-
-    const payload = {
-      userId: creatorId,
-      createInstitutionDto: createInstitutionDto,
-    };
-
-    createInstitutionAccount(payload);
-  };
 
   const onSubmit = (values: InstitutionValidation) => {
     handleInstitutionInfo(values);
-    handleSubmit();
+    handleNext();
   };
 
-  useEffect(() => {
-    if (createdInstitution) {
-      handleNext();
-    }
-  });
   return (
     <div className="p-4 w-full">
       {" "}
@@ -291,7 +261,6 @@ const InstitutionInformation = ({
               />
               <Button
                 type="submit"
-                loading={isCreatingInstitution}
                 className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
               >
                 Proceed

@@ -94,7 +94,7 @@ const InstitutionKyc = ({
       business_address: ["image/"],
       dir_company_address: ["image/"],
       company_status_report: ["application/pdf"],
-      shareholders_address: ["image/"],
+      shareholders_address: ["application/pdf"],
     };
 
     if (
@@ -500,8 +500,8 @@ const InstitutionKyc = ({
               <div className="flex">
                 <Button
                   onClick={() => handleBack}
-                  type="button"
-                  className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
+                  variant="outline"
+                  className="w-full md:w-[30%] rounded-3xl  mt-8"
                 >
                   Back
                 </Button>
