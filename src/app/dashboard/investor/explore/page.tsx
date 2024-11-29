@@ -134,6 +134,25 @@ function Page() {
                     </div>
                   </div>
                 </div>
+                <div className="flex flex-wrap gap-2 mt-4 mb-2">
+                  {(startup?.companyInformation?.tags?.split(",") || [])
+                    .slice(0, 3)
+                    .map((tag: string, index: number) => (
+                      <span
+                        key={index}
+                        className="bg-[#F7F8F9] border border-[#eeeff1] rounded-sm text-[#4B5768] text-[0.9rem] p-2"
+                      >
+                        {tag.trim()}
+                      </span>
+                    ))}
+                  {startup?.companyInformation?.tags &&
+                    startup.companyInformation.tags.split(",").length > 3 && (
+                      <span className="bg-[#F7F8F9] border border-[#eeeff1] rounded-sm text-[#4B5768] text-[0.9rem] p-2">
+                        +{startup.companyInformation.tags.split(",").length - 3}{" "}
+                        more
+                      </span>
+                    )}
+                </div>
               </div>
             </div>
           ))
