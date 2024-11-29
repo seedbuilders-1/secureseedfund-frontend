@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../../../components/ui/button";
 import { listOFIndustries } from "@/lib/utils";
 import { useState } from "react";
+import { MultiSelect } from "@/components/shared/multi-select";
 import {
   CompanyInformationSchema,
   CompanyInformationValidation,
@@ -58,6 +59,20 @@ interface Preview {
   companyRegistration: string | null;
   coverPhoto: string | null;
 }
+const frameworksList = [
+  { value: "Tier 1 VC-Backed", label: "Tier 1 VC-Backed" },
+  { value: "VC-Backed", label: "VC-Backed" },
+  { value: "Notable Angel", label: "Notable Angel" },
+  { value: "Minority Founder", label: "Minority Founder" },
+  { value: "Y Combinator", label: "Y Combinator" },
+  { value: "Female Founder", label: "Female Founder" },
+  { value: "PBC & B Corps", label: "PBC & B Corps" },
+  { value: "Veteran Founder", label: "Veteran Founder" },
+  { value: "Repeat Founder", label: "Repeat Founder" },
+  { value: "Fast Growth", label: "Fast Growth" },
+  { value: "Profitable", label: "Profitable" },
+  { value: "Investment Memo", label: "Investment Memo" },
+];
 
 const CompanyInformation = ({
   handleNext,
@@ -166,6 +181,8 @@ const CompanyInformation = ({
       "company_geography",
       values.geographicfocus
     );
+    // @ts-ignore
+    createCompanyInformationDto.append("tags", values.tags);
     createCompanyInformationDto.append("company_desc", values.companyaddress);
     createCompanyInformationDto.append(
       "company_bullet_point",
@@ -310,7 +327,28 @@ const CompanyInformation = ({
                   </FormItem>
                 )}
               />
-
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Select Tags</FormLabel>
+                    <FormControl>
+                      <MultiSelect
+                        options={frameworksList}
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        placeholder="Select options"
+                        variant="inverted"
+                        animation={2}
+                        maxCount={3}
+                        className="border border-slate-300 py-3 placeholder:text-black"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="contactemail"
@@ -590,7 +628,9 @@ const CompanyInformation = ({
               <br />
               <br className="lg:hidden" />
 
-              <FormLabel>Upload Evidence of Company Registration</FormLabel>
+              <FormLabel>
+                Upload Evidence of Company Certificate of Incorporation
+              </FormLabel>
               <UploadComponent
                 file={files.companyRegistration}
                 handleUpload={handleUpload}
@@ -619,7 +659,7 @@ const CompanyInformation = ({
                   className="w-full md:w-[30%] rounded-3xl mt-8
                 mr-2"
                   variant="outline"
-                  onClick={handleBack}
+                  onClick={() => handleBack}
                 >
                   Back
                 </Button>

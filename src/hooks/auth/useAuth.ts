@@ -17,7 +17,6 @@ const useUserAuth = () => {
   const { toast } = useToast();
   const user = useSelector(selectCurrentUser);
   const accessToken = useSelector(selectAccessToken);
-
   const loginUser = async (values: LoginUserRequestType) => {
     const { email, password } = values;
 
@@ -37,6 +36,7 @@ const useUserAuth = () => {
         accountType,
         userId,
       } = res;
+      console.log(res);
       dispatch(
         setCredentials({
           user: {
@@ -63,7 +63,31 @@ const useUserAuth = () => {
 
   const registerUser = async (values: RegisterUserRequestType) => {
     try {
-      await register(values).unwrap();
+      const res = await register(values).unwrap();
+      const {
+        accessToken,
+        email: userEmail,
+        firstName,
+        lastName,
+        otherName,
+        refreshToken,
+        accountType,
+        userId,
+      } = res;
+      dispatch(
+        setCredentials({
+          user: {
+            email: userEmail,
+            firstName,
+            lastName,
+            otherName: otherName,
+            accountType,
+            userId,
+          },
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        })
+      );
     } catch (err: any) {
       const errorData = JSON.parse(err?.data);
       const errorMessage = errorData?.message;

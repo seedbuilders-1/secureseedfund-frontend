@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   InstitutionValidation,
   institutionInformationSchema,
@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { listOFIndustries, fundingTypes } from "@/lib/utils";
+import { useCreateInstitutionMutation } from "@/services/institution";
 
 interface Props {
   institutionDetail: InstitutionValidation;
@@ -46,10 +47,13 @@ const InstitutionInformation = ({
     resolver: zodResolver(institutionInformationSchema),
     defaultValues: institutionDetail,
   });
+
+
   const onSubmit = (values: InstitutionValidation) => {
     handleInstitutionInfo(values);
     handleNext();
   };
+
   return (
     <div className="p-4 w-full">
       {" "}
@@ -60,7 +64,7 @@ const InstitutionInformation = ({
       <p className="text-[#747474] text-[1rem] text-center">
         Kindly fill in the required details as accurately as possible
       </p>
-      <MobileStepper numberOfSteps={2} currentStep={1} />
+      <MobileStepper numberOfSteps={3} currentStep={1} />
       <div className="mt-8">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
           <Form {...form}>

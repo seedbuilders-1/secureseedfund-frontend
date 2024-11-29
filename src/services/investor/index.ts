@@ -222,7 +222,7 @@ export type InvestorDto = {
   investor_liquidity_importance: string;
 };
 
-export type Kyc = {
+export type InvestorKyc = {
   user: User;
   govt_photo_id: string;
   proof_of_address: string;

@@ -7,6 +7,9 @@ import {
   InstitutionUpdateApiArgs,
   InstitutionnvestInCampaignApiArg,
   InstitutionInvestmentsApiResponse,
+  InstitutionControllerCreateInstitutionKycApiResponse,
+  InstitutionControllerCreateInstitutionKycApiArg,
+  Institution,
 } from "./typings";
 import { toast } from "@/components/ui/use-toast";
 
@@ -63,6 +66,32 @@ const injectedRtkApi = api.injectEndpoints({
       },
       invalidatesTags: ["InvestInCampaign"],
     }),
+    institutionControllerCreateInstitutionKyc: build.mutation<
+      InstitutionControllerCreateInstitutionKycApiResponse,
+      InstitutionControllerCreateInstitutionKycApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/institution/${queryArg.creatorId}/upload-kyc`,
+        method: "POST",
+        body: queryArg.createInstitutionKycDto,
+      }),
+      async onQueryStarted(_args, { queryFulfilled: qf }) {
+        qf.then(() => {
+          toast({
+            className:
+              "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
+            title: "You have Successfully Invested in this company",
+            variant: "default",
+          });
+        }).catch((err) => {
+          toast({
+            variant: "destructive",
+            title: err?.message ?? "oh oh something wrong happened.",
+          });
+        });
+      },
+    }),
+
     updateInstitution: build.mutation<
       InstitutionCreateApiResponse,
       InstitutionUpdateApiArgs
@@ -89,7 +118,7 @@ const injectedRtkApi = api.injectEndpoints({
       },
     }),
 
-    getInstitution: build.query<CreateInstitutionDto, InstitutionGetApiArgs>({
+    getInstitution: build.query<Institution, InstitutionGetApiArgs>({
       query: (queryArg) => ({ url: `/institution/${queryArg.id}` }),
     }),
     getInstitutionsInvestments: build.query<
@@ -112,5 +141,6 @@ export const {
   useGetInstitutionQuery,
   useUpdateInstitutionMutation,
   useInstitutionInvestInCampaignMutation,
+  useInstitutionControllerCreateInstitutionKycMutation,
   useGetInstitutionsInvestmentsQuery,
 } = injectedRtkApi;

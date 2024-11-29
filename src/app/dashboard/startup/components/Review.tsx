@@ -157,7 +157,7 @@ const Review = ({
       {createdCampaign ? (
         <SuccessComponent
           link="/dashboard/startup/campaign"
-          description="Congratulations! Your account information has been successfully submitted for review. Our team will carefully review your submission and get back to you within [X] business days."
+          description="Congratulations! Your account information has been successfully submitted for review. Our team will carefully review your submission and get back to you within 7 business days."
           title="Campaign Successfully Submitted"
         />
       ) : null}

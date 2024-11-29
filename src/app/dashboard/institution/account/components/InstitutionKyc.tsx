@@ -1,4 +1,12 @@
 "use client";
+
+import useUserAuth from "@/hooks/auth/useAuth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FileWithPath } from "react-dropzone";
+import { useForm } from "react-hook-form";
+import { useToast } from "@/components/ui/use-toast";
+import { useEffect, useState } from "react";
+import MobileStepper from "@/app/dashboard/startup/components/MobileStepper";
 import {
   Form,
   FormControl,
@@ -6,19 +14,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../../../components/ui/form";
-import { Input } from "../../../../../components/ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../../../../../components/ui/button";
-import { useState } from "react";
-import { KycSchema, KycValidation } from "@/lib/validations/account";
-import { useToast } from "@/components/ui/use-toast";
-import { useEffect } from "react";
-import { FileWithPath } from "react-dropzone";
-import UploadComponent from "./UploadComponent";
-import MobileStepper from "../../components/MobileStepper";
-import useUserAuth from "@/hooks/auth/useAuth";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -27,15 +24,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import { useStartupControllerCreateKycMutation } from "@/services/startup";
-import useAccount from "../hooks/useAccount";
+import { Button } from "@/components/ui/button";
+import UploadComponent from "@/app/dashboard/startup/account/components/UploadComponent";
+import {
+  InstitutionKycSchema,
+  InstitutionKycValidation,
+} from "@/lib/validations/account";
+import { useInstitutionControllerCreateInstitutionKycMutation } from "@/services/institution";
+import { useGetInstitutionQuery } from "@/services/institution";
 
 interface Files {
   govt_photo_id: FileWithPath | null;
   proof_of_address: FileWithPath | null;
-  memo_assoc: FileWithPath | null;
   article_assoc: FileWithPath | null;
+  memo_assoc: FileWithPath | null;
   business_address: FileWithPath | null;
   dir_company_address: FileWithPath | null;
   company_status_report: FileWithPath | null;
@@ -50,16 +52,23 @@ interface Props {
 }
 interface Preview {
   govt_photo_id: string | null;
-  memo_assoc: string | null;
+  proof_of_address: string | null;
   article_assoc: string | null;
+  memo_assoc: string | null;
   business_address: string | null;
+  dir_company_address: string | null;
   company_status_report: string | null;
   shareholders_address: string | null;
 }
 
-const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
-  const form = useForm<KycValidation>({
-    resolver: zodResolver(KycSchema),
+const InstitutionKyc = ({
+  handleNext,
+  kycFiles,
+  setKycFiles,
+  handleBack,
+}: Props) => {
+  const form = useForm<InstitutionKycValidation>({
+    resolver: zodResolver(InstitutionKycSchema),
   });
 
   const { user } = useUserAuth();
@@ -67,9 +76,9 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
   const [
     createKycInfo,
     { isLoading: isCreatingKycInfo, isSuccess: createdKycInfo },
-  ] = useStartupControllerCreateKycMutation();
+  ] = useInstitutionControllerCreateInstitutionKycMutation();
 
-  const { accountInformation } = useAccount(creatorId);
+  const { data: institutionInfo } = useGetInstitutionQuery({ id: creatorId });
 
   const { toast } = useToast();
 
@@ -79,11 +88,13 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
 
     const fileTypeValidation: Record<string, string[]> = {
       govt_photo_id: ["image/"],
-      memo_assoc: ["application/pdf"],
+      proof_of_address: ["image/"],
       article_assoc: ["application/pdf"],
+      memo_assoc: ["application/pdf"],
       business_address: ["image/"],
+      dir_company_address: ["image/"],
       company_status_report: ["application/pdf"],
-      shareholders_address: ["image/"],
+      shareholders_address: ["application/pdf"],
     };
 
     if (
@@ -105,21 +116,25 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
 
   const [preview, setPreview] = useState<Preview>({
     govt_photo_id: null,
+    proof_of_address: null,
     article_assoc: null,
     memo_assoc: null,
     business_address: null,
+    dir_company_address: null,
     company_status_report: null,
     shareholders_address: null,
   });
 
-  const onSubmit = (values: KycValidation) => {
+  const onSubmit = (values: InstitutionKycValidation) => {
     if (
       (!kycFiles.govt_photo_id && !preview.govt_photo_id) ||
-      (!kycFiles.memo_assoc && !preview.memo_assoc) ||
+      (!kycFiles.proof_of_address && !preview.proof_of_address) ||
       (!kycFiles.article_assoc && !preview.article_assoc) ||
+      (!kycFiles.memo_assoc && !preview.memo_assoc) ||
+      (!kycFiles.business_address && !preview.business_address) ||
+      (!kycFiles.dir_company_address && !preview.dir_company_address) ||
       (!kycFiles.company_status_report && !preview.company_status_report) ||
-      (!kycFiles.shareholders_address && !preview.shareholders_address) ||
-      (!kycFiles.business_address && !preview.business_address)
+      (!kycFiles.shareholders_address && !preview.shareholders_address)
     ) {
       toast({
         variant: "destructive",
@@ -130,25 +145,36 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
       return;
     }
     const createKycInformationDto = new FormData();
-    createKycInformationDto.append(
-      "source_of_income",
-      values.source_of_income as string
-    );
+    createKycInformationDto.append("source_of_income", values.source_of_income);
     createKycInformationDto.append(
       "politically_exposed_person",
-      values.politically_exposed_person as string
+      values.politically_exposed_person
     );
+
+    createKycInformationDto.append("phone_number", values.phone_number);
+    createKycInformationDto.append("full_legal_name", values.full_legal_name);
+    createKycInformationDto.append("email", values.email);
+    createKycInformationDto.append(
+      "company_reg_number",
+      values.company_reg_number
+    );
+
     createKycInformationDto.append("tin", values.tin as string);
 
+    if (kycFiles.proof_of_address) {
+      createKycInformationDto.append(
+        "proof_of_address",
+        kycFiles.proof_of_address
+      );
+    }
     if (kycFiles.govt_photo_id) {
       createKycInformationDto.append("govt_photo_id", kycFiles.govt_photo_id);
     }
-
-    if (kycFiles.memo_assoc) {
-      createKycInformationDto.append("memo_assoc", kycFiles.memo_assoc);
-    }
     if (kycFiles.article_assoc) {
       createKycInformationDto.append("article_assoc", kycFiles.article_assoc);
+    }
+    if (kycFiles.memo_assoc) {
+      createKycInformationDto.append("memo_assoc", kycFiles.memo_assoc);
     }
     if (kycFiles.business_address) {
       createKycInformationDto.append(
@@ -156,7 +182,12 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
         kycFiles.business_address
       );
     }
-
+    if (kycFiles.dir_company_address) {
+      createKycInformationDto.append(
+        "dir_company_address",
+        kycFiles.dir_company_address
+      );
+    }
     if (kycFiles.company_status_report) {
       createKycInformationDto.append(
         "company_status_report",
@@ -169,9 +200,10 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
         kycFiles.shareholders_address
       );
     }
+
     const payload = {
       creatorId: creatorId,
-      createKycDto: createKycInformationDto,
+      createInstitutionKycDto: createKycInformationDto,
     };
     // @ts-ignore
     createKycInfo(payload);
@@ -184,39 +216,51 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
   }, [createdKycInfo]);
 
   useEffect(() => {
-    if (accountInformation?.kycInformation?.id) {
+    if (institutionInfo?.institutionKycInfo?.id) {
       const {
         govt_photo_id,
-        memo_assoc,
-        article_assoc,
-        business_address,
-        company_status_report,
-        shareholders_address,
+        proof_of_address,
         source_of_income,
         politically_exposed_person,
+        article_assoc,
+        memo_assoc,
+        business_address,
+        dir_company_address,
+        company_status_report,
+        shareholders_address,
         tin,
-      } = accountInformation.kycInformation;
+        email,
+        company_reg_number,
+        full_legal_name,
+        phone_number,
+      } = institutionInfo.institutionKycInfo;
 
       form.setValue("source_of_income", source_of_income);
       form.setValue("politically_exposed_person", politically_exposed_person);
+      form.setValue("company_reg_number", company_reg_number);
       form.setValue("tin", tin);
+      form.setValue("full_legal_name", full_legal_name);
+      form.setValue("phone_number", phone_number);
+      form.setValue("email", email);
       setPreview({
         govt_photo_id: govt_photo_id || null,
-        memo_assoc: memo_assoc || null,
+        proof_of_address: proof_of_address || null,
         article_assoc: article_assoc || null,
+        memo_assoc: memo_assoc || null,
         business_address: business_address || null,
+        dir_company_address: dir_company_address || null,
         company_status_report: company_status_report || null,
         shareholders_address: shareholders_address || null,
       });
     }
-  }, [accountInformation, form]);
+  }, [institutionInfo, form]);
   return (
     <div className="w-full px-6">
       <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
         KYC Information
       </h2>
 
-      <MobileStepper numberOfSteps={7} currentStep={2} />
+      <MobileStepper numberOfSteps={3} currentStep={2} />
 
       <div className="mt-8 border border-solid border-[#D8D8E2] rounded-2xl grid place-content-center p-5 lg:p-12">
         <div className="mb-3 flex gap-12 flex-wrap justify-center mt-6">
@@ -225,6 +269,40 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="md:w-[700px] sm:w-[500px]"
             >
+              <FormField
+                control={form.control}
+                name="full_legal_name"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Full Legal Name:</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                        placeholder="Please Enter your Full Legal Name"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Email Address:</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                        placeholder="Please Enter your your email address"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormLabel>Upload Government Photo Id</FormLabel>
               <UploadComponent
                 file={kycFiles.govt_photo_id}
@@ -237,7 +315,17 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
               />
               <br />
               <br className="lg:hidden" />
-
+              <FormLabel>Upload Proof of Address</FormLabel>
+              <UploadComponent
+                previewUrl={preview.proof_of_address ?? undefined}
+                file={kycFiles.proof_of_address}
+                handleUpload={handleUpload}
+                fileType="proof_of_address"
+                maxSize={5 * 1024 * 1024}
+                label="Upload Proof of Address (Image only)"
+              />
+              <br />
+              <br className="lg:hidden" />
               <FormLabel>Upload Memorandum of Association</FormLabel>
               <UploadComponent
                 file={kycFiles.memo_assoc}
@@ -249,7 +337,6 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
               />
               <br />
               <br className="lg:hidden" />
-
               <FormLabel>Upload Article of Association</FormLabel>
               <UploadComponent
                 file={kycFiles.article_assoc}
@@ -261,7 +348,6 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
               />
               <br />
               <br className="lg:hidden" />
-
               <FormLabel>Upload Company Status Report</FormLabel>
               <UploadComponent
                 file={kycFiles.company_status_report}
@@ -269,13 +355,11 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                 previewUrl={preview.company_status_report ?? undefined}
                 fileType="company_status_report"
                 maxSize={30 * 1024 * 1024}
-                label="Upload Proof of Comapny Director's Address (Pdf only)"
+                label="Upload Company Status Report (PDF only)"
               />
               <br />
               <br className="lg:hidden" />
-
               <FormLabel>Upload Proof of Business Address</FormLabel>
-
               <UploadComponent
                 file={kycFiles.business_address}
                 handleUpload={handleUpload}
@@ -283,6 +367,17 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                 fileType="business_address"
                 maxSize={5 * 1024 * 1024}
                 label="Upload Proof of Business Address (Image only)"
+              />
+              <br />
+              <br className="lg:hidden" />
+              <FormLabel>Upload Proof of Company Director Address</FormLabel>
+              <UploadComponent
+                file={kycFiles.dir_company_address}
+                handleUpload={handleUpload}
+                previewUrl={preview.dir_company_address ?? undefined}
+                fileType="dir_company_address"
+                maxSize={5 * 1024 * 1024}
+                label="Upload Proof of Company Director Address Address (Image only)"
               />
               <br />
               <br className="lg:hidden" />
@@ -297,11 +392,27 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                 previewUrl={preview.shareholders_address ?? undefined}
                 fileType="shareholders_address"
                 maxSize={30 * 1024 * 1024}
-                label="Upload Proof of Shareholders Address (Image only)"
+                label="Upload Proof of Shareholders Address (PDF only)"
               />
               <br />
               <br className="lg:hidden" />
-
+              <FormField
+                control={form.control}
+                name="phone_number"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Phone Number:</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                        placeholder="Enter your phone number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="source_of_income"
@@ -319,7 +430,23 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                   </FormItem>
                 )}
               />
-
+              <FormField
+                control={form.control}
+                name="company_reg_number"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 py-2">
+                    <FormLabel>Company Registration Number:</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
+                        placeholder="Enter your Company Registration Number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="tin"
@@ -337,7 +464,6 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="politically_exposed_person"
@@ -373,14 +499,12 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
               />
               <div className="flex">
                 <Button
-                  className="w-full md:w-[30%] rounded-3xl mt-8
-                mr-2"
-                  variant="outline"
                   onClick={() => handleBack}
+                  variant="outline"
+                  className="w-full md:w-[30%] rounded-3xl  mt-8"
                 >
                   Back
                 </Button>
-
                 <Button
                   type="submit"
                   loading={isCreatingKycInfo}
@@ -397,4 +521,4 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
   );
 };
 
-export default Kyc;
+export default InstitutionKyc;

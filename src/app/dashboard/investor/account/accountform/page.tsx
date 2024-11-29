@@ -56,7 +56,7 @@ export default function AccountForm() {
     proof_of_address: null,
   });
 
-  const steps = ["KYC", "Investor Information", "Review and Submit"];
+  const steps = ["Investor Information", "KYC", "Review and Submit"];
 
   return (
     <>

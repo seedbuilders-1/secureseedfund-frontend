@@ -63,11 +63,15 @@ const Milestone = ({
       >
         <div className="mt-8">
           <h2 className="text-[#0F172A] text-[24px] font-medium text-center lg:text-left">
-            Set up Campaign Milstones
+            Set up Campaign Milestones
           </h2>
           <h3 className="text-[#747474] text-[16px] mt-3 text-center lg:text-left">
             Add compelling images or videos to showcase your startup and attract
             potential investors
+          </h3>
+          <h3 className="text-[#747474] text-[16px] mt-3 text-center lg:text-left">
+            It is mandatory to have milestones. Click Add New Milestone to add
+            multiple milestones.
           </h3>
           <div
             className="flex items-center mt-4"
