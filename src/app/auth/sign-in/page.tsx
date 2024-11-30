@@ -40,7 +40,7 @@ const SignInPage = () => {
       password,
     });
   };
-  const { data, isLoading, error, refetch } = useGoogleAuthQuery({});
+  const { data, refetch } = useGoogleAuthQuery({});
   console.log(data);
   const handleGoogleLogin = () => {
     refetch();
