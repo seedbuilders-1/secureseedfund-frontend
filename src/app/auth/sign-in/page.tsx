@@ -40,7 +40,7 @@ const SignInPage = () => {
       password,
     });
   };
-  const { data, refetch } = useGoogleAuthQuery({});
+  const { refetch } = useGoogleAuthQuery({});
   const handleGoogleLogin = () => {
     refetch();
   };

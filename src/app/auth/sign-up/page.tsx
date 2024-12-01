@@ -17,9 +17,7 @@ import useUserAuth from "@/hooks/auth/useAuth";
 import { Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import GetStarted from "../components/GetStarted";
-import { useRouter } from "next/navigation";
 const SignUpPage = () => {
-  const router = useRouter();
   const { loading, registerUser, Registered } = useUserAuth();
   const form = useForm<SignUpValidation>({
     resolver: zodResolver(SignUpSchema),
