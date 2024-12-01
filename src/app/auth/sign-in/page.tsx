@@ -41,7 +41,6 @@ const SignInPage = () => {
     });
   };
   const { data, refetch } = useGoogleAuthQuery({});
-  console.log(data);
   const handleGoogleLogin = () => {
     refetch();
   };

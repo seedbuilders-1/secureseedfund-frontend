@@ -48,7 +48,6 @@ const SignUpPage = () => {
         title: "You have  successfully Created an account",
         variant: "default",
       });
-      router.push("/dashboard");
     }
   }, [Registered]);
 

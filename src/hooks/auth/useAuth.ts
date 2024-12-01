@@ -89,9 +89,10 @@ const useUserAuth = () => {
         })
       );
     } catch (err: any) {
-      const errorData = JSON.parse(err?.data);
-      const errorMessage = errorData?.message;
+      const errorMessage = err?.data?.message;
       toast({
+        className:
+          "top-0 right-0 flex fixed text-white   md:max-w-[420px] md:top-4 md:right-4",
         variant: "destructive",
         title: `${errorMessage || "unable to register"}`,
       });
