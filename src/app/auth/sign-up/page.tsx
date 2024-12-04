@@ -11,6 +11,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useUserAuth from "@/hooks/auth/useAuth";
@@ -18,6 +19,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import GetStarted from "../components/GetStarted";
 const SignUpPage = () => {
+  const router = useRouter();
   const { loading, registerUser, Registered } = useUserAuth();
   const form = useForm<SignUpValidation>({
     resolver: zodResolver(SignUpSchema),
@@ -38,6 +40,7 @@ const SignUpPage = () => {
       accountType: selectedCard,
     });
   };
+
   useEffect(() => {
     if (Registered) {
       toast({
@@ -46,6 +49,7 @@ const SignUpPage = () => {
         title: "You have  successfully Created an account",
         variant: "default",
       });
+      router.push("/confirm-email");
     }
   }, [Registered]);
 

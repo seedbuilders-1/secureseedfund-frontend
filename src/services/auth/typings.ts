@@ -32,3 +32,14 @@ export type AuthResponseType = {
   accountType: string;
   refreshToken: string;
 };
+export type VerifyEmailRequestType = {
+  token: string;
+  email: string;
+};
+
+export type recoverPasswordRequestType = {
+  email: string;
+};
+
+
+
