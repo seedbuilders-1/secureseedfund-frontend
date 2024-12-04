@@ -71,7 +71,7 @@ const Footer = () => {
                 </span>
                 <div className="flex flex-col space-y-4 mt-6">
                   <span className="text-[#0A142F] opacity-[.5] cursor-pointer">
-                    19 mason avenue, Ebbsfleet Valley, Swanscombe, DA10 1DS, UK
+                    19 mason avenue, Ebbsfleet Valley, Swanscombe, DA10 1DS, UK.
                   </span>
                 </div>
               </div>
