@@ -13,7 +13,32 @@ const Footer = () => {
             SecureSeedFund
           </h2>
 
-          <div className="mt-10 w-full grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="mt-10 w-full grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div className="flex flex-col space-y-6">
+              <span className="text-[#0A142F] font-[500] cursor-pointer">
+                Get to Know Us
+              </span>
+              <div className="flex flex-col space-y-4">
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Our story
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Careers
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Blog
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Partnerships
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Career
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Success Stories
+                </span>
+              </div>
+            </div>
             <div className="flex flex-col space-y-6">
               <span className="text-[#0A142F] font-[500] cursor-pointer">
                 Get started
@@ -34,9 +59,6 @@ const Footer = () => {
                 >
                   Account Login
                 </Link>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Success Stories
-                </span>
               </div>
             </div>
             <div className="flex flex-col space-y-6">
@@ -58,9 +80,42 @@ const Footer = () => {
                 Legal & Guides
               </span>
               <div className="flex flex-col space-y-4">
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                <Link
+                  href="/investors"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  Invest Faq
+                </Link>
+                <Link
+                  href="/investors"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  Startup Faq
+                </Link>
+                <Link
+                  href="/investors"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  GuideLines
+                </Link>
+                <Link
+                  href="/privacy-policy"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  href="/terms-service"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  Terms of Service
+                </Link>
+                <Link
+                  href="/disclaimer"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
                   Disclaimer
-                </span>
+                </Link>
               </div>
             </div>
 
@@ -97,15 +152,15 @@ const Footer = () => {
 
           <div className="w-full mt-14 border-t border-[#0A142F] flex flex-col items-center justify-center border-opacity-[.12]">
             <div className="mt-8 flex flex-col space-y-6">
-              <span className="text-[1.2rem] font font-bold opacity-[0.703] text-center">
+              <span className="text-[0.9rem] font font-bold opacity-[0.703] text-left">
                 {" "}
                 Important Notice
               </span>
               <div>
-                <span className="text-[1rem] font-bold opacity-[0.703]  text-left">
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
                   High-Risk Investments
                 </span>
-                <p className="text-[0.9rem] opacity-[0.703] text-left">
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
                   Investments made through the SecureSeedFund platform involve a
                   significant level of risk, including the potential loss of the
                   entire amount invested. These investments are speculative,
@@ -116,10 +171,10 @@ const Footer = () => {
               </div>
 
               <div>
-                <span className="text-[1rem] font-bold opacity-[0.703]  text-left">
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
                   Independent Decision-Making and Due Diligence
                 </span>
-                <p className="text-[0.9rem] opacity-[0.703] text-left">
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
                   Investors are solely responsible for conducting their own
                   thorough examination of any startup and its associated
                   offering terms, including potential risks and merits.
@@ -131,10 +186,10 @@ const Footer = () => {
                 </p>
               </div>
               <div>
-                <span className="text-[1rem] font-bold opacity-[0.703]  text-left">
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
                   Platform Role and Disclaimers
                 </span>
-                <p className="text-[0.9rem] opacity-[0.703] text-left">
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
                   SecureSeedFund is owned and operated by SecureSeedFund Global
                   Limited, a crowdfunding platform. SecureSeedFund is not a
                   registered broker-dealer, investment advisor, or a licensed
@@ -165,10 +220,10 @@ const Footer = () => {
                 </p>
               </div>
               <div>
-                <span className="text-[1rem] font-bold opacity-[0.703]  text-left">
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
                   Investment Risks and Suitability
                 </span>
-                <p className="text-[0.9rem] opacity-[0.703] text-left">
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
                   Investing in startups is inherently speculative, highly
                   illiquid, and carries a high degree of risk. Investments in
                   startups should be viewed as long-term commitments suitable
@@ -185,10 +240,10 @@ const Footer = () => {
                 </p>
               </div>
               <div>
-                <span className="text-[1rem] font-bold opacity-[0.703]  text-left">
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
                   Legal and Regulatory Compliance
                 </span>
-                <p className="text-[0.9rem] opacity-[0.703] text-left">
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
                   Investment opportunities on SecureSeedFund are not available
                   to investors residing in countries where solicitation for such
                   offerings is prohibited. It is the responsibility of investors
@@ -201,7 +256,7 @@ const Footer = () => {
                 <LinkedinIcon />
                 <TwitterIcon />
               </div>
-              <span className="text-[0.9rem] opacity-[0.703] text-center">
+              <span className="text-[0.7rem] opacity-[0.703] text-center">
                 {" "}
                 Copyright © 2024 Secureseedfund.com. All rights reserved.
               </span>
