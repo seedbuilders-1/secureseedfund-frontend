@@ -150,7 +150,7 @@ const SignInPage = () => {
                   />
                   <div
                     onClick={() => setOpenResetPassword(!openResetPassword)}
-                    className="ml-auto my-0 underline"
+                    className="ml-auto my-0 underline cursor-pointer"
                   >
                     <p className="text-sm">Forget Password</p>
                   </div>
