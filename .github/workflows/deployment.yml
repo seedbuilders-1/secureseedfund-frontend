@@ -1,20 +1,20 @@
-deployment.yml 
-===========================
-name: Deploy to cPanel
+name: Deploy-to-cPanel
 on:
   push:
     branches:
-main
+      - main
+
 jobs:
   FTP-Deploy-Action:
     name: FTP-Deploy-Action
     runs-on: ubuntu-latest
     steps:
-uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
-      Deploy to cPanel
-name: FTP-Deploy-Action
+
+      - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
