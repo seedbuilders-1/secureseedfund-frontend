@@ -3,7 +3,6 @@ import {
   InstitutionCreateApiArgs,
   InstitutionCreateApiResponse,
   InstitutionGetApiArgs,
-  CreateInstitutionDto,
   InstitutionUpdateApiArgs,
   InstitutionnvestInCampaignApiArg,
   InstitutionInvestmentsApiResponse,
