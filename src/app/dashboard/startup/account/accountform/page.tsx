@@ -52,7 +52,7 @@ export default function AccountForm() {
     company_status_report: null,
     shareholders_address: null,
   });
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(4);
 
   const [profileImageFile, setProfileImageFile] = useState<FileWithPath | null>(
     null

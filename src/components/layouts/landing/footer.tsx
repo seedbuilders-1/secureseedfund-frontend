@@ -2,6 +2,7 @@ import FacebookIcon from "@/assets/icons/FacebookIcon";
 import LinkedinIcon from "@/assets/icons/LinkedInIcon";
 import TwitterIcon from "@/assets/icons/TwitterIcon";
 import PaddingContainer from "@/components/shared/PaddingContainer";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -12,10 +13,10 @@ const Footer = () => {
             SecureSeedFund
           </h2>
 
-          <div className="mt-10 w-full grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="mt-10 w-full grid grid-cols-1 md:grid-cols-5 gap-8">
             <div className="flex flex-col space-y-6">
               <span className="text-[#0A142F] font-[500] cursor-pointer">
-                Get to know us
+                Get to Know Us
               </span>
               <div className="flex flex-col space-y-4">
                 <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
@@ -31,23 +32,45 @@ const Footer = () => {
                   Partnerships
                 </span>
                 <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Contact us
+                  Career
+                </span>
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Success Stories
                 </span>
               </div>
             </div>
             <div className="flex flex-col space-y-6">
               <span className="text-[#0A142F] font-[500] cursor-pointer">
-                Get Started
+                Get started
               </span>
               <div className="flex flex-col space-y-4">
                 <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Secure seed funds
+                  Secureseedfund
+                </span>
+                <Link
+                  href="/investors"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  Invest Securely
+                </Link>
+                <Link
+                  href="/auth-signin"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  Account Login
+                </Link>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-6">
+              <span className="text-[#0A142F] font-[500] cursor-pointer">
+                Contact
+              </span>
+              <div className="flex flex-col space-y-4">
+                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                  Help Center
                 </span>
                 <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Invest securely
-                </span>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Account login
+                  Contact Us
                 </span>
               </div>
             </div>
@@ -57,21 +80,42 @@ const Footer = () => {
                 Legal & Guides
               </span>
               <div className="flex flex-col space-y-4">
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Investor FAQ
-                </span>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Startup FAQ
-                </span>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
-                  Guidelines
-                </span>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                <Link
+                  href="/investors"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  Invest Faq
+                </Link>
+                <Link
+                  href="/investors"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  Startup Faq
+                </Link>
+                <Link
+                  href="/investors"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  GuideLines
+                </Link>
+                <Link
+                  href="/privacy-policy"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
                   Privacy Policy
-                </span>
-                <span className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer">
+                </Link>
+                <Link
+                  href="/terms-service"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
                   Terms of Service
-                </span>
+                </Link>
+                <Link
+                  href="/disclaimer"
+                  className="text-[#0A142F] font-[500 opacity-[.5] cursor-pointer"
+                >
+                  Disclaimer
+                </Link>
               </div>
             </div>
 
@@ -82,7 +126,7 @@ const Footer = () => {
                 </span>
                 <div className="flex flex-col space-y-4 mt-6">
                   <span className="text-[#0A142F] opacity-[.5] cursor-pointer">
-                    SeedBuilders Innovation Hub. 6A Embu Street. Wuse 2. Abuja
+                    19 mason avenue, Ebbsfleet Valley, Swanscombe, DA10 1DS, UK.
                   </span>
                 </div>
               </div>
@@ -107,45 +151,116 @@ const Footer = () => {
           </div>
 
           <div className="w-full mt-14 border-t border-[#0A142F] flex flex-col items-center justify-center border-opacity-[.12]">
-            <div className="flex items-center space-x-4 mt-8">
-              <FacebookIcon />
-              <LinkedinIcon />
-              <TwitterIcon />
-            </div>
-
             <div className="mt-8 flex flex-col space-y-6">
-              <span className="text-[0.9rem] opacity-[0.703] text-center">
+              <span className="text-[0.9rem] font font-bold opacity-[0.703] text-left">
                 {" "}
-                © 2024 ABC All Rights Reserved.
+                Important Notice
               </span>
-              <span className="text-[0.9rem] opacity-[0.703] text-center">
-                {" "}
-                Lorem Ipsum is simply dummy text
-              </span>
-              <span className="text-[0.9rem] opacity-[0.703] text-center">
-                {" "}
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </span>
-            </div>
+              <div>
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
+                  High-Risk Investments
+                </span>
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
+                  Investments made through the SecureSeedFund platform involve a
+                  significant level of risk, including the potential loss of the
+                  entire amount invested. These investments are speculative,
+                  illiquid, and not suitable for all investors. SecureSeedFund
+                  strongly advises that you do not invest unless you are fully
+                  prepared to bear the total loss of your investment.
+                </p>
+              </div>
 
-            <div className="grid grid-cols-2 gap-6 mt-6">
-              <p className="text-[0.9rem] opacity-[0.703]">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it t
-              </p>
-              <p className="text-[0.9rem] opacity-[0.703]">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it t
-              </p>
+              <div>
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
+                  Independent Decision-Making and Due Diligence
+                </span>
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
+                  Investors are solely responsible for conducting their own
+                  thorough examination of any startup and its associated
+                  offering terms, including potential risks and merits.
+                  SecureSeedFund does not provide investment advice, analysis,
+                  or recommendations. It is essential that you perform
+                  independent due diligence, which may include seeking advice
+                  from qualified financial, legal, and tax professionals, prior
+                  to making any investment decisions.
+                </p>
+              </div>
+              <div>
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
+                  Platform Role and Disclaimers
+                </span>
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
+                  SecureSeedFund is owned and operated by SecureSeedFund Global
+                  Limited, a crowdfunding platform. SecureSeedFund is not a
+                  registered broker-dealer, investment advisor, or a licensed
+                  entity for capital-raising advice. The platform operates
+                  independently of any regulatory agency or body. SecureSeedFund
+                  does not:
+                  <ul className="flex flex-col gap-3 my-4">
+                    <li>
+                      {" "}
+                      ● Recommend or endorse specific startups or investment
+                      opportunities.{" "}
+                    </li>
+                    <li>
+                      ● Participate in negotiations or execution of transactions
+                      for the sale or purchase of shares.
+                    </li>
+                    <li>
+                      ● Verify the adequacy, accuracy, or completeness of
+                      information provided by startups.
+                    </li>
+                  </ul>
+                  All startups and their associated campaigns displayed on this
+                  platform are the sole responsibility of the founders. Any
+                  information presented is intended solely for illustrative
+                  purposes, demonstrating the types of opportunities available.
+                  Full details of campaigns are accessible only to authorized
+                  investors. See additional general disclosures here.
+                </p>
+              </div>
+              <div>
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
+                  Investment Risks and Suitability
+                </span>
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
+                  Investing in startups is inherently speculative, highly
+                  illiquid, and carries a high degree of risk. Investments in
+                  startups should be viewed as long-term commitments suitable
+                  only for investors who:
+                  <ul className="flex flex-col gap-3 my-4">
+                    <li>● Can tolerate a complete loss of capital.</li>
+                    <li>● Do not require liquidity.</li>
+                    <li> ● Understand and accept the unique</li>
+                  </ul>
+                  risks of investing in startups. Each investment opportunity
+                  carries its own set of risks. SecureSeedFund encourages
+                  investors to obtain all necessary information and independent
+                  professional advice before proceeding with any investment.
+                </p>
+              </div>
+              <div>
+                <span className="text-[0.8rem] font-bold opacity-[0.703]  text-left">
+                  Legal and Regulatory Compliance
+                </span>
+                <p className="text-[0.7rem] opacity-[0.703] text-left">
+                  Investment opportunities on SecureSeedFund are not available
+                  to investors residing in countries where solicitation for such
+                  offerings is prohibited. It is the responsibility of investors
+                  to ensure compliance with the laws and regulations of their
+                  country of residence. Potential
+                </p>
+              </div>
+              <div className="flex items-center text-center justify-center space-x-4 mt-8">
+                <FacebookIcon />
+                <LinkedinIcon />
+                <TwitterIcon />
+              </div>
+              <span className="text-[0.7rem] opacity-[0.703] text-center">
+                {" "}
+                Copyright © 2024 Secureseedfund.com. All rights reserved.
+              </span>
             </div>
-            <p className="text-[0.9rem] opacity-[0.703] text-center mt-12">
-              All Rights Reserved
-            </p>
           </div>
         </div>
       </PaddingContainer>

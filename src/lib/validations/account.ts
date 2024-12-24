@@ -69,6 +69,10 @@ export const CompanyInformationSchema = z.object({
   threeorfivepointswhycompanyisagoodinvestment: z
     .string()
     .min(1, "Three points why company is a good investment is required"),
+  tags: z
+    .array(z.string().min(1))
+    .min(1)
+    .nonempty("Please select at least one tag."),
 });
 
 export const KycSchema = z.object({

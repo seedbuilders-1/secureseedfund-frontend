@@ -1,6 +1,5 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { SignInSchema, SignInValidation } from "@/lib/validations/auth";
 import { useForm } from "react-hook-form";
 import {
@@ -23,9 +22,15 @@ import { Eye, EyeOff } from "lucide-react";
 import authLogo from "../../../../public/assets/images/authLogo.png";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SignUpPage from "../sign-up/page";
+import { useGoogleAuthQuery } from "@/services/auth";
 import Link from "next/link";
+import ResetPasswordModal from "../components/ResetPasswordComponent";
 
 const SignInPage = () => {
+  const [openResetPassword, setOpenResetPassword] = useState(false);
+  const handleCloseResetPassword = () => {
+    setOpenResetPassword(!openResetPassword);
+  };
   const form = useForm<SignInValidation>({
     resolver: zodResolver(SignInSchema),
   });
@@ -38,6 +43,10 @@ const SignInPage = () => {
       email,
       password,
     });
+  };
+  const { refetch } = useGoogleAuthQuery({});
+  const handleGoogleLogin = () => {
+    refetch();
   };
 
   return (
@@ -74,7 +83,10 @@ const SignInPage = () => {
             <div className="bg-[#D9D9D93B] rounded-lg p-3 shadow cursor-pointer">
               <Image src={facebook} alt="logo" layout="intrinsic" />
             </div>
-            <div className="bg-[#D9D9D93B] p-3 rounded-lg shadow cursor-pointer">
+            <div
+              onClick={handleGoogleLogin}
+              className="bg-[#D9D9D93B] p-3 rounded-lg shadow cursor-pointer"
+            >
               <Image src={google} alt="logo" layout="intrinsic" />
             </div>
             <div className="bg-[#D9D9D93B] p-3 rounded-lg shadow cursor-pointer">
@@ -95,7 +107,7 @@ const SignInPage = () => {
           <TabsContent value="login" className="w-full md:w-[60%] lg:w-[65%]">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="">
-                <div className="mb-10 flex flex-col space-y-6 w-full">
+                <div className="mb-4 flex flex-col space-y-6 w-full">
                   <FormField
                     control={form.control}
                     name="email"
@@ -136,7 +148,14 @@ const SignInPage = () => {
                       </FormItem>
                     )}
                   />
+                  <div
+                    onClick={() => setOpenResetPassword(!openResetPassword)}
+                    className="ml-auto my-0 underline cursor-pointer"
+                  >
+                    <p className="text-sm">Forget Password</p>
+                  </div>
                 </div>
+
                 <Button
                   type="submit"
                   className="w-full bg-[#241A3F] hover:bg-[#241A3F]/90 rounded-3xl"
@@ -149,6 +168,10 @@ const SignInPage = () => {
           </TabsContent>
         </Tabs>
       </div>
+      <ResetPasswordModal
+        isOpen={openResetPassword}
+        onClose={handleCloseResetPassword}
+      />
     </Fragment>
   );
 };

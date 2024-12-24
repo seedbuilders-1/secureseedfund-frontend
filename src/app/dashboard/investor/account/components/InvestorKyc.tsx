@@ -257,7 +257,7 @@ const InvestorKyc = ({
               />
               <div className="flex">
                 <Button
-                  onClick={handleBack}
+                  onClick={() => handleBack}
                   type="button"
                   className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
                 >

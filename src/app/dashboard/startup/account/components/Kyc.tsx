@@ -269,7 +269,7 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                 previewUrl={preview.company_status_report ?? undefined}
                 fileType="company_status_report"
                 maxSize={30 * 1024 * 1024}
-                label="Upload Proof of Comapny Director's Address (PDF only)"
+                label="Upload Proof of Comapny Director's Address (Pdf only)"
               />
               <br />
               <br className="lg:hidden" />
@@ -282,7 +282,7 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                 previewUrl={preview.business_address ?? undefined}
                 fileType="business_address"
                 maxSize={5 * 1024 * 1024}
-                label="Upload Proof of Business Address (PDF only)"
+                label="Upload Proof of Business Address (Image only)"
               />
               <br />
               <br className="lg:hidden" />
@@ -297,7 +297,7 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                 previewUrl={preview.shareholders_address ?? undefined}
                 fileType="shareholders_address"
                 maxSize={30 * 1024 * 1024}
-                label="Upload Proof of Shareholders Address (PDF only)"
+                label="Upload Proof of Shareholders Address (Image only)"
               />
               <br />
               <br className="lg:hidden" />
@@ -376,7 +376,7 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                   className="w-full md:w-[30%] rounded-3xl mt-8
                 mr-2"
                   variant="outline"
-                  onClick={handleBack}
+                  onClick={() => handleBack}
                 >
                   Back
                 </Button>

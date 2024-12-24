@@ -17,7 +17,6 @@ const useUserAuth = () => {
   const { toast } = useToast();
   const user = useSelector(selectCurrentUser);
   const accessToken = useSelector(selectAccessToken);
-
   const loginUser = async (values: LoginUserRequestType) => {
     const { email, password } = values;
 
@@ -37,6 +36,7 @@ const useUserAuth = () => {
         accountType,
         userId,
       } = res;
+
       dispatch(
         setCredentials({
           user: {
@@ -65,9 +65,10 @@ const useUserAuth = () => {
     try {
       await register(values).unwrap();
     } catch (err: any) {
-      const errorData = JSON.parse(err?.data);
-      const errorMessage = errorData?.message;
+      const errorMessage = err?.data?.message;
       toast({
+        className:
+          "top-0 right-0 flex fixed text-white   md:max-w-[420px] md:top-4 md:right-4",
         variant: "destructive",
         title: `${errorMessage || "unable to register"}`,
       });

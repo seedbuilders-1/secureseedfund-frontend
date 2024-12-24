@@ -100,7 +100,7 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
   const tabs = ["Overview", "About", "Teams", "Milestones"];
   const { user } = useUserAuth();
   const campaignId =
-    startup?.campaignInformation.length &&
+    startup?.campaignInformation?.length &&
     startup?.campaignInformation[startup?.campaignInformation?.length - 1].id;
   const handleInvest = (amount: number) => {
     if (user?.accountType === "institution") {
@@ -129,14 +129,16 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
       router.push(`/dashboard/investor`);
     }
   }, [investedSuccess || institutionSuccess]);
-  const daysLeft = Math.max(
-    0,
-    moment(
-      startup?.campaignInformation[startup?.campaignInformation?.length - 1]
-        .endDate
-    ).diff(moment(), "days")
-  );
-
+  const daysLeft =
+    startup?.campaignInformation && startup.campaignInformation.length > 0
+      ? Math.max(
+          0,
+          moment(
+            startup.campaignInformation[startup.campaignInformation.length - 1]
+              .endDate
+          ).diff(moment(), "days")
+        )
+      : 0;
   if (isLoading) {
     return <LoadingSkeleton />;
   }
@@ -166,10 +168,16 @@ const PremiumStartupPage = ({ hasCampaign, startup, isLoading }: Props) => {
                 type="video/mp4"
               />
             </video>
-            <div className="absolute top-4 left-4 flex items-center gap-2 bg-[#0F8B3A] px-4 py-2 rounded-sm text-white z-10">
-              <span className="text-md font-medium">Days Left: {daysLeft}</span>
-              <Bell className="h-4 w-4" />
-            </div>
+            {(startup?.campaignInformation &&
+              startup.campaignInformation.length > 0) ?? (
+              <div className="absolute top-4 left-4 flex items-center gap-2 bg-[#0F8B3A] px-4 py-2 rounded-sm text-white z-10">
+                <span className="text-md font-medium">
+                  Days Left: {daysLeft}
+                </span>
+                <Bell className="h-4 w-4" />
+              </div>
+            )}
+
             <div className="absolute inset-0 bg-black/40 rounded-sm" />
             <div className="absolute inset-0 flex items-center justify-center">
               <button
