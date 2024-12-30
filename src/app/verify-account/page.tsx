@@ -17,7 +17,9 @@ const EmailVerificationPage = () => {
   const searchParams = useSearchParams();
 
   const email = searchParams.get("email") || "";
-  const token = searchParams.get("token") || "";
+  const token = searchParams.get("key") || "";
+
+  console.log(email, token);
 
   const { refetch, isLoading } = useVerifyEmailQuery({ email, token });
 
