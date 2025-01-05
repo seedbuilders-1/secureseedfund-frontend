@@ -16,16 +16,19 @@ const EmailVerificationPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const email = searchParams.get("email") || "";
-  const token = searchParams.get("token") || "";
+  const encodedEmail = searchParams.get("email") || "";
+  const email = decodeURIComponent(encodedEmail).replace(" ", "%2B");
+  const key = searchParams.get("key") || "";
 
-  const { refetch, isLoading } = useVerifyEmailQuery({ email, token });
-
+  const { refetch, isLoading } = useVerifyEmailQuery({
+    email,
+    key,
+  });
   useEffect(() => {
-    if (email && token) {
+    if (email && key) {
       refetch();
     }
-  }, [email, token, refetch]);
+  }, [email, key]);
 
   if (isLoading) {
     return <LoadingSpinner className="mt-[10rem]" />;
@@ -34,9 +37,7 @@ const EmailVerificationPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <Card className="max-w-[600px] w-full ">
         <CardHeader className="text-center">
-          <h1 className="text-[2rem] font-medium text-[#0F8B3A]">
-            Verification Successfull
-          </h1>
+          <h1 className="text-[2rem] font-medium">Verification Successful</h1>
         </CardHeader>
         <CardContent>
           <p className="text-center text-gray-600">
