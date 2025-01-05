@@ -59,9 +59,26 @@ const auth = api.injectEndpoints({
       }),
     }),
     verifyEmail: build.query<any, VerifyEmailRequestType>({
-      query: (queryArg) => ({
-        url: `/auth/verify-email`,
+      query: (payload) => ({
+        url: `/auth/verify-email?email=${payload.email}&key=${payload.key}`,
+        responseHandler: (response) => response.json(),
       }),
+      async onQueryStarted(_args, { queryFulfilled: qf }) {
+        ``;
+        qf.then(() => {
+          toast({
+            className:
+              "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
+            title: "Email Verified Successfully",
+            variant: "default",
+          });
+        }).catch((err) => {
+          toast({
+            variant: "destructive",
+            title: err?.error.data.message ?? "oh oh something wrong happened.",
+          });
+        });
+      },
     }),
     googleAuthCallback: build.query<AuthResponseType, any>({
       query: (payload) => {

@@ -4,6 +4,7 @@ export type LoginUserRequestType = {
   password: string;
 };
 
+
 export type RegisterUserRequestType = {
   email: string;
   firstName: string;
@@ -32,8 +33,9 @@ export type AuthResponseType = {
   accountType: string;
   refreshToken: string;
 };
+
 export type VerifyEmailRequestType = {
-  token: string;
+  key: string;
   email: string;
 };
 
