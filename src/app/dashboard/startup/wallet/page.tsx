@@ -87,7 +87,7 @@ function WalletPage() {
             </h2>
             <p className="text-center text-[#0F8B3A] text-[1.2rem] font-semibold">
               {" "}
-              {walletData?.investment_balance || 0.0}
+              {(walletData as any)?.investment_balance || 0.0}
             </p>
 
             <div className="flex justify-between gap-3 mt-5">
