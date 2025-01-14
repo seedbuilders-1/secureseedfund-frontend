@@ -101,7 +101,9 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
                   </th>
                   <th className="py-2 px-4 text-left">Funding Goal</th>
                   <th className="py-2 px-4 text-left">Status</th>
-                  <th className="py-2 px-4 text-left">Upload</th>
+                  <th className="py-2 px-4 text-left">
+                    Upload Proof of Completion
+                  </th>
                 </tr>
               </thead>
               <tbody>

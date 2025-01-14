@@ -73,10 +73,21 @@ const auth = api.injectEndpoints({
             variant: "default",
           });
         }).catch((err) => {
-          toast({
-            variant: "destructive",
-            title: err?.error.data.message ?? "oh oh something wrong happened.",
-          });
+          console.log(err);
+          if (err?.error?.data === "Email verified succesfully") {
+            toast({
+              className:
+                "top-0 right-0 flex fixed text-white  bg-green-600 md:max-w-[420px] md:top-4 md:right-4",
+              title: "Email Verified Successfully",
+              variant: "default",
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title:
+                err?.error.data.message ?? "oh oh something wrong happened.",
+            });
+          }
         });
       },
     }),
