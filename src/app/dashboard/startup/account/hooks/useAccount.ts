@@ -152,7 +152,7 @@ const useAccount = (creatorId?: string) => {
       console.log(err);
       toast({
         variant: "destructive",
-        title: err?.data.message ?? "Uh oh! Something went wrong.",
+        title: err?.data?.message ?? "Uh oh! Something went wrong.",
       });
     }
   };

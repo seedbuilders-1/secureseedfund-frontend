@@ -6,8 +6,11 @@ import LoadingSkeleton from "../components/LoadingSkeleton";
 import BasicStartupPage from "@/components/startup-profile/BasicStartupPage";
 import moment from "moment";
 import PremiumStartupPage from "@/components/startup-profile/PremiumStartupPage";
+import useProfile from "@/hooks/profile/useProfile";
 const StartupDetail = () => {
   const { startupdetail } = useParams();
+
+  const { userProfile } = useProfile();
 
   const startupId = Array.isArray(startupdetail)
     ? startupdetail[0]
@@ -30,7 +33,7 @@ const StartupDetail = () => {
   }
   return (
     <>
-      {startup?.creator_id.subscription_plan === "basic" ? (
+      {userProfile?.subscription_plan === "basic" ? (
         <BasicStartupPage startup={startup} isLoading={isLoading} />
       ) : (
         <PremiumStartupPage

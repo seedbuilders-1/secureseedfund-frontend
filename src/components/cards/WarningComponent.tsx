@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface Props {
   title: string;
@@ -8,6 +10,11 @@ interface Props {
   linkTitle: string;
 }
 const WarningComponent = ({ title, showLink, linkTitle }: Props) => {
+  const pathname = usePathname();
+
+  const pathSegments = pathname.split("/");
+  const basePath = `${pathSegments[1]}/${pathSegments[2]}`;
+
   return (
     <div className="flex justify-center items-center my-6 flex-wrap">
       <div className="border-[3px] p-3 md:p-7 border-solid w-full md:mx-32 flex gap-5 items-center text-[#fff] border-[#0F8B3A] bg-[#0F8B3A]  rounded-lg mb-4">
@@ -22,7 +29,7 @@ const WarningComponent = ({ title, showLink, linkTitle }: Props) => {
           {showLink && (
             <Link
               className="  text-[0.8rem] ml-4 border border-[#CDEED3] bg-[#CDEED3]  text-[#0F8B3A] p-1 md:p-2 rounded-md"
-              href={"/dashboard/startup/pricing"}
+              href={`/${basePath}/pricing`}
             >
               {linkTitle}
             </Link>

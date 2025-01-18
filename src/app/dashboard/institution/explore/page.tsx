@@ -12,12 +12,16 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import useExplore from "./hooks/useExplore";
-import { listOFIndustries } from "@/lib/utils";
+import { industryList } from "@/lib/utils";
 import { thousandFormatter } from "@/lib/helpers";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PaginationControls from "@/components/shared/PaginationControls";
 import { Skeleton } from "@/components/ui/skeleton";
+import WarningComponent from "@/components/cards/WarningComponent";
+import useUserAuth from "@/hooks/auth/useAuth";
+import useProfile from "@/hooks/profile/useProfile";
+import { useToast } from "@/components/ui/use-toast";
 
 function Page() {
   const [searchText, setSearchText] = useState("");
@@ -25,8 +29,42 @@ function Page() {
   const { allStartupsData, loadingAllStartupData, handlePageChange, page } =
     useExplore({ searchText, industry });
   const router = useRouter();
+  const { user } = useUserAuth();
+  const { userProfile } = useProfile();
+  const { toast } = useToast();
+
+  const clickCard = (id: string) => {
+    if (userProfile?.subscription_plan === "free") {
+      toast({
+        variant: "destructive",
+        title: "Upgrade your account to view a startup.",
+      });
+    } else {
+      router.push(`/dashboard/institution/explore/${id}`);
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 ">
+      <div className="p-4">
+        <WarningComponent
+          showLink={true}
+          title={`Hello ${user?.firstName}, you are currently on the ${
+            userProfile?.subscription_plan
+          } plan which ${
+            userProfile?.subscription_plan === "premium"
+              ? "grants you access to all our premium features."
+              : userProfile?.subscription_plan === "basic"
+              ? "provides you with great features, but you can upgrade to premium to view startups full profile."
+              : "allows you to set up an account with us. Kindly upgrade to a paid plan to explore startups."
+          }`}
+          linkTitle={
+            userProfile?.subscription_plan === "premium"
+              ? "View Plans"
+              : "Upgrade Now"
+          }
+        />
+      </div>
       <div className="flex-wrap flex  gap-4 mb-[4rem] mt-[2rem] mx-auto  max-w-[1200px] md:flex-nowrap">
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
@@ -45,7 +83,7 @@ function Page() {
           <SelectContent>
             <SelectGroup className="bg-white">
               <SelectLabel>Industry</SelectLabel>
-              {listOFIndustries.map((opt: string, idx: number) => (
+              {industryList.map((opt: string, idx: number) => (
                 <SelectItem key={idx} className="capitalize" value={opt}>
                   {opt}
                 </SelectItem>
@@ -72,9 +110,7 @@ function Page() {
           allStartupsData?.items.map((startup: any) => (
             <div
               key={startup.id}
-              onClick={() =>
-                router.push(`/dashboard/institution/explore/${startup.id}`)
-              }
+              onClick={() => clickCard(startup.id)}
               className="bg-white rounded-xl border cursor-pointer border-[#0000001A] overflow-hidden w-[390px] h-[550px] transition-transform duration-300 hover:-translate-y-1 hover:border-[##0F8B3A] "
             >
               <div className="relative aspect-[16/9] w-full overflow-hidden">

@@ -20,19 +20,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   institutionInformationSchema,
   InstitutionValidation,
 } from "@/lib/validations/account";
 import { CreateInstitutionDto } from "@/services/institution/typings";
 import { useUpdateInstitutionMutation } from "@/services/institution";
+import { MultiSelect } from "@/components/shared/multi-select";
 
 interface Props {
   accountInformation: CreateInstitutionDto | undefined;
@@ -59,7 +52,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
       institution_reg_number: values.registrationNumber,
       institution_address: values.address,
       institution_website: values.website,
-      institution_industry_of_interest: values.industryOfInterest,
+      institution_industry_of_interest: values.industryOfInterest as any,
       institution_funding_type: values.fundingType,
       institution_funding_size: values.fundingSize,
     };
@@ -79,7 +72,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
       form.setValue("fundingType", accountInformation.institution_funding_type);
       form.setValue(
         "industryOfInterest",
-        accountInformation.institution_industry_of_interest
+        accountInformation.institution_industry_of_interest as any
       );
       form.setValue("website", accountInformation.institution_website);
       form.setValue(
@@ -99,7 +92,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
             userProfile?.subscription_plan === "premium"
               ? "grants you access to all our premium features."
               : userProfile?.subscription_plan === "basic"
-              ? "provides you with great features, but you can upgrade to premium to allow investors see your full profile."
+              ? "provides you with great features, but you can upgrade to premium to view complete startup profiles."
               : "allows you to set up an account with us. Kindly upgrade to a paid plan to enjoy more features."
           }`}
           linkTitle={
@@ -110,6 +103,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
         />
 
         <div className="mt-4 max-w-[1000px] mx-auto">
+          <h1 className="font-bold text-[25px]">Account Settings</h1>
           <div className=" border border-solid border-[#D8D8E2] rounded-2xl  p-5">
             <Form {...form}>
               <form
@@ -141,6 +135,7 @@ const AccountSettings = ({ accountInformation }: Props) => {
                       <FormLabel>Institution Registration Number</FormLabel>
                       <FormControl>
                         <Input
+                          disabled={true}
                           className="py-[1.5rem] md:py-[1.9rem] rounded-[10px] md:rounded-[48px]"
                           placeholder="Provide Institution Registration Number"
                           {...field}
@@ -190,32 +185,19 @@ const AccountSettings = ({ accountInformation }: Props) => {
                   control={form.control}
                   name="industryOfInterest"
                   render={({ field }) => (
-                    <FormItem className="col-span-2 py-2">
-                      <FormLabel>Industry of Interest</FormLabel>
+                    <FormItem>
+                      <FormLabel>Select Industries</FormLabel>
                       <FormControl>
-                        <Select
-                          value={field.value}
-                          onValueChange={(value) => field.onChange(value)}
-                        >
-                          <SelectTrigger className="w-full capitalize">
-                            <SelectValue placeholder="Select....." />
-                          </SelectTrigger>
-                          <SelectContent className="w-full bg-white">
-                            <SelectGroup>
-                              {listOFIndustries.map(
-                                (opt: string, idx: number) => (
-                                  <SelectItem
-                                    key={idx}
-                                    className="capitalize"
-                                    value={opt}
-                                  >
-                                    {opt}
-                                  </SelectItem>
-                                )
-                              )}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
+                        <MultiSelect
+                          options={listOFIndustries}
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          placeholder="Select options"
+                          variant="inverted"
+                          animation={2}
+                          maxCount={3}
+                          className="border border-slate-300 py-3 placeholder:text-black"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

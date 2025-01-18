@@ -24,7 +24,7 @@ const Header = () => {
     <>
       {isDesktop ? (
         <header className="w-full bg-[#ffff] left-0 top-0 z-10 flex items-center md:flex-col ">
-          <div className="bg-[#0F8B3A] flex w-full items-center justify-center p-[1rem]">
+          <div className="bg-[#0F8B3A] hidden flex w-full items-center justify-center p-[1rem]">
             <p className="text-[#FFFFFF] text-[12px]">
               We will pay you <span className="text-[#93F3A5]">$50</span> just
               for referring an eligible{" "}
@@ -33,7 +33,9 @@ const Header = () => {
             </p>
           </div>
           <nav className="flex w-full items-center justify-between">
-            <Image src={LOGO} alt="Logo" className="px-5 py-7" />
+            <Link href="/">
+              <Image src={LOGO} alt="Logo" className="px-5 py-7" />
+            </Link>
             <NavigationMenu>
               <NavigationMenuList>
                 {/* Navigation Items */}
@@ -77,7 +79,9 @@ const Header = () => {
         <div className="w-full bg-white px-[1.5rem]">
           <Drawer direction="right">
             <div className="flex justify-between">
-              <Image src={LOGO} alt="Logo" className="px-5 py-7" />
+              <Link href="/">
+                <Image src={LOGO} alt="Logo" className="px-5 py-7" />
+              </Link>
               <DrawerTrigger className="px-4 py-8">
                 <MenuIcon />
               </DrawerTrigger>

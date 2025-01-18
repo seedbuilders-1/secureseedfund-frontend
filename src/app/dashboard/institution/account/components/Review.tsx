@@ -25,7 +25,8 @@ const Review = ({ handleBack, institutionDetail, setStep }: Props) => {
       institution_reg_number: institutionDetail.registrationNumber,
       institution_address: institutionDetail.address,
       institution_website: institutionDetail.website,
-      institution_industry_of_interest: institutionDetail.industryOfInterest,
+      institution_industry_of_interest:
+        institutionDetail.industryOfInterest as any,
       institution_funding_type: institutionDetail.fundingType,
       institution_funding_size: institutionDetail.fundingSize,
     };

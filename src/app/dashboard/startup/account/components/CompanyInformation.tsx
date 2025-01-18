@@ -11,7 +11,7 @@ import { Input } from "../../../../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../../../components/ui/button";
-import { listOFIndustries } from "@/lib/utils";
+import { industryList } from "@/lib/utils";
 import { useState } from "react";
 import { MultiSelect } from "@/components/shared/multi-select";
 import {
@@ -424,17 +424,15 @@ const CompanyInformation = ({
                           </SelectTrigger>
                           <SelectContent className="w-full bg-white">
                             <SelectGroup>
-                              {listOFIndustries.map(
-                                (opt: string, idx: number) => (
-                                  <SelectItem
-                                    key={idx}
-                                    className="capitalize"
-                                    value={opt}
-                                  >
-                                    {opt}
-                                  </SelectItem>
-                                )
-                              )}
+                              {industryList.map((opt: string, idx: number) => (
+                                <SelectItem
+                                  key={idx}
+                                  className="capitalize"
+                                  value={opt}
+                                >
+                                  {opt}
+                                </SelectItem>
+                              ))}
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -659,7 +657,7 @@ const CompanyInformation = ({
                   className="w-full md:w-[30%] rounded-3xl mt-8
                 mr-2"
                   variant="outline"
-                  onClick={() => handleBack}
+                  onClick={handleBack}
                 >
                   Back
                 </Button>

@@ -376,7 +376,7 @@ const Kyc = ({ handleNext, handleBack, kycFiles, setKycFiles }: Props) => {
                   className="w-full md:w-[30%] rounded-3xl mt-8
                 mr-2"
                   variant="outline"
-                  onClick={() => handleBack}
+                  onClick={handleBack}
                 >
                   Back
                 </Button>

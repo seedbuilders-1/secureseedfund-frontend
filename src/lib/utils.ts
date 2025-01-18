@@ -22,7 +22,7 @@ export const formatCurrency = (value: number) => {
   }).format(value);
 };
 
-export const listOFIndustries = [
+export const industryList = [
   "Aerospace",
   "Agriculture",
   "Business Management",
@@ -53,6 +53,54 @@ export const listOFIndustries = [
   "Sports",
   "Textile industry and fashion",
   "Travel",
+];
+
+export const listOFIndustries = [
+  { value: "Aerospace", label: "Aerospace" },
+  { value: "Agriculture", label: "Agriculture" },
+  { value: "Business Management", label: "Business Management" },
+  {
+    value: "Chemistry, Pharma and Biotech",
+    label: "Chemistry, Pharma and Biotech",
+  },
+  {
+    value: "Construction and real estate",
+    label: "Construction and real estate",
+  },
+  { value: "Consulting", label: "Consulting" },
+  { value: "E-government", label: "E-government" },
+  { value: "Education", label: "Education" },
+  { value: "Energy", label: "Energy" },
+  { value: "Environment and Resources", label: "Environment and Resources" },
+  { value: "Fairs and Events", label: "Fairs and Events" },
+  { value: "Finance", label: "Finance" },
+  { value: "Food and consumer goods", label: "Food and consumer goods" },
+  { value: "Gaming", label: "Gaming" },
+  { value: "Health and Machine", label: "Health and Machine" },
+  { value: "Industry", label: "Industry" },
+  {
+    value: "Information and communication technology",
+    label: "Information and communication technology",
+  },
+  { value: "Insurance", label: "Insurance" },
+  { value: "Legal", label: "Legal" },
+  { value: "Logistics", label: "Logistics" },
+  {
+    value: "Media and creative industries",
+    label: "Media and creative industries",
+  },
+  { value: "Mobility", label: "Mobility" },
+  { value: "New Works", label: "New Works" },
+  { value: "Retail and e commerce", label: "Retail and e commerce" },
+  { value: "Security and defense", label: "Security and defense" },
+  { value: "Smart city", label: "Smart city" },
+  { value: "Social and culture", label: "Social and culture" },
+  { value: "Sports", label: "Sports" },
+  {
+    value: "Textile industry and fashion",
+    label: "Textile industry and fashion",
+  },
+  { value: "Travel", label: "Travel" },
 ];
 
 export const fundingTypes = [

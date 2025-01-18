@@ -35,11 +35,9 @@ import { useGetInstitutionQuery } from "@/services/institution";
 
 interface Files {
   govt_photo_id: FileWithPath | null;
-  proof_of_address: FileWithPath | null;
   article_assoc: FileWithPath | null;
   memo_assoc: FileWithPath | null;
   business_address: FileWithPath | null;
-  dir_company_address: FileWithPath | null;
   company_status_report: FileWithPath | null;
   shareholders_address: FileWithPath | null;
 }
@@ -52,11 +50,9 @@ interface Props {
 }
 interface Preview {
   govt_photo_id: string | null;
-  proof_of_address: string | null;
   article_assoc: string | null;
   memo_assoc: string | null;
   business_address: string | null;
-  dir_company_address: string | null;
   company_status_report: string | null;
   shareholders_address: string | null;
 }
@@ -88,11 +84,9 @@ const InstitutionKyc = ({
 
     const fileTypeValidation: Record<string, string[]> = {
       govt_photo_id: ["image/"],
-      proof_of_address: ["image/"],
       article_assoc: ["application/pdf"],
       memo_assoc: ["application/pdf"],
       business_address: ["image/"],
-      dir_company_address: ["image/"],
       company_status_report: ["application/pdf"],
       shareholders_address: ["application/pdf"],
     };
@@ -116,11 +110,9 @@ const InstitutionKyc = ({
 
   const [preview, setPreview] = useState<Preview>({
     govt_photo_id: null,
-    proof_of_address: null,
     article_assoc: null,
     memo_assoc: null,
     business_address: null,
-    dir_company_address: null,
     company_status_report: null,
     shareholders_address: null,
   });
@@ -128,11 +120,9 @@ const InstitutionKyc = ({
   const onSubmit = (values: InstitutionKycValidation) => {
     if (
       (!kycFiles.govt_photo_id && !preview.govt_photo_id) ||
-      (!kycFiles.proof_of_address && !preview.proof_of_address) ||
       (!kycFiles.article_assoc && !preview.article_assoc) ||
       (!kycFiles.memo_assoc && !preview.memo_assoc) ||
       (!kycFiles.business_address && !preview.business_address) ||
-      (!kycFiles.dir_company_address && !preview.dir_company_address) ||
       (!kycFiles.company_status_report && !preview.company_status_report) ||
       (!kycFiles.shareholders_address && !preview.shareholders_address)
     ) {
@@ -161,12 +151,6 @@ const InstitutionKyc = ({
 
     createKycInformationDto.append("tin", values.tin as string);
 
-    if (kycFiles.proof_of_address) {
-      createKycInformationDto.append(
-        "proof_of_address",
-        kycFiles.proof_of_address
-      );
-    }
     if (kycFiles.govt_photo_id) {
       createKycInformationDto.append("govt_photo_id", kycFiles.govt_photo_id);
     }
@@ -182,12 +166,7 @@ const InstitutionKyc = ({
         kycFiles.business_address
       );
     }
-    if (kycFiles.dir_company_address) {
-      createKycInformationDto.append(
-        "dir_company_address",
-        kycFiles.dir_company_address
-      );
-    }
+
     if (kycFiles.company_status_report) {
       createKycInformationDto.append(
         "company_status_report",
@@ -219,13 +198,11 @@ const InstitutionKyc = ({
     if (institutionInfo?.institutionKycInfo?.id) {
       const {
         govt_photo_id,
-        proof_of_address,
         source_of_income,
         politically_exposed_person,
         article_assoc,
         memo_assoc,
         business_address,
-        dir_company_address,
         company_status_report,
         shareholders_address,
         tin,
@@ -244,11 +221,9 @@ const InstitutionKyc = ({
       form.setValue("email", email);
       setPreview({
         govt_photo_id: govt_photo_id || null,
-        proof_of_address: proof_of_address || null,
         article_assoc: article_assoc || null,
         memo_assoc: memo_assoc || null,
         business_address: business_address || null,
-        dir_company_address: dir_company_address || null,
         company_status_report: company_status_report || null,
         shareholders_address: shareholders_address || null,
       });
@@ -303,7 +278,7 @@ const InstitutionKyc = ({
                   </FormItem>
                 )}
               />
-              <FormLabel>Upload Government Photo Id</FormLabel>
+              <FormLabel>Upload Government Photo Id of Director</FormLabel>
               <UploadComponent
                 file={kycFiles.govt_photo_id}
                 previewUrl={preview.govt_photo_id ?? undefined}
@@ -311,18 +286,7 @@ const InstitutionKyc = ({
                 fileType="govt_photo_id"
                 accept={{ "images/": [".jpeg, .jpg, .png"] }}
                 maxSize={5 * 1024 * 1024}
-                label="Upload GOvernment Photo Id (Image only)"
-              />
-              <br />
-              <br className="lg:hidden" />
-              <FormLabel>Upload Proof of Address</FormLabel>
-              <UploadComponent
-                previewUrl={preview.proof_of_address ?? undefined}
-                file={kycFiles.proof_of_address}
-                handleUpload={handleUpload}
-                fileType="proof_of_address"
-                maxSize={5 * 1024 * 1024}
-                label="Upload Proof of Address (Image only)"
+                label="Upload GOvernment Photo Id of Director (Image only)"
               />
               <br />
               <br className="lg:hidden" />
@@ -333,7 +297,7 @@ const InstitutionKyc = ({
                 previewUrl={preview.memo_assoc ?? undefined}
                 fileType="memo_assoc"
                 maxSize={30 * 1024 * 1024}
-                label="Upload Memorandum and Article of Association(PDF only)"
+                label="Upload Memorandum of Association (PDF only)"
               />
               <br />
               <br className="lg:hidden" />
@@ -344,7 +308,7 @@ const InstitutionKyc = ({
                 previewUrl={preview.article_assoc ?? undefined}
                 fileType="article_assoc"
                 maxSize={30 * 1024 * 1024}
-                label="Upload Memorandum and Article of Association(PDF only)"
+                label="Upload Article of Association(PDF only)"
               />
               <br />
               <br className="lg:hidden" />
@@ -359,29 +323,18 @@ const InstitutionKyc = ({
               />
               <br />
               <br className="lg:hidden" />
-              <FormLabel>Upload Proof of Business Address</FormLabel>
+
+              <FormLabel>Upload Proof of Business Addres</FormLabel>
               <UploadComponent
                 file={kycFiles.business_address}
                 handleUpload={handleUpload}
                 previewUrl={preview.business_address ?? undefined}
                 fileType="business_address"
-                maxSize={5 * 1024 * 1024}
+                maxSize={30 * 1024 * 1024}
                 label="Upload Proof of Business Address (Image only)"
               />
               <br />
               <br className="lg:hidden" />
-              <FormLabel>Upload Proof of Company Director Address</FormLabel>
-              <UploadComponent
-                file={kycFiles.dir_company_address}
-                handleUpload={handleUpload}
-                previewUrl={preview.dir_company_address ?? undefined}
-                fileType="dir_company_address"
-                maxSize={5 * 1024 * 1024}
-                label="Upload Proof of Company Director Address Address (Image only)"
-              />
-              <br />
-              <br className="lg:hidden" />
-
               <FormLabel>
                 Upload Proof of Shareholders Address of that own 51% shares and
                 above
@@ -499,7 +452,7 @@ const InstitutionKyc = ({
               />
               <div className="flex">
                 <Button
-                  onClick={() => handleBack}
+                  onClick={handleBack}
                   variant="outline"
                   className="w-full md:w-[30%] rounded-3xl  mt-8"
                 >

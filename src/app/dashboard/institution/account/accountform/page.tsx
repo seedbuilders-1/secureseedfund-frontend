@@ -10,11 +10,9 @@ import { FileWithPath } from "react-dropzone";
 
 interface UploadKycFiles {
   govt_photo_id: FileWithPath | null;
-  proof_of_address: FileWithPath | null;
   article_assoc: FileWithPath | null;
   memo_assoc: FileWithPath | null;
   business_address: FileWithPath | null;
-  dir_company_address: FileWithPath | null;
   company_status_report: FileWithPath | null;
   shareholders_address: FileWithPath | null;
 }
@@ -28,7 +26,7 @@ export default function AccountForm() {
       registrationNumber: "",
       address: "",
       website: "",
-      industryOfInterest: "",
+      industryOfInterest: [""],
       fundingSize: "",
       fundingType: "",
     }
@@ -48,11 +46,9 @@ export default function AccountForm() {
 
   const [kycFiles, setKycFiles] = useState<UploadKycFiles>({
     govt_photo_id: null,
-    proof_of_address: null,
     article_assoc: null,
     memo_assoc: null,
     business_address: null,
-    dir_company_address: null,
     company_status_report: null,
     shareholders_address: null,
   });

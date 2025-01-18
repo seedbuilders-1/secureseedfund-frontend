@@ -261,7 +261,10 @@ export const institutionInformationSchema = z.object({
   registrationNumber: z.string().min(1, "Reg Number is required"),
   address: z.string().min(1, "address is required"),
   website: z.string().min(1, "website is required"),
-  industryOfInterest: z.string().min(1, "industry is required"),
+  industryOfInterest: z.z
+    .array(z.string().min(1))
+    .min(1)
+    .nonempty("Please select at least one industry."),
   fundingSize: z.string().min(1, "funding size is required"),
   fundingType: z.string().min(1, "Funding type is required"),
 });

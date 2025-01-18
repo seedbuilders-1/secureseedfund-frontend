@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   InstitutionValidation,
   institutionInformationSchema,
@@ -19,17 +19,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import useUserAuth from "@/hooks/auth/useAuth";
 import { listOFIndustries, fundingTypes } from "@/lib/utils";
-
+import { useCreateInstitutionMutation } from "@/services/institution";
+import { MultiSelect } from "@/components/shared/multi-select";
 
 interface Props {
   institutionDetail: InstitutionValidation;
@@ -42,17 +35,48 @@ const InstitutionInformation = ({
   handleNext,
 }: Props) => {
   const { user } = useUserAuth();
+  const creatorId = user?.userId as string;
 
   const form = useForm<InstitutionValidation>({
     resolver: zodResolver(institutionInformationSchema),
     defaultValues: institutionDetail,
   });
 
+  const [
+    createInstitutionAccount,
+    { isLoading: isCreatingInstitution, isSuccess: createdInstitution },
+  ] = useCreateInstitutionMutation();
+
+  const handleSubmit = () => {
+    const createInstitutionDto = {
+      institution_name: institutionDetail.Name,
+      institution_reg_number: institutionDetail.registrationNumber,
+      institution_address: institutionDetail.address,
+      institution_website: institutionDetail.website,
+      institution_industry_of_interest:
+        institutionDetail.industryOfInterest as any,
+      institution_funding_type: institutionDetail.fundingType,
+      institution_funding_size: institutionDetail.fundingSize,
+    };
+
+    const payload = {
+      userId: creatorId,
+      createInstitutionDto,
+    };
+
+    createInstitutionAccount(payload);
+  };
 
   const onSubmit = (values: InstitutionValidation) => {
     handleInstitutionInfo(values);
-    handleNext();
+    handleSubmit();
   };
+
+  useEffect(() => {
+    if (createdInstitution) {
+      handleNext();
+    }
+  });
 
   return (
     <div className="p-4 w-full">
@@ -142,7 +166,7 @@ const InstitutionInformation = ({
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="industryOfInterest"
                 render={({ field }) => (
@@ -172,6 +196,29 @@ const InstitutionInformation = ({
                           </SelectGroup>
                         </SelectContent>
                       </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              /> */}
+
+              <FormField
+                control={form.control}
+                name="industryOfInterest"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Select Industries</FormLabel>
+                    <FormControl>
+                      <MultiSelect
+                        options={listOFIndustries}
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        placeholder="Select options"
+                        variant="inverted"
+                        animation={2}
+                        maxCount={3}
+                        className="border border-slate-300 py-3 placeholder:text-black"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -260,6 +307,7 @@ const InstitutionInformation = ({
                 )}
               />
               <Button
+                loading={isCreatingInstitution}
                 type="submit"
                 className="w-full md:w-[30%] rounded-3xl bg-[#241A3F] mt-8"
               >
