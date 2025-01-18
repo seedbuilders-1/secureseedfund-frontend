@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import useExplore from "./hooks/useExplore";
-import { listOFIndustries } from "@/lib/utils";
+import { industryList } from "@/lib/utils";
 import { thousandFormatter } from "@/lib/helpers";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -45,7 +45,7 @@ function Page() {
           <SelectContent>
             <SelectGroup className="bg-white">
               <SelectLabel>Industry</SelectLabel>
-              {listOFIndustries.map((opt: string, idx: number) => (
+              {industryList.map((opt: string, idx: number) => (
                 <SelectItem key={idx} className="capitalize" value={opt}>
                   {opt}
                 </SelectItem>
