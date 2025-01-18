@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import AboutusSection from "../../app/dashboard/investor/explore/components/Aboutus";
 import TeamMembers from "../../app/dashboard/investor/explore/components/TeamMembers";
 import LoadingSkeleton from "../../app/dashboard/investor/explore/components/LoadingSkeleton";
