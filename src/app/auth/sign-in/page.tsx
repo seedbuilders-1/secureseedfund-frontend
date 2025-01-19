@@ -22,7 +22,6 @@ import { Eye, EyeOff } from "lucide-react";
 import authLogo from "../../../../public/assets/images/authLogo.png";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SignUpPage from "../sign-up/page";
-import { useGoogleAuthQuery } from "@/services/auth";
 import Link from "next/link";
 import ResetPasswordModal from "../components/ResetPasswordComponent";
 
