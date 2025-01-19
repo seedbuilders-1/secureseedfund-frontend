@@ -44,9 +44,18 @@ const SignInPage = () => {
       password,
     });
   };
-  const { refetch } = useGoogleAuthQuery({});
+  // const { refetch } = useGoogleAuthQuery({});
+  // const handleGoogleSignIn = () => {
+  // refetch();
+  // };
   const handleGoogleLogin = () => {
-    refetch();
+    const clientId =
+      "663229998275-qvppb9d8jnqikofcatmjr42122i45pi5.apps.googleusercontent.com";
+    const redirectUri = "http://localhost:3000/auth/google/callback";
+    const scope = "email profile";
+    const oauthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
+
+    window.location.href = oauthUrl; // Redirects the user
   };
 
   return (
