@@ -37,7 +37,7 @@ const BasicStartupPage = ({ startup, isLoading }: Props) => {
               userProfile?.subscription_plan === "premium"
                 ? "grants you access to all our premium features."
                 : userProfile?.subscription_plan === "basic"
-                ? "allows you enjoy some benefits. Upgrade to view more information on the startup, such as pitch deck, demo video etc."
+                ? "allows you enjoy some benefits. Upgrade to the premium plan to invest in the startup and also view more information on the startup, such as pitch deck, demo video, campaigns and milestones etc."
                 : "allows you to set up an account with us. Kindly upgrade to a paid plan to enjoy more features."
             }`}
             linkTitle={
