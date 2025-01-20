@@ -1,5 +1,5 @@
 import useUserAuth from "@/hooks/auth/useAuth";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import SuccessComponent from "@/components/cards/SuccessComponent";
@@ -12,16 +12,21 @@ interface Props {
 const Review = ({ handleBack, institutionDetail, setStep }: Props) => {
   const { user } = useUserAuth();
 
+  const [deploy, setDeploy] = useState(false);
+
   const handleSubmit = () => {
-    return (
-      <SuccessComponent
-        link="/dashboard/institution"
-        description="   Congratulations! Your Account has been Successfully submitted for
+    setDeploy(true);
+    if (deploy) {
+      return (
+        <SuccessComponent
+          link="/dashboard/institution"
+          description="   Congratulations! Your Account has been Successfully submitted for
           review. Our team will carefully review your submission and get back to
           you within 7 business days ."
-        title="Your account information has been successfully submitted"
-      />
-    );
+          title="Your account information has been successfully submitted"
+        />
+      );
+    }
   };
 
   return (
