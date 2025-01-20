@@ -1,9 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import explore1 from "@/assets/iconspng/explore1.png";
-import explore2 from "@/assets/iconspng/explore2.png";
-import explore3 from "@/assets/iconspng/explore3.png";
 import useExplore from "@/app/dashboard/investor/explore/hooks/useExplore";
 import { thousandFormatter } from "@/lib/helpers";
 import { useRouter } from "next/navigation";
