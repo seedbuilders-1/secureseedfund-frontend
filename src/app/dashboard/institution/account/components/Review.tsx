@@ -12,12 +12,6 @@ interface Props {
 }
 const Review = ({ handleBack, institutionDetail, setStep }: Props) => {
   const { user } = useUserAuth();
-  const creatorId = user?.userId as string;
-
-  const [
-    createInstitutionAccount,
-    { isLoading: isCreatingInstitution, isSuccess: createdInstitution },
-  ] = useCreateInstitutionMutation();
 
   const handleSubmit = () => {
     return (
