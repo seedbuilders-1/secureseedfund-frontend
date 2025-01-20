@@ -20,22 +20,15 @@ const Review = ({ handleBack, institutionDetail, setStep }: Props) => {
   ] = useCreateInstitutionMutation();
 
   const handleSubmit = () => {
-    const createInstitutionDto = {
-      institution_name: institutionDetail.Name,
-      institution_reg_number: institutionDetail.registrationNumber,
-      institution_address: institutionDetail.address,
-      institution_website: institutionDetail.website,
-      institution_industry_of_interest:
-        institutionDetail.industryOfInterest as any,
-      institution_funding_type: institutionDetail.fundingType,
-      institution_funding_size: institutionDetail.fundingSize,
-    };
-    const payload = {
-      userId: creatorId,
-      createInstitutionDto,
-    };
-
-    createInstitutionAccount(payload);
+    return (
+      <SuccessComponent
+        link="/dashboard/institution"
+        description="   Congratulations! Your Account has been Successfully submitted for
+          review. Our team will carefully review your submission and get back to
+          you within 7 business days ."
+        title="Your account information has been successfully submitted"
+      />
+    );
   };
 
   return (

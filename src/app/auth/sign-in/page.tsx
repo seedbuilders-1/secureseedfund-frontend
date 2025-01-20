@@ -54,7 +54,7 @@ const SignInPage = () => {
     const scope = "email profile";
     const oauthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
 
-    window.location.href = oauthUrl; // Redirects the user
+    window.location.href = oauthUrl; // Redirects the usexr
   };
 
   return (
