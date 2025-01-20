@@ -3,7 +3,6 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import SuccessComponent from "@/components/cards/SuccessComponent";
-import { useCreateInstitutionMutation } from "@/services/institution";
 import { InstitutionValidation } from "@/lib/validations/account";
 interface Props {
   setStep: (x: number) => void;
@@ -87,7 +86,6 @@ const Review = ({ handleBack, institutionDetail, setStep }: Props) => {
             </Button>
             <Button
               onClick={() => handleSubmit()}
-              loading={isCreatingInstitution}
               className="w-[30%] rounded-3xl bg-[#241A3F] "
             >
               Deploy
@@ -95,15 +93,6 @@ const Review = ({ handleBack, institutionDetail, setStep }: Props) => {
           </div>
         </div>
       </div>
-      {createdInstitution && (
-        <SuccessComponent
-          link="/dashboard/institution"
-          description="   Congratulations! Your Account has been Successfully submitted for
-          review. Our team will carefully review your submission and get back to
-          you within 7 business days ."
-          title="Your account information has been successfully submitted"
-        />
-      )}
     </>
   );
 };
