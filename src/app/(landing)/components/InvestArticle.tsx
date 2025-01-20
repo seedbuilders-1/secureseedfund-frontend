@@ -1,73 +1,43 @@
+"use client";
 import React from "react";
 import Image from "next/image";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import explore1 from "@/assets/iconspng/explore1.png";
-import explore2 from "@/assets/iconspng/explore2.png";
-import explore3 from "@/assets/iconspng/explore3.png";
-
-// Default data
-const explore = [
-  {
-    image: explore1,
-    OrganiName: "Chaw Wow",
-    OrganiDesc:
-      "We are in the business of developing products for the building and construction eco system.",
-    OrganiParagraph:
-      "From comprehensive product management and advanced architectural design to seamless construction and sustainable practices, our expert team ensures every project is delivered.",
-    Tags: ["VC-BACKED", "FEMALE FOUNDER", "TECH", "+3"],
-    Funding: "$3,500,000 from 150 investors",
-    Valuation: "$40.26M valuations",
-  },
-  {
-    image: explore2,
-    OrganiName: "Tech Villa",
-    OrganiDesc:
-      "We are in the business of developing products for the building and construction eco system.",
-    OrganiParagraph:
-      "From comprehensive product management and advanced architectural design to seamless construction and sustainable practices, our expert team ensures every project is delivered.",
-    Tags: ["VC-BACKED", "FEMALE FOUNDER", "TECH", "+3"],
-    Funding: "$3,500,000 from 150 investors",
-    Valuation: "$40.26M valuations",
-  },
-  {
-    image: explore3,
-    OrganiName: "Sisphus",
-    OrganiDesc:
-      "We are in the business of developing products for the building and construction eco system.",
-    OrganiParagraph:
-      "From comprehensive product management and advanced architectural design to seamless construction and sustainable practices, our expert team ensures every project is delivered.",
-    Tags: ["VC-BACKED", "FEMALE FOUNDER", "TECH", "+3"],
-    Funding: "$3,500,000 from 150 investors",
-    Valuation: "$40.26M valuations",
-  },
-  {
-    image: explore3,
-    OrganiName: "Sisphus",
-    OrganiDesc:
-      "We are in the business of developing products for the building and construction eco system.",
-    OrganiParagraph:
-      "From comprehensive product management and advanced architectural design to seamless construction and sustainable practices, our expert team ensures every project is delivered.",
-    Tags: ["VC-BACKED", "FEMALE FOUNDER", "TECH", "+3"],
-    Funding: "$3,500,000 from 150 investors",
-    Valuation: "$40.26M valuations",
-  },
-];
+import useExplore from "@/app/dashboard/investor/explore/hooks/useExplore";
+import { thousandFormatter } from "@/lib/helpers";
+import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
+import useProfile from "@/hooks/profile/useProfile";
+import { useToast } from "@/components/ui/use-toast";
 
 type InvestArticleCarouselProps = {
   title: string;
-  data?: typeof explore;
 };
 
 const InvestArticleCarousel: React.FC<InvestArticleCarouselProps> = ({
   title,
-  data = explore,
 }) => {
+  const { allStartupsData, loadingAllStartupData } = useExplore({});
+  const { toast } = useToast();
+  const router = useRouter();
+  const { userProfile } = useProfile();
+  const cardClick = (id: string) => {
+    if (!userProfile) {
+      toast({
+        variant: "destructive",
+        title: "Login to view startup",
+      });
+      return;
+    } else {
+      if (userProfile.subscription_plan === "free") {
+        toast({
+          variant: "destructive",
+          title: "Upgrade to basic or premium plan to view this startup",
+        });
+      } else {
+        router.push(`/dashboard/investor/explore/${id}`);
+      }
+    }
+  };
+
   return (
     <section className="w-full py-20 px-6">
       <div className="w-full px-4 relative">
@@ -81,7 +51,7 @@ const InvestArticleCarousel: React.FC<InvestArticleCarouselProps> = ({
         </div>
 
         <div className="mt-11 relative ">
-          <Carousel className="w-full max-w-full ">
+          {/* <Carousel className="w-full max-w-full ">
             <CarouselContent className="relative gap-8 ">
               {data.map((item, index) => (
                 <CarouselItem
@@ -89,7 +59,7 @@ const InvestArticleCarousel: React.FC<InvestArticleCarouselProps> = ({
                   className=" border gap-[4rem] border-[#dcdcdc] basis-[100%] rounded-lg md:basis-1/2  lg:basis-[400px] pl-[0rem] "
                 >
                   <Image
-                    src={item.image}
+                    src={item?.companyInformation?.company_cover_photo}
                     alt={`Explore Icon ${index + 1}`}
                     layout="responsive"
                     width={320}
@@ -140,7 +110,97 @@ const InvestArticleCarousel: React.FC<InvestArticleCarouselProps> = ({
             </CarouselContent>
             <CarouselPrevious className="absolute top-[-56px] left-[90%]  transform translate-x-[-100%]  text-bold " />
             <CarouselNext className="absolute top-[-56px] left-[90%] transform translate-x-[100%] " />
-          </Carousel>
+          </Carousel> */}
+          {loadingAllStartupData ? (
+            <div className="w-full max-w-7xl mx-auto px-[2rem] py-[2rem]">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {Array.from({ length: 9 }).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="w-full h-[300px] rounded-lg"
+                  />
+                ))}
+              </div>
+            </div>
+          ) : allStartupsData?.items?.length === 0 ? (
+            <div className="flex items-center justify-center w-full h-[300px]">
+              <p className="text-lg text-gray-500">No startups found.</p>
+            </div>
+          ) : (
+            allStartupsData?.items.map((startup: any) => (
+              <div
+                key={startup.id}
+                onClick={() => cardClick(startup.id)}
+                className="bg-white rounded-xl border cursor-pointer border-[#0000001A] overflow-hidden w-[390px] h-[550px] transition-transform duration-300 hover:-translate-y-1 hover:border-[##0F8B3A] "
+              >
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <Image
+                    src={startup?.companyInformation?.company_cover_photo}
+                    alt="startup image"
+                    fill
+                    className="object-cover"
+                    quality={100}
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    loading="eager"
+                    unoptimized
+                  />
+                </div>
+                <div className="p-6 flex flex-col">
+                  <div className="">
+                    <h2 className="text-2xl font-medium mb-2 text-[#837e7e]">
+                      {startup.companyInformation?.company_name}
+                    </h2>
+                    <p className="font-bold">
+                      {startup?.companyInformation?.company_industry}
+                    </p>
+                  </div>
+
+                  <div className="flex-grow">
+                    <p className="text-sm text-gray-500 mb-6 line-clamp-3">
+                      {startup.companyInformation?.company_desc}
+                    </p>
+                    <div className="flex text-center justify-center items-center border  border-[#064E3B] rounded-sm text-[#064E3B] my-3  bg-[#D1FAE5] h-[30px]  w-[100px] text-[13px]">
+                      {startup.businessInformation?.business_model || "N/A"}
+                    </div>
+                    <div className="space-y-4 mt-auto">
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-600 font-medium">
+                          Previous Funds Raised:
+                        </span>
+                        <span className="font-normal text-[#837e7e]">
+                          {`₦ ${thousandFormatter(
+                            startup.fundingInformation?.previous_fundraise ?? 0
+                          )}`}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-4 mb-2">
+                    {(startup?.companyInformation?.tags?.split(",") || [])
+                      .slice(0, 3)
+                      .map((tag: string, index: number) => (
+                        <span
+                          key={index}
+                          className="bg-[#F7F8F9] border border-[#eeeff1] rounded-sm text-[#4B5768] text-[0.9rem] p-2"
+                        >
+                          {tag.trim()}
+                        </span>
+                      ))}
+                    {startup?.companyInformation?.tags &&
+                      startup.companyInformation.tags.split(",").length > 3 && (
+                        <span className="bg-[#F7F8F9] border border-[#eeeff1] rounded-sm text-[#4B5768] text-[0.9rem] p-2">
+                          +
+                          {startup.companyInformation.tags.split(",").length -
+                            3}{" "}
+                          more
+                        </span>
+                      )}
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </section>
